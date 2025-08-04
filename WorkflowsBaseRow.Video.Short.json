@@ -1,0 +1,1412 @@
+{
+  "active": false,
+  "connections": {
+    "Webhook.BaseRow": {
+      "main": [
+        [
+          {
+            "node": "Filter.Crear",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter.Crear": {
+      "main": [
+        [
+          {
+            "node": "If.NoExistePromptGuion",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If.NoExistePromptGuion": {
+      "main": [
+        [
+          {
+            "node": "Prompt.Guion",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Baserow.Get.Guion",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Estructura.Guion": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "Prompt.Guion",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "PromptGuion.Json": {
+      "main": [
+        [
+          {
+            "node": "If.NoExistePromptMusica",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Baserow.Update.Guion": {
+      "main": [
+        [
+          {
+            "node": "Baserow.Get.Guion",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Baserow.Get.Guion": {
+      "main": [
+        [
+          {
+            "node": "PromptGuion.Json",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Baserow.Update.Musica": {
+      "main": [
+        [
+          {
+            "node": "Baserow.Get.Musica",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Baserow.Get.Musica": {
+      "main": [
+        [
+          {
+            "node": "PromptMusica.Text",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "node": "ApiBox.Get.Music",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "Baserow.Update.Mp3",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If.NoExistePromptMusica": {
+      "main": [
+        [
+          {
+            "node": "Prompt.Music",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Baserow.Get.Musica",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If.NoExisteMp3": {
+      "main": [
+        [
+          {
+            "node": "ApiBox.Post.Music",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Baserow.Get.Mp3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Baserow.Update.Mp3": {
+      "main": [
+        [
+          {
+            "node": "Baserow.Get.Mp3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Baserow.Get.Mp3": {
+      "main": [
+        [
+          {
+            "node": "PromptMp3.Json",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "PromptMusica.Text": {
+      "main": [
+        [
+          {
+            "node": "If.NoExisteMp3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prompt.Guion": {
+      "main": [
+        [
+          {
+            "node": "Baserow.Update.Guion",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Estructura.Musica": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "Prompt.Music",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Guion.GPT-4o-mini": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Prompt.Guion",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prompt.Music": {
+      "main": [
+        [
+          {
+            "node": "Baserow.Update.Musica",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "ApiBox.Post.Music": {
+      "main": [
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "ApiBox.Get.Music": {
+      "main": [
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "PromptMp3.Json": {
+      "main": [
+        [
+          {
+            "node": "Prompt.Imagenes",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Imagenes.gpt-4o-mini": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Prompt.Imagenes",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Structured Output Parser": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "Prompt.Imagenes",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Musica.gpt-4o-mini": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Prompt.Music",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [
+          {
+            "node": "Aggregate",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Wait1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait1": {
+      "main": [
+        [
+          {
+            "node": "Replicate",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Replicate": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prompt.Imagenes": {
+      "main": [
+        [
+          {
+            "node": "Split Out",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Aggregate": {
+      "main": [
+        [
+          {
+            "node": "Creatomate.Post.Video",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait2": {
+      "main": [
+        [
+          {
+            "node": "Creatomate.Get.Video",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Creatomate.Post.Video": {
+      "main": [
+        [
+          {
+            "node": "Wait2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Creatomate.Get.Video": {
+      "main": [
+        [
+          {
+            "node": "Update.Video",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update.Video": {
+      "main": [
+        [
+          {
+            "node": "Telegram.Send.Video",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-07-08T16:27:42.416Z",
+  "id": "NpL5KfRe2cLgT8Pb",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "BaseRow.Video.Short",
+  "nodes": [
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "03dae703-2350-4e8f-93df-cc4a2242fbb2",
+              "leftValue": "={{ $json.body.items[0].Estado.value }}",
+              "rightValue": "Crear",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.2,
+      "position": [
+        -464,
+        128
+      ],
+      "id": "e9fc4d02-3441-4b2b-8bc8-421db8b65d80",
+      "name": "Filter.Crear"
+    },
+    {
+      "parameters": {
+        "httpMethod": "PUT",
+        "path": "521565f4-455d-48fd-b513-ec3a182554bd",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -656,
+        128
+      ],
+      "id": "b6f4b7f9-420b-44b4-983c-32b1a90bdca7",
+      "name": "Webhook.BaseRow",
+      "webhookId": "521565f4-455d-48fd-b513-ec3a182554bd"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "15e6ec18-6ce5-47a4-b809-4754d5739ed0",
+              "leftValue": "={{ $json.body.items[0].PromptGuion }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "empty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -272,
+        128
+      ],
+      "id": "bca9df01-0c42-44cc-a668-e7b5ec529f76",
+      "name": "If.NoExistePromptGuion"
+    },
+    {
+      "parameters": {
+        "jsonSchemaExample": "{\n  \"escena1\": {\n    \"propósito\": \"Título\",\n    \"texto\": \"Texto de la escena 1...\"\n  },\n  \"escena2\": {\n    \"propósito\": \"Dato 1\",\n    \"texto\": \"texto del dato 1...\"\n  },\n  \"escena3\": {\n    \"propósito\": \"Dato 2\",\n    \"texto\": \"texto del dato 2...\"\n  },\n  \"escena4\": {\n    \"propósito\": \"Dato 3\",\n    \"texto\": \"texto del dato 3...\"\n  },\n  \"escena5\": {\n    \"propósito\": \"Dato 4\",\n    \"texto\": \"texto del dato 4...\"\n  },\n  \"escena6\": {\n    \"propósito\": \"Dato 5\",\n    \"texto\": \"texto del dato 5...\"\n  },\n  \"escena7\": {\n    \"propósito\": \"Llamada a la acción\",\n    \"texto\": \"texto de la llamada a la acción...\"\n  },\n  \"escena8\": {\n    \"propósito\": \"Hashtag\",\n    \"texto\": \"texto de los hastag...\"\n  }\n}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.3,
+      "position": [
+        144,
+        224
+      ],
+      "id": "c40e6a55-063d-43ad-9195-02b4346eba22",
+      "name": "Estructura.Guion"
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "={{ $json.PromptGuion }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        608,
+        144
+      ],
+      "id": "030f1673-1177-45ed-a591-29df1d0c8fcc",
+      "name": "PromptGuion.Json"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "databaseId": 245282,
+        "tableId": 582154,
+        "rowId": "={{ $('Webhook.BaseRow').item.json.body.items[0].id }}",
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": 4708368,
+              "fieldValue": "={{ $('Prompt.Guion').item.json.output.toJsonString() }}"
+            },
+            {
+              "fieldId": 4708815,
+              "fieldValue": "={{ $('Prompt.Guion').item.json.output.escena8.texto }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.baserow",
+      "typeVersion": 1,
+      "position": [
+        240,
+        0
+      ],
+      "id": "b3625aa3-9b2f-4bb1-af5e-ed5ffcd747b7",
+      "name": "Baserow.Update.Guion",
+      "credentials": {
+        "baserowApi": {
+          "id": "SNrllAn2sJZ5Lm7r",
+          "name": "Baserow.msn"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "databaseId": 245282,
+        "tableId": 582154,
+        "rowId": "={{ $('Webhook.BaseRow').item.json.body.items[0].id }}"
+      },
+      "type": "n8n-nodes-base.baserow",
+      "typeVersion": 1,
+      "position": [
+        432,
+        144
+      ],
+      "id": "a7b522bf-5264-4868-abf3-ea13f8c10872",
+      "name": "Baserow.Get.Guion",
+      "credentials": {
+        "baserowApi": {
+          "id": "SNrllAn2sJZ5Lm7r",
+          "name": "Baserow.msn"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "databaseId": 245282,
+        "tableId": 582154,
+        "rowId": "={{ $('Webhook.BaseRow').item.json.body.items[0].id }}",
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": 4708172,
+              "fieldValue": "={{ $json.message.content.prompt }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.baserow",
+      "typeVersion": 1,
+      "position": [
+        1360,
+        -16
+      ],
+      "id": "05b00ac2-34b0-47e4-8216-e9870ea54195",
+      "name": "Baserow.Update.Musica",
+      "credentials": {
+        "baserowApi": {
+          "id": "SNrllAn2sJZ5Lm7r",
+          "name": "Baserow.msn"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "databaseId": 245282,
+        "tableId": 582154,
+        "rowId": "={{ $('Webhook.BaseRow').item.json.body.items[0].id }}"
+      },
+      "type": "n8n-nodes-base.baserow",
+      "typeVersion": 1,
+      "position": [
+        1616,
+        160
+      ],
+      "id": "ae194f02-7f3e-4aaf-b318-cf1b1e8dda85",
+      "name": "Baserow.Get.Musica",
+      "credentials": {
+        "baserowApi": {
+          "id": "SNrllAn2sJZ5Lm7r",
+          "name": "Baserow.msn"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "amount": 25
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        48,
+        416
+      ],
+      "id": "ea15096f-e951-437e-83ac-3d39075473f9",
+      "name": "Wait",
+      "webhookId": "a40f28c9-37a1-410b-a867-1732b19f3522"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.data.status }}",
+                    "rightValue": "TEXT_SUCCESS",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "556b6cf1-269a-46f7-8e13-9228e9471fa1"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Exito"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "9367696d-f29a-4b32-a9e0-8ca32e57c554",
+                    "leftValue": "={{ $json.data.status }}",
+                    "rightValue": "PENDING",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Pendiente"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        384,
+        416
+      ],
+      "id": "a72c77d8-02e7-4620-aaa7-f35ccada2c7f",
+      "name": "Switch"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "4c589a25-b3a8-4c3c-a401-00874f6fbd08",
+              "leftValue": "={{ $('Webhook.BaseRow').item.json.body.items[0].PromptMusica }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "empty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        784,
+        144
+      ],
+      "id": "76855595-586e-479b-8a3f-e22f43c9e2ce",
+      "name": "If.NoExistePromptMusica"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "018054ec-44af-4192-800b-7ddebf1c87f3",
+              "leftValue": "={{ $('Baserow.Get.Musica').item.json.Mp3 }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "empty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -400,
+        560
+      ],
+      "id": "3808dc32-8bae-4275-86ee-11201c416a95",
+      "name": "If.NoExisteMp3"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "databaseId": 245282,
+        "tableId": 582154,
+        "rowId": "={{ $('Webhook.BaseRow').item.json.body.items[0].id }}",
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": 4709244,
+              "fieldValue": "={{ $json.data.response.sunoData[0].streamAudioUrl }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.baserow",
+      "typeVersion": 1,
+      "position": [
+        624,
+        400
+      ],
+      "id": "1062f855-9036-42cd-8bf0-f00a2d245fbd",
+      "name": "Baserow.Update.Mp3",
+      "credentials": {
+        "baserowApi": {
+          "id": "SNrllAn2sJZ5Lm7r",
+          "name": "Baserow.msn"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "databaseId": 245282,
+        "tableId": 582154,
+        "rowId": "={{ $('Webhook.BaseRow').item.json.body.items[0].id }}"
+      },
+      "type": "n8n-nodes-base.baserow",
+      "typeVersion": 1,
+      "position": [
+        832,
+        576
+      ],
+      "id": "c903730f-6ed3-4773-aef7-3cfd9c2f8965",
+      "name": "Baserow.Get.Mp3",
+      "credentials": {
+        "baserowApi": {
+          "id": "SNrllAn2sJZ5Lm7r",
+          "name": "Baserow.msn"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "42533a79-d30f-49ad-896d-72181a39c992",
+              "name": "PromptMp3",
+              "value": "={{ $json.Mp3 }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        992,
+        576
+      ],
+      "id": "aa4da6c9-ce80-4a90-8b2a-ff10b064b2ed",
+      "name": "PromptMp3.Json"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "a190604c-d6d9-47e8-a7f9-a6af3de10ede",
+              "name": "PromptMusica",
+              "value": "={{ $json.PromptMusica }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -608,
+        560
+      ],
+      "id": "426f7e00-5a26-4aec-85c6-490bf4570ee5",
+      "name": "PromptMusica.Text"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Titulo: {{ $('Webhook.BaseRow').item.json.body.items[0].Titulo }}\nDescripcion: {{ $('Webhook.BaseRow').item.json.body.items[0].Descripcion }}\nCategoria: {{ $('Webhook.BaseRow').item.json.body.items[0].Categoria }}",
+        "hasOutputParser": true,
+        "messages": {
+          "messageValues": [
+            {
+              "message": "=Eres un asistente especializado en crear guiones para videos de \"5 datos interesantes\" en formato TikTok. Tu tarea es generar el texto para 7 escenas de voiceover que luego se convertirán en audio mediante ElevenLabs y se utilizarán en Creatomate, adicionalmente deberas generar hashtags especificos y combinarlos con hastags genéricos.\n\n### Entrada del usuario:\nEl usuario te proporcionará un tema específico para el video de 5 datos. Puede ser cualquier tema: historia, ciencia, tecnología, deportes, cine, etc.\n\n### Tu respuesta debe incluir:\n1. Siete segmentos de script, cada uno etiquetado claramente según la escena, y un segmento con hashtags\n\n### Estructura para las 7 escenas (cada una de 3-5 segundos de audio):\n1. ESCENA 1 - TÍTULO\n   - Título atractivo que presente los 5 datos interesantes sobre el tema\n   - 10-15 palabras máximo\n   - Ejemplo: \"5 trabajos que la IA eliminará en 2025 que te dejarán sorprendido.\"\n\n2. ESCENA 2 - DATO 1\n   - Primer dato interesante sobre el tema\n   - 20-30 palabras máximo\n   - Ejemplo: \"los traductores e intérpretes serán reemplazados por sistemas de IA capaces de traducir en tiempo real con precisión casi humana\"\n\n3. ESCENA 3 - DATO 2\n   - Segundo dato interesante sobre el tema\n   - 20-30 palabras máximo\n   - Ejemplo: \"los analistas de datos básicos cederán paso a sistemas automatizados que procesan información y generan informes sin intervención humana\"\n\n4. ESCENA 4 - DATO 3\n   - Tercer dato interesante sobre el tema\n   - 20-30 palabras máximo\n   - Ejemplo: \"los operadores de entrada de datos desaparecerán con la llegada de sistemas de reconocimiento óptico avanzados que digitalizan cualquier documento\"\n\n5. ESCENA 5 - DATO 4\n   - Cuarto dato interesante sobre el tema\n   - 20-30 palabras máximo\n   - Ejemplo: \"los correctores y editores básicos serán sustituidos por herramientas de IA que detectan errores gramaticales y mejoran estilo en segundos\"\n\n6. ESCENA 6 - DATO 5\n   - Quinto dato interesante sobre el tema\n   - 20-30 palabras máximo\n   - Ejemplo: \"los asistentes virtuales eliminarán la necesidad de secretarios administrativos al gestionar calendarios, correos y reuniones con precisión sorprendente\"\n\n7. ESCENA 7 - LLAMADA A LA ACCIÓN\n   - Invitación clara para seguir el canal\n   - 20-30 palabras máximo\n   - Ejemplo: \"si quieres conocer más datos fascinantes como estos, sígueme para contenido diario que cambiará tu forma de ver el mundo\"\n\n8. ESCENA 8 - HASHTAG\n   - Palabras clave que describan el tema principal\n   - 5-10 hashtag como máximo\n   - Ejemplo: \"#Shorts #InteligenciaArtificial #IA #Futuro #Empleo #Trabajo #Tecnologia #Sorprendente\"\n\n### Requisitos específicos:\n- La escena 1 (título) debe tener entre 10-15 palabras.\n- Las escenas 2-7 deben tener entre 20-30 palabras para mantener una duración de 3-5 segundos por escena.\n- La escena 8 (hashtag) debe tener entre 5-10 hashtag.\n- Los datos deben ser precisos, sorprendentes y enganchadores.\n- Cada dato debe ser único y ofrecer información verdaderamente interesante.\n- El texto debe ser conversacional y natural, optimizado para TikTok.\n- A partir de la escena 2 (Dato 1), empieza cada texto con minúsculas y no termines con puntos.\n- Adapta el tono según el tema (profesional, entusiasta, informativo, etc.)\n- No incluyas indicaciones de audio como [pausa] o [música].\n- Proporciona solo el texto que se convertirá en voz.\n\n### Formato de salida:\n{\n  \"escena1\": {\n    \"propósito\": \"Título\",\n    \"texto\": \"Texto de la escena 1...\"\n  },\n  \"escena2\": {\n    \"propósito\": \"Dato 1\",\n    \"texto\": \"texto del dato 1...\"\n  },\n  \"escena3\": {\n    \"propósito\": \"Dato 2\",\n    \"texto\": \"texto del dato 2...\"\n  },\n  \"escena4\": {\n    \"propósito\": \"Dato 3\",\n    \"texto\": \"texto del dato 3...\"\n  },\n  \"escena5\": {\n    \"propósito\": \"Dato 4\",\n    \"texto\": \"texto del dato 4...\"\n  },\n  \"escena6\": {\n    \"propósito\": \"Dato 5\",\n    \"texto\": \"texto del dato 5...\"\n  },\n  \"escena7\": {\n    \"propósito\": \"Llamada a la acción\",\n    \"texto\": \"texto de la llamada a la acción...\"\n  },\n  \"escena8\": {\n    \"propósito\": \"Hashtag\",\n    \"texto\": \"texto de los hastag...\"\n  }\n}\n\nA partir de la segunda escena tienes que empezar el texto con minusculas y no acabes con puntos"
+            }
+          ]
+        },
+        "batching": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.7,
+      "position": [
+        -96,
+        0
+      ],
+      "id": "28c1addc-2410-41d7-b829-8ad01e3fbcdb",
+      "name": "Prompt.Guion"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Musica: {{ $('Webhook.BaseRow').item.json.body.items[0].MusicaRecomendada }}",
+        "hasOutputParser": true,
+        "messages": {
+          "messageValues": [
+            {
+              "message": "=Eres un agente especializado en convertir descripciones musicales en parámetros óptimos para la API de Suno. Tu tarea es analizar descripciones musicales breves y transformarlas en un objeto JSON con los parámetros necesarios para generar música utilizando la API de Suno.\n\n## Parámetros de la API de Suno\n\nLa API de Suno requiere los siguientes parámetros:\n\n- prompt: Una descripción detallada del tipo de música a generar (tono, instrumentos, ritmo, sensación, etc.)\n- style: Un estilo musical específico (ej. \"Classical\", \"Electronic\", \"Pop\", \"Hip Hop\", \"Ambient\", etc.)\n- title: Un título apropiado para la pista musical\n\n## Tu trabajo\n1. Analiza la descripción musical proporcionada\n2. Determina el estilo musical más apropiado para la categoría de Suno\n3. Genera una descripción completa y detallada para el parámetro \"prompt\"\n4. Crea un título adecuado para la composición\n5. Devuelve un objeto JSON válido con estos parámetros\n\n## Mapeo de descripciones a estilos de Suno\nUtiliza este mapeo como guía para convertir descripciones a estilos específicos de Suno:\n- Tecnológica/Futurista: \"Electronic\", \"Ambient\", \"Synthwave\"\n- Corporativa/Progresiva: \"Corporate\", \"Ambient\", \"Pop\", \"Electronic\"\n- Intrigante/Tecnológica: \"Electronic\", \"Cinematic\", \"Ambient\" \n- Dramática/Reflexiva: \"Orchestral\", \"Cinematic\", \"Ambient\"\n- Visionaria/Corporativa: \"Corporate\", \"Cinematic\", \"Electronic\"\n- Optimista/Inspiradora: \"Pop\", \"Cinematic\", \"Electronic\"\n- Enérgica/Eficiente: \"Electronic\", \"Pop\", \"Corporate\"\n- Competitiva/Emocionante: \"Electronic\", \"Rock\", \"Cinematic\"\n- Motivadora/Empresarial: \"Corporate\", \"Pop\", \"Electronic\"\n- Misteriosa/Intrigante: \"Ambient\", \"Cinematic\", \"Electronic\"\n\n## Estrategia para generar descripciones (prompt)\n\nPara crear descripciones efectivas:\n1. Menciona ritmo, tempo y sensación general\n2. Incluye 2-3 instrumentos principales relevantes al estilo\n3. Describe progresión musical (construcción, clímax, etc.)\n4. Añade referencias a elementos emocionales o ambientales\n5. Mantén la longitud entre 100-200 caracteres\n\n## Ejemplos\nEntrada: \"Tecnológica, Futurista\"\nSalida:\n{\n  \"prompt\": \"A driving electronic track with pulsing synthesizers and digital rhythms. Futuristic atmosphere with rising arpeggios and a sense of technological wonder. Include ambient pads that create depth.\",\n  \"style\": \"Electronic\",\n  \"title\": \"Digital Horizon\"\n}\n\nEntrada: \"Corporativa, Progresiva\"\nSalida:\n{\n  \"prompt\": \"A professional corporate track with modern electronic elements. Clean piano melodies over a progressive beat that builds gradually. Subtle strings add depth while maintaining an optimistic business atmosphere.\",\n  \"style\": \"Corporate\",\n  \"title\": \"Forward Enterprise\"\n}\n\nRecuerda que la clave para generar buena música con Suno es crear una descripción detallada y coherente que capture la esencia del estilo musical deseado."
+            }
+          ]
+        },
+        "batching": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.7,
+      "position": [
+        992,
+        -16
+      ],
+      "id": "a7f38671-121c-4a48-8bc8-944e3e8164b0",
+      "name": "Prompt.Music"
+    },
+    {
+      "parameters": {
+        "jsonSchemaExample": "{\n  \"prompt\": \"A driving electronic track with pulsing synthesizers and digital rhythms. Futuristic atmosphere with rising arpeggios and a sense of technological wonder. Include ambient pads that create depth.\",\n  \"style\": \"Electronic\",\n  \"title\": \"Digital Horizon\"\n}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.3,
+      "position": [
+        1216,
+        224
+      ],
+      "id": "5b363e1f-7512-435b-adda-a28a57ab0a92",
+      "name": "Estructura.Musica"
+    },
+    {
+      "parameters": {
+        "model": "openai/gpt-4o-mini",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [
+        -112,
+        224
+      ],
+      "id": "38f34b5a-d0cc-45cf-813a-6515d2e0c241",
+      "name": "Guion.GPT-4o-mini",
+      "credentials": {
+        "openRouterApi": {
+          "id": "fx7pdURTekgTilKM",
+          "name": "OpenRouter.msn"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.api.box/api/v1/generate",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Accept",
+              "value": "application/json"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "prompt",
+              "value": "={{ $json.message.content.prompt }}"
+            },
+            {
+              "name": "style",
+              "value": "={{ $json.message.content.style }}"
+            },
+            {
+              "name": "title",
+              "value": "={{ $json.message.content.title }}"
+            },
+            {
+              "name": "customMode",
+              "value": "true"
+            },
+            {
+              "name": "instrumental",
+              "value": "true"
+            },
+            {
+              "name": "model",
+              "value": "V3_5"
+            },
+            {
+              "name": "negativeTags",
+              "value": "Heavy Metal, Upbeat Drums"
+            },
+            {
+              "name": "callBackUrl",
+              "value": "https://api.example.com/callback"
+            }
+          ]
+        },
+        "options": {
+          "redirect": {
+            "redirect": {}
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -144,
+        416
+      ],
+      "id": "41339b4f-19bb-4bf3-8726-1f99010d07b2",
+      "name": "ApiBox.Post.Music",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "8wC23jp5KtXMnaak",
+          "name": "ApiBox.gmail"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "=https://api.api.box/api/v1/generate/record-info",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "taskId",
+              "value": "={{ $json.data.taskId }}"
+            }
+          ]
+        },
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Accept",
+              "value": "application/json"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        224,
+        416
+      ],
+      "id": "581b97d9-7836-43c0-bd11-d531852b2fb2",
+      "name": "ApiBox.Get.Music",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "8wC23jp5KtXMnaak",
+          "name": "ApiBox.gmail"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": "openai/gpt-4o-mini",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [
+        -512,
+        1008
+      ],
+      "id": "3d6d7acb-8e9d-4a53-a512-120b4373f925",
+      "name": "Imagenes.gpt-4o-mini",
+      "credentials": {
+        "openRouterApi": {
+          "id": "fx7pdURTekgTilKM",
+          "name": "OpenRouter.msn"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsonSchemaExample": "{\n    \"1.1\": \"Prompt para la primera imagen de la escena 1 (Título)\",\n    \"1.2\": \"Prompt para la segunda imagen de la escena 1\",\n    \"1.3\": \"Prompt para la tercera imagen de la escena 1\",\n    \"2.1\": \"Prompt para la primera imagen de la escena 2 (Dato 1)\",\n    \"2.2\": \"Prompt para la segunda imagen de la escena 2\",\n    \"2.3\": \"Prompt para la tercera imagen de la escena 2\",\n    \"3.1\": \"Prompt para la primera imagen de la escena 3 (Dato 2)\",\n    \"3.2\": \"Prompt para la segunda imagen de la escena 3\",\n    \"4.1\": \"Prompt para la primera imagen de la escena 4 (Dato 3)\",\n    \"4.2\": \"Prompt para la segunda imagen de la escena 4\",\n    \"4.3\": \"Prompt para la tercera imagen de la escena 4\",\n    \"5.1\": \"Prompt para la primera imagen de la escena 5 (Dato 4)\",\n    \"5.2\": \"Prompt para la segunda imagen de la escena 5\",\n    \"6.1\": \"Prompt para la primera imagen de la escena 6 (Dato 5)\",\n    \"6.2\": \"Prompt para la segunda imagen de la escena 6\",\n    \"7.1\": \"Prompt para la imagen de la escena 7 (Call to Action)\"\n}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.3,
+      "position": [
+        -144,
+        1008
+      ],
+      "id": "ad7d64e1-9d01-42b6-af02-fd09a66aed25",
+      "name": "Structured Output Parser"
+    },
+    {
+      "parameters": {
+        "model": "openai/gpt-4o-mini",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [
+        976,
+        224
+      ],
+      "id": "56a9be71-4f91-41d1-9479-b331259b7373",
+      "name": "Musica.gpt-4o-mini",
+      "credentials": {
+        "openRouterApi": {
+          "id": "fx7pdURTekgTilKM",
+          "name": "OpenRouter.msn"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        256,
+        816
+      ],
+      "id": "bc028808-192c-437c-aa19-ed357bca2966",
+      "name": "Loop Over Items"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        464,
+        912
+      ],
+      "id": "09254690-3988-4cfe-84b7-00183148c436",
+      "name": "Wait1",
+      "webhookId": "b4c754a6-b9ad-45cb-aff5-fadb5bd05689"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.replicate.com/v1/models/minimax/image-01/predictions",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "name": "Prefer",
+              "value": "wait"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"input\": {\n    \"prompt\": \"{{ $json.output }}\",\n    \"aspect_ratio\": \"3:4\"\n  }\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        640,
+        912
+      ],
+      "id": "64af1e5b-3772-4b19-985d-6d802df8bffe",
+      "name": "Replicate",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "ZDwn4QQWtRAURM8l",
+          "name": "Replicate.msn"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=(1.1,1.2,1.3):{{ $('PromptGuion.Json').item.json.escena1.texto }} \n(2.1,2.2,2.3): {{ $('PromptGuion.Json').item.json.escena2.texto }}\n(3.1,3.2): {{ $('PromptGuion.Json').item.json.escena3.texto }}\n(4.1,4.2,4.3): {{ $('PromptGuion.Json').item.json.escena4.texto }}\n(5.1,5.2): {{ $('PromptGuion.Json').item.json.escena5.texto }}\n(6.1,6.2): {{ $('PromptGuion.Json').item.json.escena6.texto }}\n(7.1): {{ $('PromptGuion.Json').item.json.escena7 }}",
+        "hasOutputParser": true,
+        "messages": {
+          "messageValues": [
+            {
+              "message": "=## Instrucciones para el Generador de Prompts de Imágenes para Videos de \"5 Datos\"\n\nEres un especialista en crear prompts sencillas y directas para modelos text-to-image. Tu trabajo es convertir descripciones para videos de \"5 datos interesantes\" en prompts visuales simples y claras.\n\nPara cada escena del video, genera prompts breves en inglés que representen claramente el tema. La primera escena (título) y las cinco escenas de datos tendrán dos o tres imágenes, mientras que la última escena (CTA) tendrá solo una imagen.\n\nSe te proporciona la informacion de esta manera para que identifiques las imagenes de cada seccion\n\nEjemplo\n\n(2.1,2.2,2.3): los gatos pueden hacer un salto hasta seis veces la longitud de su cuerpo, lo que los convierte en excelentes cazadores\n\n--Significa que tienes que generar esas 3 imagenes para el contexto de ese texto--\n\n### REQUISITOS IMPORTANTES:\n\n- SIMPLICIDAD: Las prompts deben ser simples y directas, sin elementos innecesarios\n\n- CLARIDAD: Las imágenes deben mostrar claramente lo que se está describiendo\n\n- FORMATO VERTICAL: Mencionar \"vertical photo\" en cada prompt\n\n### Especificaciones para cada prompt:\n\n- Máximo 10 palabras\n\n- Usa términos simples y directos\n\n- NO uses términos técnicos como \"iluminación dramática\", \"perspectiva\", etc.\n\n- Omite detalles innecesarios de estilo o composición\n\n- Cada prompt debe representar directamente el tema o dato\n\n### Ejemplos correctos:\n\n1. Para ciudades de México:\n\n   - Correcto: \"Vertical photo of Mexico City skyline\"\n\n   - Correcto: \"Vertical photo of Cancun beach\"\n\n   \n\n2. Para trabajos reemplazados por IA:\n\n   - Correcto: \"Vertical photo of robot in office\"\n\n   - Correcto: \"Vertical photo of automated factory\"\n\n### Formato de salida:\n\nProporciona tu respuesta en formato JSON con la siguiente estructura exactamente igual:\n\n{\n    \"1.1\": \"Prompt para la primera imagen de la escena 1 (Título)\",\n    \"1.2\": \"Prompt para la segunda imagen de la escena 1\",\n    \"1.3\": \"Prompt para la tercera imagen de la escena 1\",\n    \"2.1\": \"Prompt para la primera imagen de la escena 2 (Dato 1)\",\n    \"2.2\": \"Prompt para la segunda imagen de la escena 2\",\n    \"2.3\": \"Prompt para la tercera imagen de la escena 2\",\n    \"3.1\": \"Prompt para la primera imagen de la escena 3 (Dato 2)\",\n    \"3.2\": \"Prompt para la segunda imagen de la escena 3\",\n    \"4.1\": \"Prompt para la primera imagen de la escena 4 (Dato 3)\",\n    \"4.2\": \"Prompt para la segunda imagen de la escena 4\",\n    \"4.3\": \"Prompt para la tercera imagen de la escena 4\",\n    \"5.1\": \"Prompt para la primera imagen de la escena 5 (Dato 4)\",\n    \"5.2\": \"Prompt para la segunda imagen de la escena 5\",\n    \"6.1\": \"Prompt para la primera imagen de la escena 6 (Dato 5)\",\n    \"6.2\": \"Prompt para la segunda imagen de la escena 6\",\n    \"7.1\": \"Prompt para la imagen de la escena 7 (Call to Action)\"\n}\n\n### RECORDATORIO CRUCIAL:\n\n- TODAS las prompts deben ser SIMPLES y DIRECTAS\n\n- Cada prompt debe incluir \"vertical photo\" para mantener el formato adecuado\n\n- NO incluyas términos técnicos o descripciones complejas\n\n- Asegúrate de que las prompts describan exactamente lo que se necesita visualizar\n\nPROMPTS NEED TO BE IN ENGLISH\n\nA fuerzas tienes que ocupar el structured output parser"
+            }
+          ]
+        },
+        "batching": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.7,
+      "position": [
+        -400,
+        816
+      ],
+      "id": "50772799-9adf-4c1d-a973-fa730f3bdd6c",
+      "name": "Prompt.Imagenes"
+    },
+    {
+      "parameters": {
+        "fieldsToAggregate": {
+          "fieldToAggregate": [
+            {
+              "fieldToAggregate": "output"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.aggregate",
+      "typeVersion": 1,
+      "position": [
+        784,
+        800
+      ],
+      "id": "b1ca9e3e-d28a-45d8-9584-21832ecd0c61",
+      "name": "Aggregate"
+    },
+    {
+      "parameters": {
+        "amount": 120
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        1168,
+        800
+      ],
+      "id": "a5df7eec-9674-401b-a84f-6b101f53ce5a",
+      "name": "Wait2",
+      "webhookId": "886f9894-30a0-4f56-962a-b3db523303e9"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.creatomate.com/v1/renders",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"template_id\": \"dc8c83bd-ea59-4c34-a32b-75d336c2f278\",\n  \"modifications\": {\n    \"Imagen-1-4MF.source\": \"{{ $json.output[0][0] }}\",\n    \"Imagen-1-NZR.source\": \"{{ $json.output[1][0] }}\",\n    \"Imagen-1.source\": \"{{ $json.output[2][0] }}\",\n    \"Voiceover-1.source\": \"{{ $('PromptGuion.Json').item.json.escena1.texto }}\",\n    \"Imagen-2.source\": \"{{ $json.output[3][0] }}\",\n    \"Imagen-2-XJ3.source\": \"{{ $json.output[4][0] }}\",\n    \"Imagen-2-THX.source\": \"{{ $json.output[5][0] }}\",\n    \"Voiceover-2.source\": \"{{ $('PromptGuion.Json').item.json.escena2.texto }}\",\n    \"Imagen-3-H7P.source\": \"{{ $json.output[6][0] }}\",\n    \"Imagen-3.source\": \"{{ $json.output[7][0] }}\",\n    \"Voiceover-3.source\": \"{{ $('PromptGuion.Json').item.json.escena3.texto }}\",\n    \"Imagen-4-9J5.source\": \"{{ $json.output[8][0] }}\",\n    \"Imagen-4-PP5.source\": \"{{ $json.output[9][0] }}\",\n    \"Imagen-4-WH6.source\": \"{{ $json.output[10][0] }}\",\n    \"Voiceover-4.source\": \"{{ $('PromptGuion.Json').item.json.escena4.texto }}\",\n    \"Imagen-5.source\": \"{{ $json.output[11][0] }}\",\n    \"Imagen-5-LWJ.source\": \"{{ $json.output[12][0] }}\",\n    \"Voiceover-5.source\": \"{{ $('PromptGuion.Json').item.json.escena5.texto }}\",\n    \"Imagen-6.source\": \"{{ $json.output[13][0] }}\",\n    \"Imagen-6-4WR.source\": \"{{ $json.output[14][0] }}\",\n    \"Voiceover-6.source\": \"{{ $('PromptGuion.Json').item.json.escena6.texto }}\",\n    \"Imagen-6-TNM.source\": \"{{ $json.output[15][0] }}\",\n    \"Voiceover-6-6NT.source\": \"{{ $('PromptGuion.Json').item.json.escena7.texto }}\", \n    \"music.source\": \"{{ $('PromptMp3.Json').item.json.PromptMp3 }}\"\n  }\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        976,
+        800
+      ],
+      "id": "4505b0c0-b7f5-4480-ae1d-a342b51a982a",
+      "name": "Creatomate.Post.Video",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "Vi88wHtGbskS4o75",
+          "name": "Creatomate.msn"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "=https://api.creatomate.com/v1/renders/{{ $('Creatomate.Post.Video').item.json.id }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1344,
+        800
+      ],
+      "id": "caa7d920-7ceb-4085-ae2d-56e2ab664904",
+      "name": "Creatomate.Get.Video",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "Vi88wHtGbskS4o75",
+          "name": "Creatomate.msn"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "sendVideo",
+        "chatId": "={{ $('Telegram').item.json.message.chat.id }}",
+        "file": "={{ $('Creatomate.Get.Video').item.json.url }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1712,
+        800
+      ],
+      "id": "6b7a23dc-6433-4c1c-b086-49a0a624885c",
+      "name": "Telegram.Send.Video",
+      "webhookId": "e18d2aaa-c365-4ad5-8643-9d3daf75bea4",
+      "credentials": {
+        "telegramApi": {
+          "id": "zxkALNj2uZW1uxoX",
+          "name": "Telegram.jomBusiness"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "databaseId": 245282,
+        "tableId": 582154,
+        "rowId": "={{ $('Webhook.BaseRow').item.json.body.items[0].id }}",
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": 4694392
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.baserow",
+      "typeVersion": 1,
+      "position": [
+        1536,
+        800
+      ],
+      "id": "e788d74f-342f-48bf-bfd0-690320ce0c01",
+      "name": "Update.Video",
+      "credentials": {
+        "baserowApi": {
+          "id": "SNrllAn2sJZ5Lm7r",
+          "name": "Baserow.msn"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "=output",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        0,
+        816
+      ],
+      "id": "6a0790dd-1098-4f79-beea-bcc57b9f7ae1",
+      "name": "Split Out"
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-07-08T22:49:26.000Z",
+  "versionId": "2756e2e5-6d13-46bf-8ed0-a7c76d634860"
+}
