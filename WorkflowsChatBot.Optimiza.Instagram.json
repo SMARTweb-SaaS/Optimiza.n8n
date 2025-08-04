@@ -1,0 +1,1577 @@
+{
+  "active": false,
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "POLICIA",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "AGENDADOR",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "CONVERSACIÓN",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "CONVERSACIÓN",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model2": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AGENDADOR",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Postgres Chat Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "CONVERSACIÓN",
+            "type": "ai_memory",
+            "index": 0
+          },
+          {
+            "node": "AGENDADOR",
+            "type": "ai_memory",
+            "index": 0
+          },
+          {
+            "node": "POLICIA",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "POLICIA": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "DISPONIBILIDAD": {
+      "ai_tool": [
+        [
+          {
+            "node": "AGENDADOR",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AGENDAR": {
+      "ai_tool": [
+        [
+          {
+            "node": "AGENDADOR",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Think": {
+      "ai_tool": [
+        [
+          {
+            "node": "AGENDADOR",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Supabase Vector Store": {
+      "ai_tool": [
+        [
+          {
+            "node": "CONVERSACIÓN",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings OpenAI": {
+      "ai_embedding": [
+        [
+          {
+            "node": "Supabase Vector Store",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "CONVERSACIÓN": {
+      "main": [
+        [
+          {
+            "node": "Code1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code1": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AGENDADOR": {
+      "main": [
+        [
+          {
+            "node": "Code",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Insertar",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Insertar": {
+      "main": [
+        [
+          {
+            "node": "CACHAR INFO",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "CACHAR INFO": {
+      "main": [
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "No Operation, do nothing",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Redis",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "No Operation, do nothing1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Wait.15",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Redis": {
+      "main": [
+        [
+          {
+            "node": "Split Out",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields1": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Sort": {
+      "main": [
+        [
+          {
+            "node": "Aggregate",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Aggregate": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields3": {
+      "main": [
+        [
+          {
+            "node": "Switch1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Edit Fields2": {
+      "main": [
+        [
+          {
+            "node": "POLICIA",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch1": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request3",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Edit Fields1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request3": {
+      "main": [
+        [
+          {
+            "node": "Switch2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch2": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request4",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Analyze image",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "No Operation, do nothing2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request4": {
+      "main": [
+        [
+          {
+            "node": "OpenAI",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields7",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "Sort",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields6": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields7": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Analyze image": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields6",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait.15": {
+      "main": [
+        [
+          {
+            "node": "CACHAR INFO",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-07-14T20:26:49.952Z",
+  "id": "pBjE6GwqSAMkWWhH",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "ChatBot.Optimiza.Instagram",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "c85fd83a-0475-477a-a906-cc953ce4c5cd",
+        "responseMode": "lastNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -2096,
+        400
+      ],
+      "id": "57d87000-ee1f-4fcd-8767-63fa8c2fe64a",
+      "name": "Webhook",
+      "webhookId": "c85fd83a-0475-477a-a906-cc953ce4c5cd"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.1,
+      "position": [
+        -1584,
+        1616
+      ],
+      "id": "1d80377c-10f1-4c0c-ba40-f43a326c2901",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "eLbN9zGBjEdfzRwe",
+          "name": "OpenAi.msn"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "f08493f0-5a28-4a67-86c5-c4742909b4f2",
+              "leftValue": "={{ $json.output }}",
+              "rightValue": "RESERVA",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -1120,
+        1328
+      ],
+      "id": "121cdefa-622a-4269-b84c-83d0eb2a886b",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "model": "gpt-4.1-mini",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.1,
+      "position": [
+        -832,
+        1632
+      ],
+      "id": "a26b626f-883a-4a03-b52c-597aab53e496",
+      "name": "OpenAI Chat Model1",
+      "credentials": {
+        "openAiApi": {
+          "id": "eLbN9zGBjEdfzRwe",
+          "name": "OpenAi.msn"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": "gpt-4.1-mini",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.1,
+      "position": [
+        -768,
+        1248
+      ],
+      "id": "60ad25f6-28de-4481-96db-b5f1117aa62c",
+      "name": "OpenAI Chat Model2",
+      "credentials": {
+        "openAiApi": {
+          "id": "eLbN9zGBjEdfzRwe",
+          "name": "OpenAi.msn"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $('Webhook').item.json.body.key }}",
+        "contextWindowLength": 20
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryPostgresChat",
+      "typeVersion": 1.3,
+      "position": [
+        -1200,
+        1632
+      ],
+      "id": "3e1eaf93-a416-4a9d-97c0-c502451aefd0",
+      "name": "Postgres Chat Memory",
+      "credentials": {
+        "postgres": {
+          "id": "dXDWEU1tAWcwlt37",
+          "name": "Postgres.msn"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.Input }}",
+        "options": {
+          "systemMessage": "=🧠 Rol del Sistema:\nEres un sistema experto en detección de intenciones dentro de un flujo de reservación de citas. Tu tarea es analizar todo el historial de conversación entre el usuario y el asistente, y con base en el último mensaje del usuario y el contexto completo, determinar si su intención es continuar con el proceso de agendamiento o si ha cambiado a una conversación no relacionada.\n\n🚦 Categorías de Intención:\nRESERVA: El usuario está:\n\nIniciando una nueva cita.\n\nSolicitando ver horarios disponibles.\n\nProporcionando datos para agendar (nombre, correo, fecha, hora).\n\nCorrigiendo o modificando información relevante para una cita ya en proceso.\n\nPidiendo horarios por franja del día (mañana, tarde, noche, mediodía, etc.).\n\nRespondiendo preguntas del filtro previo al agendamiento.\n\nCONVERSACIÓN: El usuario hace preguntas o comentarios no relacionados con el proceso de reserva de citas, incluyendo temas generales, dudas informativas, chistes o cualquier otro asunto fuera del contexto de agendar.\n\n⚠️ Reglas estrictas:\nContexto activo = prioridad absoluta:\nSi el flujo de agendamiento ya ha comenzado —especialmente si el usuario está respondiendo las preguntas del filtro previo (por ejemplo, presupuesto, herramientas, necesidades)—, cualquier desviación debe considerarse parte del proceso de RESERVA, a menos que el mensaje sea explícitamente irrelevante.\n\nNO se permite redirigir al bot de preguntas si la intención principal sigue siendo agendar.\n\nSi el usuario hace una pregunta ambigua pero está en medio del proceso de agendamiento, responde RESERVA para mantener el flujo y evitar interrupciones.\n\nUso del historial completo:\nAnaliza todo el historial para identificar si hay un proceso de agendamiento activo. No tomes decisiones basadas únicamente en una frase aislada si el contexto indica que el usuario está siguiendo el flujo de cita.\n\nMensajes de cambio de tema explícito:\n\nSolo si el usuario cambia claramente de tema y muestra desinterés por continuar con la cita, responde CONVERSACIÓN.\n\nDudas sobre citas pasadas o fuera del alcance:\n\nSi el usuario pregunta por citas ya agendadas y el sistema no maneja eso, responde con CONVERSACIÓN.\n\nNunca adivines o asumas intención de RESERVA si el contexto no lo respalda claramente.\n\nTu salida debe ser una sola palabra:\nRESERVA o CONVERSACIÓN. No agregues explicaciones ni texto adicional.\n\n🧪 Ejemplos actualizados:\nUsuario: \"¿Tienen algo al mediodía?\" → RESERVA\n\nUsuario: \"Mi presupuesto es de 1500 USD.\" (en preguntas previas al agendado) → RESERVA\n\nUsuario: \"Uso Make y ActiveCampaign para mis procesos.\" (respondiendo filtro) → RESERVA\n\nUsuario: \"Por cierto, ¿qué opinas del clima hoy?\" (en medio del filtro) → RESERVA\n\nUsuario: \"Oye, ¿conoces algún restaurante bueno?\" (sin proceso activo) → CONVERSACIÓN\n\nUsuario: \"¿Qué horarios hay disponibles para el viernes?\" → RESERVA"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7,
+      "position": [
+        -1504,
+        1328
+      ],
+      "id": "3830890b-7477-49e2-b1d3-acfa75d7034b",
+      "name": "POLICIA"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $('Edit Fields2').item.json.Input }}",
+        "options": {
+          "systemMessage": "=<agentPrompt>\n  <context>\n    Eres el asistente de Optimiza.ia.pro, una empresa especializada en automatización e inteligencia artificial orientada a pequeñas y medianas empresas.\nTu rol es ayudar a personas interesadas en los servicios de automatización que ofrece la empresa a través de su plataforma SaaS, brindando soluciones simples, efectivas y personalizadas para mejorar procesos y ahorrar tiempo en sus negocios.\n  </context>\n\n  <role>\n    Eres un asistente informativo profesional, humano y claro. Tu trabajo es responder únicamente con base en la información contenida en tu base de datos vectorial (RAG), y siempre con un tono natural y conversacional.\n  </role>\n\n  <tools>\ncompanyKnowledge: Es una base de datos vectorial con toda la informacion de Optimiza.ia.pro\n  </tools>\n\n  <services>\n    <condition>\n      Si alguien pregunta si ofrecen servicios de automatización:\n    </condition>\n    <response>\n      ¡Hola! Gracias por escribirnos. En Optimiza.ia.pro trabajamos con proyectos de automatización con inteligencia artificial, como los que mostramos en nuestros casos reales.\nSolo como referencia, nuestros proyectos personalizados inician desde $300 USD, ya que dedicamos tiempo y equipo especializado para lograr resultados efectivos.\n¿Te gustaría agendar una llamada para analizar tu caso y ver cómo podemos ayudarte?\nO si prefieres, puedo contarte más sobre nuestras soluciones ya listas en formato SaaS, ideales para pequeñas y medianas empresas.\n    </response>\n    <nextStep>\n      Si el usuario acepta, inicia el flujo de agendamiento. Si no, continúa resolviendo dudas sobre Optimiza.ia.pro.\n    </nextStep>\n  </services>\n\n  <goals>\n    <item>Plantillas, módulos, automatizaciones</item>\n    <item>Beneficios, precios</item>\n    <item>Casos reales contenidas en la base RAG</item>\n    <item>Testimonios contenidas en la base RAG</item>\n    <item>Preguntas frecuentes contenidas en la base RAG</item>\n  </goals>\n\n  <ragRule>\n    Siempre consulta la base vectorial antes de responder. Si no tienes una respuesta clara, no inventes. Usa respuestas como:\n    <example>\n      Esa info no la tengo a la mano, pero puedes checar más en nuestro sitio: https://www.facebook.com/optimiza.ia.pro\n    </example>\n    Si es un caso más complejo:\n    <example>\n      Podemos verlo en llamada si lo prefieres. ¿Te gustaría agendar una cita?\n    </example>\n  </ragRule>\n\n  <contact>\n    <response>\n      ¡Claro! Puedes escribirnos directamente a nuestro correo: hola@smartweberp.com \n    </response>\n  </contact>\n\n  <tone>\n    Cercano, claro, profesional y sin sonar robótico. Usa emojis si aportan claridad o calidez. Evita lenguaje corporativo o técnico innecesario.\n  </tone>\n\n  <limits>\n    <item>No inventes información que no esté respaldada por la base.</item>\n    <item>No participes en temas fuera del enfoque (clima, política, temas personales, etc.).</item>\n    <item>Redirígelo al sitio web si es necesario.</item>\n  </limits>\n\n  <behavior>\n    <rule>Consulta siempre el RAG antes de responder.</rule>\n    <rule>Si la pregunta es ambigua, pide una aclaración educada.</rule>\n    <rule>Si detectas insistencia en temas ajenos, responde con cortesía y cierra la conversación si es necesario.</rule>\n  </behavior>\n\n  <personaRules>\n    <firstPerson>Tus respuestas deben estar redactadas en primera persona, como si fueras parte del equipo de Optimiza.ia.pro, brindando atención directa y cercana a cada cliente.</firstPerson>\n    <personalQuestions>\n      Si te preguntan algo personal o te felicitan, responde de forma amable y con un toque humano diciendo que eres la IA de Optimiza.ia.pro, pero que agradeces el mensaje y se lo harás llegar al equipo correspondiente para que puedan responderle directamente.\n    </personalQuestions>\n    <sarcasmAllowed>\n      Tu tienes libertad de cambiar los ejemplos que te di dandoles mas sarcasmo siempre y cuando se entienda y no se salga del tema.\n    </sarcasmAllowed>\n    <noEmojis>No uses emojis</noEmojis>\n    <clientCountQuestion>\n      Si te preguntan algo personal sobre el equipo o algo como “¿cuántos clientes han tenido?”, responde con amabilidad y un toque ligero, diciendo algo como: “Mmm, buena pregunta… eso te lo puede responder mejor el equipo de Optimiza.ia.pro. Yo soy solo su asistente virtual 😊”\n    </clientCountQuestion>\n    <learningQuestion>\n      Si te preguntan cómo pueden aprender sobre automatización o algo similar, respóndeles de forma breve y natural, contándoles que en Optimiza.ia.pro también compartimos recursos educativos para quienes quieren entender más del tema, sin necesidad de venderles nada. Solo informa y ofrece apoyo si les interesa.\n    </learningQuestion>\n    <platformInfo>\n      Si alguien pregunta por Discord, simplemente infórmales que ya no está disponible y que ahora centralizamos todo el contenido y soporte en un solo lugar para brindar una mejor experiencia.\n    </platformInfo>\n  </personaRules>\n</agentPrompt>\n\nTrata de no saltar parrafos\nNo menciones herramientas como Make.com ni n8n.com. En su lugar, responde diciendo algo como: “Ayudamos a las empresas a ahorrar tiempo y esfuerzo automatizando tareas repetitivas con el apoyo de tecnología inteligente”. Enfócate siempre en los beneficios prácticos para el cliente, sin entrar en detalles técnicos."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7,
+      "position": [
+        -736,
+        1424
+      ],
+      "id": "51daa10b-2282-434b-b829-79fea4ff4680",
+      "name": "CONVERSACIÓN"
+    },
+    {
+      "parameters": {
+        "toolDescription": "Responsable de recuperar todos los espacios de citas libres disponibles de la base de datos.",
+        "url": "https://api.cal.com/v1/slots",
+        "sendQuery": true,
+        "specifyQuery": "json",
+        "jsonQuery": "={\n  \"startTime\": \"{startTime}\",\n  \"endTime\": \"{endTime}\",\n  \"eventTypeId\": \"2848727\",\n  \"timeZone\": \"America/Lima\",\n  \"apiKey\": \"cal_live_7a9e3f4329f2e197b41aa686091820aa\"\n}",
+        "placeholderDefinitions": {
+          "values": [
+            {
+              "name": "startTime",
+              "description": "Cadena de fecha de inicio desde la que se obtienen las franjas horarias, con formato ISO 8601 y en la zona horaria UTC. La hora siempre debe empezar a las 00:00:00.",
+              "type": "string"
+            },
+            {
+              "name": "endTime",
+              "description": "Cadena de fecha de finalización hasta la cual se deben obtener las ranuras, con formato ISO 8601 y en la zona horaria UTC. La hora siempre debe finalizar a las 23:59:59.",
+              "type": "string"
+            }
+          ]
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolHttpRequest",
+      "typeVersion": 1.1,
+      "position": [
+        -480,
+        1248
+      ],
+      "id": "6e2c11b3-bfa4-4038-9af4-18b95026c904",
+      "name": "DISPONIBILIDAD"
+    },
+    {
+      "parameters": {
+        "toolDescription": "Responsable de guardar la cita en la base de datos.",
+        "method": "POST",
+        "url": "https://api.cal.com/v1/bookings",
+        "sendQuery": true,
+        "specifyQuery": "json",
+        "jsonQuery": "={\n  \"apiKey\": \"cal_live_7a9e3f4329f2e197b41aa686091820aa\"\n}",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"eventTypeId\": 2848727,\n  \"start\": \"{startTime}\",\n  \"responses\": {\n    \"name\": \"{userName}\",\n    \"email\": \"{userEmail}\",\n    \"location\": {\n      \"value\": \"online\",\n      \"optionValue\": \"\"\n    }\n  },\n  \"timeZone\": \"America/Lima\",\n  \"language\": \"es\",\n  \"metadata\": {}\n}",
+        "placeholderDefinitions": {
+          "values": [
+            {
+              "name": "startTime",
+              "description": "Cadena de fecha de inicio de la cita elegida por el usuario, formateada en ISO 8601 y en la zona horaria UTC (disponible dentro de la respuesta de la herramienta)",
+              "type": "string"
+            },
+            {
+              "name": "userName",
+              "description": "Nombre completo del usuario",
+              "type": "string"
+            },
+            {
+              "name": "userEmail",
+              "description": "Email del usuario"
+            }
+          ]
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolHttpRequest",
+      "typeVersion": 1.1,
+      "position": [
+        -320,
+        1248
+      ],
+      "id": "cdf91f9c-dfb7-47d3-ad22-5ee71f2f06b8",
+      "name": "AGENDAR"
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.toolThink",
+      "typeVersion": 1,
+      "position": [
+        -160,
+        1248
+      ],
+      "id": "73083929-8fc4-4897-b9e4-582414ed0838",
+      "name": "Think"
+    },
+    {
+      "parameters": {
+        "mode": "retrieve-as-tool",
+        "toolName": "companyKnowledge",
+        "toolDescription": "Use this tool to retieve info about my company",
+        "tableName": {
+          "__rl": true,
+          "value": "documents",
+          "mode": "list",
+          "cachedResultName": "documents"
+        },
+        "topK": 10,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStoreSupabase",
+      "typeVersion": 1.1,
+      "position": [
+        -416,
+        1616
+      ],
+      "id": "449a01e9-5849-45c7-a359-0955680204a3",
+      "name": "Supabase Vector Store",
+      "credentials": {
+        "supabaseApi": {
+          "id": "p26erGv0tF9iLwOG",
+          "name": "Supabase.msn"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        -656,
+        1648
+      ],
+      "id": "5eeabbcd-179a-4bc5-ae08-e35a2b99632e",
+      "name": "Embeddings OpenAI",
+      "credentials": {
+        "openAiApi": {
+          "id": "eLbN9zGBjEdfzRwe",
+          "name": "OpenAi.msn"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\n\nconst updatedItems = items.map(item => {\n  item.json.output = item.json.output\n    // Quita cualquier salto de línea (uno o varios seguidos)\n    .replace(/\\n+/g, '')\n    // Quita todas las comillas dobles\n    .replace(/\"/g, '');\n\n  return item;\n});\n\nreturn updatedItems;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -240,
+        1040
+      ],
+      "id": "ad0eedd3-e0fd-4fe6-a25c-75dfff0b8697",
+      "name": "Code"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.manychat.com/fb/sending/sendContent",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"subscriber_id\": \"{{ $('Webhook').item.json.body.id }}\",\n  \"data\": {\n    \"version\": \"v2\",\n    \"content\": {\n      \"type\": \"instagram\",\n      \"messages\": [\n        {\n          \"type\": \"text\",\n          \"text\": \"{{ $json.output }}\"\n        }\n      ]\n    }\n  },\n  \"message_tag\": \"ACCOUNT_UPDATE\"\n}\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        0,
+        1424
+      ],
+      "id": "85bf87a8-c8ca-4c44-9372-b7e6c7c27e26",
+      "name": "HTTP Request1",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "Ii2502nzhpNtVW1B",
+          "name": "Manychat.gmail"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\n\nconst updatedItems = items.map(item => {\n  item.json.output = item.json.output\n    // Quita cualquier salto de línea (uno o varios seguidos)\n    .replace(/\\n+/g, '')\n    // Quita todas las comillas dobles\n    .replace(/\"/g, '');\n\n  return item;\n});\n\nreturn updatedItems;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -208,
+        1424
+      ],
+      "id": "d1ffe28a-0d12-417f-b6d1-b9ef6dac49fe",
+      "name": "Code1"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $('Edit Fields2').item.json.Input }}",
+        "options": {
+          "systemMessage": "=🧠 Prompt actualizada con tool convertirALocalUTC incluida:\nEres un asistente de reservación de citas responsable de agendar nuevas reuniones en la base de datos para una agencia especializada en automatización con inteligencia artificial.\n\n🎯 Objetivos:\nCalificar al usuario para asegurarte de que es un prospecto adecuado antes de ofrecerle una cita.\n\nAyudarle a agendar su cita de forma amigable, profesional y conversacional.\n\nAdaptarte dinámicamente según la información ya proporcionada.\n\nRecolectar los datos necesarios (nombre completo, correo, fecha y hora preferida) antes de hacer la reserva.\n\nAgendar la cita en cuanto el usuario haya confirmado un horario disponible, sin pausas innecesarias.\n\nMantener siempre un tono humano, profesional y cordial.\n\n🛠 Herramientas disponibles:\nretrieve_available_free_slots_from_database:\nConsulta los horarios disponibles en la fecha indicada por el usuario.\n\nconvertirALocalUTC:\nConvierte la fecha y hora local seleccionada por el usuario a formato UTC (YYYY-MM-DDTHH:mm:ssZ), necesario para integrarse correctamente con APIs como la de Cal.com.\n\nUsa esta herramienta justo antes de ejecutar book_appointment, tomando en cuenta la zona horaria del usuario (clientCurrentTimezone, por defecto 'America/Mexico_City').\nEsto garantiza que la cita se agende en la hora correcta sin desajustes por zona horaria.\n\nEjemplo de uso:\nSi el usuario selecciona “2025-05-13 a las 14:00” en hora local de America/Lima, esta herramienta devolverá 2025-05-13T20:00:00Z.\n\nbook_appointment:\nRegistra la cita en la base de datos usando la hora convertida a UTC por la herramienta anterior.\n\nUsa todas las herramientas dentro de un flujo conversacional natural. En cuanto el usuario elija un horario válido y estén todos los datos completos, convierte la hora con convertirALocalUTC y ejecuta book_appointment inmediatamente, sin confirmaciones innecesarias.\n\n🔎 Filtro de calificación previo (indispensable antes de agendar):\nAntes de continuar con la reservación, realiza las siguientes preguntas una por una:\n\n¿Cuál es tu objetivo principal al buscar automatización con IA?\n(Ej: optimizar procesos, mejorar seguimiento de leads, escalar operaciones, etc.)\n\n¿Ya estás usando alguna herramienta de automatización o CRM? Si sí, ¿cuál?\n(Ej: Zapier, HubSpot, GoHighLevel, etc.)\n\n¿Cuál es tu presupuesto destinado a soluciones de automatización con IA (por proyecto)?\n\nSi responde menos de $200 USD:\n\n\"Gracias por tu interés. Por el momento, nuestros servicios están diseñados para negocios con presupuestos de al menos $200 USD mensuales. Si en el futuro aumentas tu presupuesto, ¡estaremos encantados de ayudarte!\"\n\nSi responde que sí tiene presupuesto de $200 USD o más, continúa con el proceso de agendamiento.\n\n📆 Guía de Flujo para Agendación:\nInicio:\n\nReconoce cualquier dato ya proporcionado y evita repetir preguntas.\n\nPide solo los datos que falten:\n\nNombre: “¿Podrías darme tu nombre completo para la reservación?”\n\nCorreo: “¿Qué dirección de correo deseas usar para confirmar tu cita?”\n\nFecha: “¿En qué fecha te gustaría agendar la cita?”\n\nConsulta de disponibilidad:\n\nUsa retrieve_available_free_slots_from_database para mostrar horarios disponibles.\n\nMuestra las opciones en formato claro:\n\n“Estos son los horarios disponibles para el [fecha]:\n\n[horario 1]\n\n[horario 2]\n\n[horario 3]\n\n¿Cuál prefieres?”\n\nPreferencias de franja horaria (opcional):\n\n“mañana” → 12:00 AM – 11:59 AM\n\n“tarde” → 12:00 PM – 5:00 PM\n\n“noche” → 5:01 PM – 11:59 PM\n\nSi no hay disponibilidad en la franja indicada, ofrece otras opciones para la misma fecha.\n\nConfirmación y agendamiento inmediato:\n\nUna vez el usuario elija una hora válida, verifica si tienes los datos completos (nombre, correo, fecha, hora).\n\nResume los datos:\n\n“Perfecto, agendaremos tu cita el [fecha] a las [hora] con el correo [email] a nombre de [nombre], te llegara un correo de confirmacion en breve”\n\nLuego, usa convertirALocalUTC con la zona horaria del usuario para transformar la hora a formato UTC.\n\nFinalmente, usa book_appointment con la hora UTC convertida.\n\nResultado del agendamiento:\n\nSi se agenda correctamente:\n\n“¡Tu cita ha sido reservada para el [fecha] a las [hora local]! Te hemos enviado un correo de confirmación.”\n\nSi hay un error:\n\n“Hubo un problema al confirmar la cita. ¿Podrías intentar seleccionar otro horario?”\n\n🧠 Reglas de Comportamiento:\nNo repitas preguntas ya respondidas.\n\nAcepta correcciones o actualizaciones del usuario.\n\nNunca inventes horarios no disponibles.\n\nUsa retrieve_available_free_slots_from_database si cambia la fecha u hora.\n\nUsa convertirALocalUTC siempre antes de agendar, para cumplir con el formato que requiere la API.\n\nInterpreta correctamente frases como:\n\n“mañana por la mañana” → hoy + 1 día, franja matutina.\n\n“próximo lunes” → lunes siguiente a la fecha actual.\n\n“la siguiente semana” → pide día específico.\n\nValida que el correo tenga un @ y un dominio válido.\n\nMantente enfocado exclusivamente en el proceso de cita.\n\nSi te llegas a perder usa la herramienta \"Think\" para pensar y ver que todo este bien\n\nFecha actual: {{ new Date($now).toLocaleString(\"es-MX\", {\n  weekday: \"long\",\n  year: \"numeric\",\n  month: \"long\",\n  day: \"numeric\",\n  hour: \"2-digit\",\n  minute: \"2-digit\",\n  hour12: true,\n  timeZone: \"America/Mexico_City\"\n}) }}\n\n\nCuando les preguntes de fecha diles que es hora America/Lima y les puedes decir la hora actual para que lo tomen de referencia\n\nTrata de no saltar parrafos\nNunca pongas palabras entre comillas\nNo menciones herramientas como Make.com ni n8n.com. En su lugar, responde diciendo algo como: “Ayudamos a las empresas a ahorrar tiempo y esfuerzo automatizando tareas repetitivas con el apoyo de tecnología inteligente”. Enfócate siempre en los beneficios prácticos para el cliente, sin entrar en detalles técnicos."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7,
+      "position": [
+        -768,
+        1040
+      ],
+      "id": "98b751af-736f-4c33-9d7e-2ba0e3936679",
+      "name": "AGENDADOR"
+    },
+    {
+      "parameters": {
+        "operation": "push",
+        "list": "={{ $('Edit Fields').item.json.body.key }}",
+        "messageData": "={{ JSON.stringify($('Edit Fields').item.json.body) }}",
+        "tail": true
+      },
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        -2096,
+        624
+      ],
+      "id": "9854710b-9383-476f-945c-e4163095f333",
+      "name": "Insertar",
+      "credentials": {
+        "redis": {
+          "id": "QHmhyZFAZCa9AkNj",
+          "name": "Redis.gmail"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "35e1061d-69e7-4800-a6ab-42de43f71524",
+              "name": "body.key",
+              "value": "={{ $json.body.key }}",
+              "type": "string"
+            },
+            {
+              "id": "3faa58fb-b3fd-443e-83df-45c1d542806f",
+              "name": "body",
+              "value": "={{ $json.body }}",
+              "type": "object"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -1904,
+        400
+      ],
+      "id": "636db170-7e4b-4814-8ac1-ebe521137f45",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "propertyName": "mensaje",
+        "key": "={{ $('Edit Fields').item.json.body.key }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        -1888,
+        624
+      ],
+      "id": "1e977b68-e467-442a-abf2-aecafe5dedd8",
+      "name": "CACHAR INFO",
+      "credentials": {
+        "redis": {
+          "id": "QHmhyZFAZCa9AkNj",
+          "name": "Redis.gmail"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ JSON.parse($json.mensaje.last()).key }}",
+                    "rightValue": "={{ $('Edit Fields').item.json.body.key }}",
+                    "operator": {
+                      "type": "string",
+                      "operation": "notEquals"
+                    },
+                    "id": "342f8e42-f993-40d8-9188-5b501338a035"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "NADA"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "dee9248c-bc58-4d0d-80f4-eba8bafba419",
+                    "leftValue": "={{ JSON.parse($json.mensaje.last()).ig_last_interaction }}",
+                    "rightValue": "={{ $now.minus(25,'seconds') }}",
+                    "operator": {
+                      "type": "dateTime",
+                      "operation": "before"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "AGARRAR"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "f1515c3b-6a0a-463a-a3e9-171eed40ecb6",
+                    "leftValue": "={{ JSON.parse($json.mensaje.first()).key }}",
+                    "rightValue": "",
+                    "operator": {
+                      "type": "string",
+                      "operation": "notExists",
+                      "singleValue": true
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "NO EXISTE"
+            }
+          ]
+        },
+        "options": {
+          "fallbackOutput": "extra",
+          "renameFallbackOutput": "POLICIA"
+        }
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        -1696,
+        592
+      ],
+      "id": "ffdd3722-5ef3-4415-b8b5-f6e60edccc28",
+      "name": "Switch",
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "operation": "delete",
+        "key": "={{ $('Edit Fields').item.json.body.key }}"
+      },
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        -1456,
+        608
+      ],
+      "id": "73efc05c-2cb2-4e40-a9cd-43df18d18e91",
+      "name": "Redis",
+      "credentials": {
+        "redis": {
+          "id": "QHmhyZFAZCa9AkNj",
+          "name": "Redis.gmail"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "mensaje",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        -1248,
+        608
+      ],
+      "id": "31d0df88-29bf-4f3f-906b-8bcbd4fb330d",
+      "name": "Split Out"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "0d1729a1-0e28-425e-a8c0-a7e945d919ec",
+              "name": "mensaje",
+              "value": "={{ $json.last_input_text }}",
+              "type": "string"
+            },
+            {
+              "id": "5ef4a455-4c16-4328-8569-3c5ebced96b0",
+              "name": "hora_llegada",
+              "value": "={{ $json.ig_last_interaction }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -672,
+        704
+      ],
+      "id": "32301828-2cc5-4b9c-ab2b-4d5d76004d0c",
+      "name": "Edit Fields1"
+    },
+    {
+      "parameters": {
+        "sortFieldsUi": {
+          "sortField": [
+            {
+              "fieldName": "hora_llegada"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.sort",
+      "typeVersion": 1,
+      "position": [
+        144,
+        800
+      ],
+      "id": "c3150346-c904-492d-b420-08a679558fb3",
+      "name": "Sort"
+    },
+    {
+      "parameters": {
+        "fieldsToAggregate": {
+          "fieldToAggregate": [
+            {
+              "fieldToAggregate": "mensaje"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.aggregate",
+      "typeVersion": 1,
+      "position": [
+        -1392,
+        1056
+      ],
+      "id": "f1d8fc25-5aa0-4b7e-8a75-aa1f3e884002",
+      "name": "Aggregate"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "9bc6147a-2246-4d74-833b-bc694f075aeb",
+              "name": "Input",
+              "value": "={{ $json.mensaje.join(\" \") }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -1728,
+        1328
+      ],
+      "id": "67195d1a-eab8-4079-b9b6-a5cef630d4fa",
+      "name": "Edit Fields2"
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "={{ JSON.parse($json.mensaje) }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -1264,
+        832
+      ],
+      "id": "caf2438f-5a1c-4118-b2a5-70127ea571fa",
+      "name": "Edit Fields3"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        -1456,
+        448
+      ],
+      "id": "a1720b80-8acd-4ce5-99f9-2fa8193982ed",
+      "name": "No Operation, do nothing"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        -1456,
+        752
+      ],
+      "id": "5182106d-8365-4e24-bbde-1a6636e4b26e",
+      "name": "No Operation, do nothing1"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.last_input_text }}",
+                    "rightValue": "https://lookaside",
+                    "operator": {
+                      "type": "string",
+                      "operation": "contains"
+                    },
+                    "id": "20dd2c64-e7ff-416f-a972-953f645ce11b"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "AUDIO"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "1fcd18f0-0b0a-4b58-9242-0bb6d276ba0c",
+                    "leftValue": "={{ $json.last_input_text }}",
+                    "rightValue": "https://lookaside",
+                    "operator": {
+                      "type": "string",
+                      "operation": "notContains"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "TEXTO"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        -976,
+        688
+      ],
+      "id": "ee083189-c4c5-4717-98c5-f40394f2d71d",
+      "name": "Switch1"
+    },
+    {
+      "parameters": {
+        "method": "HEAD",
+        "url": "={{ $('Edit Fields3').item.json.last_input_text }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -768,
+        560
+      ],
+      "id": "a2fe3d41-f1bb-4a96-829a-160d5b18d087",
+      "name": "HTTP Request3"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{$binary.data.mimeType}}",
+                    "rightValue": "video/mp4",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "4ad8004f-f867-497a-9de8-4c4d901f974c"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "AUDIO"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "93275bc1-904c-4af8-a9a5-a319642b58c2",
+                    "leftValue": "={{$binary.data.mimeType}}",
+                    "rightValue": "image/jpeg",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "IMAGEN"
+            }
+          ]
+        },
+        "options": {
+          "fallbackOutput": "extra"
+        }
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        -592,
+        512
+      ],
+      "id": "7a052bdc-aa9f-4d30-b483-227ec2fc84f5",
+      "name": "Switch2"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        -336,
+        640
+      ],
+      "id": "b22330d0-911a-4961-84d2-b0171a04a098",
+      "name": "No Operation, do nothing2"
+    },
+    {
+      "parameters": {
+        "resource": "audio",
+        "operation": "transcribe",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.8,
+      "position": [
+        -128,
+        304
+      ],
+      "id": "167c1d6e-334d-4755-83e8-947d4d993031",
+      "name": "OpenAI",
+      "credentials": {
+        "openAiApi": {
+          "id": "eLbN9zGBjEdfzRwe",
+          "name": "OpenAi.msn"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "={{ $('Edit Fields3').item.json.last_input_text }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -320,
+        304
+      ],
+      "id": "e7c224bf-fc75-4899-b34f-35484504f2a4",
+      "name": "HTTP Request4"
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineAll",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.1,
+      "position": [
+        -48,
+        800
+      ],
+      "id": "73bd3e4a-17ff-4a1a-a208-b4f15e6c5a09",
+      "name": "Merge"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "0d1729a1-0e28-425e-a8c0-a7e945d919ec",
+              "name": "mensaje",
+              "value": "={{ $json.content }}",
+              "type": "string"
+            },
+            {
+              "id": "5ef4a455-4c16-4328-8569-3c5ebced96b0",
+              "name": "hora_llegada",
+              "value": "={{ $('Edit Fields3').item.json.ig_last_interaction }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -128,
+        480
+      ],
+      "id": "7e56b7f9-2e06-420a-a3eb-dcd05c1c1f7d",
+      "name": "Edit Fields6"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "0d1729a1-0e28-425e-a8c0-a7e945d919ec",
+              "name": "mensaje",
+              "value": "={{ $json.text }}",
+              "type": "string"
+            },
+            {
+              "id": "5ef4a455-4c16-4328-8569-3c5ebced96b0",
+              "name": "hora_llegada",
+              "value": "={{ $('Edit Fields3').item.json.ig_last_interaction }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        96,
+        480
+      ],
+      "id": "b5f00522-7933-4339-a182-4a67f18bf808",
+      "name": "Edit Fields7"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.manychat.com/fb/sending/sendContent",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"subscriber_id\": \"{{ $('Webhook').item.json.body.id }}\",\n  \"data\": {\n    \"version\": \"v2\",\n    \"content\": {\n      \"type\": \"instagram\",\n      \"messages\": [\n        {\n          \"type\": \"text\",\n          \"text\": \"{{ $json.output }}\"\n        }\n      ]\n    }\n  },\n  \"message_tag\": \"ACCOUNT_UPDATE\"\n}\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        0,
+        1040
+      ],
+      "id": "c971d297-9966-48c6-a6f5-8392a95114c9",
+      "name": "HTTP Request",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "Ii2502nzhpNtVW1B",
+          "name": "Manychat.gmail"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "image",
+        "operation": "analyze",
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "GPT-4O-MINI"
+        },
+        "text": "Da una descripcion detallada de que ves en la imagen y responde como \"El usuario mando una imagen etc.....\"",
+        "imageUrls": "={{ $('Edit Fields3').item.json.last_input_text }}",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.8,
+      "position": [
+        -336,
+        480
+      ],
+      "id": "f8dbe780-9caf-4dbc-a8b5-d1c9f67a88e2",
+      "name": "Analyze image",
+      "credentials": {
+        "openAiApi": {
+          "id": "eLbN9zGBjEdfzRwe",
+          "name": "OpenAi.msn"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## Importante \n**Horizontes IA**. [Video](https://www.skool.com/horizontes-ia-9992/classroom/0dd6436e?md=4d16608d8dd845fb956b8dcc968018df)\n**Config. Manychat** - Instagram: min 11:30\n",
+        "height": 224,
+        "width": 480
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -1216,
+        320
+      ],
+      "typeVersion": 1,
+      "id": "b0cc3448-e08b-4aaa-a3d9-2aead4a59562",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "amount": 15
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        -1680,
+        896
+      ],
+      "id": "3d5e1fc4-0a4b-43b2-8ef3-4fdc92a38b62",
+      "name": "Wait.15",
+      "webhookId": "42f5be52-c83d-4bd9-bb84-69722948e891"
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1",
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": "iNdV46Bame2vCTJz"
+  },
+  "staticData": null,
+  "tags": [
+    {
+      "createdAt": "2025-07-28T23:13:44.849Z",
+      "updatedAt": "2025-07-28T23:13:44.849Z",
+      "id": "E7azoCbE6H7Fjix1",
+      "name": "✨ Optimiza.ia.pro"
+    },
+    {
+      "createdAt": "2025-07-18T02:37:28.170Z",
+      "updatedAt": "2025-07-18T02:37:28.170Z",
+      "id": "Za1YQUqDKWnwNOuD",
+      "name": "🤖 IA al mando"
+    },
+    {
+      "createdAt": "2025-07-19T00:16:31.462Z",
+      "updatedAt": "2025-07-19T00:16:31.462Z",
+      "id": "nP9u2TOoS2vszqZz",
+      "name": "🧠 IA chat"
+    }
+  ],
+  "triggerCount": 1,
+  "updatedAt": "2025-07-28T23:14:58.000Z",
+  "versionId": "e404d085-803f-4776-8474-25267e8c2677"
+}
