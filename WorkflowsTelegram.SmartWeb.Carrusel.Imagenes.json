@@ -1,0 +1,1037 @@
+{
+  "active": false,
+  "connections": {
+    "Telegram": {
+      "main": [
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Telegram.Get.File": {
+      "main": [
+        [
+          {
+            "node": "OpenAI",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "IdeasToString",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Error",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out": {
+      "main": [
+        [
+          {
+            "node": "Limit",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Personalizacion": {
+      "main": [
+        [
+          {
+            "node": "Split Out",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Escritor": {
+      "main": [
+        [
+          {
+            "node": "ArrayToString",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Limit": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [
+          {
+            "node": "Code",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Limit1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "4oImageApiIo.Post",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Is Ready?": {
+      "main": [
+        [
+          {
+            "node": "Fotos",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Wait1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait1": {
+      "main": [
+        [
+          {
+            "node": "4oImageApiIo.Get",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "4oImageApiIo.Post": {
+      "main": [
+        [
+          {
+            "node": "4oImageApiIo.Get",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "4oImageApiIo.Get": {
+      "main": [
+        [
+          {
+            "node": "Is Ready?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fotos": {
+      "main": [
+        [
+          {
+            "node": "Upload.Image",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IdeasToString": {
+      "main": [
+        [
+          {
+            "node": "Escritor",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "ArrayToString": {
+      "main": [
+        [
+          {
+            "node": "Personalizacion",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Upload.Image": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code": {
+      "main": [
+        [
+          {
+            "node": "MediaFbId",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "MediaFbId": {
+      "main": [
+        [
+          {
+            "node": "Post.Carrusel",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Limit1": {
+      "main": [
+        [
+          {
+            "node": "FinCarrusel",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenRouter Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Structured Output Parser1": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "Telegram.Get.File",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-07-08T14:31:12.249Z",
+  "id": "a0gzFYj8aDZSpQ0c",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Telegram.SmartWeb.Carrusel.Imagenes",
+  "nodes": [
+    {
+      "parameters": {
+        "updates": [
+          "message"
+        ],
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -464,
+        112
+      ],
+      "id": "12dbde6e-807b-4026-90a6-161634d2840f",
+      "name": "Telegram",
+      "webhookId": "ea60dbc9-d4a3-45ec-9188-7923179f8a94",
+      "credentials": {
+        "telegramApi": {
+          "id": "zxkALNj2uZW1uxoX",
+          "name": "Telegram.jomBusiness"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "95a902d0-faf2-49d6-a59c-8880e9de8826",
+              "name": "text",
+              "value": "={{ $json.message.text }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        128,
+        128
+      ],
+      "id": "e164547e-c5f6-4cd2-9b5a-238339606ada",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "resource": "file",
+        "fileId": "={{ $json.message.voice.file_id }}"
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        0
+      ],
+      "id": "4cc8abeb-38eb-46af-be60-9ffd36c621d0",
+      "name": "Telegram.Get.File",
+      "webhookId": "0c496de8-f58f-440a-9def-c06b270b19c2",
+      "credentials": {
+        "telegramApi": {
+          "id": "zxkALNj2uZW1uxoX",
+          "name": "Telegram.jomBusiness"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "audio",
+        "operation": "transcribe",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.8,
+      "position": [
+        272,
+        0
+      ],
+      "id": "61ea4402-ad87-469d-9f98-02c97b67446d",
+      "name": "OpenAI",
+      "credentials": {
+        "openAiApi": {
+          "id": "eLbN9zGBjEdfzRwe",
+          "name": "OpenAi.msn"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "447861b0-ecb3-4c7b-86f4-523681c8821b",
+              "leftValue": "={{ $json.output.scraped_summary }}",
+              "rightValue": "",
+              "operator": {
+                "type": "array",
+                "operation": "exists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -432,
+        400
+      ],
+      "id": "98684118-faf7-422e-bfc3-cd00c7fc4f9e",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "message.content.prompts",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        960,
+        384
+      ],
+      "id": "278577d4-c027-4bc2-805e-7fd3f32cac9f",
+      "name": "Split Out"
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "GPT-4O-MINI"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "=Eres un agente IA experto en generar prompts de estilo infográfico para carruseles de LinkedIn. Se te proporcionara el esquema del carrusel para cada slide y tu tarea es crear una única prompt final de alta calidad para cada frase, que sirva directamente como input para el modelo de imagenes de ChatGPT\n\n**Tu salida** debe ser un JSON EXACTO con esta estructura, **incluyendo un elemento en prompts por cada slide recibido**:\n\n{\n  \"estilo\": \"infográfico\",\n  \"formato\": \"1:1\",\n  \"resolucion\": \"alta\",\n  \"tipografia\": \"Sora\",\n  \"prompts\": [\n    {\n      \"slide\": <numero de slide 1>,\n      \"prompt\": \"<instrucción infográfico para slide 1>\"\n    },\n    {\n      \"slide\": <numero de slide 2>,\n      \"prompt\": \"<instrucción infográfico para slide 2>\"\n    },\n    ...  \n  ]\n}\n\nPara cada “prompt”:\n\n1. Inicia con “Estilo infográfico:”.\n2. Describe el fondo (por ejemplo: “fondo blanco con sección superior verde suave”).\n3. Menciona el gráfico o diagrama central (barras, pastel, embudo, iconos minimalistas).\n4. Detalla la ubicación y formato del texto (Fuente Sora, tamaño, color, posición).\n5. Incorpora el titulo y la descripcion de forma clara.\n6. Añade iconos indicados, explicando su estilo lineal.\n7. Aplica la paleta de colores sugerida, usando los hex proporcionados o la paleta corporativa (verde, blanco).\n8. Asegura que el mensaje siga una narrativa de venta: guía al lector del problema a la acción final (CTA).\n\nColores: Azul claro, Negro\nTipografia: Futura\nIconos: Minimalistas\n\nEjemplo de output\n    {\n      \"slide\": 1,\n      \"prompt\": \"Estilo infográfico: Crea una portada para un carrusel de 5 slides titulado “Cómo vender tu producto en 5 pasos” alta resolución, fondo gris muy claro. En la parte superior, un gran título en Fuente Sora bold: “Cómo vender tu producto en 5 pasos”. Debajo, un icono de megáfono en estilo lineal y un pequeño gráfico de barras estilizado que muestre un ligero crecimiento (10 %). Usa colores corporativos (azul oscuro para el título, gris para texto secundario, highlight verde para detalles).\"\n    },\n    {\n      \"slide\": 2,\n      \"prompt\": \"Estilo infográfico: Identifica a tu audiencia. Fondo blanco con una sección superior en azul suave. A la izquierda, un diagrama de pastel dividido en tres segmentos (Mercado, Demografía, Necesidades) con porcentajes ficticios. A la derecha, un texto breve en Sora regular: “Paso 1: Conoce a tu cliente ideal” y debajo “Segmenta por comportamiento, edad y motivaciones”. Incluye pequeños iconos para persona, lupa y gráfico.\"\n    },\n    {\n      \"slide\": 3,\n      \"prompt\": \"Estilo infográfico: Define tu propuesta de valor. Fondo gris claro, encabezado en Sora bold: “Paso 2: Propuesta de valor única”. Debajo, tres columnas con iconos de bombilla, escudo y moneda, cada uno con un título corto (“Innovación”, “Confianza”, “ROI”) y una descripción en Sora regular de dos líneas. Usa líneas finas para separar columnas y puntos de color verde como bullets.\"\n    },\n    {\n      \"slide\": 4,\n      \"prompt\": \"Estilo infográfico: Supera las objeciones. Fondo blanco, diagrama de embudo de ventas en el centro con cuatro niveles (Conocimiento, Interés, Deseo, Acción), cada nivel en un tono distinto de azul. Al lado derecho, tres burbujas de texto en Sora: “¿Es caro?”, “¿Funciona para mí?”, “¿Y el soporte?”. Bajo cada burbuja, una flecha apuntando al embudo y una respuesta breve en verde: “Coste vs Valor”, “Casos de éxito”, “Atención 24/7”.\"\n    },\n    {\n      \"slide\": 5,\n      \"prompt\": \"Estilo infográfico: Cierra la venta y CTA. Fondo degradado suave de gris a blanco, encabezado en Sora bold: “Paso 5: Cierre y acción”. Incluye un icono de apretón de manos y un gran botón simulado en verde con texto “Empieza hoy” en Sora white. Debajo, tres indicadores numerados en círculo (1, 2, 3) con textos breves: “Agenda demo”, “Prueba gratis”, “Recibe asesoría”.\"\n    }\n\nIMPORTANTE\n\n-NO debe haber fondos transparentes",
+              "role": "system"
+            },
+            {
+              "content": "={{ $json.combined_slides_text }}"
+            }
+          ]
+        },
+        "jsonOutput": true,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.8,
+      "position": [
+        592,
+        384
+      ],
+      "id": "7544b4ed-fb97-48c2-a157-be68ee59c084",
+      "name": "Personalizacion",
+      "credentials": {
+        "openAiApi": {
+          "id": "eLbN9zGBjEdfzRwe",
+          "name": "OpenAi.msn"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "GPT-4O-MINI"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "Eres un copywriter especializado en contenido técnico para LinkedIn.\n\nVas a recibir un texto que resume conceptos clave extraídos de un artículo técnico.\n\nTu tarea:\n\nReescribir cada idea en 1 frase impactante, técnica y clara para un carrusel de LinkedIn.\n\nMantén el tema principal de cada idea (no cambies de tema).\n\nUsa estructura de mini historia en cada frase:\n\n➔ Presenta brevemente el problema ➔ Menciona el impacto ➔ Insinúa solución o esperanza.\n\nEl tono debe ser profesional, informativo y atractivo (no sensacionalista, no clickbait vacío).\n\nCada frase debe tener entre 12 y 20 palabras máximo.\n\nEL numero de slides dependera de el tema pero no te limites a un numero\n\nDevuélvelo en el siguiente formato JSON:\n\n{\n  \"slides\": [\n    { \"slide\": 1, \"text\": \"Frase lista para Slide 1\" },\n    { \"slide\": 2, \"text\": \"Frase lista para Slide 2\" },\n    { \"slide\": 3, \"text\": \"Frase lista para Slide 3\" },\n    { \"slide\": 4, \"text\": \"Frase lista para Slide 4\" },\n    { \"slide\": 5, \"text\": \"Frase lista para Slide 5\" }\n  ]\n}\n\nEJEMPLOS\n\nIdea Original | Reescritura Mejorada\n\n84% de fraude en ATMs, necesidad de IoT seguro | \"El 84% de los fraudes en ATMs revelan la urgencia de reforzar la conectividad IoT como defensa principal.\"\n\nIoT encripta y detecta fraudes | \"La encriptación IoT permite detectar amenazas en tiempo real antes de que los atacantes actúen.\"\n\nRed de ATMs desconectados = vulnerabilidad | \"Un cajero desconectado es un blanco perfecto: el uptime IoT es vital para la seguridad continua.\"\n\nMonitoreo IoT detecta amenazas temprano | \"Con monitoreo IoT, los ataques se detectan y neutralizan antes de comprometer los cajeros automáticos.\"\n\nSeguridad integral: IoT + físico + humano | \"La seguridad efectiva combina conectividad segura, protección física y supervisión humana estratégica.\"\n\nSi recibes un texto que tu pienses que no hace mucho sentido corrijelo y adaptalo para que haga sentido",
+              "role": "system"
+            },
+            {
+              "content": "={{ $json.ideas_text }}"
+            }
+          ]
+        },
+        "jsonOutput": true,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.8,
+      "position": [
+        0,
+        384
+      ],
+      "id": "d8bfbb16-0808-4df9-b0f6-bcf36508febb",
+      "name": "Escritor",
+      "credentials": {
+        "openAiApi": {
+          "id": "eLbN9zGBjEdfzRwe",
+          "name": "OpenAi.msn"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "maxItems": 10
+      },
+      "type": "n8n-nodes-base.limit",
+      "typeVersion": 1,
+      "position": [
+        -208,
+        704
+      ],
+      "id": "1a86d59c-69f9-4583-9564-2ff11d851efd",
+      "name": "Limit"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        -16,
+        704
+      ],
+      "id": "e1cc6389-3d86-424d-8f9c-9ffbbe89c0bd",
+      "name": "Loop Over Items"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "version": 2,
+            "leftValue": "",
+            "caseSensitive": true,
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "ac50759b-e2f3-4efd-a2af-f28b7d209b45",
+              "operator": {
+                "name": "filter.operator.equals",
+                "type": "string",
+                "operation": "equals"
+              },
+              "leftValue": "={{ $json.data.status }}",
+              "rightValue": "SUCCESS"
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "0278cb9b-d3a2-4ec2-ba8e-cdd5081a210f",
+      "name": "Is Ready?",
+      "type": "n8n-nodes-base.if",
+      "position": [
+        592,
+        784
+      ],
+      "typeVersion": 2.2
+    },
+    {
+      "parameters": {
+        "amount": 15
+      },
+      "id": "37b09099-7695-4e6c-82b6-b85821134cf3",
+      "name": "Wait1",
+      "type": "n8n-nodes-base.wait",
+      "position": [
+        720,
+        880
+      ],
+      "webhookId": "150069ed-885b-497f-a32a-09e7088136e6",
+      "typeVersion": 1.1
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://4oimageapiio.erweima.ai/api/v1/gpt4o-image/generate",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Accept",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"prompt\": \"{{ $json.prompt }}\",\n  \"size\": \"2:3\",\n  \"isEnhance\": false,\n  \"uploadCn\": false\n} ",
+        "options": {
+          "redirect": {
+            "redirect": {}
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        192,
+        784
+      ],
+      "id": "e98a9d32-01ad-4885-b77d-5ba9e6302282",
+      "name": "4oImageApiIo.Post",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "BCtFCQIPro12mTQP",
+          "name": "4oImageApi.gmail"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "https://4oimageapiio.erweima.ai/api/v1/gpt4o-image/record-info",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "taskId",
+              "value": "={{ $json.data.taskId }}"
+            }
+          ]
+        },
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Accept",
+              "value": "application/json"
+            }
+          ]
+        },
+        "options": {
+          "redirect": {
+            "redirect": {}
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        400,
+        784
+      ],
+      "id": "711f3872-a295-43f0-860e-f9c0ec995e64",
+      "name": "4oImageApiIo.Get",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "BCtFCQIPro12mTQP",
+          "name": "4oImageApi.gmail"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## LinkedIn \n**Double click** to edit me. [Guide](https://www.youtube.com/watch?v=GMdqqgRJL-8&ab_channel=AIWorkshop)"
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -560,
+        832
+      ],
+      "id": "19a8820a-0e01-47d9-94a5-33c8448c9b65",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram').item.json.message.chat.id }}",
+        "text": "Fin del carrusel",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1088,
+        688
+      ],
+      "id": "747ee7cf-c98e-4bd2-9ed2-b4c83561f8d0",
+      "name": "FinCarrusel",
+      "webhookId": "55df4ef6-5c54-4ddd-a2b1-4485d672d444",
+      "credentials": {
+        "telegramApi": {
+          "id": "zxkALNj2uZW1uxoX",
+          "name": "Telegram.jomBusiness"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram').item.json.message.chat.id }}",
+        "text": "No se pudo procesar la instrucción.",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        -240,
+        880
+      ],
+      "id": "4ae573a8-c2c3-4ee3-a17b-91dd95d6317c",
+      "name": "Error",
+      "webhookId": "55df4ef6-5c54-4ddd-a2b1-4485d672d444",
+      "credentials": {
+        "telegramApi": {
+          "id": "zxkALNj2uZW1uxoX",
+          "name": "Telegram.jomBusiness"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "sendPhoto",
+        "chatId": "={{ $('Telegram').item.json.message.chat.id }}",
+        "file": "={{ $json.data.response.resultUrls[0] }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        912,
+        848
+      ],
+      "id": "5ef90a77-7852-4659-bf19-7d020b2c7033",
+      "name": "Fotos",
+      "webhookId": "834b2a54-20a4-4982-a705-2ccdbffcda1b",
+      "credentials": {
+        "telegramApi": {
+          "id": "zxkALNj2uZW1uxoX",
+          "name": "Telegram.jomBusiness"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Accedemos al arreglo de ideas\nconst input = items[0].json.output.scraped_summary;\n\n// Unimos todas las ideas en un solo string con formato de lista numerada\nconst ideasText = input.map(entry => `${entry.id}.${entry.idea}`).join('\\n\\n');\n\n// Devolvemos el string como único output\nreturn [\n  {\n    json: {\n      ideas_text: ideasText\n    }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -208,
+        384
+      ],
+      "id": "1f94a755-c190-439f-b05c-2f7cc33a351a",
+      "name": "IdeasToString"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Accedemos al array de slides\n\nconst slides = items[0].json.message.content.slides;\n\n// Unimos todos los textos de los slides en un solo string\nconst combinedText = slides.map(slide => `${slide.slide}. ${slide.text}`).join('\\n\\n');\n\n// Devolvemos el resultado como un solo campo\nreturn [\n  {\n    json: {\n      combined_slides_text: combinedText\n    }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        368,
+        384
+      ],
+      "id": "851ea564-e8f4-4a7c-ba52-e0dd133223e0",
+      "name": "ArrayToString"
+    },
+    {
+      "parameters": {
+        "httpRequestMethod": "POST",
+        "graphApiVersion": "v22.0",
+        "node": "me/feed",
+        "options": {
+          "queryParametersJson": "={\n  \"message\": \"{{ $('AI Agent').item.json.output.source }}\",\n  \"attached_media\": [\n{{ $('MediaFbId').item.json.output }}\n  ]\n}"
+        }
+      },
+      "type": "n8n-nodes-base.facebookGraphApi",
+      "typeVersion": 1,
+      "position": [
+        720,
+        592
+      ],
+      "id": "7b970c96-7d57-46fb-bdf5-06ec6f79e32f",
+      "name": "Post.Carrusel",
+      "credentials": {
+        "facebookGraphApi": {
+          "id": "IdpHq8Mtl5spHnnr",
+          "name": "Facebook.SmartWeb"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "httpRequestMethod": "POST",
+        "graphApiVersion": "v22.0",
+        "node": "/me/photos",
+        "options": {
+          "queryParameters": {
+            "parameter": [
+              {
+                "name": "url",
+                "value": "={{ $('Is Ready?').item.json.data.response.resultUrls[0] }}"
+              },
+              {
+                "name": "published",
+                "value": "false"
+              }
+            ]
+          }
+        }
+      },
+      "type": "n8n-nodes-base.facebookGraphApi",
+      "typeVersion": 1,
+      "position": [
+        1104,
+        912
+      ],
+      "id": "113578f0-edea-4c51-8ca0-4cae0ab2f63b",
+      "name": "Upload.Image",
+      "credentials": {
+        "facebookGraphApi": {
+          "id": "IdpHq8Mtl5spHnnr",
+          "name": "Facebook.SmartWeb"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "return items.map(item => {\n  return {\n    json: {\n      media_fbid: item.json.id\n    }\n  };\n});"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        192,
+        592
+      ],
+      "id": "1d2047db-801d-41cb-bb69-f35a531ab212",
+      "name": "Code"
+    },
+    {
+      "parameters": {
+        "jsCode": "const result = items.map(item => {\n  return `{ \"media_fbid\": \"${item.json.media_fbid}\" }`;\n});\n\nreturn [\n  {\n    json: {\n      output: result.join(\", \")\n    }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        464,
+        592
+      ],
+      "id": "be12d017-9f6e-4ef8-8153-b4cb4cb0ed40",
+      "name": "MediaFbId"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.limit",
+      "typeVersion": 1,
+      "position": [
+        912,
+        688
+      ],
+      "id": "8439324e-6133-464e-9419-8e28cf0d39d9",
+      "name": "Limit1"
+    },
+    {
+      "parameters": {
+        "model": "openai/gpt-4o-mini",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [
+        320,
+        240
+      ],
+      "id": "6432d91b-6afb-48b7-898d-df9a64da76eb",
+      "name": "OpenRouter Chat Model",
+      "credentials": {
+        "openRouterApi": {
+          "id": "fx7pdURTekgTilKM",
+          "name": "OpenRouter.msn"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsonSchemaExample": "{\n  \"source\": \"url o tema\",\n  \"scraped_summary\": [\n    { \"id\": 1, \"idea\": \"Frase resumen de la idea 1\" },\n    { \"id\": 2, \"idea\": \"Frase resumen de la idea 2\" },\n    { \"id\": 3, \"idea\": \"Frase resumen de la idea 3\" },\n    { \"id\": 4, \"idea\": \"Frase resumen de la idea 4\" },\n    { \"id\": 5, \"idea\": \"Frase resumen de la idea 5\" }\n  ]\n}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.3,
+      "position": [
+        912,
+        240
+      ],
+      "id": "c9dad437-a8b2-4a75-9ac2-0f87201d0f63",
+      "name": "Structured Output Parser1"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.message.voice.file_id }}",
+                    "rightValue": "",
+                    "operator": {
+                      "type": "string",
+                      "operation": "exists",
+                      "singleValue": true
+                    },
+                    "id": "02711aa7-afb3-40cc-bd7d-c1dadfa1ec29"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Audio"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "2a3c076a-d08b-4636-b1d6-198df48998a6",
+                    "leftValue": "={{ $json.message.text }}",
+                    "rightValue": "",
+                    "operator": {
+                      "type": "string",
+                      "operation": "exists",
+                      "singleValue": true
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Texto"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        -256,
+        112
+      ],
+      "id": "f7381ff8-6434-4dcb-94cf-6c502e0a6219",
+      "name": "Switch"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Texto a analizar: {{ $json.text }}",
+        "hasOutputParser": true,
+        "messages": {
+          "messageValues": [
+            {
+              "message": "Eres un agente inteligente que tiene acceso a una herramienta capaz de investigar en internet. \n\nHerramientas\n\n1. Perplexity Sonar: IA que puede buscar en internet\n\nInstrucciones:\n\nRecibirás un tema a investigar.\n\nDebes:\n\nExtrae las ideas principales que expliquen todo entendiblemente, el carrusel debe tener de 7-10 slides dependiendo la complejidad y extension del contenido\n\nEs importante que el carrusel siga un storytelling y sea congruente\n\nLas ideas deben ser claras, relevantes y enfocadas en aportar valor, porque esto lo ocupare para hacer un carrusel despues entonces debe contener informacion completa.\n\nIMPORTANTE:\n\nIgnora información irrelevante como menús, comentarios o contenido promocional.\n\nResponde en formato JSON, así:\n\n{\n  \"source\": \"url o tema\",\n  \"scraped_summary\": [\n    { \"id\": 1, \"idea\": \"Frase resumen de la idea 1\" },\n    { \"id\": 2, \"idea\": \"Frase resumen de la idea 2\" },\n    { \"id\": 3, \"idea\": \"Frase resumen de la idea 3\" },\n    { \"id\": 4, \"idea\": \"Frase resumen de la idea 4\" },\n    { \"id\": 5, \"idea\": \"Frase resumen de la idea 5\" }\n  ]\n}\n\nEs importante que todas las ideas vayan en orden de storytelling y hagan sentido la pasada con la nueva"
+            }
+          ]
+        },
+        "batching": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.7,
+      "position": [
+        496,
+        128
+      ],
+      "id": "f0c358f6-7270-407a-833a-455c4aca5bea",
+      "name": "AI Agent"
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1",
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": "iNdV46Bame2vCTJz"
+  },
+  "staticData": null,
+  "tags": [
+    {
+      "createdAt": "2025-07-28T23:16:55.585Z",
+      "updatedAt": "2025-07-28T23:16:55.585Z",
+      "id": "B0zvrFLy0yNSEhVJ",
+      "name": "💡SmartWeb"
+    }
+  ],
+  "triggerCount": 1,
+  "updatedAt": "2025-07-28T23:18:54.000Z",
+  "versionId": "d5344423-7acc-4309-9444-3d1b9557bd08"
+}
