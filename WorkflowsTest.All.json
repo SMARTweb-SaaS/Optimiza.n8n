@@ -1,0 +1,234 @@
+{
+  "active": false,
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        []
+      ]
+    },
+    "Post.Optimiza": {
+      "main": [
+        []
+      ]
+    },
+    "Create.Post": {
+      "main": [
+        [
+          {
+            "node": "Post.Instagram.Optimiza",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-07-15T13:38:41.485Z",
+  "id": "nZEzdHimBmhUuLUX",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Test.All",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -112,
+        -80
+      ],
+      "id": "b53fbb11-8f51-4b2b-9399-95c48f270e74",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "httpRequestMethod": "POST",
+        "graphApiVersion": "v22.0",
+        "node": "me",
+        "edge": "photos",
+        "options": {
+          "queryParameters": {
+            "parameter": [
+              {
+                "name": "url",
+                "value": "=https://smartweberp.com/Imagen/WebSite/smartweb.erp-website-05.png"
+              }
+            ]
+          }
+        }
+      },
+      "type": "n8n-nodes-base.facebookGraphApi",
+      "typeVersion": 1,
+      "position": [
+        208,
+        -240
+      ],
+      "id": "e546d5b7-ff1d-47b2-a974-350519901139",
+      "name": "Post.CodigoAlfa",
+      "credentials": {
+        "facebookGraphApi": {
+          "id": "hOMT44BIxjiDsVdw",
+          "name": "Facebook.CodigoAlfa"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "httpRequestMethod": "POST",
+        "graphApiVersion": "v22.0",
+        "node": "me",
+        "edge": "photos",
+        "options": {
+          "queryParameters": {
+            "parameter": [
+              {
+                "name": "url",
+                "value": "=https://smartweberp.com/Imagen/WebSite/smartweb.erp-website-05.png"
+              }
+            ]
+          }
+        }
+      },
+      "type": "n8n-nodes-base.facebookGraphApi",
+      "typeVersion": 1,
+      "position": [
+        208,
+        -80
+      ],
+      "id": "14bc4616-37cb-4710-aed7-5392d650d476",
+      "name": "Post.SmartWeb",
+      "credentials": {
+        "facebookGraphApi": {
+          "id": "IdpHq8Mtl5spHnnr",
+          "name": "Facebook.SmartWeb"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## Publicar en Facebook\n**Double click** to edit me. [YouTube](https://www.youtube.com/watch?v=YN0990rg-PY&ab_channel=HackeandoLaRutina)\n\nhttps://developers.facebook.com/apps/?show_reminder=true",
+        "height": 140,
+        "width": 300
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        432,
+        -240
+      ],
+      "id": "37ab1ce6-3089-46f3-9729-11e99820d67f",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "httpRequestMethod": "POST",
+        "graphApiVersion": "v22.0",
+        "node": "me",
+        "edge": "photos",
+        "options": {
+          "queryParameters": {
+            "parameter": [
+              {
+                "name": "url",
+                "value": "https://smartweberp.com/Imagen/WebSite/smartweb.erp-website-05.png"
+              }
+            ]
+          }
+        }
+      },
+      "type": "n8n-nodes-base.facebookGraphApi",
+      "typeVersion": 1,
+      "position": [
+        208,
+        96
+      ],
+      "id": "292a4d14-d009-44e9-847b-22c6695b58cf",
+      "name": "Post.Optimiza",
+      "credentials": {
+        "facebookGraphApi": {
+          "id": "ym2xOYOdM5h5E89o",
+          "name": "Facebook.Optimiza"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "httpRequestMethod": "POST",
+        "graphApiVersion": "v22.0",
+        "node": "17841476072414746",
+        "edge": "media_publish",
+        "options": {
+          "queryParameters": {
+            "parameter": [
+              {
+                "name": "creation_id",
+                "value": "={{ $json.id }}"
+              }
+            ]
+          }
+        }
+      },
+      "type": "n8n-nodes-base.facebookGraphApi",
+      "typeVersion": 1,
+      "position": [
+        416,
+        288
+      ],
+      "id": "f81b3966-979e-438e-a749-db26ec46d38d",
+      "name": "Post.Instagram.Optimiza",
+      "credentials": {
+        "facebookGraphApi": {
+          "id": "q07PnzaLdq09L9OE",
+          "name": "Instagram.Optimiza"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "httpRequestMethod": "POST",
+        "graphApiVersion": "v22.0",
+        "node": "17841476072414746",
+        "edge": "media",
+        "options": {
+          "queryParameters": {
+            "parameter": [
+              {
+                "name": "image_url",
+                "value": "https://smartweberp.com/Imagen/WebSite/smartweb.erp-website-05.png"
+              },
+              {
+                "name": "caption",
+                "value": "Post de prueba"
+              }
+            ]
+          }
+        }
+      },
+      "type": "n8n-nodes-base.facebookGraphApi",
+      "typeVersion": 1,
+      "position": [
+        224,
+        288
+      ],
+      "id": "40d13c31-8722-444a-8f3a-afd080b145b9",
+      "name": "Create.Post",
+      "credentials": {
+        "facebookGraphApi": {
+          "id": "q07PnzaLdq09L9OE",
+          "name": "Instagram.Optimiza"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-07-31T16:42:19.000Z",
+  "versionId": "2ee8ec56-d227-4629-857b-a066316ef46e"
+}
