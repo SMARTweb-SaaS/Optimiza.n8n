@@ -1,0 +1,444 @@
+{
+  "active": false,
+  "connections": {
+    "Loop Over Items": {
+      "main": [
+        [
+          {
+            "node": "Code",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "4oImageApiIo.Get",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Is Ready?": {
+      "main": [
+        [
+          {
+            "node": "Fotos",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Wait.5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "4oImageApiIo.Get": {
+      "main": [
+        [
+          {
+            "node": "Is Ready?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fotos": {
+      "main": [
+        [
+          {
+            "node": "Upload.Image",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Upload.Image": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code": {
+      "main": [
+        [
+          {
+            "node": "MediaFbId",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "MediaFbId": {
+      "main": [
+        [
+          {
+            "node": "Post.Carrusel",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "taskId's",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "taskId's": {
+      "main": [
+        [
+          {
+            "node": "Formato.Json",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Formato.Json": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait.5": {
+      "main": [
+        [
+          {
+            "node": "4oImageApiIo.Get",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-07-09T14:38:14.154Z",
+  "id": "ouokNwG0FxgM0U3u",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Array.SmartWeb.Carrusel.Imagenes",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        32
+      ],
+      "id": "213057be-6a16-47d8-8ece-f24b10a99317",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        656,
+        32
+      ],
+      "id": "555a32d2-bc77-478e-816a-afea78ab04ed",
+      "name": "Loop Over Items"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "version": 2,
+            "leftValue": "",
+            "caseSensitive": true,
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "ac50759b-e2f3-4efd-a2af-f28b7d209b45",
+              "operator": {
+                "name": "filter.operator.equals",
+                "type": "string",
+                "operation": "equals"
+              },
+              "leftValue": "={{ $json.data.status }}",
+              "rightValue": "SUCCESS"
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "33a88591-e167-4fe0-a7f1-0a3a6df5d0d3",
+      "name": "Is Ready?",
+      "type": "n8n-nodes-base.if",
+      "position": [
+        1072,
+        48
+      ],
+      "typeVersion": 2.2
+    },
+    {
+      "parameters": {
+        "url": "https://4oimageapiio.erweima.ai/api/v1/gpt4o-image/record-info",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "taskId",
+              "value": "={{$json[\"taskId\"]}}"
+            }
+          ]
+        },
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Accept",
+              "value": "application/json"
+            }
+          ]
+        },
+        "options": {
+          "redirect": {
+            "redirect": {}
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        880,
+        48
+      ],
+      "id": "4def43bf-0f0f-4110-8948-65abe8e41feb",
+      "name": "4oImageApiIo.Get",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "BCtFCQIPro12mTQP",
+          "name": "4oImageApi.gmail"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "sendPhoto",
+        "chatId": "=1704819492",
+        "file": "={{ $json.data.response.resultUrls[0] }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1392,
+        112
+      ],
+      "id": "66b639ec-99ec-4e44-a843-4a0e97ab5c40",
+      "name": "Fotos",
+      "webhookId": "834b2a54-20a4-4982-a705-2ccdbffcda1b",
+      "credentials": {
+        "telegramApi": {
+          "id": "zxkALNj2uZW1uxoX",
+          "name": "Telegram.jomBusiness"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "httpRequestMethod": "POST",
+        "graphApiVersion": "v22.0",
+        "node": "me/feed",
+        "options": {
+          "queryParametersJson": "={\n  \"message\": \"Transformación del tiempo con IA\",\n  \"attached_media\": [\n{{ $('MediaFbId').item.json.output }}\n  ]\n}"
+        }
+      },
+      "type": "n8n-nodes-base.facebookGraphApi",
+      "typeVersion": 1,
+      "position": [
+        1408,
+        -80
+      ],
+      "id": "f4600212-82e8-4b50-834f-bd88e32c7cc8",
+      "name": "Post.Carrusel",
+      "credentials": {
+        "facebookGraphApi": {
+          "id": "IdpHq8Mtl5spHnnr",
+          "name": "Facebook.SmartWeb"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "httpRequestMethod": "POST",
+        "graphApiVersion": "v22.0",
+        "node": "/me/photos",
+        "options": {
+          "queryParameters": {
+            "parameter": [
+              {
+                "name": "url",
+                "value": "={{ $('Is Ready?').item.json.data.response.resultUrls[0] }}"
+              },
+              {
+                "name": "published",
+                "value": "false"
+              }
+            ]
+          }
+        }
+      },
+      "type": "n8n-nodes-base.facebookGraphApi",
+      "typeVersion": 1,
+      "position": [
+        1584,
+        176
+      ],
+      "id": "96e03915-05b7-450d-8876-630d9333d904",
+      "name": "Upload.Image",
+      "credentials": {
+        "facebookGraphApi": {
+          "id": "IdpHq8Mtl5spHnnr",
+          "name": "Facebook.SmartWeb"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "return items.map(item => {\n  return {\n    json: {\n      media_fbid: item.json.id\n    }\n  };\n});"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        880,
+        -80
+      ],
+      "id": "a3040077-aaa5-4c74-af34-728693546364",
+      "name": "Code"
+    },
+    {
+      "parameters": {
+        "jsCode": "const result = items.map(item => {\n  return `{ \"media_fbid\": \"${item.json.media_fbid}\" }`;\n});\n\nreturn [\n  {\n    json: {\n      output: result.join(\", \")\n    }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1184,
+        -80
+      ],
+      "id": "0191654f-d708-4c79-b570-a6b76dc3a4a5",
+      "name": "MediaFbId"
+    },
+    {
+      "parameters": {
+        "content": "## Imagenes (taskId)\n**Tener en cuenta el orden de creación de las imagenes**, invertir el orden en el que aparece en la web.",
+        "width": 272
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        160,
+        -144
+      ],
+      "id": "73253291-44e6-4216-a4b1-8f447e8744a7",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "{\n  \"taskIds\": [\n    \"6cdf468e995fdc6c036487f474ee6bde\",\n    \"87583fb2f91e58e1ea59f5c7e6bfc927\",\n    \"1e948433fdacc0a37787b956a5080c8a\",\n    \"df44d98659def33c9cde6230665064b3\",\n    \"6606f14b25701b9d2c81cd7ff00a6eef\",\n    \"a2206511e090e9c0db03cad4e2303964\"\n  ]\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        208,
+        32
+      ],
+      "id": "877f5eb8-2066-4bb5-98f5-5e2a72b6d614",
+      "name": "taskId's"
+    },
+    {
+      "parameters": {
+        "jsCode": "const taskIds = items[0].json.taskIds;\nreturn taskIds.map(id => {\n  return { json: { taskId: id } };\n});"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        416,
+        32
+      ],
+      "id": "4083014c-6253-46a4-a1ae-bf779db0bd26",
+      "name": "Formato.Json"
+    },
+    {
+      "parameters": {
+        "content": "## Consultar redes sociales\n\n[Facebook - SMARTweb](https://www.facebook.com/SmartWeb.Erp)",
+        "width": 360
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        144,
+        208
+      ],
+      "id": "41ae6913-9784-44de-b725-aeed9a8cf23f",
+      "name": "Sticky Note4"
+    },
+    {
+      "parameters": {},
+      "id": "828d42ed-d3e0-491e-843c-69fcf192d928",
+      "name": "Wait.5",
+      "type": "n8n-nodes-base.wait",
+      "position": [
+        1200,
+        144
+      ],
+      "webhookId": "150069ed-885b-497f-a32a-09e7088136e6",
+      "typeVersion": 1.1
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [
+    {
+      "createdAt": "2025-07-28T23:16:55.585Z",
+      "updatedAt": "2025-07-28T23:16:55.585Z",
+      "id": "B0zvrFLy0yNSEhVJ",
+      "name": "💡SmartWeb"
+    }
+  ],
+  "triggerCount": 0,
+  "updatedAt": "2025-07-28T23:18:02.000Z",
+  "versionId": "02dec31f-acbd-45dc-8660-429420005bcb"
+}
