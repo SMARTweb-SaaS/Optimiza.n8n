@@ -1,0 +1,525 @@
+{
+  "active": true,
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Filter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "UpdateFrase": {
+      "main": [
+        [
+          {
+            "node": "Set.OpenIA.txtFrase",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Message a model": {
+      "main": [
+        [
+          {
+            "node": "UpdateFrase",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Opciones.Frase": {
+      "main": [
+        [
+          {
+            "node": "Message a model",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Opciones.Prompt": {
+      "main": [
+        [
+          {
+            "node": "UpdatePrompt",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "UpdatePrompt": {
+      "main": [
+        [
+          {
+            "node": "Replicate.google.imagen-4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Opciones.Frase",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Set.Datarow.txtFrase",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set.Datarow.txtFrase": {
+      "main": [
+        [
+          {
+            "node": "Opciones.Prompt",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set.OpenIA.txtFrase": {
+      "main": [
+        [
+          {
+            "node": "Opciones.Prompt",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Replicate.google.imagen-4": {
+      "main": [
+        [
+          {
+            "node": "Wait.30",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait.30": {
+      "main": [
+        [
+          {
+            "node": "Post.CodigoAlfa",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-07-08T09:57:05.750Z",
+  "id": "MLs2KJGFjuh3Itfd",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "BaseRow.CodigoAlfa.Post.Image",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "PUT",
+        "path": "f4296211-c937-4b58-8162-fc594e613db5",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -720,
+        32
+      ],
+      "id": "51ab5b8d-1119-476e-b805-e341050a7618",
+      "name": "Webhook",
+      "webhookId": "f4296211-c937-4b58-8162-fc594e613db5"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "0f86894d-2123-4e06-bbe1-b839c7807797",
+              "leftValue": "={{ $json.body.items[0].imageEstado.value }}",
+              "rightValue": "Generado",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.2,
+      "position": [
+        -496,
+        32
+      ],
+      "id": "28c4fdad-bb6b-4c9a-9152-5a60c890a31a",
+      "name": "Filter"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "databaseId": 247560,
+        "tableId": 587368,
+        "rowId": "={{ $('Webhook').item.json.body.items[0].id }}",
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": 4745833,
+              "fieldValue": "={{ $json.prompt }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.baserow",
+      "typeVersion": 1,
+      "position": [
+        464,
+        192
+      ],
+      "id": "91a0d29d-43d1-4d75-bbbf-f13d4fd1c9e8",
+      "name": "UpdatePrompt",
+      "credentials": {
+        "baserowApi": {
+          "id": "SNrllAn2sJZ5Lm7r",
+          "name": "Baserow.msn"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "databaseId": 247560,
+        "tableId": 587368,
+        "rowId": "={{ $('Webhook').item.json.body.items[0].id }}",
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": 4745841,
+              "fieldValue": "={{ $json.message.content.frase }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.baserow",
+      "typeVersion": 1,
+      "position": [
+        496,
+        -48
+      ],
+      "id": "76ac9b82-d24c-4361-af08-627f4a3278cb",
+      "name": "UpdateFrase",
+      "credentials": {
+        "baserowApi": {
+          "id": "SNrllAn2sJZ5Lm7r",
+          "name": "Baserow.msn"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-4.1-mini",
+          "mode": "list",
+          "cachedResultName": "GPT-4.1-MINI"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "=Actúa como un generador de frases provocadoras para redes sociales, adoptando el rol de un Macho Alfa experto en sarcasmo y crítica social. \n\nObjetivo: Crear frases estilo eslogan, breves y directas, con el siguiente enfoque:\n- Tono: {{ $json.tono }} \n- Estilo: {{ $json.estilo }} \n- Enfoque temático: {{ $json.tema }} \n- Público objetivo: Hombres mayores de 18 años.\n\nInstrucciones:\n- Cada frase debe tener un máximo de 1 o 2 líneas, con estructura tipo eslogan.\n- Usa la siguiente estructura: {{ $json.estructura }}\n- Evita emojis y lenguaje ofensivo directo.\n- El mensaje debe ser provocador, sarcástico y con crítica social encubierta.\n- Escribe frases pensadas para captar atención en redes sociales.\n\nGenera {{ $json.cantidad }} frases únicas diferentes cada vez."
+            }
+          ]
+        },
+        "jsonOutput": true,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.8,
+      "position": [
+        128,
+        -48
+      ],
+      "id": "1b0cabd0-a794-4542-add2-136aada7a2ee",
+      "name": "Message a model",
+      "credentials": {
+        "openAiApi": {
+          "id": "eLbN9zGBjEdfzRwe",
+          "name": "OpenAi.msn"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const tonos = [\n  \"sarcástico y crudo\",\n  \"irónico y mordaz\",\n  \"directo y confrontativo\",\n  \"frío y analítico\",\n  \"cínico pero elegante\",\n  \"autoritario y seguro\",\n  \"oscuro y desafiante\",\n  \"reflexivo con doble filo\",\n  \"despiadado pero con lógica\",\n  \"motivacional con resentimiento social\"\n];\n\nconst temas = [\n  \"apariencia vs. realidad en las relaciones modernas\",\n  \"hipocresía femenina en citas\",\n  \"materialismo disfrazado de amor\",\n  \"doble moral en igualdad de género\",\n  \"romanticismo moderno vs. interés económico\",\n  \"contradicciones del empoderamiento femenino\",\n  \"expectativas femeninas vs. méritos reales\",\n  \"hombres útiles vs. hombres deseados\",\n  \"falsas banderas de independencia\",\n  \"seducción emocional como estrategia social\"\n];\n\nconst estructuras = [\n  \"Dicen que X… pero hacen Y.\",\n  \"Ella quiere A… pero solo si B.\",\n  \"Piden C… pero buscan D.\"\n]\n\n// Selección aleatoria\nconst tonoAleatorio = tonos[Math.floor(Math.random() * tonos.length)];\nconst temaAleatorio = temas[Math.floor(Math.random() * temas.length)];\nconst estructuraAleatoria = estructuras[Math.floor(Math.random() * estructuras.length)];\n\nreturn [\n  {\n    json: {\n      tono: tonoAleatorio,\n      tema: temaAleatorio,\n      estructura: estructuraAleatoria,\n      estilo: \"tipo eslogan para redes sociales\",\n      cantidad: 1\n    }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -48,
+        -48
+      ],
+      "id": "51365a46-7897-47ee-b514-93e654e6c5f2",
+      "name": "Opciones.Frase"
+    },
+    {
+      "parameters": {
+        "jsCode": "const sceneType = $('Webhook').first().json.body.items[0].sceneType || \"urbano\";\nconst moodPrimary = $('Webhook').first().json.body.items[0].moodPrimary || \"provocative\";\nconst moodSecondary = $('Webhook').first().json.body.items[0].moodSecondary || \"dreamy\";\n\nconst txtFrase = $input.first().json.txtFrase || \"Ella no te quiere pobre… Pero tampoco quiere ayudarte a crecer.\";\n\nconst pick = (arr) => arr[Math.floor(Math.random() * arr.length)];\n\nconst moodTraits = {\n  confident: {\n    pose: [\n      \"standing tall with chin slightly raised\",\n      \"walking forward with powerful stride\",\n      \"resting hands on hips with bold energy\"\n    ],\n    lighting: [\n      \"hard directional light casting bold shadows\",\n      \"moody spotlight with dramatic falloff\"\n    ],\n    style: [\n      \"fashion editorial with edge\",\n      \"high-contrast empowerment portrait\"\n    ]\n  },\n  melancholic: {\n    pose: [\n      \"sitting curled up near window\",\n      \"head tilted downward in quiet reflection\",\n      \"gazing softly to the side, fingers grazing fabric\"\n    ],\n    lighting: [\n      \"soft ambient shadows\",\n      \"diffused cool light with desaturated tones\"\n    ],\n    style: [\n      \"moody fine art\",\n      \"introspective portraiture\"\n    ]\n  },\n  playful: {\n    pose: [\n      \"arching brow with teasing smile\",\n      \"lying sideways with hand tucked under chin\",\n      \"twisting slightly with one leg raised\"\n    ],\n    lighting: [\n      \"bright natural light with lens flares\",\n      \"colorful reflections creating dynamic mood\"\n    ],\n    style: [\n      \"vibrant lifestyle boudoir\",\n      \"fun urban aesthetic\"\n    ]\n  },\n  serene: {\n    pose: [\n      \"hands resting gently on lap with closed eyes\",\n      \"lying still with breath visible in chest\",\n      \"simple relaxed posture with soft expression\"\n    ],\n    lighting: [\n      \"gentle indirect daylight\",\n      \"window glow filtered through sheer curtains\"\n    ],\n    style: [\n      \"minimalist natural light study\",\n      \"soft calm composition\"\n    ]\n  },\n  provocative: {\n    pose: [\n      \"leaning against a wall with piercing stare\",\n      \"arching body in silhouette with parted lips\",\n      \"lifting shirt slightly while maintaining eye contact\"\n    ],\n    lighting: [\n      \"low-key shadows outlining curves\",\n      \"neon glow grazing skin contours\"\n    ],\n    style: [\n      \"sensual glamour\",\n      \"moody cinematic seduction\"\n    ]\n  },\n  dreamy: {\n    pose: [\n      \"gazing up with dazed wonder\",\n      \"playing with sheer fabric in motion\",\n      \"reclining into haze with relaxed elegance\"\n    ],\n    lighting: [\n      \"sunset haze with soft glow\",\n      \"light leaks and bokeh flares\"\n    ],\n    style: [\n      \"ethereal pastel mood\",\n      \"vintage soft-focus style\"\n    ]\n  }\n};\n\nconst base = {\n  model: [\n    \"Moroccan woman with smoky eyes\",\n    \"confident american beauty with sharp jawline\",\n    \"brunette model with subtle freckles and wet hair\",\n    \"Latina muse with defined cheekbones and turquoise highlights\"\n  ],\n  outfit: [\n    \"black sheer bodysuit with cutouts, with her back to the camera, but turned to look at the camera\",\n\"loose silk robe slipping off shoulders\",\n\"cropped jacket over lace bralette, with her back to the camera, but turned to look at the camera\",\n\"mesh lingerie top and unzipped jeans\"\n  ],\n  setting: {\n    playa: [\n      \"sunlit rocky cove with crashing waves\",\n      \"tropical beach with soft sand and blue haze\"\n    ],\n    gimnasio: [\n      \"moody industrial gym with dramatic overhead light\",\n      \"sun-soaked studio corner with mirrored reflections\"\n    ],\n    dormitorio: [\n      \"vintage bedroom with soft beige tones\",\n      \"open loft with white sheets and morning shadows\"\n    ],\n    urbano: [\n      \"neon-lit alley with reflective pavement\",\n      \"city rooftop at dusk with glowing windows\"\n    ]\n  }\n};\n\n// Combina traits de ambos moods, priorizando moodPrimary\nconst mood1 = moodTraits[moodPrimary];\nconst mood2 = moodTraits[moodSecondary];\n\nconst combinedPoses = [...mood1.pose.slice(0, 2), ...mood2.pose.slice(0, 1)];\nconst combinedLights = [...mood1.lighting.slice(0, 1), ...mood2.lighting.slice(0, 1)];\nconst combinedStyles = [...mood1.style.slice(0, 1), ...mood2.style.slice(0, 1)];\n\nconst selectedPose = pick(combinedPoses);\nconst selectedLighting = pick(combinedLights);\nconst selectedStyle = pick(combinedStyles);\nconst selectedSetting = pick(base.setting[sceneType]);\n\nconst prompt = `A digital boudoir-style full-body for a viral Red Pill social media post. On the right side, portrait of a ${pick(base.model)}, wearing ${pick(base.outfit)}, posing ${selectedPose}, in a ${selectedSetting}, with ${selectedLighting}, captured in a blend of ${moodPrimary} and ${moodSecondary} tones, photographed in the style of ${selectedStyle}, high-resolution, atmospheric textures, emotionally expressive lighting. On the left side of the image, there’s a black gradient overlay with bold Spanish text in white and yellow: ${txtFrase} At the bottom of the text area, include the branding: Código Alfa in minimalist white font. Perfect for a Red Pill themed post.`;\n\n// Salida\nreturn [{ json: { prompt } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        176,
+        192
+      ],
+      "id": "1dfa943f-d262-4235-a407-26399c258b89",
+      "name": "Opciones.Prompt"
+    },
+    {
+      "parameters": {
+        "content": "## Publicar en Facebook\n**Double click** to edit me.\n\n[YouTube - Conectar Facebook a n8n](https://www.youtube.com/watch?v=YN0990rg-PY&ab_channel=HackeandoLaRutina)\n\n[Facebook - CodigoAlfa.On](https://www.facebook.com/CodigoAlfa.On)",
+        "width": 320
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -512,
+        320
+      ],
+      "id": "e7a71957-3af2-4729-9176-682c02b6e871",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "2d2737cb-d454-4878-95fc-c65b24993133",
+              "leftValue": "={{ $json.body.items[0].txtFrase }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "empty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -288,
+        32
+      ],
+      "id": "9ac88efc-ec26-45e9-9094-fec96f6296fa",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "31456349-95bd-429d-968f-204a6c44d6c1",
+              "name": "txtFrase",
+              "value": "={{ $json.body.items[0].txtFrase }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -48,
+        192
+      ],
+      "id": "0b0ea5e1-8b36-4f16-80ff-b5fd32070e09",
+      "name": "Set.Datarow.txtFrase"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "ea5561fc-1acd-44db-8087-a4662e4e33ce",
+              "name": "txtFrase",
+              "value": "={{ $json.message.content.frase }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        656,
+        -48
+      ],
+      "id": "268c2ace-baaa-461e-bc3d-582b97609540",
+      "name": "Set.OpenIA.txtFrase"
+    },
+    {
+      "parameters": {
+        "httpRequestMethod": "POST",
+        "graphApiVersion": "v22.0",
+        "node": "me",
+        "edge": "photos",
+        "options": {
+          "queryParameters": {
+            "parameter": [
+              {
+                "name": "url",
+                "value": "={{ $json.output }}"
+              }
+            ]
+          }
+        }
+      },
+      "type": "n8n-nodes-base.facebookGraphApi",
+      "typeVersion": 1,
+      "position": [
+        560,
+        432
+      ],
+      "id": "a7431104-0c76-49b0-89b6-0f56b1fa60ec",
+      "name": "Post.CodigoAlfa",
+      "credentials": {
+        "facebookGraphApi": {
+          "id": "hOMT44BIxjiDsVdw",
+          "name": "Facebook.CodigoAlfa"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.replicate.com/v1/models/google/imagen-4/predictions",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "name": "Prefer",
+              "value": "wait"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"input\": {\n    \"prompt\": \"{{ $('Opciones.Prompt').item.json.prompt }}\",\n    \"aspect_ratio\": \"1:1\",\n    \"safety_filter_level\": \"block_only_high\",\n    \"output_format\": \"jpg\"\n  }\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -32,
+        432
+      ],
+      "id": "5c8fdb43-2354-4ba2-b58f-a449b45ec903",
+      "name": "Replicate.google.imagen-4",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "L9yQttThWndrdNn3",
+          "name": "Replicate.msn"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "amount": 30
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        256,
+        432
+      ],
+      "id": "b43955a5-31ae-42ec-8d14-78a08383b9b6",
+      "name": "Wait.30",
+      "webhookId": "0c24d3b6-fe63-479d-964c-9da88c069c82"
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1",
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": "iNdV46Bame2vCTJz"
+  },
+  "staticData": null,
+  "tags": [
+    {
+      "createdAt": "2025-07-18T02:37:28.170Z",
+      "updatedAt": "2025-07-18T02:37:28.170Z",
+      "id": "Za1YQUqDKWnwNOuD",
+      "name": "🤖 IA al mando"
+    },
+    {
+      "createdAt": "2025-07-28T23:05:51.332Z",
+      "updatedAt": "2025-07-28T23:05:51.332Z",
+      "id": "zSAshwfFPUXVrLqy",
+      "name": "🦊 Codigo.Alfa"
+    }
+  ],
+  "triggerCount": 1,
+  "updatedAt": "2025-07-29T03:21:59.000Z",
+  "versionId": "3ba65590-b4b7-4d8b-95c1-f0c9956a5769"
+}
