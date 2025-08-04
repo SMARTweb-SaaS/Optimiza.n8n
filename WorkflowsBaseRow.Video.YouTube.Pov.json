@@ -1,0 +1,1017 @@
+{
+  "active": false,
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Filter.Crear",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait.60": {
+      "main": [
+        [
+          {
+            "node": "FalAi.Get.Audio.Estado",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait.210": {
+      "main": [
+        [
+          {
+            "node": "FalAi.Get.Videos",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update a row": {
+      "main": [
+        [
+          {
+            "node": "Send a video",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter.Crear": {
+      "main": [
+        [
+          {
+            "node": "Get.Registro",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get.Registro": {
+      "main": [
+        [
+          {
+            "node": "Generador.Historia",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generador.Historia": {
+      "main": [
+        [
+          {
+            "node": "Split.Escenas",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split.Escenas": {
+      "main": [
+        [
+          {
+            "node": "LoopOver.3",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "FalAi.Post.Audio",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "FalAi.Post.Audio": {
+      "main": [
+        [
+          {
+            "node": "FalAi.Get.Audio.Estado",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "FalAi.Get.Audio.Estado": {
+      "main": [
+        [
+          {
+            "node": "If.Audio.Completed",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "FalAi.Get.Audio": {
+      "main": [
+        [
+          {
+            "node": "Code.AudioUrls",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code.AudioUrls": {
+      "main": [
+        [
+          {
+            "node": "Unir.Musica.Videos",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "LoopOver.3": {
+      "main": [
+        [
+          {
+            "node": "FalAi.Post.Videos",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Replicate.Post.Imagenes",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "FalAi.Post.Videos": {
+      "main": [
+        [
+          {
+            "node": "Wait.210",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "FalAi.Get.Videos": {
+      "main": [
+        [
+          {
+            "node": "Aggregate.Videos",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Aggregate.Videos": {
+      "main": [
+        [
+          {
+            "node": "Unir.Musica.Videos",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Unir.Musica.Videos": {
+      "main": [
+        [
+          {
+            "node": "Aggregate.All",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Aggregate.All": {
+      "main": [
+        [
+          {
+            "node": "FalAi.Post.ffmpeg",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "FalAi.Post.ffmpeg": {
+      "main": [
+        [
+          {
+            "node": "FalAi.Get.ffmpeg.Estado",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "FalAi.Get.ffmpeg.Estado": {
+      "main": [
+        [
+          {
+            "node": "If.ffmpeg.Completed",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If.Audio.Completed": {
+      "main": [
+        [
+          {
+            "node": "FalAi.Get.Audio",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Wait.60",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If.ffmpeg.Completed": {
+      "main": [
+        [
+          {
+            "node": "FalAi.Get.ffmpeg",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Wait.65",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "FalAi.Get.ffmpeg": {
+      "main": [
+        [
+          {
+            "node": "Update a row",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait.65": {
+      "main": [
+        [
+          {
+            "node": "FalAi.Get.ffmpeg.Estado",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Replicate.Post.Imagenes": {
+      "main": [
+        [
+          {
+            "node": "LoopOver.3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-07-11T22:07:03.754Z",
+  "id": "AC5Jr0eZENYvU8pn",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "BaseRow.Video.YouTube.Pov",
+  "nodes": [
+    {
+      "parameters": {
+        "multipleMethods": true,
+        "httpMethod": [
+          "PUT"
+        ],
+        "path": "e1bda481-9aa1-4fc0-85ea-6d12726001ac",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        768,
+        1424
+      ],
+      "id": "a6691ba7-9bb4-4d91-a0ea-e5f46c37153a",
+      "name": "Webhook",
+      "webhookId": "e1bda481-9aa1-4fc0-85ea-6d12726001ac"
+    },
+    {
+      "parameters": {
+        "amount": 60
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        1568,
+        1712
+      ],
+      "id": "a3903fa3-d216-4866-83fc-0004a14c1a74",
+      "name": "Wait.60",
+      "webhookId": "c709b66a-d148-4fbf-b631-0f429e983ac7"
+    },
+    {
+      "parameters": {
+        "amount": 210
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        1568,
+        1920
+      ],
+      "id": "a76f336a-656c-4c87-befa-6190763ac0b5",
+      "name": "Wait.210",
+      "webhookId": "ea2831dd-627c-4ba4-b77c-4c928e5ac2a8"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "databaseId": 245282,
+        "tableId": 582163,
+        "rowId": "={{ $('Webhook').item.json.body.items[0].id }}",
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": 4694426,
+              "fieldValue": "={{ $json.video_url }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.baserow",
+      "typeVersion": 1,
+      "position": [
+        2304,
+        2096
+      ],
+      "id": "f8a6257e-5d0d-4e65-9332-936a30906f58",
+      "name": "Update a row",
+      "credentials": {
+        "baserowApi": {
+          "id": "SNrllAn2sJZ5Lm7r",
+          "name": "Baserow.msn"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "sendVideo",
+        "chatId": "1704819492",
+        "file": "={{ $json.Link }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        2256,
+        2320
+      ],
+      "id": "bc5f9f5b-e1ce-4bf1-bec1-502d618ae709",
+      "name": "Send a video",
+      "webhookId": "7b6f94bd-488f-414b-adbe-3a1123ddc7c4",
+      "credentials": {
+        "telegramApi": {
+          "id": "zxkALNj2uZW1uxoX",
+          "name": "Telegram.jomBusiness"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "adc62457-5f5a-4bb7-8a63-42d2d75abd37",
+              "leftValue": "={{ $json.body.items[0].Estado.value }}",
+              "rightValue": "Crear",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.2,
+      "position": [
+        1008,
+        1424
+      ],
+      "id": "aede8e4d-04b3-4ea5-88b3-4b7b339ce40d",
+      "name": "Filter.Crear"
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "databaseId": 245282,
+        "tableId": 582163,
+        "rowId": "={{ $json.body.items[0].id }}"
+      },
+      "type": "n8n-nodes-base.baserow",
+      "typeVersion": 1,
+      "position": [
+        1232,
+        1424
+      ],
+      "id": "4d378255-5ac7-42d2-ba64-963338574644",
+      "name": "Get.Registro",
+      "credentials": {
+        "baserowApi": {
+          "id": "SNrllAn2sJZ5Lm7r",
+          "name": "Baserow.msn"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "GPT-4O-MINI"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "=Immersive First-Person (FPS) Story Generator\nYour task is to create a JSON with 12 sequential and immersive scenes for 60-second videos that form a coherent story from the viewer's perspective, using an FPS (First-Person Shooter) game-like visual style.\n🔍 MAIN OBJECTIVE\nGenerate a fully immersive gaming-style experience where the viewer feels like they're inside a first-person video game, experiencing each moment through the character's eyes, without cuts or perspective changes.\nScene Environmental Elements:\n\nINTERFACE ELEMENTS: Optional gaming-style elements (subtle directional markers, objective indicators) when appropriate\nENVIRONMENTAL FRAMING: Scene must extend ahead and to sides as if viewed through a wide-angle lens\nACTION INDICATORS: Visual cues showing movement, impact, or interaction\nPERIPHERAL AWARENESS: Things visible at the edges of the visual field\nCONSISTENT LOCATION: Environment should evolve logically (not jump between unrelated locations)# Immersive FPS-Style Story Generator for a SINGLE CHARACTER\n\nYour task is to create a JSON with 12 sequential immersive scenes for 60-second videos that follow ONE SPECIFIC CHARACTER throughout the entire story.\n🔍 MAIN OBJECTIVE\nCreate 12 connected first-person scenes from the eyes of ONE SPECIFIC CHARACTER with CONSISTENT physical characteristics that are mentioned in EVERY scene.\n⚙️ FORMAT FOR INPUT AND OUTPUT\nInput:\nYou will receive a CHARACTER SPECIFICATION describing who the protagonist is (e.g., \"Egyptian slave with scarred hands and copper wrist band\")\nOutput:\nYou will create 12 connected scenes, each including:\n\n\"imagen\": Visual description from the character's eyes, always including their distinctive physical traits\n\"audio\": Description of ambient audio and sound effects\n\n📝 CRITICAL RULES FOR CHARACTER CONSISTENCY\nCharacter Definition:\n\nIn EVERY scene, repeat the character's EXACT same distinctive physical traits\nThese traits MUST appear in the hands/arms visible at the bottom of the frame\nIf the input is \"Egyptian slave,\" you MUST add 2-3 specific visual traits (e.g., \"scarred hands, copper wrist band, sun-darkened skin\") and use these EXACT SAME traits in ALL 12 scenes\n\nVisual Consistency Requirements:\n\nThe character's hands/arms MUST have the SAME appearance in all 12 scenes\nIf there are distinctive items (jewelry, scars, tattoos, equipment), they MUST appear consistently\nIf clothing/equipment changes during the story, this change must be shown happening in one scene, then consistently maintained afterward\n\n🎥 IMAGE FORMATTING REQUIREMENTS\nStarting Format (MANDATORY FOR EACH SCENE):\nStart EVERY image description with:\nFPS GAME PERSPECTIVE of [CHARACTER TYPE with SAME 2-3 SPECIFIC PHYSICAL TRAITS], [hands/arms with those traits] [action]\nExample of Correct Format:\nFPS GAME PERSPECTIVE of Egyptian slave with scarred hands and copper wrist band, calloused fingers pushing heavy stone block...\nExample of Incorrect Format:\nFPS GAME PERSPECTIVE of Egyptian slave, hands pushing stone block...\nProblem: Missing specific physical traits that identify this as the SAME character\nPhysical Traits Requirements:\n\nALWAYS mention 2-3 SPECIFIC physical traits visible on the hands/arms (e.g., \"scarred hands, leather bracelet, sun-darkened skin\")\nThese traits MUST remain exactly the same in all 12 scenes\nThe traits must be distinctive and unique to this character\nExample traits: scars, tattoos, jewelry, distinctive clothing elements, unusual skin features, visible injuries, unique tools/weapons\n\nAnatomical Perspective Rules:\n\nALWAYS show scenes from the character's eyes (first-person view only)\nALWAYS show the character's hands/arms at bottom of frame (with their distinctive traits visible)\nNEVER show the character's face directly (use reflections if needed)\nNEVER show body parts floating disconnected (arms must extend from bottom of frame)\nNEVER show the character's head, shoulders, or torso from an external perspective\n\nRequired Elements in Every Scene:\n\nVISIBLE HANDS/ARMS WITH TRAITS: Show the character's hands/arms with their 2-3 specific traits\nINTERACTION: Hands performing actions (holding, touching, manipulating objects)\nENVIRONMENT: Scene extending ahead as seen through the character's eyes\nPERIPHERAL VISION: Elements visible at edges of vision\nDIRECTIONAL VIEW: Clear indication of where character is looking\n\nRequired Actions (INCLUDE AT LEAST ONE PER SCENE):\n\nTOOL/OBJECT INTERACTION: Character's hands manipulating objects\nDIRECTIONAL LOOKING: Looking in specific directions (up/down/left/right)\nMOVEMENT: Walking, running, climbing, swimming\nENVIRONMENTAL INTERACTION: Touching surfaces, opening doors, moving obstacles\nREACTION: Responding physically to events (ducking, flinching, reaching)\n\n🎧 SPECIFIC RULES FOR THE \"sound\" FIELD:\nSound layers (include at least 3 per scene):\n\nMain sound related to the immediate action\nBackground ambient sound (characteristic of the scenario)\nPeripheral or secondary sounds\nDiegetic music when appropriate (comes from a visible source in the scene)\n\nAudio elements that add immersion:\n\nSpecific space reverberation and acoustics (cave, room, exterior)\nChanges in volume and intensity according to the action\nBodily sounds of the protagonist (breathing, footsteps, heartbeats)\nVoices or communications in the appropriate language for the scenario\n\nSpecific format:\n\nStart with the most prominent main sound\nFollow with secondary and ambient sounds\nSpecify sound quality (distant, close, enveloping, etc.)\nLength: 20-35 words per sound description\n\n🌟 SPECIFIC EXAMPLES BY SCENARIO CATEGORY\n⚠️ IMPORTANT ANATOMICAL GUIDELINES:\n\nPROPER FPS PERSPECTIVE:\n\nThe camera IS the character's eyes - nothing should appear above the camera\nArms should extend FROM the bottom of the frame, not be disconnected\nHands should appear at the bottom or edges of frame, NEVER floating disconnected\nNo body parts should appear that wouldn't be visible to someone looking forward (no shoulders/chest/back)\n\n\nAVOID THESE COMMON ERRORS:\n\nNEVER show the character's head or face directly (use reflections if needed)\nNEVER describe a \"headless body\" (torso without head)\nNEVER position the camera as if it's floating outside the body\nNEVER show body parts in positions that would be anatomically impossible to see\n\n\nCORRECTED EXAMPLES:\n\nINCORRECT: \"FPS GAME PERSPECTIVE sitting on bench with body visible from chest down\"\nProblem: Creates an anatomically impossible image of a body with no head\nCORRECT VERSION: \"FPS GAME PERSPECTIVE of exhausted athlete, gloved hands gripping knees at bottom of frame, sweat dripping onto track surface below, bench visible to the right, coach approaching from ahead, other runners cooling down in distance\"\nSolution: Describes only what would actually be visible from eye level\nINCORRECT: \"FPS GAME PERSPECTIVE with arms floating in middle of screen\"\nProblem: Creates disconnected limbs with no anatomical connection\nCORRECT VERSION: \"FPS GAME PERSPECTIVE of mountain climber, hands reaching upward from bottom of frame to grasp next rock hold, climbing rope visible along left side, valley visible far below when glancing down, helmet edge creating subtle shadow at top of vision\"\nSolution: Shows arms extending from the bottom of frame in natural position\n📦 OUTPUT FORMAT (JSON only):\njson{\n  \"escenas\": [\n    {\n      \"imagen\": \"first person POV [detailed first-person description with peripheral elements]\",\n      \"audio\": \"[description of main and ambient sounds]\"\n    },\n    {\n      \"imagen\": \"first person POV [next scene connected to the previous one]\",\n      \"audio\": \"[coherent sound evolution]\"\n    },\n    ...\n  ]\n}\nExamples of EXCELLENT First-Person POV Descriptions:\nExamples of CONSISTENT CHARACTER Descriptions:\nSPORTS CHARACTER:\nFPS GAME PERSPECTIVE of Olympic javelin thrower with taped fingers and red wristband, gloved hands gripping javelin at bottom of frame, throwing field extending ahead with distance markers, official in striped shirt waiting at right edge, stadium seats rising in peripheral vision, competitor warming up to left\nNext scene for SAME character:\nFPS GAME PERSPECTIVE of Olympic javelin thrower with taped fingers and red wristband, same gloved hands wiping sweat from water bottle, scoreboard displaying record-breaking distance ahead, coach approaching with clipboard from right side, same competitor from previous scene now applauding, afternoon sun creating glare on metal bleachers to left\nADVENTURE CHARACTER:\nFPS GAME PERSPECTIVE of jungle explorer with machete-wielding hand and compass watch, weathered fingers with distinct adventure guild ring cutting through dense vines, crumbling temple entrance revealed ahead, compass glowing at bottom left of view, colorful birds scattering from trees above, old expedition equipment abandoned on trail to right\nNext scene for SAME character:\nFPS GAME PERSPECTIVE of jungle explorer with machete-wielding hand and compass watch, same weathered fingers with adventure guild ring tracing ancient wall carvings, temple corridor stretching ahead with flickering torch light, compass needle spinning erratically at edge of vision, stone door mechanism partially visible to left, same machete now being used to prop open collapsing doorway\n📊 FINAL EVALUATION:\nBefore delivering the result, verify that:\n\nAll 12 scenes form a cohesive and progressive story\nEach scene strictly maintains the POV perspective\nAll visual and sound elements are specific to the requested scenario\nThere is variety of actions and situations (avoid repetitions)\nThe narrative has a clear beginning, development, climax, and resolution\n",
+              "role": "system"
+            },
+            {
+              "content": "=Tema del video: {{ $json.IdeaVideo }}"
+            }
+          ]
+        },
+        "jsonOutput": true,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.8,
+      "position": [
+        1456,
+        1424
+      ],
+      "id": "ce626950-d0b3-4b93-b07b-f39bc7fe85d5",
+      "name": "Generador.Historia",
+      "credentials": {
+        "openAiApi": {
+          "id": "eLbN9zGBjEdfzRwe",
+          "name": "OpenAi.msn"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "message.content.escenas",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        800,
+        1632
+      ],
+      "id": "abed237c-c787-4968-9227-a22d7862e2c6",
+      "name": "Split.Escenas"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://queue.fal.run/fal-ai/mmaudio-v2/text-to-audio",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"prompt\": \"{{ $json.audio}}\",\n  \"duration\": 5\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1008,
+        1632
+      ],
+      "id": "935e706d-6383-490e-a963-ac2fde017c8c",
+      "name": "FalAi.Post.Audio",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "CTU31n1iM3emZIHK",
+          "name": "FalAi.gmail"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "=https://queue.fal.run/fal-ai/mmaudio-v2/requests/{{ $json.request_id }}/status",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1200,
+        1632
+      ],
+      "id": "d800608d-ebda-41dd-b944-576f4635fa18",
+      "name": "FalAi.Get.Audio.Estado",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "CTU31n1iM3emZIHK",
+          "name": "FalAi.gmail"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "=https://queue.fal.run/fal-ai/mmaudio-v2/requests/{{ $json.request_id }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1728,
+        1616
+      ],
+      "id": "aa25199a-2851-4203-ba34-17fa25ba48b3",
+      "name": "FalAi.Get.Audio",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "CTU31n1iM3emZIHK",
+          "name": "FalAi.gmail"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\n\n// Extraemos solo los URLs de cada item y los colocamos como un array\nconst audioUrls = items.map(item => item.json.audio.url);\n\n// Devolvemos como un solo item con la propiedad \"audio\"\nreturn [\n  {\n    json: {\n      audio: audioUrls\n    }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1904,
+        1616
+      ],
+      "id": "72c3dd26-bada-4186-885c-2173dd6bab40",
+      "name": "Code.AudioUrls"
+    },
+    {
+      "parameters": {
+        "batchSize": 3,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        1008,
+        1936
+      ],
+      "id": "288cd1d7-aa88-4789-af94-19386dc22e63",
+      "name": "LoopOver.3"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://queue.fal.run/fal-ai/kling-video/v1.6/standard/image-to-video",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n     \"prompt\": \"{{ $json.input.prompt }}\",\n     \"image_url\": \"{{ $json.output }}\"\n   }",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1392,
+        1920
+      ],
+      "id": "276dda36-65fd-4559-9607-6ff090869684",
+      "name": "FalAi.Post.Videos",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "CTU31n1iM3emZIHK",
+          "name": "FalAi.gmail"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "=https://queue.fal.run/fal-ai/kling-video/requests/{{ $json.request_id }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1744,
+        1920
+      ],
+      "id": "691b87d5-5884-4b99-a2a8-a647dca2fe37",
+      "name": "FalAi.Get.Videos",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "CTU31n1iM3emZIHK",
+          "name": "FalAi.gmail"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "fieldsToAggregate": {
+          "fieldToAggregate": [
+            {
+              "fieldToAggregate": "video.url"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.aggregate",
+      "typeVersion": 1,
+      "position": [
+        1904,
+        1920
+      ],
+      "id": "8c5d3cd6-5ef4-4a18-b6bc-7fc35b2d11cb",
+      "name": "Aggregate.Videos"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.1,
+      "position": [
+        2096,
+        1744
+      ],
+      "id": "4dc15657-2b14-4fc7-b2f1-bcb32be2bf12",
+      "name": "Unir.Musica.Videos"
+    },
+    {
+      "parameters": {
+        "aggregate": "aggregateAllItemData",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.aggregate",
+      "typeVersion": 1,
+      "position": [
+        2304,
+        1888
+      ],
+      "id": "1927b36b-834e-4853-a9a7-411c158631da",
+      "name": "Aggregate.All"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://queue.fal.run/fal-ai/ffmpeg-api/compose",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"tracks\": [\n    {\n      \"id\": \"1\",\n      \"type\": \"video\",\n      \"keyframes\": [\n        { \"url\": \"{{ $json.data[1].url[0] }}\", \"timestamp\": 0, \"duration\": 5 },\n        { \"url\": \"{{ $json.data[1].url[1] }}\", \"timestamp\": 5, \"duration\": 5 },\n        { \"url\": \"{{ $json.data[1].url[2] }}\", \"timestamp\": 10, \"duration\": 5 },\n        { \"url\": \"{{ $json.data[1].url[3] }}\", \"timestamp\": 15, \"duration\": 5 },\n        { \"url\": \"{{ $json.data[1].url[4] }}\", \"timestamp\": 20, \"duration\": 5 },\n        { \"url\": \"{{ $json.data[1].url[5] }}\", \"timestamp\": 25, \"duration\": 5 },\n        { \"url\": \"{{ $json.data[1].url[6] }}\", \"timestamp\": 30, \"duration\": 5 },\n        { \"url\": \"{{ $json.data[1].url[7] }}\", \"timestamp\": 35, \"duration\": 5 },\n        { \"url\": \"{{ $json.data[1].url[8] }}\", \"timestamp\": 40, \"duration\": 5 },\n        { \"url\": \"{{ $json.data[1].url[9] }}\", \"timestamp\": 45, \"duration\": 5 },\n        { \"url\": \"{{ $json.data[1].url[10] }}\", \"timestamp\": 50, \"duration\": 5 },\n        { \"url\": \"{{ $json.data[1].url[11] }}\", \"timestamp\": 55, \"duration\": 5 }\n      ]\n    },\n    {\n      \"id\": \"2\",\n      \"type\": \"audio\",\n      \"keyframes\": [\n        { \"url\": \"{{ $json.data[0].audio[0] }}\", \"timestamp\": 0, \"duration\": 5 },\n        { \"url\": \"{{ $json.data[0].audio[1] }}\", \"timestamp\": 5, \"duration\": 5 },\n        { \"url\": \"{{ $json.data[0].audio[2] }}\", \"timestamp\": 10, \"duration\": 5 },\n        { \"url\": \"{{ $json.data[0].audio[3] }}\", \"timestamp\": 15, \"duration\": 5 },\n        { \"url\": \"{{ $json.data[0].audio[4] }}\", \"timestamp\": 20, \"duration\": 5 },\n        { \"url\": \"{{ $json.data[0].audio[5] }}\", \"timestamp\": 25, \"duration\": 5 },\n        { \"url\": \"{{ $json.data[0].audio[6] }}\", \"timestamp\": 30, \"duration\": 5 },\n        { \"url\": \"{{ $json.data[0].audio[7] }}\", \"timestamp\": 35, \"duration\": 5 },\n        { \"url\": \"{{ $json.data[0].audio[8] }}\", \"timestamp\": 40, \"duration\": 5 },\n        { \"url\": \"{{ $json.data[0].audio[9] }}\", \"timestamp\": 45, \"duration\": 5 },\n        { \"url\": \"{{ $json.data[0].audio[10] }}\", \"timestamp\": 50, \"duration\": 5 },\n        { \"url\": \"{{ $json.data[0].audio[11] }}\", \"timestamp\": 55, \"duration\": 5 }\n      ]\n    }\n  ]\n}\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1424,
+        2128
+      ],
+      "id": "2d97de8e-b6e7-48bf-a7db-610ea6ba3ecd",
+      "name": "FalAi.Post.ffmpeg",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "CTU31n1iM3emZIHK",
+          "name": "FalAi.gmail"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "=https://queue.fal.run/fal-ai/ffmpeg-api/requests/{{ $json.request_id }}/status",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1600,
+        2128
+      ],
+      "id": "13acad1f-aed9-4860-990d-3ad6c27eec1a",
+      "name": "FalAi.Get.ffmpeg.Estado",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "CTU31n1iM3emZIHK",
+          "name": "FalAi.gmail"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "3d28ba17-9c58-4434-b144-fa360c7f836e",
+              "leftValue": "={{ $json.status }}",
+              "rightValue": "COMPLETED",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1408,
+        1632
+      ],
+      "id": "74ee3a69-a5c3-4786-a526-be178e2e4c4e",
+      "name": "If.Audio.Completed"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "8d96e63e-b742-42a9-b1df-720665e48cee",
+              "leftValue": "={{ $json.status }}",
+              "rightValue": "=COMPLETED",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1808,
+        2176
+      ],
+      "id": "6f5bc4ce-034e-4320-88b0-fa3d6ea09bc6",
+      "name": "If.ffmpeg.Completed"
+    },
+    {
+      "parameters": {
+        "url": "=https://queue.fal.run/fal-ai/ffmpeg-api/requests/{{ $json.request_id }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        2032,
+        2096
+      ],
+      "id": "8cca80db-9606-4846-a8f9-808d6445ee3d",
+      "name": "FalAi.Get.ffmpeg",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "CTU31n1iM3emZIHK",
+          "name": "FalAi.gmail"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "amount": 65
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        2032,
+        2256
+      ],
+      "id": "d4ea3bbb-d8d5-4a01-bc43-38e4038ae6c7",
+      "name": "Wait.65",
+      "webhookId": "c42079e1-d330-4875-a38d-bf275ee85d99"
+    },
+    {
+      "parameters": {
+        "content": "",
+        "height": 320,
+        "width": 1104,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        960,
+        1584
+      ],
+      "typeVersion": 1,
+      "id": "17bee28f-2409-48fd-8b1b-caa10ae6092a",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "content": "",
+        "height": 416,
+        "width": 416
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        960,
+        1904
+      ],
+      "typeVersion": 1,
+      "id": "b1387a09-6451-447e-a03a-199eafcc6bce",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "content": "",
+        "height": 176,
+        "width": 688,
+        "color": 3
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        1376,
+        1904
+      ],
+      "typeVersion": 1,
+      "id": "e76083d9-0032-4143-a315-2168866ec8af",
+      "name": "Sticky Note2"
+    },
+    {
+      "parameters": {
+        "content": "",
+        "height": 368,
+        "width": 816,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        1376,
+        2080
+      ],
+      "typeVersion": 1,
+      "id": "ad0abbcb-d6dd-4fde-9ece-dd858b77669d",
+      "name": "Sticky Note3"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.replicate.com/v1/models/minimax/image-01/predictions",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "name": "Prefer",
+              "value": "wait"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n\t\"input\": {\n      \"prompt\": \"{{ $json.imagen }}\",\n      \"aspect_ratio\": \"9:16\"\n\t}\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1200,
+        2112
+      ],
+      "id": "1773acfc-9d78-4afa-9a1b-8ef423999eb4",
+      "name": "Replicate.Post.Imagenes",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "L9yQttThWndrdNn3",
+          "name": "Replicate.msn"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## Costo: $ 2.88 - S/ 11.00\nreplicate.com/minimax/image-01 | https://fal.ai/dashboard/usage\nfal-ai/ffmpeg-api -> $0.0002\nfal-ai/image-to-video -> $2.70\nfal-ai/text-to-audio  -> $0.06\nreplicate/minimax/image-01 -> $ 0.12\n",
+        "width": 464
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        1792,
+        1408
+      ],
+      "typeVersion": 1,
+      "id": "6298847c-96da-42dd-87c4-6edd97feb4ac",
+      "name": "Sticky Note4"
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1",
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": "iNdV46Bame2vCTJz"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-07-29T03:08:57.000Z",
+  "versionId": "f7d47525-fc17-41ad-9fe2-746c5d73818c"
+}
