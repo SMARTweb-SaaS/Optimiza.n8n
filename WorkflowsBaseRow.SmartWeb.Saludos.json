@@ -1,0 +1,457 @@
+{
+  "active": false,
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Get many rows",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenRouter Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get many rows": {
+      "main": [
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Structured Output Parser": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Basic LLM Chain": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [],
+        [
+          {
+            "node": "CopiarPlantilla",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "CopiarPlantilla": {
+      "main": [
+        [
+          {
+            "node": "ReemplazarTexto",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "ReemplazarTexto": {
+      "main": [
+        [
+          {
+            "node": "ObtenerSlides",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "ObtenerSlides": {
+      "main": [
+        [
+          {
+            "node": "ObtenerImagen",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "ObtenerImagen": {
+      "main": [
+        [
+          {
+            "node": "Send a photo message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a photo message": {
+      "main": [
+        [
+          {
+            "node": "BorrarSlide",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "BorrarSlide": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-07-31T22:48:19.326Z",
+  "id": "boEKguJvrnpnROkU",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "BaseRow.SmartWeb.Saludos",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -352,
+        16
+      ],
+      "id": "4431f176-98a7-49a3-a9d8-78f24845c78d",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Nombre: {{ $json.Nombre }}\nRelación: {{ $json.Relacion }}\nInterés: {{ $json.Interes }}\nMensaje Específico: {{ $json.MensajeEspecifico }}",
+        "hasOutputParser": true,
+        "messages": {
+          "messageValues": [
+            {
+              "message": "Eres un experto en personalización de invitaciones para eventos. Tu tarea es analizar los datos de UN invitado específico de una boda y generar un mensaje personalizado único para esa persona.\n\n## DATOS DE ENTRADA:\nRecibirás los datos de un solo invitado con el siguiente formato:\n- Nombre: [nombre del invitado]\n- Relación: [relación con los novios]\n- Interés: [principal interés o pasión de la persona]\n- Mensaje Específico: [mensaje base relacionado con su importancia]\n\n## PLANTILLA BASE:\n\"Querido/a [NOMBRE], sabemos que te encanta [INTERÉS], por eso [MOTIVO_PERSONALIZADO]. Te esperamos el [FECHA]. [MENSAJE_ESPECÍFICO]\"\n\n## TU TRABAJO:\nPara este invitado específico, debes generar:\n1. FRASE DE INTERÉS: Completa la frase \"sabemos que te encanta/apasiona/te gusta [INTERÉS]\" de forma natural\n2. MOTIVO_PERSONALIZADO: Una razón específica de por qué disfrutará la boda conectada con su interés. Debe comenzar con un verbo de acción.\n\n## REGLAS IMPORTANTES:\n- SIEMPRE usa \"te encanta\", \"te apasiona\" o \"te gusta\" antes del interés\n- El MOTIVO_PERSONALIZADO debe empezar con verbo (preparamos, tendremos, contratamos, etc.)\n- Máximo 12 palabras para MOTIVO_PERSONALIZADO\n- El mensaje debe fluir naturalmente al leerlo en voz alta\n- Evita repetir palabras del interés en el motivo personalizado\n\n## EJEMPLOS CORRECTOS:\n- \"sabemos que te encanta la fotografía, por eso preparamos rincones perfectos para tomar fotos\"\n- \"sabemos que te apasiona la música, por eso contratamos banda en vivo\"\n- \"sabemos que te gusta cocinar, por eso tendremos chef en vivo\"\n\n## FORMATO DE SALIDA JSON:\n{\n  \"nombre\": \"nombre_exacto_del_invitado\",\n  \"frase_interes\": \"te encanta/apasiona/gusta [interés]\",\n  \"motivo_personalizado\": \"razón específica que empiece con verbo de acción\",\n  \"mensaje_completo\": \"mensaje final completo y bien estructurado\"\n}\n\nIMPORTANTE: Revisa que el mensaje final suene natural al leerlo completo y que la persona sienta que es un mensaje natural"
+            }
+          ]
+        },
+        "batching": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.7,
+      "position": [
+        64,
+        16
+      ],
+      "id": "3cb3e816-ec71-4ce8-843c-b1c90a55eca1",
+      "name": "Basic LLM Chain"
+    },
+    {
+      "parameters": {
+        "model": "openai/gpt-4o-mini",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [
+        32,
+        176
+      ],
+      "id": "da0c0d79-fee4-4ade-80a3-f462a3e5a317",
+      "name": "OpenRouter Chat Model",
+      "credentials": {
+        "openRouterApi": {
+          "id": "fx7pdURTekgTilKM",
+          "name": "OpenRouter.msn"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "databaseId": 267629,
+        "tableId": 627712,
+        "additionalOptions": {
+          "filters": {
+            "fields": [
+              {
+                "field": 5112274,
+                "operator": "single_select_equal",
+                "value": "Pendiente"
+              }
+            ]
+          }
+        }
+      },
+      "type": "n8n-nodes-base.baserow",
+      "typeVersion": 1,
+      "position": [
+        -128,
+        16
+      ],
+      "id": "9fc91105-4ebd-4783-b4ff-b3b063815d22",
+      "name": "Get many rows",
+      "credentials": {
+        "baserowApi": {
+          "id": "SNrllAn2sJZ5Lm7r",
+          "name": "Baserow.msn"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsonSchemaExample": "{\n  \"nombre\": \"nombre_exacto_del_invitado\",\n  \"frase_interes\": \"te encanta/apasiona/gusta [interés]\",\n  \"motivo_personalizado\": \"razón específica que empiece con verbo de acción\",\n  \"mensaje_completo\": \"mensaje final completo y bien estructurado\"\n}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.3,
+      "position": [
+        224,
+        176
+      ],
+      "id": "bf5402e6-0281-40e0-a213-57affe8a34ef",
+      "name": "Structured Output Parser"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        448,
+        16
+      ],
+      "id": "4bc41142-137e-4102-9150-44685998f3b9",
+      "name": "Loop Over Items"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://www.googleapis.com/drive/v3/files/1Yagt11CRvgvCTGXkhDEMwQcNcK74I-cUvo1KlYZ5oDo/copy",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "googleOAuth2Api",
+        "sendQuery": true,
+        "specifyQuery": "json",
+        "jsonQuery": "={\n  \"name\": \"Presentación_{{$json.output.nombre}}\"\n}",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"nombre\": \"{{ $json.output.nombre }}\",\n  \"mensaje\": \"{{ $json.output.mensaje_completo }}\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        640,
+        80
+      ],
+      "id": "8a005e05-b02a-4e46-86fe-948dc6c1a387",
+      "name": "CopiarPlantilla",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "9itbsHqDyr3Vwspb",
+          "name": "Sheets.jomBusiness"
+        },
+        "googleSlidesOAuth2Api": {
+          "id": "r33mZaNsUtZk4fVS",
+          "name": "Slides.jomBusiness"
+        },
+        "googleOAuth2Api": {
+          "id": "vkWvvbQeke2SGX0V",
+          "name": "Google.jomBusiness"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://slides.googleapis.com/v1/presentations/{{$node[\"CopiarPlantilla\"].json[\"id\"]}}:batchUpdate",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "googleOAuth2Api",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"requests\": [\n    {\n      \"replaceAllText\": {\n        \"containsText\": {\n          \"text\": \"nombre\",\n          \"matchCase\": true\n        },\n        \"replaceText\": \"{{$node['Loop Over Items'].json.output.nombre}}\"\n      }\n    },\n    {\n      \"replaceAllText\": {\n        \"containsText\": {\n          \"text\": \"mensaje\",\n          \"matchCase\": true\n        },\n        \"replaceText\": \"{{$node['Loop Over Items'].json.output.mensaje_completo}}\"\n      }\n    }\n  ]\n}\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        832,
+        80
+      ],
+      "id": "b5eebf03-3e6d-4aec-871f-77e6a31f7aa8",
+      "name": "ReemplazarTexto",
+      "credentials": {
+        "googleSlidesOAuth2Api": {
+          "id": "r33mZaNsUtZk4fVS",
+          "name": "Slides.jomBusiness"
+        },
+        "googleOAuth2Api": {
+          "id": "vkWvvbQeke2SGX0V",
+          "name": "Google.jomBusiness"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "=https://slides.googleapis.com/v1/presentations/{{ $json.presentationId }}",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "googleOAuth2Api",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        624,
+        272
+      ],
+      "id": "538e6d98-0df6-4049-a7f2-ae2dce75b9d2",
+      "name": "ObtenerSlides",
+      "credentials": {
+        "googleOAuth2Api": {
+          "id": "vkWvvbQeke2SGX0V",
+          "name": "Google.jomBusiness"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "=https://slides.googleapis.com/v1/presentations/{{ $('ReemplazarTexto').item.json.presentationId }}/pages/{{ $('ObtenerSlides').item.json.slides[0].objectId}}/thumbnail?thumbnailProperties.mimeType=PNG&thumbnailProperties.thumbnailSize=LARGE",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "googleOAuth2Api",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        832,
+        272
+      ],
+      "id": "7e761e6d-3d87-4776-962e-402d2b18d177",
+      "name": "ObtenerImagen",
+      "credentials": {
+        "googleOAuth2Api": {
+          "id": "vkWvvbQeke2SGX0V",
+          "name": "Google.jomBusiness"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "sendPhoto",
+        "chatId": "1704819492",
+        "file": "={{ $json.contentUrl }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        624,
+        464
+      ],
+      "id": "2a27e895-9dd0-4901-a6ef-e434ad8e7ef5",
+      "name": "Send a photo message",
+      "webhookId": "be30a6c7-6333-4abb-b138-44eaef367efe",
+      "credentials": {
+        "telegramApi": {
+          "id": "zxkALNj2uZW1uxoX",
+          "name": "Telegram.jomBusiness"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "DELETE",
+        "url": "=https://www.googleapis.com/drive/v3/files/{{ $('CopiarPlantilla').item.json.id }}",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "googleOAuth2Api",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        832,
+        464
+      ],
+      "id": "9d6bcd26-679e-4028-bbf1-0474adf3c43a",
+      "name": "BorrarSlide",
+      "credentials": {
+        "googleOAuth2Api": {
+          "id": "vkWvvbQeke2SGX0V",
+          "name": "Google.jomBusiness"
+        }
+      }
+    }
+  ],
+  "pinData": {
+    "Basic LLM Chain": [
+      {
+        "json": {
+          "output": {
+            "nombre": "Juan Perez Miranda",
+            "frase_interes": "te encanta el futbol",
+            "motivo_personalizado": "tendremos una pantalla gigante para el partido",
+            "mensaje_completo": "Querido/a Juan Perez Miranda, sabemos que te encanta el futbol, por eso tendremos una pantalla gigante para el partido. Te esperamos el [FECHA]. No sería lo mismo sin tu energía"
+          }
+        }
+      },
+      {
+        "json": {
+          "output": {
+            "nombre": "Juana La Cubana",
+            "frase_interes": "te apasiona la tecnología",
+            "motivo_personalizado": "tendremos sorpresas tecnológicas para que disfrutes",
+            "mensaje_completo": "Querida Juana La Cubana, sabemos que te apasiona la tecnología, por eso tendremos sorpresas tecnológicas para que disfrutes. Te esperamos el [FECHA]. Tu presencia hace todo perfecto."
+          }
+        }
+      },
+      {
+        "json": {
+          "output": {
+            "nombre": "Pepito Los Palotes",
+            "frase_interes": "te apasiona la música",
+            "motivo_personalizado": "tendremos sorpresas musicales que disfrutarás mucho",
+            "mensaje_completo": "Querido/a Pepito Los Palotes, sabemos que te apasiona la música, por eso tendremos sorpresas musicales que disfrutarás mucho. Te esperamos el [FECHA]. Cada nota contigo es especial."
+          }
+        }
+      }
+    ]
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-08-01T20:47:28.000Z",
+  "versionId": "1f5ba9b3-403e-426c-9ca1-e325a6389a65"
+}
