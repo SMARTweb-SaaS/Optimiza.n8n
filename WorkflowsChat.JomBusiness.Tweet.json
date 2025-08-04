@@ -1,0 +1,192 @@
+{
+  "active": false,
+  "connections": {
+    "hilo": {
+      "ai_tool": [
+        [
+          {
+            "node": "Agente X",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "first tweet": {
+      "ai_tool": [
+        [
+          {
+            "node": "Agente X",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "Agente X",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "Agente X",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenRouter Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Agente X",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-07-08T14:26:11.821Z",
+  "id": "Wr3SwBFSL8WubnG5",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Chat.JomBusiness.Tweet",
+  "nodes": [
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "5e687191-9a57-4281-94a5-49177debf33e",
+      "name": "When chat message received",
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "position": [
+        48,
+        0
+      ],
+      "webhookId": "614cd783-fbc8-44ca-8db8-820679333e75",
+      "typeVersion": 1.1
+    },
+    {
+      "parameters": {},
+      "id": "1c2850a6-a8bf-47f0-915f-9b2faec52ce9",
+      "name": "Simple Memory",
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "position": [
+        304,
+        240
+      ],
+      "typeVersion": 1.3
+    },
+    {
+      "parameters": {
+        "text": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Text', ``, 'string') }}",
+        "additionalFields": {}
+      },
+      "id": "fc75a275-2906-4a10-b113-71882b9977ac",
+      "name": "first tweet",
+      "type": "n8n-nodes-base.twitterTool",
+      "position": [
+        448,
+        240
+      ],
+      "typeVersion": 2,
+      "credentials": {
+        "twitterOAuth2Api": {
+          "id": "I7x1FgnFz8uz9obw",
+          "name": "X.jomBusiness"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "text": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Text', ``, 'string') }}",
+        "additionalFields": {
+          "inReplyToStatusId": {
+            "__rl": true,
+            "mode": "id",
+            "value": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Reply_to_Tweet', `Debes hacer reply justo al tweet anterior`, 'string') }}"
+          }
+        }
+      },
+      "id": "3926914e-50b7-4256-a048-adf86abf82c3",
+      "name": "hilo",
+      "type": "n8n-nodes-base.twitterTool",
+      "position": [
+        608,
+        240
+      ],
+      "typeVersion": 2,
+      "credentials": {
+        "twitterOAuth2Api": {
+          "id": "I7x1FgnFz8uz9obw",
+          "name": "X.jomBusiness"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {
+          "systemMessage": "=# Rol\nEres un redactor de tweets informativos, redactados de manera amigable y entendible.\n\n# Herramientas\n- Utiliza la herramienta *first tweet* para crear el primer tweet.\n- Utiliza la herramienta *hilo* para crear las respuestas a cada tuit anterior, formando un hilo coherente y continuo.\n- Cada tweet (tanto el primero como las respuestas) debe tener un máximo de 270 caracteres.\n- El estilo debe ser en primera persona, cercano y conversacional, como si fuera escrito por mí.\n- Mantén un tono natural y único, con posibles expresiones personales y un enfoque narrativo.\n- El contenido de cada tweet debe conectar de forma fluida con el anterior, para que se perciba como un hilo narrativo.\n\n# Objetivo:\nGenerar un hilo atractivo y coherente que invite a la interacción. El hilo debe tener como máximo 5 tweets en total, incluyendo el tweet inicial. Evita repeticiones y asegúrate de que cada tweet aporte valor o genere curiosidad. Cada tweet debe estar numerado y ser conciso.\n\n# Ejemplo de estructura:\nPrimer tweet (con first tweet): \nSegundo tweet (con hilo): Responde al primer tweet\nTercer tweet (con hilo): Responde al segundo tweet\nCuarto tweet (con hilo): Responde al tercer tweet\n\n# Ejemplo esperado:\nPrimer tuit: ¿Estás pensando en aumentar tu presencia en Twitter/X en 2025? Aquí hay un hilo con las estrategias más efectivas que realmente funcionan 🧵\n\nSegundo tuit: 1. Participa, no transmitas: Twitter es una plataforma de conversación. Responda a otros, cite y tuitee e inicie discusiones en lugar de solo publicar enlaces.\n\nTercer tuit: 2. La consistencia supera a la viralidad: Twittear regularmente genera confianza y visibilidad. No es necesario que te vuelvas viral, solo preséntate."
+        }
+      },
+      "id": "5fa4c94e-74ad-47de-9bed-60942432def6",
+      "name": "Agente X",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "position": [
+        272,
+        0
+      ],
+      "typeVersion": 1.8
+    },
+    {
+      "parameters": {
+        "model": "openai/gpt-4o-mini",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [
+        144,
+        240
+      ],
+      "id": "0bbd529f-46b5-428e-9227-204c58760f23",
+      "name": "OpenRouter Chat Model",
+      "notesInFlow": false,
+      "credentials": {
+        "openRouterApi": {
+          "id": "fx7pdURTekgTilKM",
+          "name": "OpenRouter.msn"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [
+    {
+      "createdAt": "2025-07-28T23:16:55.585Z",
+      "updatedAt": "2025-07-28T23:16:55.585Z",
+      "id": "B0zvrFLy0yNSEhVJ",
+      "name": "💡SmartWeb"
+    }
+  ],
+  "triggerCount": 0,
+  "updatedAt": "2025-07-28T23:18:42.000Z",
+  "versionId": "d30fd82b-ce11-4692-b5a4-6c293431dc10"
+}
