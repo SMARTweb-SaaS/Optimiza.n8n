@@ -1,0 +1,82 @@
+{
+  "active": false,
+  "connections": {
+    "Error Trigger": {
+      "main": [
+        [
+          {
+            "node": "Send a text message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-07-09T14:17:09.474Z",
+  "id": "iNdV46Bame2vCTJz",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Error.jomBusiness.msn",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.errorTrigger",
+      "typeVersion": 1,
+      "position": [
+        -160,
+        16
+      ],
+      "id": "009b0cab-ca2f-4450-81d5-1498b11d68a8",
+      "name": "Error Trigger"
+    },
+    {
+      "parameters": {
+        "chatId": "1704819492",
+        "text": "=**URGENTE: Critical Error**\n\n**WorkFlow:** {{ $json.workflow.name }}\n**Error:** {{ $json.execution.error.message }}\n**Last Node Executed:** {{ $json.execution.lastNodeExecuted }}\n\n**Error Details:**\n{{ $json.execution.error.stack }}\n\n**Date $ Time:** {{ $now.format('dd-MM-yyyy HH:mm:ss') }}\n\n",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        80,
+        -112
+      ],
+      "id": "8fa03401-3044-472b-87d0-dfed20747008",
+      "name": "Send a text message",
+      "webhookId": "47768359-131c-4dcd-9e2b-e3a0a44fb69e",
+      "credentials": {
+        "telegramApi": {
+          "id": "zxkALNj2uZW1uxoX",
+          "name": "Telegram.jomBusiness"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## Opción Telegram \nDesactivar 'Append n8n Attribution' en 'Additional Fields', último modulo de Telegram."
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        0,
+        -288
+      ],
+      "typeVersion": 1,
+      "id": "2f3a4c23-0570-4ce5-ae2f-7139eed6a930",
+      "name": "Sticky Note"
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-07-09T20:40:39.000Z",
+  "versionId": "fa693820-f2b0-44de-a09e-8fc6d622ff1f"
+}
