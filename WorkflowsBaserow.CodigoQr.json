@@ -1,0 +1,230 @@
+{
+  "active": false,
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Get.Estado.Pendiente",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get.Estado.Pendiente": {
+      "main": [
+        [
+          {
+            "node": "Limit.1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Limit.1": {
+      "main": [
+        [
+          {
+            "node": "Mallabe.GenerarQr",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Mallabe.GenerarQr": {
+      "main": [
+        [
+          {
+            "node": "Update.Estado.Creado",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update.Estado.Creado": {
+      "main": [
+        [
+          {
+            "node": "Send a photo message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-07-10T14:00:01.395Z",
+  "id": "jcgqIiNnBCLFtGji",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Baserow.CodigoQr",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -608,
+        0
+      ],
+      "id": "f8a7b13d-3265-4536-9271-bf615009f9b5",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.limit",
+      "typeVersion": 1,
+      "position": [
+        -176,
+        0
+      ],
+      "id": "7c2a4c73-8a20-401f-ab1c-12e5bc68eb56",
+      "name": "Limit.1"
+    },
+    {
+      "parameters": {
+        "databaseId": 254927,
+        "tableId": 602543,
+        "returnAll": true,
+        "additionalOptions": {
+          "filters": {
+            "fields": [
+              {
+                "field": 4883403,
+                "operator": "single_select_equal",
+                "value": "3693828"
+              }
+            ]
+          }
+        }
+      },
+      "type": "n8n-nodes-base.baserow",
+      "typeVersion": 1,
+      "position": [
+        -384,
+        0
+      ],
+      "id": "3a129c4f-ef68-4970-9195-c85dc0a99e92",
+      "name": "Get.Estado.Pendiente",
+      "credentials": {
+        "baserowApi": {
+          "id": "SNrllAn2sJZ5Lm7r",
+          "name": "Baserow.msn"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "sendPhoto",
+        "chatId": "1704819492",
+        "file": "={{ $json.UrlCodigoQr }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        -352,
+        224
+      ],
+      "id": "17d2522a-3ca7-466d-a870-df07ea6d470a",
+      "name": "Send a photo message",
+      "webhookId": "26fe605c-b88d-4ccc-adad-9441f6709519",
+      "credentials": {
+        "telegramApi": {
+          "id": "zxkALNj2uZW1uxoX",
+          "name": "Telegram.jomBusiness"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## Mallabe\nSolo permite 20 generaciones al mes.\n\n[Mallabe.com](https://www.mallabe.com/pricing)"
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -96,
+        240
+      ],
+      "typeVersion": 1,
+      "id": "3b85622a-3604-434b-922e-436ac9a50004",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "message": "={{ $json.Informacion }}"
+      },
+      "type": "n8n-nodes-mallabe-barcodes.mallabeBarcodes",
+      "typeVersion": 1,
+      "position": [
+        32,
+        0
+      ],
+      "id": "f25b60d2-683d-49ac-9fe7-efbacd2a647d",
+      "name": "Mallabe.GenerarQr",
+      "credentials": {
+        "mallabeBarcodesApi": {
+          "id": "2gR4UvCDL8MDL2EZ",
+          "name": "MallabeBarcodes.msn"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "databaseId": 254927,
+        "tableId": 602543,
+        "rowId": "={{ $('Get.Estado.Pendiente').item.json.id }}",
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": 4883335,
+              "fieldValue": "={{ $json.data.url }}"
+            },
+            {
+              "fieldId": 4883403,
+              "fieldValue": "Creado"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.baserow",
+      "typeVersion": 1,
+      "position": [
+        -560,
+        224
+      ],
+      "id": "1783a813-95e1-4fb8-bb0b-506b1ac30301",
+      "name": "Update.Estado.Creado",
+      "credentials": {
+        "baserowApi": {
+          "id": "SNrllAn2sJZ5Lm7r",
+          "name": "Baserow.msn"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1",
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": "iNdV46Bame2vCTJz"
+  },
+  "staticData": null,
+  "tags": [
+    {
+      "createdAt": "2025-07-28T23:16:55.585Z",
+      "updatedAt": "2025-07-28T23:16:55.585Z",
+      "id": "B0zvrFLy0yNSEhVJ",
+      "name": "💡SmartWeb"
+    }
+  ],
+  "triggerCount": 0,
+  "updatedAt": "2025-07-28T23:18:31.000Z",
+  "versionId": "16da9cda-2650-4ad4-b9a4-d5b21d7d1693"
+}
