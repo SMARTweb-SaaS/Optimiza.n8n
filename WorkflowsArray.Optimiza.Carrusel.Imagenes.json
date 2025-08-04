@@ -1,0 +1,589 @@
+{
+  "active": false,
+  "connections": {
+    "Loop Over Items": {
+      "main": [
+        [
+          {
+            "node": "children",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "4oImageApiIo.Get",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "4oImageApiIo.Get": {
+      "main": [
+        [
+          {
+            "node": "Instagram.Upload.Image",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "taskId's",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "taskId's": {
+      "main": [
+        [
+          {
+            "node": "Formato.Json",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Formato.Json": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Loop Over Items1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "children": {
+      "main": [
+        [
+          {
+            "node": "Code",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Instagram.Push.Carrusel": {
+      "main": [
+        [
+          {
+            "node": "Instagram.Post.Carrusel",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Instagram.Upload.Image": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code": {
+      "main": [
+        [
+          {
+            "node": "Instagram.Push.Carrusel",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Upload.Image": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "MediaFbId": {
+      "main": [
+        [
+          {
+            "node": "Post.Carrusel",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items1": {
+      "main": [
+        [
+          {
+            "node": "media_fbid",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "4oImageApiIo.Get1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "4oImageApiIo.Get1": {
+      "main": [
+        [
+          {
+            "node": "Upload.Image",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "media_fbid": {
+      "main": [
+        [
+          {
+            "node": "MediaFbId",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-07-17T13:54:36.063Z",
+  "id": "vnRZOkeIKE2wPTp2",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Array.Optimiza.Carrusel.Imagenes",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -32,
+        208
+      ],
+      "id": "2b0bd7fd-6ba7-4f8b-8380-476a2e404989",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        656,
+        48
+      ],
+      "id": "3104ae1f-18d8-4073-92de-934bbcbe4a3f",
+      "name": "Loop Over Items"
+    },
+    {
+      "parameters": {
+        "url": "https://4oimageapiio.erweima.ai/api/v1/gpt4o-image/record-info",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "taskId",
+              "value": "={{$json[\"taskId\"]}}"
+            }
+          ]
+        },
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Accept",
+              "value": "application/json"
+            }
+          ]
+        },
+        "options": {
+          "redirect": {
+            "redirect": {}
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        880,
+        64
+      ],
+      "id": "69c2f144-5c60-4b98-bca8-9c0f1c6d531e",
+      "name": "4oImageApiIo.Get",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "BCtFCQIPro12mTQP",
+          "name": "4oImageApi.gmail"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## Imagenes (taskId)\n**Tener en cuenta el orden de creación de las imagenes**, invertir el orden en el que aparece en la web.",
+        "width": 272
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        176,
+        0
+      ],
+      "id": "89fada28-6680-48b2-8428-f26af86349ef",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "{\n  \"taskIds\": [\n    \"ed7dc910d8f47309981c6ca729fc0dda\",\n    \"54d7f4de156ea1339d05c746a84835d5\",\n    \"1a021496ed6e903af61a364d9bc1edc0\",\n    \"763c3118105fbd2c49facdbe9e6c2d3f\",\n    \"c1539040e6594887e34fe1df27bc1844\",\n    \"9d382251df0442f60e9651b74ee287a1\",\n    \"f685955fcafd60a347d9ad5f4eb816cb\",\n    \"b32062389b85074b78526b966e49b548\"\n  ]\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        176,
+        208
+      ],
+      "id": "91348fb1-dd2e-44b6-930a-87f73e708e5f",
+      "name": "taskId's"
+    },
+    {
+      "parameters": {
+        "jsCode": "const taskIds = items[0].json.taskIds;\nreturn taskIds.map(id => {\n  return { json: { taskId: id } };\n});"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        384,
+        208
+      ],
+      "id": "77fd2d3f-d1b1-4c9c-b5cd-d9f3b4a5a75b",
+      "name": "Formato.Json"
+    },
+    {
+      "parameters": {
+        "content": "## Consultar redes sociales\n\n[Instagram - Optimiza.ia.pro](https://www.instagram.com/optimiza.ia.pro/)\n[Facebook - Optimiza.ia.pro](https://www.facebook.com/Optimiza.ia.pro)",
+        "width": 360
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        128,
+        384
+      ],
+      "id": "bc5edced-e843-4de0-afa5-dbd0e80ac444",
+      "name": "Sticky Note4"
+    },
+    {
+      "parameters": {
+        "httpRequestMethod": "POST",
+        "graphApiVersion": "v22.0",
+        "node": "17841476072414746",
+        "edge": "media_publish",
+        "options": {
+          "queryParameters": {
+            "parameter": [
+              {
+                "name": "creation_id",
+                "value": "={{ $json.id }}"
+              }
+            ]
+          }
+        }
+      },
+      "type": "n8n-nodes-base.facebookGraphApi",
+      "typeVersion": 1,
+      "position": [
+        1488,
+        -80
+      ],
+      "id": "77d61796-a660-4885-a108-361d6c1fd6a6",
+      "name": "Instagram.Post.Carrusel",
+      "credentials": {
+        "facebookGraphApi": {
+          "id": "q07PnzaLdq09L9OE",
+          "name": "Instagram.Optimiza"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "return items.map(item => {\n  return {\n    json: {\n      children: item.json.id\n    }\n  };\n});"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        880,
+        -80
+      ],
+      "id": "87aec854-47dc-44f6-8b59-adf646641dd8",
+      "name": "children"
+    },
+    {
+      "parameters": {
+        "httpRequestMethod": "POST",
+        "graphApiVersion": "v22.0",
+        "node": "17841476072414746",
+        "edge": "media",
+        "options": {
+          "queryParametersJson": "={\n  \"caption\": \"Test...\",\n  \"media_type\": \"CAROUSEL\",\n  \"children\": [ {{ $json.output }} ]\n}"
+        }
+      },
+      "type": "n8n-nodes-base.facebookGraphApi",
+      "typeVersion": 1,
+      "position": [
+        1280,
+        -80
+      ],
+      "id": "fbbb1a20-4311-4b19-b823-8c0e9a3761fb",
+      "name": "Instagram.Push.Carrusel",
+      "credentials": {
+        "facebookGraphApi": {
+          "id": "q07PnzaLdq09L9OE",
+          "name": "Instagram.Optimiza"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "httpRequestMethod": "POST",
+        "graphApiVersion": "v22.0",
+        "node": "17841476072414746",
+        "edge": "media",
+        "options": {
+          "queryParameters": {
+            "parameter": [
+              {
+                "name": "image_url",
+                "value": "={{ $json.data.response.resultUrls[0] }}"
+              },
+              {
+                "name": "is_carousel_item",
+                "value": "true"
+              }
+            ]
+          }
+        }
+      },
+      "type": "n8n-nodes-base.facebookGraphApi",
+      "typeVersion": 1,
+      "position": [
+        1088,
+        64
+      ],
+      "id": "ba7967ff-bf80-4aac-9571-434de3198667",
+      "name": "Instagram.Upload.Image",
+      "credentials": {
+        "facebookGraphApi": {
+          "id": "q07PnzaLdq09L9OE",
+          "name": "Instagram.Optimiza"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const result = items.map(item => {\n  return `\"${item.json.children}\"`;\n});\n\nreturn [\n  {\n    json: {\n      output: result.join(\", \")\n    }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1088,
+        -80
+      ],
+      "id": "b8ac4fbf-f485-4470-9337-98b2bdb398e2",
+      "name": "Code"
+    },
+    {
+      "parameters": {
+        "httpRequestMethod": "POST",
+        "graphApiVersion": "v22.0",
+        "node": "me/feed",
+        "options": {
+          "queryParametersJson": "={\n  \"message\": \"Transformación del tiempo con IA\",\n  \"attached_media\": [\n{{ $('MediaFbId').item.json.output }}\n  ]\n}"
+        }
+      },
+      "type": "n8n-nodes-base.facebookGraphApi",
+      "typeVersion": 1,
+      "position": [
+        1328,
+        256
+      ],
+      "id": "780d3202-5f90-412e-8c31-9ea916d3bcf1",
+      "name": "Post.Carrusel",
+      "credentials": {
+        "facebookGraphApi": {
+          "id": "ym2xOYOdM5h5E89o",
+          "name": "Facebook.Optimiza"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "httpRequestMethod": "POST",
+        "graphApiVersion": "v22.0",
+        "node": "/me/photos",
+        "options": {
+          "queryParameters": {
+            "parameter": [
+              {
+                "name": "url",
+                "value": "={{ $json.data.response.resultUrls[0] }}"
+              },
+              {
+                "name": "published",
+                "value": "false"
+              }
+            ]
+          }
+        }
+      },
+      "type": "n8n-nodes-base.facebookGraphApi",
+      "typeVersion": 1,
+      "position": [
+        1088,
+        384
+      ],
+      "id": "24f2030c-5c69-4a55-b4e1-aec135240ff1",
+      "name": "Upload.Image",
+      "credentials": {
+        "facebookGraphApi": {
+          "id": "q07PnzaLdq09L9OE",
+          "name": "Instagram.Optimiza"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "const result = items.map(item => {\n  return `{ \"media_fbid\": \"${item.json.media_fbid}\" }`;\n});\n\nreturn [\n  {\n    json: {\n      output: result.join(\", \")\n    }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1088,
+        256
+      ],
+      "id": "7b6230d2-31c3-4296-966c-6f711ec63514",
+      "name": "MediaFbId"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        656,
+        368
+      ],
+      "id": "ac775bbe-e591-4ad0-9f49-bc0138131f6b",
+      "name": "Loop Over Items1"
+    },
+    {
+      "parameters": {
+        "url": "https://4oimageapiio.erweima.ai/api/v1/gpt4o-image/record-info",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "taskId",
+              "value": "={{$json[\"taskId\"]}}"
+            }
+          ]
+        },
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Accept",
+              "value": "application/json"
+            }
+          ]
+        },
+        "options": {
+          "redirect": {
+            "redirect": {}
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        880,
+        384
+      ],
+      "id": "3867126f-1489-460f-8fa6-9bb35c5e3218",
+      "name": "4oImageApiIo.Get1",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "BCtFCQIPro12mTQP",
+          "name": "4oImageApi.gmail"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "return items.map(item => {\n  return {\n    json: {\n      media_fbid: item.json.id\n    }\n  };\n});"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        880,
+        256
+      ],
+      "id": "612eee05-7b7d-404f-9696-6d79e15c9ed1",
+      "name": "media_fbid"
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [
+    {
+      "createdAt": "2025-07-28T23:13:44.849Z",
+      "updatedAt": "2025-07-28T23:13:44.849Z",
+      "id": "E7azoCbE6H7Fjix1",
+      "name": "✨ Optimiza.ia.pro"
+    }
+  ],
+  "triggerCount": 0,
+  "updatedAt": "2025-07-28T23:18:19.000Z",
+  "versionId": "d1a2ae9e-6325-4099-8a01-50052d1d3ae5"
+}
