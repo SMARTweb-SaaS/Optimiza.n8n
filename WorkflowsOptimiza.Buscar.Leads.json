@@ -1,0 +1,474 @@
+{
+  "active": false,
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Split Out",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out": {
+      "main": [
+        [
+          {
+            "node": "Policia",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter": {
+      "main": [
+        [
+          {
+            "node": "Buscador",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "gpt-4o-mini.Policia": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Policia",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "sonar-pro.Buscador": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Buscador",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Buscador": {
+      "main": [
+        [
+          {
+            "node": "Code",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code": {
+      "main": [
+        [
+          {
+            "node": "Generador.Msg",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Policia": {
+      "main": [
+        [
+          {
+            "node": "Filter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "gpt-4o-mini.Generador.Msg": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Generador.Msg",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generador.Msg": {
+      "main": [
+        [
+          {
+            "node": "Guardar.Msg",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-07-22T22:57:04.959Z",
+  "id": "rYzRPL1dufWk11ZE",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Optimiza.Buscar.Leads",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "314a122d-9c63-4c94-ac85-09323db36d17",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -480,
+        0
+      ],
+      "id": "b03151be-f639-4efb-8986-0105d405b68a",
+      "name": "Webhook",
+      "webhookId": "314a122d-9c63-4c94-ac85-09323db36d17"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://google.serper.dev/search",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "X-API-KEY",
+              "value": "3b3a1e2e62bd6aab7ff22190b540964cabf44593"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "q",
+              "value": "={{ $json.body.data.fields[0].value }}"
+            },
+            {
+              "name": "location",
+              "value": "Tacna, Peru"
+            },
+            {
+              "name": "gl",
+              "value": "pe"
+            },
+            {
+              "name": "hl",
+              "value": "es-419"
+            },
+            {
+              "name": "num",
+              "value": "={{ $json.body.data.fields[1].value }}"
+            }
+          ]
+        },
+        "options": {
+          "redirect": {
+            "redirect": {}
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -272,
+        0
+      ],
+      "id": "f833c675-c7d7-49b3-a947-8851bb6f1e5b",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "organic",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        -80,
+        0
+      ],
+      "id": "73cb8a34-ac09-4644-94df-7d7f3ea7289c",
+      "name": "Split Out"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Url:  {{ $('Split Out').item.json.link }}",
+        "messages": {
+          "messageValues": [
+            {
+              "message": "Eres un experto en busqueda de correos y telefonos de sitios web, se te va a proporcionar el URL de una pagina web, tu trabajo es buscar en estas paginas sus contactos y darme el correo o telefono que encuentres en un JSON\n\nSolo me tienes que dar el JSON y ya no des ninguna anotaciones\n\nEjemplo de tu output\n\nEjemplo 1\n{\n  \"email\": \"contacto@barberiacapital.mx\",\n  \"phone\": \"55 55 10 45 00\"\n}\n\nEjemplo 2\n{\n  \"contactos\": [\n    {\n      \"phone\": \"5570955496\"\n    },\n    {\n      \"phone\": \"5570953936\"\n    },\n    {\n      \"phone\": \"5574875628\",\n      \"tipo\": \"WhatsApp\"\n    },\n    {\n      \"phone\": \"5571589150\"\n    },\n    {\n      \"phone\": \"5571559630\"\n    },\n    {\n      \"phone\": \"5571603273\"\n    },\n    {\n      \"phone\": \"5561054304\",\n      \"tipo\": \"WhatsApp\"\n    }\n  ]\n}\n\nNOTAS\nNunca empieces con ```json ni pongas simbolos extra"
+            }
+          ]
+        },
+        "batching": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.7,
+      "position": [
+        688,
+        0
+      ],
+      "id": "d944dc98-9831-449c-8f0d-e29190d9a401",
+      "name": "Buscador"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "f762f0c0-66a1-4a53-a4ff-980181300e69",
+              "leftValue": "={{ $json.text }}",
+              "rightValue": "VERDADERO",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.2,
+      "position": [
+        480,
+        0
+      ],
+      "id": "e245e6f5-739c-45c1-96af-5d24d4b0e054",
+      "name": "Filter"
+    },
+    {
+      "parameters": {
+        "model": "openai/gpt-4o-mini",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [
+        112,
+        176
+      ],
+      "id": "43b364b0-cb65-4a33-b37d-74366acfb455",
+      "name": "gpt-4o-mini.Policia",
+      "credentials": {
+        "openRouterApi": {
+          "id": "fx7pdURTekgTilKM",
+          "name": "OpenRouter.msn"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": "perplexity/sonar-pro",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [
+        688,
+        176
+      ],
+      "id": "1762b3ce-8761-420d-9f14-82302700a6bf",
+      "name": "sonar-pro.Buscador",
+      "credentials": {
+        "openRouterApi": {
+          "id": "fx7pdURTekgTilKM",
+          "name": "OpenRouter.msn"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## Costo \n**perplexity/sonar-pro** - $ 0.02\n**openAI/gpt-4o-mini** - $ 0.02\n\n## Formulario\n**tally** --> [Buscar leads](https://tally.so/r/mRqAQ4)",
+        "height": 208,
+        "width": 304
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        96,
+        -240
+      ],
+      "typeVersion": 1,
+      "id": "b3692365-c9e1-4cfb-ba05-bb6b564b7c08",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "jsCode": "return items.map(item => {\n  const parsed = JSON.parse(item.json.text);\n  return { json: parsed };\n});"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -272,
+        336
+      ],
+      "id": "cd042874-749a-4e77-bcfb-fc226e54dfd1",
+      "name": "Code"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=URL: {{ $json.link }}\nSnippet: {{ $json.snippet }}\nTítulo de la página: {{ $json.title }}",
+        "messages": {
+          "messageValues": [
+            {
+              "message": "Propósito: Identificar si una URL corresponde al sitio web de un negocio comercial.\n\nEntrada:\nContaras únicamente con la siguiente información:\n\nURL\nSnippet (fragmento de texto del sitio)\nTítulo de la página\n\nProceso de Clasificación:\n\nPalabras Clave que Indican \"VERDADERO\" (Comercial):\n\"Servicios de...\"\n\"Compra...\"\n\"Agencia de...\"\n\"Solicita presupuesto...\"\n\"Soluciones para...\"\n\"Productos de...\"\n\"Tienda de...\"\n\"Ofrecemos...\"\n\"Empresa de...\"\n\nPalabras Clave que Indican \"FALSO\" (No Comercial):\n\"Las mejores...\"\n\"Ranking de...\"\n\"Comparativa de...\"\n\"Noticias de...\"\n\"Análisis de...\"\n\"Top...\"\n\"Informe sobre...\"\n\"Guía de...\"\n\nCriterios de Clasificación:\n\nVERDADERO: Si el título o snippet contienen palabras clave comerciales o indican claramente la oferta de servicios/productos específicos.\nFALSO: Si el título o snippet contienen palabras clave de comparación, ranking, análisis o noticias.\n\nEjemplos de Clasificación:\n\nEjemplo 1:\nURL: https://bwe.mx/marketing-news/las-10-mejores-agencias-de-marketing-en-mexico-2025\nSnippet: Las 10 Mejores Agencias de Marketing en México 2025 · 1. BWE Agency · 2. Media Monks · 3. Terán/TBWA · 4. Ogilvy México · 5. Circus Marketing · 6. Flock Linked ...\nTítulo: Las 10 Mejores Agencias de Marketing en México 2025 - BWE Agency\nResultado: \"FALSO\" (contenido comparativo y de ranking).\n\nEjemplo 2:\nURL: https://cocktailmarketing.com.mx/\nSnippet: En nuestra agencia de marketing digital podrás encontrar servicios B2B, B2C y B2G para Startups, PyMEs, empresas nacionales y corporativos globales de ...\nTítulo: Cocktail Marketing: Agencia de Marketing Digital CDMX Mexico DF\nResultado: \"VERDADERO\" (contenido claramente comercial y de oferta de servicios).\n\nRespuesta Final:\nDevuelve \"VERDADERO\" si el sitio web parece ser comercial.\nDevuelve \"FALSO\" si el sitio web parece ser informativo o no comercial."
+            }
+          ]
+        },
+        "batching": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.7,
+      "position": [
+        112,
+        0
+      ],
+      "id": "0337cd03-93fb-45fd-bd00-4c362d9435ab",
+      "name": "Policia"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Título de la página: {{ $('HTTP Request').item.json.organic[0].title }}\nSnippet: {{ $('HTTP Request').item.json.organic[0].snippet }}\n",
+        "messages": {
+          "messageValues": [
+            {
+              "message": "Objetivo:\nGenerar un rompehielos personalizado dirigido a un lead encontrado a través de scraping de Google Maps. El mensaje debe ser atractivo, profesional y enfocado en captar la atención inicial del lead. El propósito es despertar interés de manera sutil, utilizando información relevante del perfil del negocio.\n\nEstructura del mensaje:\n\nSaludo inicial:\nUsa un saludo amigable y profesional, como: \"Hola [nombre del negocio]!\" o \"¡Hola equipo de [nombre del negocio]!\"\n\nConexión personalizada:\nMenciona un detalle específico encontrado en el perfil de Google Maps, como:\nUna reseña reciente y positiva.\nUn logro o reconocimiento destacado en el perfil.\nServicios ofrecidos que diferencian al negocio.\nLa ubicación si es relevante para el contexto.\n\nComentario positivo o elogio:\nHaz un breve comentario que demuestre que investigaste el negocio. Ejemplos:\n\"Me encantó leer la reseña en la que un cliente mencionó lo atentos que fueron al solucionar su problema.\"\n\"Es impresionante cómo han mantenido una calificación de 4.8 estrellas con tantas reseñas positivas.\"\n\"La especialidad en [nombre del servicio] que ofrecen realmente se destaca en su área.\"\n\nTransición suave:\nUtiliza una frase de enlace para conectar el elogio con el motivo del contacto:\n\"Esto me hizo pensar en...\"\n\"Y justamente por eso...\"\n\"Al ver esto, pensé que...\"\n\nFrase final obligatoria:\nTermina el mensaje con:\n\"Por eso pensé en contactarte.\"\n\nEjemplos:\n\nRestaurante:\n\"¡Hola equipo de La Casa de Toño! Me encantó ver las reseñas recientes donde los clientes mencionan lo acogedor del ambiente y lo delicioso de los chilaquiles. ¡Qué gran logro mantener ese nivel de satisfacción! Por eso pensé en contactarte.\"\n\nTienda de ropa:\n\"Hola, Boutique Magnolia. ¡Qué impresionante ver que siguen destacando por sus diseños únicos y su atención al cliente! Noté que muchas personas valoran la calidad de las prendas y la originalidad de su catálogo. Por eso pensé en contactarte.\"\n\nAgencia de marketing:\n\"¡Hola, equipo de Crece Digital! Me llamó la atención su enfoque innovador en campañas digitales, especialmente la que realizaron recientemente para [nombre del cliente]. Es genial ver cómo logran generar tanto engagement. Por eso pensé en contactarte.\"\n\nRestricciones y recomendaciones:\nEl mensaje no debe exceder las 50 palabras.\nEvitar frases genéricas o clichés como \"espero que estés bien\" o \"me gustaría conocerte mejor\".\nEl enfoque debe ser siempre en destacar un punto positivo o relevante del negocio antes de sugerir contacto.\nEvitar lenguaje comercial directo o de venta en esta fase.\nEl tono debe ser profesional pero cercano, sin sonar demasiado formal.\n\nFormato de salida:\nEl agente debe generar el mensaje completo siguiendo esta estructura y respetando las restricciones, finalizando siempre con la frase:\n\"Por eso pensé en contactarte.\""
+            }
+          ]
+        },
+        "batching": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.7,
+      "position": [
+        -64,
+        336
+      ],
+      "id": "b8d3d7e9-cfaf-40e8-b32c-e49f99c44198",
+      "name": "Generador.Msg"
+    },
+    {
+      "parameters": {
+        "model": "openai/gpt-4o-mini",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [
+        -64,
+        512
+      ],
+      "id": "f86a4fbb-7760-40dd-aa40-064660da0fa2",
+      "name": "gpt-4o-mini.Generador.Msg",
+      "credentials": {
+        "openRouterApi": {
+          "id": "fx7pdURTekgTilKM",
+          "name": "OpenRouter.msn"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "create",
+        "databaseId": 255701,
+        "tableId": 618503,
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": 5026871,
+              "fieldValue": "={{ $('Split Out').item.json.title }}"
+            },
+            {
+              "fieldId": 5026872,
+              "fieldValue": "={{ $('Split Out').item.json.snippet }}"
+            },
+            {
+              "fieldId": 5026880,
+              "fieldValue": "={{ $('Split Out').item.json.link }}"
+            },
+            {
+              "fieldId": 5026884,
+              "fieldValue": "={{ $('Code').item.json.email ?? '' }}\n\n"
+            },
+            {
+              "fieldId": 5026886,
+              "fieldValue": "={{ $('Code').item.json.phone }}"
+            },
+            {
+              "fieldId": 5026888,
+              "fieldValue": "={{ $json.text }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.baserow",
+      "typeVersion": 1,
+      "position": [
+        320,
+        336
+      ],
+      "id": "80109afc-f2af-4f98-997c-7c4926e8957d",
+      "name": "Guardar.Msg",
+      "credentials": {
+        "baserowApi": {
+          "id": "SNrllAn2sJZ5Lm7r",
+          "name": "Baserow.msn"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [
+    {
+      "createdAt": "2025-07-28T23:13:44.849Z",
+      "updatedAt": "2025-07-28T23:13:44.849Z",
+      "id": "E7azoCbE6H7Fjix1",
+      "name": "✨ Optimiza.ia.pro"
+    }
+  ],
+  "triggerCount": 0,
+  "updatedAt": "2025-07-28T23:17:43.000Z",
+  "versionId": "b510427e-215a-4c1e-b5d2-fef5bfc2501a"
+}
