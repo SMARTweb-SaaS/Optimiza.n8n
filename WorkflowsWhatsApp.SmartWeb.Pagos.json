@@ -1,0 +1,1149 @@
+{
+  "active": false,
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "Obter m dia em base64",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Obter m dia em base",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "No Operation, do nothing",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Obter m dia em base64": {
+      "main": [
+        [
+          {
+            "node": "Convert to File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Convert to File": {
+      "main": [
+        [
+          {
+            "node": "Analyze image",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Analyze image": {
+      "main": [
+        [
+          {
+            "node": "Text Classifier",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Text Classifier",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Obter m dia em base": {
+      "main": [
+        [
+          {
+            "node": "Convert to File1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Convert to File1": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "POLICIA",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "POLICIA1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "node": "POLICIA",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "POLICIA": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "POLICIA1": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Text Classifier",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Message a model": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Obter m dia em base1": {
+      "main": [
+        [
+          {
+            "node": "Convert to File2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Convert to File2": {
+      "main": [
+        [
+          {
+            "node": "Upload file",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Upload file": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Structured Output Parser": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Enviar texto",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Enviar texto1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Text Classifier": {
+      "main": [
+        [
+          {
+            "node": "Message a model",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "No Operation, do nothing1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append row in sheet": {
+      "main": [
+        [
+          {
+            "node": "Obter m dia em base1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-07-27T00:37:11.822Z",
+  "id": "uJDQXOuA9ZIU1C4m",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "WhatsApp.SmartWeb.Pagos",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "cf2fc731-4fe8-4402-831f-3b285b483fb1",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -592,
+        496
+      ],
+      "id": "3d92f5d8-5ab1-4247-bd7f-a82216b0002a",
+      "name": "Webhook",
+      "webhookId": "cf2fc731-4fe8-4402-831f-3b285b483fb1"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.body.data.message.imageMessage.mimetype }}",
+                    "rightValue": "image/jpeg",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "f0bdfe6d-cfd9-4e5d-8415-ec36296db0ad"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "IMAGEN"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "b0c99a14-c6d2-4d4e-8baf-1d7dd1c72c56",
+                    "leftValue": "={{ $json.body.data.message.documentMessage.mimetype }}",
+                    "rightValue": "application/pdf",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "PDF"
+            }
+          ]
+        },
+        "options": {
+          "fallbackOutput": "extra"
+        }
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        -384,
+        480
+      ],
+      "id": "44b131cb-9153-4c9a-8a24-6894e64dd4af",
+      "name": "Switch"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        -400,
+        752
+      ],
+      "id": "592a92ad-a137-4594-98a1-ac4dcab358d8",
+      "name": "No Operation, do nothing"
+    },
+    {
+      "parameters": {
+        "resource": "chat-api",
+        "operation": "get-media-base64",
+        "instanceName": "SmartWeb",
+        "messageId": "={{ $('Webhook').item.json.body.data.key.id }}"
+      },
+      "type": "n8n-nodes-evolution-api.evolutionApi",
+      "typeVersion": 1,
+      "position": [
+        -128,
+        320
+      ],
+      "id": "67818830-f8f0-46ba-a9db-344585efd4ca",
+      "name": "Obter m dia em base64",
+      "credentials": {
+        "evolutionApi": {
+          "id": "RI9d3VV8LyDnpde3",
+          "name": "Evolution.SmartWeb"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "toBinary",
+        "sourceProperty": "data.base64",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.convertToFile",
+      "typeVersion": 1.1,
+      "position": [
+        80,
+        320
+      ],
+      "id": "4edfe1bc-8104-4047-8954-58858e2f8e09",
+      "name": "Convert to File"
+    },
+    {
+      "parameters": {
+        "resource": "image",
+        "operation": "analyze",
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "GPT-4O-MINI"
+        },
+        "text": "=Eres un experto en extraer informacion, extrae toda la informacion que ves bien detalladamente, montos, nombres etc.\n\nTienes que decirme que tipo de imagen ves, si ves un comprobante, un ticket etc",
+        "inputType": "base64",
+        "options": {
+          "detail": "high"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.8,
+      "position": [
+        288,
+        320
+      ],
+      "id": "49c5ee63-454f-45e2-81b0-85107ed1337e",
+      "name": "Analyze image",
+      "credentials": {
+        "openAiApi": {
+          "id": "eLbN9zGBjEdfzRwe",
+          "name": "OpenAi.msn"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "gpt-4o-mini"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        784,
+        512
+      ],
+      "id": "7a47b586-3715-46bf-a616-1e70ef32da9d",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "eLbN9zGBjEdfzRwe",
+          "name": "OpenAi.msn"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        1088,
+        336
+      ],
+      "id": "81956f30-2bac-4520-ae05-62bb3a3bb886",
+      "name": "No Operation, do nothing1"
+    },
+    {
+      "parameters": {
+        "resource": "chat-api",
+        "operation": "get-media-base64",
+        "instanceName": "SmartWeb",
+        "messageId": "={{ $('Webhook').item.json.body.data.key.id }}"
+      },
+      "type": "n8n-nodes-evolution-api.evolutionApi",
+      "typeVersion": 1,
+      "position": [
+        -144,
+        576
+      ],
+      "id": "7c606836-d319-455a-8a55-7fe90ad36046",
+      "name": "Obter m dia em base",
+      "credentials": {
+        "evolutionApi": {
+          "id": "RI9d3VV8LyDnpde3",
+          "name": "Evolution.SmartWeb"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "toBinary",
+        "sourceProperty": "data.base64",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.convertToFile",
+      "typeVersion": 1.1,
+      "position": [
+        64,
+        576
+      ],
+      "id": "6273e515-da16-4339-af26-7bee8a8e0ab8",
+      "name": "Convert to File1"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.cloud.llamaindex.ai/api/v1/parsing/upload",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "accept",
+              "value": "application/json"
+            },
+            {
+              "name": "Content-Type",
+              "value": "multipart/form-data"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "multipart-form-data",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "parse_mode",
+              "value": "parse_page_without_llm"
+            },
+            {
+              "parameterType": "formBinaryData",
+              "name": "file",
+              "inputDataFieldName": "data"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        240,
+        576
+      ],
+      "id": "a4d91999-3c47-43d6-9cf7-59202a6cfdca",
+      "name": "HTTP Request",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "cfd8osHKXtLfSTvo",
+          "name": "LlamaCloud.msn"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "3b372315-35ac-43e0-8164-6109b598fea7",
+              "leftValue": "={{ $json.status }}",
+              "rightValue": "SUCCESS",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        240,
+        768
+      ],
+      "id": "d7ed40a3-d398-44fa-b52e-e49feaeb66e5",
+      "name": "If"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        192,
+        976
+      ],
+      "id": "c7d277d1-6744-49e1-93a8-e44f6a16c122",
+      "name": "Wait",
+      "webhookId": "3f2c64c8-0243-4f49-89a1-7268b21cc869"
+    },
+    {
+      "parameters": {
+        "url": "=https://api.cloud.llamaindex.ai/api/v1/parsing/job/{{ $json.id }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "accept",
+              "value": "application/json"
+            },
+            {
+              "name": "Content-Type",
+              "value": "multipart/form-data"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        64,
+        768
+      ],
+      "id": "bfc12500-92a5-4071-b5bb-f1f4e1d5ef4d",
+      "name": "POLICIA",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "cfd8osHKXtLfSTvo",
+          "name": "LlamaCloud.msn"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "=https://api.cloud.llamaindex.ai/api/v1/parsing/job/{{ $json.id }}/result/raw/text",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Accept",
+              "value": "application/json"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        448,
+        752
+      ],
+      "id": "fa8742fa-6e20-4af2-b388-dceb2ec49b84",
+      "name": "POLICIA1",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "cfd8osHKXtLfSTvo",
+          "name": "LlamaCloud.msn"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "e3eb4de0-680a-42bd-b87f-2d939b0e9dde",
+              "name": "content",
+              "value": "={{ $json.data }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        448,
+        592
+      ],
+      "id": "6c3aaeef-b79e-4ccf-ba9b-9c3544e5737f",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "GPT-4O-MINI"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "= 🏦 EXTRACTOR PROFESIONAL DE COMPROBANTES BANCARIOS\n\nEres un sistema experto en OCR y extracción de datos de comprobantes bancarios mexicanos. Tu función es analizar imágenes de comprobantes de transferencias, depósitos, pagos y otras operaciones bancarias, extrayendo TODA la información visible de forma precisa y estructurada.\n\n## 🎯 OBJETIVO PRINCIPAL\n\nProcesar la imagen del comprobante bancario proporcionado y entregar un JSON completo con todos los datos detectados, validados y formateados correctamente.\n\n## 📋 DATOS A EXTRAER (Comprobantes Bancarios):\n\n### 💳 INFORMACIÓN DE LA OPERACIÓN:\n\n- Tipo de operación (transferencia, depósito, pago, retiro, etc.)\n\n- Estado de la operación (exitosa, pendiente, fallida)\n\n- Fecha y hora de la operación\n\n- Importe/monto transferido\n\n- Moneda\n\n- Comisión/costo\n\n- Folio de operación\n\n- Número de referencia\n\n- Clave de rastreo\n\n### 🏦 INFORMACIÓN BANCARIA ORIGEN:\n\n- Banco emisor\n\n- Nombre del titular/remitente\n\n- Número de cuenta origen (parcial/completo)\n\n- Tipo de cuenta (ahorro, corriente, etc.)\n\n- CLABE origen (si visible)\n\n### 🎯 INFORMACIÓN BANCARIA DESTINO:\n\n- Banco receptor\n\n- Nombre del beneficiario/destinatario\n\n- Número de cuenta destino (parcial/completo)\n\n- Tipo de cuenta destino\n\n- CLABE destino (si visible)\n\n### 📁 NOMBRE DE ARCHIVO:\n\n- Nombre sugerido para guardar el comprobante\n\n- Patrón estándar: FECHA_MONTO_BANCO_TIPO\n\n- Formato limpio sin caracteres especiales\n\n### 📄 INFORMACIÓN ADICIONAL:\n\n- Concepto/descripción\n\n- Referencia numérica\n\n- Autorización\n\n- Canal de operación (app móvil, web, sucursal, etc.)\n\n- Sucursal (si aplica)\n\n## 🎯 FORMATO DE SALIDA REQUERIDO:\n\n```json\n\n{\n\n  \"tipoComprobante\": \"TRANSFERENCIA|DEPOSITO|PAGO|RETIRO|OTRO\",\n\n  \"operacion\": {\n\n    \"tipoOperacion\": \"string\",\n\n    \"estadoOperacion\": \"EXITOSA|PENDIENTE|FALLIDA|PROCESANDO\",\n\n    \"fechaHora\": \"YYYY-MM-DD HH:MM:SS\",\n\n    \"importe\": \"number\",\n\n    \"moneda\": \"MXN|USD|EUR|OTRO\",\n\n    \"comision\": \"number\",\n\n    \"folioOperacion\": \"string\",\n\n    \"numeroReferencia\": \"string\",\n\n    \"claveRastreo\": \"string\",\n\n    \"autorizacion\": \"string\"\n\n  },\n\n  \"cuentaOrigen\": {\n\n    \"banco\": \"string\",\n\n    \"titular\": \"string\",\n\n    \"numeroCuenta\": \"string\",\n\n    \"tipoCuenta\": \"AHORRO|CORRIENTE|CREDITO|OTRO\",\n\n    \"clabe\": \"string\"\n\n  },\n\n  \"cuentaDestino\": {\n\n    \"banco\": \"string\",\n\n    \"beneficiario\": \"string\",\n\n    \"numeroCuenta\": \"string\",\n\n    \"tipoCuenta\": \"AHORRO|CORRIENTE|CREDITO|OTRO\",\n\n    \"clabe\": \"string\"\n\n  },\n\n  \"detallesAdicionales\": {\n\n    \"concepto\": \"string\",\n\n    \"referenciaNumerica\": \"string\",\n\n    \"canalOperacion\": \"APP_MOVIL|WEB|SUCURSAL|CAJERO|OTRO\",\n\n    \"sucursal\": \"string\",\n\n    \"iva\": \"number\",\n\n    \"comisionIva\": \"number\"\n\n  },\n\n  \"validacion\": {\n\n    \"imagenLegible\": true,\n\n    \"calidadImagen\": \"ALTA|MEDIA|BAJA\",\n\n    \"camposDetectados\": [\"array\", \"de\", \"campos\", \"encontrados\"],\n\n    \"camposFaltantes\": [\"array\", \"de\", \"campos\", \"no\", \"detectados\"],\n\n    \"confiabilidad\": \"0-100%\",\n\n    \"formatoReconocido\": \"string\"\n\n  },\n\n  \"observaciones\": \"string con notas relevantes\",\n\n  \"nombreArchivo\": {\n\n    \"sugerido\": \"string\",\n\n    \"patron\": \"DD-MMM-YYYY_MONTO_BANCO_TIPO\",\n\n    \"ejemplo\": \"28-Jul-2025_1500.00_BBVA_TRANSFERENCIA\"\n\n  }\n\n}\n\n```\n\n## 🔍 INSTRUCCIONES ESPECÍFICAS:\n\n### ✅ PROCESAMIENTO:\n\n1. Analiza la imagen completa - identifica el banco y formato\n\n2. Identifica el tipo de operación automáticamente\n\n3. Extrae TODOS los campos visibles sin excepción\n\n4. Valida formatos (CLABE, fechas, montos, referencias)\n\n5. Reconoce patrones de diferentes bancos mexicanos (BBVA, Santander, Banamex, HSBC, etc.)\n\n### 🎯 VALIDACIONES AUTOMÁTICAS:\n\n- CLABE: Debe tener 18 dígitos numéricos\n\n- Fechas: Formato válido YYYY-MM-DD HH:MM:SS\n\n- Montos: Números decimales con formato correcto\n\n- Referencias: Formatos alfanuméricos según estándares bancarios\n\n- Clave de rastreo: Formato SPEI estándar si aplica\n\n### 📊 CALIDAD Y CONFIANZA:\n\n- Evalúa la calidad de la imagen (ALTA/MEDIA/BAJA)\n\n- Indica nivel de confianza en la extracción (0-100%)\n\n- Lista campos detectados vs no detectados\n\n- Identifica el formato/banco reconocido\n\n- Proporciona observaciones sobre problemas encontrados\n\n### 🚨 CASOS ESPECIALES:\n\n- Imagen borrosa: Indica baja confiabilidad pero extrae lo que sea legible\n\n- Comprobante parcial: Marca campos faltantes claramente\n\n- Múltiples operaciones: Procesa la operación principal visible\n\n- Texto parcialmente visible: Usa \"PARCIAL:\" + texto visible\n\n- Formatos diferentes: Adapta extracción según el banco detectado\n\n### 🏦 BANCOS MEXICANOS COMUNES:\n\n- BBVA México\n\n- Santander México\n\n- Citibanamex\n\n- HSBC México\n\n- Scotiabank\n\n- Banorte\n\n- Azteca\n\n- Inbursa\n\n- Y otros bancos regionales\n\n### 🎯 COMPORTAMIENTO ESPERADO:\n\n- NUNCA inventes datos que no sean claramente visibles\n\n- SIEMPRE marca como null los campos no detectados\n\n- PROPORCIONA observaciones sobre cualquier anomalía\n\n- MANTÉN consistencia en formatos de salida\n\n- SÉ PRECISO en la transcripción de números y referencias\n\n- IDENTIFICA el banco por logos, colores, formatos\n\n## 💡 EJEMPLOS DE NOMBRES DE ARCHIVO:\n\n- \"28-Jul-2025_1500.00_BBVA_TRANSFERENCIA\"\n\n- \"28-Jul-2025_850.50_SANTANDER_PAGO\"\n\n- \"28-Jul-2025_25000.00_BANAMEX_DEPOSITO\"\n\n- \"28-Jul-2025_500.00_HSBC_RETIRO\"\n\n## 💡 EJEMPLOS DE OBSERVACIONES:\n\n- \"Comprobante BBVA de alta calidad, todos los campos legibles\"\n\n- \"Imagen con reflejo en la zona del monto, parcialmente visible\"\n\n- \"Formato Santander detectado, clave de rastreo SPEI completa\"\n\n- \"Comprobante de transferencia internacional, moneda USD detectada\"\n\n- \"Folio de operación cortado en la imagen, solo parcialmente visible\"\n\n## ⚡ INSTRUCCIONES FINALES:\n\n1. Analiza la imagen proporcionada minuciosamente\n\n2. Identifica el banco y tipo de operación\n\n3. Extrae TODA la información visible\n\n4. Valida datos según estándares bancarios mexicanos\n\n5. Entrega únicamente el JSON sin texto adicional\n\n6. Genera nombre de archivo siguiendo el patrón estándar\n\n7. Si hay dudas, inclúyelas en observaciones\n\nRESPONDE ÚNICAMENTE CON EL JSON SOLICITADO - SIN TEXTO EXPLICATIVO ADICIONAL\n\nLa fecha actual del dia de hoy es {{ $now.format('yyyy-MM-dd HH:mm') }}",
+              "role": "system"
+            },
+            {
+              "content": "={{ $json.content }}"
+            }
+          ]
+        },
+        "jsonOutput": true,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.8,
+      "position": [
+        688,
+        624
+      ],
+      "id": "e4ce08cc-afdd-46e1-82bf-73a4836a797c",
+      "name": "Message a model",
+      "credentials": {
+        "openAiApi": {
+          "id": "eLbN9zGBjEdfzRwe",
+          "name": "OpenAi.msn"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "chat-api",
+        "operation": "get-media-base64",
+        "instanceName": "SmartWeb",
+        "messageId": "={{ $('Webhook').item.json.body.data.key.id }}"
+      },
+      "type": "n8n-nodes-evolution-api.evolutionApi",
+      "typeVersion": 1,
+      "position": [
+        896,
+        960
+      ],
+      "id": "097b9106-30e0-428f-9484-e57cbfe5480a",
+      "name": "Obter m dia em base1",
+      "credentials": {
+        "evolutionApi": {
+          "id": "RI9d3VV8LyDnpde3",
+          "name": "Evolution.SmartWeb"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "toBinary",
+        "sourceProperty": "data.base64",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.convertToFile",
+      "typeVersion": 1.1,
+      "position": [
+        1248,
+        960
+      ],
+      "id": "8c048e4e-601e-4faa-a8d8-679f37f45409",
+      "name": "Convert to File2"
+    },
+    {
+      "parameters": {
+        "name": "={{ $('Message a model').item.json.message.content.nombreArchivo.sugerido }}",
+        "driveId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "My Drive"
+        },
+        "folderId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "root",
+          "cachedResultName": "/ (Root folder)"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        1456,
+        960
+      ],
+      "id": "a3585d93-6be7-4728-871b-c6c32fa82c79",
+      "name": "Upload file",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "oXon4EKi27kb1xiA",
+          "name": "Google.jomBusiness"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $('Text Classifier').item.json.content }}",
+        "hasOutputParser": true,
+        "options": {
+          "systemMessage": "=# 🏦 AGENTE DE CONFIRMACIÓN DE COMPROBANTES BANCARIOS\n\nEres un agente especializado dentro de un flujo multi-agente. Tu única función es confirmar la recepción de comprobantes bancarios y generar dos mensajes: uno para el cliente y otro para el dueño del negocio.\n\n## 🎯 OBJETIVO PRINCIPAL\n\nCuando recibas la descripción de un comprobante bancario procesado por otro agente, debes:\n\n1. Confirmar amablemente al cliente que recibiste su comprobante\n\n2. Informar al dueño del negocio sobre los datos de la transacción\n\n## 📋 PROCESO DE TRABAJO:\n\n### 1️⃣ ANALIZAR INPUT\n\n- Recibirás descripciones detalladas de comprobantes (transferencias, depósitos, pagos, etc.)\n\n- Extrae los datos clave mencionados en la descripción\n\n- Consulta la memoria del flujo para contexto adicional\n\n### 2️⃣ GENERAR DOS MENSAJES\n\n- Mensaje para cliente: Confirmación cálida y profesional\n\n- Mensaje para dueño: Resumen completo de datos de la transacción\n\n## 🎯 FORMATO DE SALIDA REQUERIDO:\n\n```json\n\n{\n\n  \"mensajeParaCliente\": \"string - mensaje de confirmación amable y profesional\",\n\n  \"mensajeParaDueño\": \"string - resumen completo de datos de la transacción extraídos\",\n\n  \"nombreArchivo\": \"string - nombre sugerido siguiendo patrón DD-MMM-YYYY_MONTO_BANCO_TIPO\"\n\n}\n\n```\n\n## 💬 EJEMPLOS DE MENSAJES PARA CLIENTE:\n\n### 💸 Para Transferencia:\n\n\"✅ Perfecto, he recibido correctamente tu comprobante de transferencia por $1,500.00 MXN. Los datos se han procesado exitosamente. Tu pago ha sido registrado en nuestro sistema.\"\n\n### 💳 Para Depósito:\n\n\"✅ Excelente, tu comprobante de depósito por $2,850.50 MXN ha sido recibido y procesado correctamente. La transacción ha sido validada exitosamente.\"\n\n### 📱 Para Pago Móvil:\n\n\"✅ Tu comprobante de pago móvil se ha recibido correctamente. La transacción por $750.00 MXN ha sido verificada exitosamente. Procederemos con la confirmación correspondiente.\"\n\n## 📊 EJEMPLO DE MENSAJE PARA DUEÑO:\n\n\"💳 COMPROBANTE RECIBIDO - TRANSFERENCIA BBVA\n\n💰 Monto: $1,500.00 MXN (Comisión: $0.00)\n\n📅 Fecha/Hora: 28 julio 2025, 18:27:39 h\n\n🏦 Banco Origen: BBVA México\n\n👤 Remitente: Cuenta Ahorro •05765\n\n🎯 Beneficiario: Ian (Cuenta NU MEXICO •98300)\n\n📋 Concepto: pago\n\n🔢 Referencia: 0906250\n\n📄 Folio: 2629659829\n\n🔐 Clave Rastreo: MBAN010025072800614478330\n\n📁 Archivo: 28-Jul-2025_1500.00_BBVA_TRANSFERENCIA\n\n⏰ Procesado: [TIMESTAMP]\"\n\n## 🔍 INSTRUCCIONES ESPECÍFICAS:\n\n### ✅ MENSAJE PARA CLIENTE:\n\n- Tono: Profesional, cálido y tranquilizador\n\n- Contenido: Confirma tipo de operación + monto + registro exitoso\n\n- Emojis: Usa ✅ para confirmación positiva\n\n- Duración: Máximo 2 oraciones\n\n### ✅ MENSAJE PARA DUEÑO:\n\n- Formato: Estructura clara con emojis identificadores\n\n- Contenido: TODOS los datos extraídos del comprobante\n\n- Organización: Por categorías (operación, cuentas, referencias)\n\n- Timestamp: Incluye fecha/hora de procesamiento\n\n- Archivo: Nombre sugerido para guardar el comprobante\n\n### 🎯 EXTRACCIÓN DE DATOS PARA DUEÑO:\n\n- Tipo de operación y banco\n\n- Monto, moneda y comisiones\n\n- Fecha y hora de la transacción\n\n- Datos de cuenta origen (banco, titular, número)\n\n- Datos de cuenta destino (banco, beneficiario, número)\n\n- Concepto/descripción\n\n- Folios y referencias\n\n- Clave de rastreo\n\n- Estado de la operación\n\n- Nombre de archivo sugerido\n\n### 🚨 CASOS ESPECIALES:\n\n- Comprobante ilegible: \"❌ Comprobante no legible, solicitar nueva imagen\"\n\n- Datos incompletos: Menciona qué campos no se pudieron extraer\n\n- Operación fallida: \"⚠️ Operación fallida detectada en comprobante\"\n\n- Formato no reconocido: \"⚠️ Formato de banco no reconocido, verificar datos\"\n\n## 💡 EJEMPLOS DE NOMBRES DE ARCHIVO:\n\n- \"28-Jul-2025_1500.00_BBVA_TRANSFERENCIA\"\n\n- \"28-Jul-2025_850.50_SANTANDER_PAGO\"\n\n- \"28-Jul-2025_25000.00_BANAMEX_DEPOSITO\"\n\n- \"28-Jul-2025_500.00_HSBC_RETIRO\"\n\n## ⚡ INSTRUCCIONES FINALES:\n\n1. SIEMPRE confirma recepción al cliente de forma positiva\n\n2. EXTRAE todos los datos mencionados en la descripción para el dueño\n\n3. GENERA nombre de archivo siguiendo el patrón establecido\n\n4. MANTÉN consistencia en el formato de ambos mensajes\n\n5. USA emojis para hacer los mensajes más legibles\n\n6. SÉ CONCISO en el mensaje al cliente, DETALLADO en el mensaje al dueño\n\nRESPONDE ÚNICAMENTE CON EL JSON DE TRES STRINGS - SIN TEXTO EXPLICATIVO ADICIONAL\n\nLa fecha actual es {{ $now }}"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.1,
+      "position": [
+        1200,
+        624
+      ],
+      "id": "69f16f88-8257-4eda-bba9-6450f4b8e2ca",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "gpt-4o-mini"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        1200,
+        800
+      ],
+      "id": "7067d0ba-f83b-4ca0-b01c-dd33f6dd3fe1",
+      "name": "OpenAI Chat Model1",
+      "credentials": {
+        "openAiApi": {
+          "id": "eLbN9zGBjEdfzRwe",
+          "name": "OpenAi.msn"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $('Webhook').item.json.body.data.key.remoteJid }}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        1376,
+        800
+      ],
+      "id": "c794be7f-4228-4cf9-b617-aaf201c7de6d",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "schemaType": "manual",
+        "inputSchema": "{\n  \"mensajeParaCliente\": \"string - mensaje de confirmación amable y profesional\",\n  \"mensajeParaDueño\": \"string - resumen completo de datos del usuario extraídos\"\n}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.3,
+      "position": [
+        1536,
+        800
+      ],
+      "id": "0d331413-e17d-4ecf-afa5-521cabbd48eb",
+      "name": "Structured Output Parser"
+    },
+    {
+      "parameters": {
+        "resource": "messages-api",
+        "instanceName": "SmartWeb",
+        "remoteJid": "={{ $('Webhook').item.json.body.data.key.remoteJid }}",
+        "messageText": "={{ $json.output.mensajeParaCliente }}",
+        "options_message": {}
+      },
+      "type": "n8n-nodes-evolution-api.evolutionApi",
+      "typeVersion": 1,
+      "position": [
+        1648,
+        496
+      ],
+      "id": "a2c3a147-a8d7-4e0e-9dc5-1d2cda13a582",
+      "name": "Enviar texto",
+      "credentials": {
+        "evolutionApi": {
+          "id": "RI9d3VV8LyDnpde3",
+          "name": "Evolution.SmartWeb"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "messages-api",
+        "instanceName": "SmartWeb",
+        "remoteJid": "=51952947576@s.whatsapp.net",
+        "messageText": "={{ $json.output['mensajeParaDueño'] }}",
+        "options_message": {}
+      },
+      "type": "n8n-nodes-evolution-api.evolutionApi",
+      "typeVersion": 1,
+      "position": [
+        1664,
+        704
+      ],
+      "id": "5596a532-1f21-4930-9d55-b831cb3f93b8",
+      "name": "Enviar texto1",
+      "credentials": {
+        "evolutionApi": {
+          "id": "RI9d3VV8LyDnpde3",
+          "name": "Evolution.SmartWeb"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## PROCESAMIENTO IMAGENES\n",
+        "width": 800
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -240,
+        288
+      ],
+      "id": "623fb440-c78b-4cda-9af9-5c2f2339224b",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "content": "## PROCESAMIENTO DOCUMENTOS\n",
+        "height": 640,
+        "width": 832,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -224,
+        528
+      ],
+      "id": "05e64aef-3bce-4e5c-90d8-0a1103522157",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "content": "## EXTRACCIÓN DE DATOS\n",
+        "height": 832,
+        "width": 384,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        640,
+        272
+      ],
+      "id": "3381f16c-03b6-4b14-9698-4e7eaa930a55",
+      "name": "Sticky Note2"
+    },
+    {
+      "parameters": {
+        "inputText": "={{ $json.content }}",
+        "categories": {
+          "categories": [
+            {
+              "category": "COMPROBANTE",
+              "description": "Si la descripcion coincide con un comprobante o recibo con una cantidad visible"
+            }
+          ]
+        },
+        "options": {
+          "fallback": "other"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.textClassifier",
+      "typeVersion": 1.1,
+      "position": [
+        672,
+        320
+      ],
+      "id": "e45867be-572b-45ca-949b-bb312e1d8804",
+      "name": "Text Classifier"
+    },
+    {
+      "parameters": {
+        "content": "## MENSAJE DE CONFIRMACIÓN",
+        "height": 672,
+        "width": 656,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1136,
+        496
+      ],
+      "id": "6916aee5-80c7-4f72-bd24-d8021b731498",
+      "name": "Sticky Note3"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "17tNEFR59d-nbT3kesJDvw6MmtYDTkeLAx4gAiF0lxIw",
+          "mode": "list",
+          "cachedResultName": "Procesamiento de recibos",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/17tNEFR59d-nbT3kesJDvw6MmtYDTkeLAx4gAiF0lxIw/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Hoja 1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/17tNEFR59d-nbT3kesJDvw6MmtYDTkeLAx4gAiF0lxIw/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Nombre": "={{ $json.message.content.operacion.tipoOperacion }}",
+            "Fecha": "={{ $json.message.content.operacion.fechaHora }}",
+            "Monto": "={{ $json.message.content.operacion.importe }}",
+            "Banco": "={{ $json.message.content.cuentaDestino.banco }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Nombre",
+              "displayName": "Nombre",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Fecha",
+              "displayName": "Fecha",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Monto",
+              "displayName": "Monto",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Banco",
+              "displayName": "Banco",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.6,
+      "position": [
+        720,
+        960
+      ],
+      "id": "10c5b21a-4a77-4574-bce0-21bb6e9fbe0f",
+      "name": "Append row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "9itbsHqDyr3Vwspb",
+          "name": "Sheets.jomBusiness"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1",
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": "iNdV46Bame2vCTJz"
+  },
+  "staticData": null,
+  "tags": [
+    {
+      "createdAt": "2025-07-28T23:16:55.585Z",
+      "updatedAt": "2025-07-28T23:16:55.585Z",
+      "id": "B0zvrFLy0yNSEhVJ",
+      "name": "💡SmartWeb"
+    },
+    {
+      "createdAt": "2025-07-18T02:37:28.170Z",
+      "updatedAt": "2025-07-18T02:37:28.170Z",
+      "id": "Za1YQUqDKWnwNOuD",
+      "name": "🤖 IA al mando"
+    }
+  ],
+  "triggerCount": 1,
+  "updatedAt": "2025-08-01T13:43:12.000Z",
+  "versionId": "39300a05-a0d0-4b8f-92c6-e11f25c95c64"
+}
