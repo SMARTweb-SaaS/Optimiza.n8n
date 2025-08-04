@@ -1,0 +1,861 @@
+{
+  "active": false,
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Rss.Read.EsWired",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Upload.Image": {
+      "main": [
+        [
+          {
+            "node": "Create Tweet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Select.Rss": {
+      "main": [
+        []
+      ]
+    },
+    "Rss.Read.EsWired": {
+      "main": [
+        [
+          {
+            "node": "Filter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Structured Output Parser": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "Analiza.Rss",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Structured Output Parser1": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "Crea.Contenido",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Crear.Post": {
+      "main": [
+        [
+          {
+            "node": "Crea.Contenido",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Analiza.Rss": {
+      "main": [
+        [
+          {
+            "node": "Crea.Titulo",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Crea.Titulo": {
+      "main": [
+        [
+          {
+            "node": "Prompt.Imagen",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prompt.Imagen": {
+      "main": [
+        [
+          {
+            "node": "Replicate.google.imagen-4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Crea.Contenido": {
+      "main": [
+        [
+          {
+            "node": "Replicate.Get.Image",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "gpt-4o-mini.Titulo": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Crea.Titulo",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "gpt-4o-mini.Analiza": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Analiza.Rss",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "gpt-4o-mini.Imagen": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Prompt.Imagen",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "gpt-4o-mini.Contenido": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Crea.Contenido",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Replicate.google.imagen-4": {
+      "main": [
+        [
+          {
+            "node": "Wait.30",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Replicate.Get.Image": {
+      "main": [
+        [
+          {
+            "node": "Wait.35",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Post.SmartWeb",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Create a post",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait.30": {
+      "main": [
+        [
+          {
+            "node": "Crear.Post",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait.35": {
+      "main": [
+        [
+          {
+            "node": "Upload.Image",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter": {
+      "main": [
+        [
+          {
+            "node": "Select.Rss",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-07-08T13:38:47.944Z",
+  "id": "nhxLUOcsOHLUN6AW",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Rss.SmartWeb.Post",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -896,
+        -128
+      ],
+      "id": "2fc4088e-18a2-4aeb-b4a8-2e9b7370ed79",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "content": "## Publicar en Facebook\n**Double click** to edit me. [YouTube](https://www.youtube.com/watch?v=YN0990rg-PY&ab_channel=HackeandoLaRutina)\n\nhttps://developers.facebook.com/apps/?show_reminder=true",
+        "height": 140,
+        "width": 300
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        464,
+        384
+      ],
+      "id": "a374dc71-990a-4e6d-a09e-e4c0faccaf80",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "content": "## Publicar en LinkedIn\n**Double click** to edit me. [YouTube](https://www.youtube.com/watch?v=OftERwkZVgc&ab_channel=AndyCruz)\n\nhttps://www.linkedin.com/developers/apps/223733671/auth",
+        "height": 140,
+        "width": 300
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        464,
+        560
+      ],
+      "id": "038e3a78-4c61-44f8-a3b4-086d1d631764",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.twitter.com/2/media/upload",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "twitterOAuth2Api",
+        "sendBody": true,
+        "contentType": "multipart-form-data",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "parameterType": "formBinaryData",
+              "name": "media",
+              "inputDataFieldName": "image"
+            },
+            {
+              "name": "media_category",
+              "value": "tweet_image"
+            }
+          ]
+        },
+        "options": {
+          "response": {
+            "response": {
+              "fullResponse": true,
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        64,
+        784
+      ],
+      "id": "f0636f58-8828-4795-9778-b98bd33c88a2",
+      "name": "Upload.Image",
+      "retryOnFail": false,
+      "credentials": {
+        "twitterOAuth2Api": {
+          "id": "I7x1FgnFz8uz9obw",
+          "name": "X.jomBusiness"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## Publicar en Twitter\n**Double click** to edit me. [YouTube](https://www.youtube.com/watch?v=5lYXqXvnyqM&ab_channel=SouthbayJay)\n\nhttps://community.n8n.io/t/post-media-to-x-twitter-via-api-new/90997",
+        "height": 140,
+        "width": 300
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        464,
+        736
+      ],
+      "id": "e3ac71de-a287-4b7f-8b5b-2d544170d526",
+      "name": "Sticky Note2"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Obtén todos los elementos que vienen del nodo anterior (RSS Read)\nconst rssArray = $input.all();\n\n// --- Elige tu lógica de selección ---\nconst indice = 2 // 0: Primer elemento\nconst selectedElement = rssArray[indice];\n\n// Envía el elemento seleccionado como salida\nif (selectedElement) {\n  return [{ json: selectedElement }]; // Asegúrate de devolverlo dentro de un objeto con la propiedad 'json'\n} else {\n  // Manejo si no se encuentra ningún elemento o si el array está vacío\n  return [];\n}"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -208,
+        -128
+      ],
+      "id": "a67120c9-b62a-4654-a19b-25e252fd8adb",
+      "name": "Select.Rss"
+    },
+    {
+      "parameters": {
+        "url": "https://es.wired.com/feed/rss",
+        "options": {
+          "ignoreSSL": false
+        }
+      },
+      "type": "n8n-nodes-base.rssFeedRead",
+      "typeVersion": 1.2,
+      "position": [
+        -688,
+        -128
+      ],
+      "id": "b936275e-0b51-4831-987c-4eff8b54a057",
+      "name": "Rss.Read.EsWired"
+    },
+    {
+      "parameters": {
+        "content": "## Antes de guardar\n**Siempre debe de estar DESCONECTADO el flujo**",
+        "width": 300
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -144,
+        -304
+      ],
+      "id": "e8edf29d-8e02-4ee8-b61b-6075c229d17b",
+      "name": "Sticky Note3"
+    },
+    {
+      "parameters": {
+        "jsonSchemaExample": "{\n  \"resumen_objetivo\": \"Resumen claro del hecho\",\n  \"puntos_clave\": [\n    \"Punto 1 con dato verificable\",\n    \"Punto 2 con dato verificable\",\n    \"Punto 3 con dato verificable\"\n  ],\n  \"antecedentes\": \"Contexto histórico o previo esencial\",\n  \"implicaciones\": \"Posibles consecuencias o escenarios derivados del hecho\",\n  \"terminos_tecnicos\": [\n    {\n      \"termino\": \"Término técnico 1\",\n      \"definicion\": \"Definición en contexto profesional\"\n    },\n    {\n      \"termino\": \"Término técnico 2\",\n      \"definicion\": \"Definición en contexto profesional\"\n    }\n  ]\n}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.3,
+      "position": [
+        112,
+        0
+      ],
+      "id": "8286cbc4-e32b-40ad-91e9-df0e19fe8f34",
+      "name": "Structured Output Parser"
+    },
+    {
+      "parameters": {
+        "jsonSchemaExample": "{\n  \"instagram\": {\n    \"caption\": \"string\",\n    \"hashtags\": [\"string\"]\n  },\n  \"linkedin\": {\n    \"content\": \"string\",\n    \"hashtags\": [\"string\"]\n  },\n  \"blog\": {\n    \"title\": \"string\",\n    \"content\": \"string\",\n    \"tags\": [\"string\"],\n    \"meta_description\": \"string\"\n  },\n  \"facebook\": {\n    \"content\": \"string\",\n    \"hashtags\": [\"string\"]\n  },\n  \"twitter\": {\n    \"tweet\": \"string\",\n    \"hashtags\": [\"string\"]\n  }\n}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.3,
+      "position": [
+        -320,
+        496
+      ],
+      "id": "d60f7ba9-9aad-4de2-9d6a-6b144b372bdd",
+      "name": "Structured Output Parser1"
+    },
+    {
+      "parameters": {
+        "person": "tdFK9o1W4M",
+        "text": "={{ $('Crea.Contenido').item.json.output.linkedin.content }} {{ $('Crea.Contenido').item.json.output.linkedin.hashtags }}\n\nMás información: {{ $('Select.Rss').item.json.json.link }}",
+        "shareMediaCategory": "IMAGE",
+        "binaryPropertyName": "=image",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.linkedIn",
+      "typeVersion": 1,
+      "position": [
+        240,
+        528
+      ],
+      "id": "c7661989-668a-45e8-a945-2c24d92e63e3",
+      "name": "Create a post",
+      "credentials": {
+        "linkedInOAuth2Api": {
+          "id": "Hkf899gGadMUsWDz",
+          "name": "LinkedIn.jomBusiness"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "text": "={{ $('Crea.Contenido').item.json.output.twitter.tweet }} {{ $('Crea.Contenido').item.json.output.twitter.hashtags }}",
+        "additionalFields": {
+          "attachments": "={{ $json.body.data.id }}"
+        }
+      },
+      "type": "n8n-nodes-base.twitter",
+      "typeVersion": 2,
+      "position": [
+        240,
+        784
+      ],
+      "id": "17083f10-3aa5-427a-98ec-333c5d86d8e5",
+      "name": "Create Tweet",
+      "credentials": {
+        "twitterOAuth2Api": {
+          "id": "I7x1FgnFz8uz9obw",
+          "name": "X.jomBusiness"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const data = $('Analiza.Rss').first().json.output;\n\nconst post = `\n**Resumen objetivo:**  \n${data.resumen_objetivo}\n\n**Puntos clave:**\n${data.puntos_clave.map(p => `- ${p}`).join('\\n')}\n\n**Antecedentes esenciales:**  \n${data.antecedentes}\n\n**Posibles implicaciones:**  \n${data.implicaciones}\n\n**Términos técnicos clave:**\n${data.terminos_tecnicos.map(t => `- **${t.termino}**: ${t.definicion}`).join('\\n')}\n`;\n\nreturn [{ post }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -784,
+        384
+      ],
+      "id": "dfeafbcf-f255-473c-b210-898316eb1756",
+      "name": "Crear.Post"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.json.title }}\n{{ $json.json.contentSnippet }}",
+        "hasOutputParser": true,
+        "messages": {
+          "messageValues": [
+            {
+              "message": "Analiza en profundidad el texto de la noticia proporcionada. Investiga en múltiples fuentes confiables (medios internacionales, portales especializados, datos oficiales) para validar y ampliar la información. Sintetiza un brief único integrando perspectivas relevantes, datos contrastados y contexto actualizado. \n\nIncluye: \n1) Resumen objetivo del hecho \n2) 3-5 puntos clave con datos verificables\n3) Antecedentes esenciales\n4) Posibles implicaciones\n5) Términos técnicos explicados en contexto.\n\nPrioriza información reciente y relevante para audiencias profesionales en redes sociales. Excluye comparaciones explícitas entre fuentes - integra discrepancias como \"algunos reportes indican...\" vs \"fuentes oficiales señalan...\". \n\nFormato JSON\n{\n  \"resumen_objetivo\": \"Resumen claro del hecho\",\n  \"puntos_clave\": [\n    \"Punto 1 con dato verificable\",\n    \"Punto 2 con dato verificable\",\n    \"Punto 3 con dato verificable\"\n  ],\n  \"antecedentes\": \"Contexto histórico o previo esencial\",\n  \"implicaciones\": \"Posibles consecuencias o escenarios derivados del hecho\",\n  \"terminos_tecnicos\": [\n    {\n      \"termino\": \"Término técnico 1\",\n      \"definicion\": \"Definición en contexto profesional\"\n    },\n    {\n      \"termino\": \"Término técnico 2\",\n      \"definicion\": \"Definición en contexto profesional\"\n    }\n  ]\n}"
+            }
+          ]
+        },
+        "batching": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.7,
+      "position": [
+        16,
+        -128
+      ],
+      "id": "3def3827-f789-44ca-ad37-f8b1a74f0924",
+      "name": "Analiza.Rss"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.output.resumen_objetivo }}\n\n{{ $json.output.puntos_clave }}\n\n{{ $json.output.implicaciones }}\n",
+        "messages": {
+          "messageValues": [
+            {
+              "message": "Aquí tienes tu prompt modificado para incluir un término de búsqueda de un logo relevante para la noticia, sin cambiar el resto del contenido:\n\nContexto\nEres un editor experto en titulares de noticias para redes sociales. Tu especialidad es crear títulos impactantes y concisos que capten la atención inmediata del lector en Instagram. en formato json.\n\nInput\nRecibirás un texto describiendo una noticia.\n\nObjetivo\nGenerar un título principal, un subtítulo opcional y un término de búsqueda para un logo relevante que:\nSean extremadamente concisos y directos\nUsen mayúsculas para mayor impacto visual\nComuniquen la información más relevante\nSean fácilmente comprensibles\nGeneren interés inmediato\n\nReglas de Formato\n\nTítulo Principal:\nMáximo 45 caracteres\nPreferiblemente en mayúsculas\nDebe ser impactante y directo\nEvitar artículos innecesarios\n\nSubtítulo (opcional):\nMáximo 35 caracteres\nComplementa la información principal\nPuede usar números y símbolos\n\nTérmino de Búsqueda de Logo:\nDebe ser relevante para la noticia\nDebe contener palabras clave como \"logo png\" o \"oficial\"\nDebe reflejar el tema o la empresa mencionada en la noticia\nDebe tener transparente al final de la frase\n\nEstructura del Output\n{\n  \"title\": \"string\",\n  \"subtitle\": \"string\",  // opcional\n  \"logo_search_term\": \"string\"\n}\n\nEjemplos\n\nPara una noticia sobre Goldman Sachs:\n{\n  \"title\": \"GOLDMAN SACHS ELEVA 26% EL SALARIO\",\n  \"subtitle\": \"de david solomon\",\n  \"logo_search_term\": \"Goldman Sachs logo png\"\n}\n\nPara una noticia sobre IA:\n{\n  \"title\": \"IA DEJARÁ SIN EMPLEO A 200,000\",\n  \"subtitle\": \"trabajadores de wall street\",\n  \"logo_search_term\": \"inteligencia artificial logo png transparente\"\n}\n\nInstrucciones Adicionales\nPrioriza claridad sobre creatividad\nUsa números cuando sean relevantes\nEvita abreviaturas poco comunes\nMantén un tono formal pero accesible\nConsidera el impacto visual del texto en mayúsculas\n\nCriterios de Evaluación\n¿Es inmediatamente comprensible?\n¿Captura la esencia de la noticia?\n¿Tiene el formato visual correcto?\n¿Respeta los límites de caracteres?\n¿Mantiene la seriedad del tema?"
+            }
+          ]
+        },
+        "batching": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.7,
+      "position": [
+        -768,
+        128
+      ],
+      "id": "4fb04db3-798a-4441-bbed-40eee49588ab",
+      "name": "Crea.Titulo"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $('Analiza.Rss').item.json.output.resumen_objetivo }}",
+        "messages": {
+          "messageValues": [
+            {
+              "message": "Rol\nEres un experto en desarrollar prompts enfocado en producir imágenes hiperrealistas y de gran impacto visual para un modelo text to image\n\nTarea\nTu tarea es unicamente generar la instruccion sin ninguna anotacion extra\nLa opacidad de la imagen tiene que se más obscura.\nEl prompt debe ser conciso y clara.\n\nEspecificaciones\nEl prompt debe de ser en ingles.\nLa imagen no debe tener texto.\n\nContexto\nTe voy a proporcionar ejemplos de la publicación que quiero crear, y tu tienes que hacer el prompt en ingles que vaya de acuerdo a la noticia\n\nEjemplo\n\nOutput\nA set of modern technological gadgets, such as smartwatches, smart speakers, and connected appliances, with a dark and opaque background.\nA set of modern cell phones, computers, and tablets connected through the internet, with a dark and opaque background.\n\nNotas\nNo quiero que tenga letras la imagen.\n"
+            }
+          ]
+        },
+        "batching": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.7,
+      "position": [
+        -416,
+        128
+      ],
+      "id": "cf696ff9-a787-4024-8200-7255d05c9f96",
+      "name": "Prompt.Imagen"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.post }}",
+        "hasOutputParser": true,
+        "messages": {
+          "messageValues": [
+            {
+              "message": "=## Contexto\nEres un experto en marketing digital y comunicación multiplataforma. Tu tarea es transformar noticias en contenido optimizado para diferentes redes sociales, manteniendo la esencia del mensaje pero adaptándolo al tono y estilo único de cada plataforma. El output debe estar en español y en formato JSON estructurado.\n\n## Input\nRecibirás una noticia en formato texto plano.\n\n## Output Format\nDebes generar un JSON con la siguiente estructura:\n\nFormato JSON\n{\n  \"instagram\": {\n    \"caption\": \"string\",\n    \"hashtags\": [\"string\"]\n  },\n  \"linkedin\": {\n    \"content\": \"string\",\n    \"hashtags\": [\"string\"]\n  },\n  \"blog\": {\n    \"title\": \"string\",\n    \"content\": \"string\",\n    \"tags\": [\"string\"],\n    \"meta_description\": \"string\"\n  },\n  \"facebook\": {\n    \"content\": \"string\",\n    \"hashtags\": [\"string\"]\n  },\n  \"twitter\": {\n    \"tweet\": \"string\",\n    \"hashtags\": [\"string\"]\n  }\n}\n\n## Características Específicas por Plataforma\n\n### Instagram\n- Caption: 150-220 caracteres\n- Tono: Visual y atractivo\n- Elementos:\n  * Gancho emocional o dato impactante al inicio\n  * 2-4 emojis estratégicamente colocados\n  * Terminar con pregunta o call-to-action\n- Hashtags: 3-5 relevantes\n\n### LinkedIn\n- Contenido: 200-300 caracteres\n- Tono: Profesional pero conversacional\n- Elementos:\n  * Insight empresarial al inicio\n  * Datos concretos y relevantes\n  * Menciones de empresas/profesionales\n  * Pregunta final para generar debate\n- Hashtags: 2-3 estratégicos\n\n### Blog\n- Título: 60-70 caracteres\n- Contenido: 400-600 palabras\n- Meta descripción: 150-160 caracteres\n- Tono: Informativo y analítico\n- Elementos:\n  * Título SEO-friendly\n  * Introducción con contexto\n  * Desarrollo estructurado\n  * Conclusión con insights\n- Tags: 4-6 palabras clave relevantes\n\n### Facebook\n- Contenido: 150-250 caracteres\n- Tono: Informal pero informativo\n- Elementos:\n  * Pregunta o dato sorprendente al inicio\n  * 1-2 emojis máximo\n  * Call-to-action final\n- Hashtags: 2-3 relevantes\n\n### Twitter\n- Tweet: Máximo 240 caracteres\n- Tono: Directo y conciso\n- Elementos:\n  * Dato más impactante primero\n  * Números y símbolos para optimizar espacio\n  * Menciones relevantes\n- Hashtags: 1-2 máximo\n\n## Ejemplo de Output\n```json\n{\n  \"instagram\": {\n    \"caption\": \"🏦 El CEO de Goldman Sachs alcanza nuevas alturas: $80M en bonos de retención + aumento del 26% 📈 David Solomon lidera un crecimiento histórico del 175% en acciones desde 2018. ¿Cuál crees que será su próximo movimiento? 🤔\",\n  \"hashtags\": [\"#WallStreet\", \"#GoldmanSachs\", \"#Liderazgo\", \"#FinanzasGlobales\", \"#Banking\"]\n  },\n  \"linkedin\": {\n    \"content\": \"Goldman Sachs refuerza su confianza en el liderazgo ejecutivo con un bono de retención de $80M para David Solomon. Bajo su dirección desde 2018, las acciones han crecido un 175%. ¿Es esta la nueva tendencia en compensación ejecutiva para retener talento de primer nivel?\",\n  \"hashtags\": [\"#LeadershipStrategy\", \"#InvestmentBanking\", \"#ExecutiveCompensation\"]\n  },\n  \"blog\": {\n    \"title\": \"Goldman Sachs otorga bono histórico de $80M a su CEO: Análisis del impacto\",\n    \"content\": \"En un movimiento que reafirma su confianza en el liderazgo actual, Goldman Sachs ha anunciado...\",\n  \"tags\": [\"Goldman Sachs\", \"Banca de Inversión\", \"Liderazgo Ejecutivo\", \"Compensación Ejecutiva\", \"Wall Street\"],\n  \"meta_description\": \"Análisis del impacto del bono de retención de $80M otorgado al CEO de Goldman Sachs, David Solomon, y su relación con el crecimiento del banco desde 2018.\"\n  },\n  \"facebook\": {\n    \"content\": \"💰 ¿Qué harías con un bono de $80 millones? El CEO de Goldman Sachs, David Solomon, recibe esta recompensa tras lograr un crecimiento del 175% en acciones. ¡Cuéntanos tu opinión sobre esta mega-compensación! 🏦\",\n    \"hashtags\": [\"#GoldmanSachs\", \"#WallStreet\", \"#FinanzasGlobales\"]\n  },\n  \"twitter\": {\n    \"tweet\": \"ÚLTIMA HORA: Goldman Sachs otorga bono de $80M a su CEO David Solomon tras duplicar ganancias en Q4 2024. Acciones han subido 175% desde 2018 bajo su liderazgo.\",\n    \"hashtags\": [\"#GoldmanSachs\", \"#WallStreet\"]\n  }\n}\n```\n\n## Instrucciones Adicionales\n1. Mantén consistencia en los datos clave entre plataformas\n2. Adapta el tono según la plataforma pero mantén la precisión\n3. Asegura que los hashtags sean relevantes y actuales\n4. Verifica que cada versión sea única pero alineada con el mensaje central\n5. Respeta los límites de caracteres de cada plataforma"
+            }
+          ]
+        },
+        "batching": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.7,
+      "position": [
+        -592,
+        384
+      ],
+      "id": "ebdbbf1c-0d8b-4f16-93c8-2410943922c6",
+      "name": "Crea.Contenido"
+    },
+    {
+      "parameters": {
+        "content": "## Consultar redes sociales\n[LinkedIn](https://www.linkedin.com/in/jombusiness/recent-activity/all/)\n\n[Facebook - SMARTweb](https://www.facebook.com/SmartWeb.Erp)\n\n[Twitter](https://x.com/jomBusiness)",
+        "width": 360
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        352,
+        -288
+      ],
+      "id": "634a3287-5766-4bdb-b9e6-075d3ebfc52a",
+      "name": "Sticky Note4"
+    },
+    {
+      "parameters": {
+        "model": "openai/gpt-4o-mini",
+        "options": {
+          "responseFormat": "json_object"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [
+        -928,
+        240
+      ],
+      "id": "0d8ec1b5-954f-4116-9210-0c9de29eb1af",
+      "name": "gpt-4o-mini.Titulo",
+      "credentials": {
+        "openRouterApi": {
+          "id": "fx7pdURTekgTilKM",
+          "name": "OpenRouter.msn"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": "openai/gpt-4o-mini",
+        "options": {
+          "responseFormat": "json_object"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [
+        -96,
+        -16
+      ],
+      "id": "c1852aa8-e564-4e82-9005-6110862576f8",
+      "name": "gpt-4o-mini.Analiza",
+      "credentials": {
+        "openRouterApi": {
+          "id": "fx7pdURTekgTilKM",
+          "name": "OpenRouter.msn"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": "openai/gpt-4o-mini",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [
+        -496,
+        240
+      ],
+      "id": "27acbd97-032f-459f-a893-90596e344f2b",
+      "name": "gpt-4o-mini.Imagen",
+      "credentials": {
+        "openRouterApi": {
+          "id": "fx7pdURTekgTilKM",
+          "name": "OpenRouter.msn"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": "openai/gpt-4o-mini",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [
+        -688,
+        496
+      ],
+      "id": "e3da7440-0e6d-4f57-85d6-acf8cc90d187",
+      "name": "gpt-4o-mini.Contenido",
+      "credentials": {
+        "openRouterApi": {
+          "id": "fx7pdURTekgTilKM",
+          "name": "OpenRouter.msn"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.replicate.com/v1/models/google/imagen-4/predictions",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "name": "Prefer",
+              "value": "wait"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"input\": {\n    \"prompt\": \"{{ $json.text }}\",\n    \"aspect_ratio\": \"1:1\",\n    \"safety_filter_level\": \"block_only_high\",\n    \"output_format\": \"jpg\"\n  }\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -32,
+        128
+      ],
+      "id": "422ad394-bb85-4a8f-ab76-8d15bfc2a41e",
+      "name": "Replicate.google.imagen-4",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "L9yQttThWndrdNn3",
+          "name": "Replicate.msn"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "={{ $('Replicate.google.imagen-4').item.json.output }}",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "file",
+              "outputPropertyName": "image"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -192,
+        384
+      ],
+      "id": "72a72a4d-b90f-43cf-824e-b91b8b5ec184",
+      "name": "Replicate.Get.Image",
+      "alwaysOutputData": false
+    },
+    {
+      "parameters": {
+        "amount": 30
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        192,
+        128
+      ],
+      "id": "f2c405c6-940b-4471-9207-fb160660603c",
+      "name": "Wait.30",
+      "webhookId": "5dbfa580-58e8-44cb-8ec7-ada44805b8e1"
+    },
+    {
+      "parameters": {
+        "content": "## Se debería de usar Ideograma  \n[Guide](https://about.ideogram.ai/api-pricing)",
+        "height": 128
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        448,
+        128
+      ],
+      "typeVersion": 1,
+      "id": "354ba859-1a3d-4d49-9017-0479212bc02c",
+      "name": "Sticky Note5"
+    },
+    {
+      "parameters": {
+        "httpRequestMethod": "POST",
+        "graphApiVersion": "v22.0",
+        "node": "me",
+        "edge": "photos",
+        "sendBinaryData": true,
+        "binaryPropertyName": "image",
+        "options": {
+          "queryParameters": {
+            "parameter": [
+              {
+                "name": "message",
+                "value": "={{ $('Crea.Contenido').item.json.output.facebook.content }} {{ $json.output.facebook.hashtags }}\n\nMás información: {{ $('Select.Rss').item.json.json.link }}"
+              }
+            ]
+          }
+        }
+      },
+      "type": "n8n-nodes-base.facebookGraphApi",
+      "typeVersion": 1,
+      "position": [
+        240,
+        384
+      ],
+      "id": "07464ae4-b8f9-4dc0-8916-6632c21bbf9f",
+      "name": "Post.SmartWeb",
+      "credentials": {
+        "facebookGraphApi": {
+          "id": "IdpHq8Mtl5spHnnr",
+          "name": "Facebook.SmartWeb"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "amount": 35
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        32,
+        560
+      ],
+      "id": "a6f555ac-ff1e-405b-997c-f871306ef0e9",
+      "name": "Wait.35",
+      "webhookId": "1339756b-50e8-4e75-baf1-bf91b39d0b7b"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "9190e1b7-d3c3-42d6-8f60-102233162cab",
+              "leftValue": "={{ $json.title }}",
+              "rightValue": "IA",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            },
+            {
+              "id": "c1c01e3c-0f94-4dfb-a471-3a6dcf7c62b6",
+              "leftValue": "={{ $json.title }}",
+              "rightValue": "gpt",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            },
+            {
+              "id": "29503942-2c6b-445e-8ef1-6520a6bf48ba",
+              "leftValue": "={{ $json.title }}",
+              "rightValue": "software",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            }
+          ],
+          "combinator": "or"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.2,
+      "position": [
+        -464,
+        -128
+      ],
+      "id": "b6e18156-cc11-4225-a7bf-52edf127b1fe",
+      "name": "Filter"
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1",
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": "iNdV46Bame2vCTJz"
+  },
+  "staticData": null,
+  "tags": [
+    {
+      "createdAt": "2025-07-28T23:16:55.585Z",
+      "updatedAt": "2025-07-28T23:16:55.585Z",
+      "id": "B0zvrFLy0yNSEhVJ",
+      "name": "💡SmartWeb"
+    }
+  ],
+  "triggerCount": 0,
+  "updatedAt": "2025-08-02T15:46:40.000Z",
+  "versionId": "99277107-0618-4a89-9f79-ba15c00ce27e"
+}
