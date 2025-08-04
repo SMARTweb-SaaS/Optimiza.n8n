@@ -1,0 +1,298 @@
+{
+  "active": false,
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "Separador",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Separador": {
+      "main": [
+        [
+          {
+            "node": "Generador",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "gpt-4o-mini": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Separador",
+            "type": "ai_languageModel",
+            "index": 0
+          },
+          {
+            "node": "Generador",
+            "type": "ai_languageModel",
+            "index": 0
+          },
+          {
+            "node": "Basic LLM Chain",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Separador.Json": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "Separador",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generador.Json": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "Generador",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generador": {
+      "main": [
+        [
+          {
+            "node": "Split Out",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out": {
+      "main": [
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-08-03T04:08:47.511Z",
+  "id": "UBx4qqDGKgeOjAN2",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "My workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        128,
+        0
+      ],
+      "id": "ba5796c0-61d8-4753-afed-7d0490d61392",
+      "name": "When chat message received",
+      "webhookId": "d8032177-c2a9-4aea-8979-d2af434dc81b"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.chatInput }}",
+        "hasOutputParser": true,
+        "messages": {
+          "messageValues": [
+            {
+              "message": "=Tu tarea es analizar el texto proporcionado y extraer los siguientes datos:\n\nDatos a extraer:\nTema: El tema principal\nCantidad: Cualquier número, cifra o cantidad mencionada\nPersonaje: Cualquier persona, animal, nombre propio o personaje mencionado\n\nInstrucciones:\nAnaliza cuidadosamente toda la transcripción\nExtrae ÚNICAMENTE la información que esté claramente presente en el texto\nSi un dato no está presente o no se puede determinar con certeza, usa null\nNO inventes ni asumas información que no esté explícitamente mencionada\nPara \"Cantidad\", busca números, cifras, medidas, precios, fechas numéricas, etc.\nPara \"Personaje\", busca nombres propios, apodos, títulos de personas mencionadas, nombre de animales\nPara \"Tema\", identifica el asunto principal de la conversación\n\nFormato de salida:\nResponde ÚNICAMENTE con un objeto JSON válido con esta estructura exacta:\n\n{\n  \"Tema\": \"string o null\",\n  \"Cantidad\": \"string o null\", \n  \"Personaje\": \"string o null\"\n}\n\nEjemplos:\nTexto proporcionado: \"Hola, necesito recordar comprar 5 botellas de agua para la reunión con María mañana sobre el proyecto de marketing\"\nSalida:\n{\n  \"Tema\": \"Compra de agua para reunión de marketing\",\n  \"Cantidad\": \"5\",\n  \"Personaje\": \"María\"\n}\n\nTexto proporcionado: \"Hola, genérame 3 publicaciones sobre automatización IA y de personaje me gustaría a un lobo\"\nSalida:\n{\n  \"Tema\": \"Automatización de procesos mediante IA\",\n  \"Cantidad\": \"3\",\n  \"Personaje\": \"Lobo\"\n}\n\nTexto proporcionado: \"Me siento muy cansado hoy, creo que voy a descansar\"\nSalida:\n{\n  \"Tema\": \"Cansancio y descanso\",\n  \"Cantidad\": null,\n  \"Personaje\": null\n}"
+            }
+          ]
+        },
+        "batching": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.7,
+      "position": [
+        416,
+        0
+      ],
+      "id": "5486014b-8d58-4307-8061-a8f80b345fe7",
+      "name": "Separador"
+    },
+    {
+      "parameters": {
+        "model": "openai/gpt-4o-mini",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [
+        640,
+        512
+      ],
+      "id": "b0ea8f01-faa3-431a-b52d-cc1166b6b8c4",
+      "name": "gpt-4o-mini",
+      "credentials": {
+        "openRouterApi": {
+          "id": "fx7pdURTekgTilKM",
+          "name": "OpenRouter.msn"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsonSchemaExample": "{\n  \"Tema\": \"string o null\",\n  \"Cantidad\": \"string o null\", \n  \"Personaje\": \"string o null\"\n}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.3,
+      "position": [
+        608,
+        160
+      ],
+      "id": "d6ed125e-8c00-4ff4-95e6-bb680c4c8f14",
+      "name": "Separador.Json"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.output.Tema }}",
+        "hasOutputParser": true,
+        "messages": {
+          "messageValues": [
+            {
+              "message": "=Quiero que actúes como un generador de contenido visual para una serie de ilustraciones educativas estilo caricatura.\n\nA partir de un solo tema proporcionado por el usuario (por ejemplo: “Nutrición para jóvenes”) y un número específico de publicaciones (por ejemplo: 30), deberás crear un JSON con esa cantidad exacta de objetos.\n\nEl array se llamará \"ilustraciones\".\n\nCada objeto debe tener la siguiente estructura:\n\n{\n  \"tema_general\": \"...\",\n  \"tema_parte_1\": \"...\",\n  \"tema_parte_2\": \"...\",\n  \"texto_final\": \"...\"\n}\n\nDetalles importantes:\n\n- El personaje principal siempre será un/una {{ $json.output.Personaje }} caricaturesca.\n- El estilo debe ser amigable, claro, divertido y coherente.\n- Cada input debe representar un contraste visual claro entre dos formas de pensar, actuar o abordar el tema.\n- El campo \"texto_final\" debe estar en español, en mayúsculas, y expresar la diferencia entre ambas mitades.\n- No siempre debe comenzar con \"HAY DOS TIPOS DE\"; puede variar con frases como:\n\n  - \"CUANDO CAMBIAS TU FORMA DE VERLO, TODO CAMBIA\"\n  - \"NO TODO LO QUE BRILLA NUTRE\"\n  - \"UNO PARECE EFICIENTE, EL OTRO LO ES\"\n  - \"MISMA SITUACIÓN, DIFERENTE MENTALIDAD\"\n  - u otras frases creativas que resuman el contraste\n\nUsa creatividad, humor ligero y claridad visual. Asegúrate de que cada texto final tenga fuerza por sí solo como título de una imagen.\n\nAhora genera exactamente {{ $json.output.Cantidad }} elementos siguiendo esta estructura, usando el tema: {{ $json.output.Tema }}\n\nSi no se te menciona una cantidad asumelo como \"1\""
+            }
+          ]
+        },
+        "batching": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.7,
+      "position": [
+        816,
+        0
+      ],
+      "id": "367569f7-67f6-4621-8d1a-3e4568abd3e6",
+      "name": "Generador"
+    },
+    {
+      "parameters": {
+        "jsonSchemaExample": "{\n  \"ilustraciones\": [\n    {\n      \"tema_general\": \"...\",\n      \"tema_parte_1\": \"...\",\n      \"tema_parte_2\": \"...\",\n      \"texto_final\": \"...\"\n    }\n  ]\n}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.3,
+      "position": [
+        944,
+        160
+      ],
+      "id": "39e4d690-e85f-48c6-9569-14d99029b5e9",
+      "name": "Generador.Json"
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "output.ilustraciones",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        160,
+        304
+      ],
+      "id": "2c5e3c20-4b81-497a-9e30-316f25a2391f",
+      "name": "Split Out"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=tema_general: {{ $json.tema_general }}\ntema_parte_1: {{ $json.tema_parte_1 }}\ntema_parte_2: {{ $json.tema_parte_2 }}\ntexto_final: {{ $json.texto_final }}",
+        "messages": {
+          "messageValues": [
+            {
+              "message": "Eres un generador experto de captions para redes sociales. Recibirás un input JSON que describe una ilustración educativa con una capibara caricaturesca, dividida en dos mitades visuales contrastantes: una representa un comportamiento común o negativo, y la otra una alternativa más efectiva o saludable.\n\nTu tarea es escribir una sola caption larga y poderosa en español, con estructura de reflexión, storytelling o punchline emocional. Esta caption será usada en todas las redes sociales, así que debe funcionar tanto para un post como para un voiceover.\n\nEstilo esperado:\n- Tono humano, empático y natural.\n- Frases en líneas separadas usando \\n como salto de línea.\n- Mínimo 6 líneas. Máximo 12.\n- Puedes usar emojis si aportan emocionalidad, pero no exageres.\n- Cierra con una pregunta que invite a reflexionar o con una frase que impacte.\n\nInput de ejemplo:\n{\n  \"tema_general\": \"Disciplina\",\n  \"tema_parte_1\": \"Una capibara acostada viendo el celular con flojera antes de ir al gimnasio\",\n  \"tema_parte_2\": \"Una capibara levantándose con cara de sueño pero con la ropa de ejercicio puesta\",\n  \"texto_final\": \"UNO ESPERA MOTIVACIÓN. EL OTRO ENTRENA CON DISCIPLINA\"\n}\n\nGenera la caption como texto plano (sin comillas ni formato JSON). Solo responde con el texto final.\n\nEjemplos \n📌 Ejemplo 1 – Disciplina\nA veces esperamos a esa chispa de motivación para ir al gym.\nY cuando llega, nos sentimos imparables 🔥\nPero, ¿qué pasa cuando esa chispa desaparece?\nAhí entra la disciplina: silenciosa, fiel, constante.\nNo importa si la emoción falta, lo importante es mostrarse, intentarlo, avanzar paso a paso 🐢\nCuéntame, ¿entrenas solo cuando te animas, o tu disciplina es más fuerte que tus ganas?\n\n📌 Ejemplo 2 – Creatividad\nInspirarse es útil.\nPero hay una línea muy delgada entre inspirarse y copiar.\nLa creatividad verdadera se ve rara, imperfecta… pero es tuya.\nNo es hacer algo bonito, es hacer algo auténtico.\nPorque repetir es fácil.\nCrear, en cambio, es un acto de valentía.\n¿Estás creando o solo replicando lo que ya viste?\n\n📌 Ejemplo 3 – Gestión del tiempo\nEstar ocupado no es lo mismo que avanzar.\nPuedes llenar tu día de tareas… y aún así no moverte ni un paso.\nEn cambio, cuando priorizas con intención, todo cambia.\nMenos ruido. Más claridad.\n¿De verdad estás avanzando, o solo estás ocupado?\n\n📌 Ejemplo 4 – Finanzas personales\nComprar por impulso se siente bien… hasta que llega el estado de cuenta.\nAhorrar no siempre es emocionante, pero sí es liberador.\nGastar con conciencia es una forma de cuidarte a ti mismo.\nPorque no hay lujo más grande que dormir sin deudas.\n¿Compras por emoción o con intención?\n\n📌 Ejemplo 5 – Comunicación\nDecir todo lo que piensas no siempre es claridad. A veces es ruido.\nEscuchar es un acto de respeto. Y también de poder.\nNo gana el que más habla. Gana el que conecta.\nA veces, el silencio también dice algo.\n¿Estás hablando… o estás comunicando?\n\nEn la caption no menciones al personaje\n\nIMPORTANTE\nMaximo 1 o 2 parrafos por frase, el post tiene que tener espacios entre si para que no se vea todo junto"
+            }
+          ]
+        },
+        "batching": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.7,
+      "position": [
+        368,
+        304
+      ],
+      "id": "0314146d-2190-4340-9848-63e5edd94c01",
+      "name": "Basic LLM Chain"
+    }
+  ],
+  "pinData": {
+    "Separador": [
+      {
+        "json": {
+          "output": {
+            "Tema": "Publicaciones sobre automatización IA",
+            "Cantidad": "4",
+            "Personaje": "Lobo joven"
+          }
+        }
+      }
+    ],
+    "Generador": [
+      {
+        "json": {
+          "output": {
+            "ilustraciones": [
+              {
+                "tema_general": "Automatización IA",
+                "tema_parte_1": "Uso eficiente de IA en procesos de negocio",
+                "tema_parte_2": "Sobrecarga de tareas manuales sin automatización",
+                "texto_final": "CUANDO CAMBIAS TU FORMA DE VERLO, TODO CAMBIA"
+              },
+              {
+                "tema_general": "Automatización IA",
+                "tema_parte_1": "Implementación de IA para análisis de datos",
+                "tema_parte_2": "Análisis de datos a mano y tardado",
+                "texto_final": "UNO PARECE EFICIENTE, EL OTRO LO ES"
+              },
+              {
+                "tema_general": "Automatización IA",
+                "tema_parte_1": "IA que optimiza la atención al cliente",
+                "tema_parte_2": "Atención al cliente tradicional y lenta",
+                "texto_final": "NO TODO LO QUE BRILLA NUTRE"
+              },
+              {
+                "tema_general": "Automatización IA",
+                "tema_parte_1": "Automatización que libera tiempo para la creatividad",
+                "tema_parte_2": "Técnicas antiguas que agotan la energía",
+                "texto_final": "MISMA SITUACIÓN, DIFERENTE MENTALIDAD"
+              }
+            ]
+          }
+        }
+      }
+    ]
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-08-03T04:43:20.000Z",
+  "versionId": "d2809749-fa9c-4af9-9e12-d3cb6ec4554b"
+}
