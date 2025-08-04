@@ -1,0 +1,376 @@
+{
+  "active": true,
+  "connections": {
+    "Set.Variables": {
+      "main": [
+        [
+          {
+            "node": "Pick.Random.Elements",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Pick.Random.Elements": {
+      "main": [
+        [
+          {
+            "node": "Build.Prompt",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build.Prompt": {
+      "main": [
+        [
+          {
+            "node": "Build.IA.Prompt",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build.IA.Prompt": {
+      "main": [
+        [
+          {
+            "node": "Replicate.minimax",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Replicate.minimax": {
+      "main": [
+        [
+          {
+            "node": "Post.CodigoAlfa",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Set.Variables",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Foto": {
+      "main": [
+        []
+      ]
+    },
+    "Post.CodigoAlfa": {
+      "main": [
+        [
+          {
+            "node": "Foto",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Set.Variables",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-07-24T15:54:27.220Z",
+  "id": "eEjfYtRZfqtCDMed",
+  "isArchived": false,
+  "meta": null,
+  "name": "Auto.CodigoAlfa.Post.Image",
+  "nodes": [
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "7d245a17-b640-41ab-ac37-6c1cf9c7e7d1",
+              "name": "styles",
+              "value": "=[\"casual\", \"sensual\", \"playful\", \"intimate\"]",
+              "type": "string"
+            },
+            {
+              "id": "f666428d-9b4d-462c-a08b-b1d392b21d0d",
+              "name": "poses_by_style",
+              "value": "={\n  \"casual\": [\n    \"standing confidently facing the camera\",\n    \"sitting on a lounge chair\",\n    \"walking away, glancing back\",\n    \"standing with one leg slightly raised, back facing the camera\"\n  ],\n  \"sensual\": [\n    \"standing with back turned, head looking over shoulder\",\n    \"bending slightly forward, from behind, looking back\",\n    \"arching back while standing, facing away\",\n    \"walking away with hips swaying, glancing back\"\n  ],\n  \"playful\": [\n    \"squatting playfully\",\n    \"squatting with knees apart, looking at the camera\"\n  ],\n  \"intimate\": [\n    \"lying on her stomach on a bed\",\n    \"sitting on the floor with legs bent, back facing the camera\"\n  ]\n}",
+              "type": "string"
+            },
+            {
+              "id": "bfa40629-f740-47d5-9c74-876648fc603f",
+              "name": "outfits",
+              "value": "[   \"a very small and tight bikini\",   \"a tight white tank top and micro shorts\",   \"a crop top and a miniskirt\",   \"a revealing lingerie set\",   \"skin-tight yoga leggings and sports bra\",   \"an open button-up shirt with no bra\",   \"a short dress with cleavage\" ]",
+              "type": "string"
+            },
+            {
+              "id": "b5cad4bc-cc4e-4c49-967c-2d89e5caad06",
+              "name": "locations",
+              "value": "[   \"swimming pool\",   \"beach at sunset\",   \"modern bedroom\",   \"stylish office\",   \"classroom\",   \"gym with mirrors\",   \"rooftop terrace\" ]",
+              "type": "string"
+            },
+            {
+              "id": "70882f3f-2c1d-4dd1-8c51-5ff47341e4d9",
+              "name": "expressions",
+              "value": "[   \"innocent expression\",   \"seductive smile\",   \"playful look\",   \"serious face\",   \"shy smile\" ]",
+              "type": "string"
+            },
+            {
+              "id": "3cd8e0e5-66b4-4b54-b176-4143c9117488",
+              "name": "accessories",
+              "value": "[   \"wearing sunglasses\",   \"holding a smartphone\",   \"with a towel\",   \"holding a drink\",   \"wearing a sun hat\",   \"with a book in hand\" ]",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        224,
+        0
+      ],
+      "id": "bacd4d27-862d-4633-8e7b-8ec35203de96",
+      "name": "Set.Variables"
+    },
+    {
+      "parameters": {
+        "jsCode": "function pickRandom(arr) {\n  return arr[Math.floor(Math.random() * arr.length)];\n}\n\nconst styles = JSON.parse($json[\"styles\"]);\nconst posesByStyle = JSON.parse($json[\"poses_by_style\"]);\nconst outfits = JSON.parse($json[\"outfits\"]);\nconst locations = JSON.parse($json[\"locations\"]);\nconst expressions = JSON.parse($json[\"expressions\"]);\nconst accessories = JSON.parse($json[\"accessories\"]);\n\nconst style = pickRandom(styles);\nconst pose = pickRandom(posesByStyle[style]);\nconst outfit = pickRandom(outfits);\nconst location = pickRandom(locations);\nconst expression = pickRandom(expressions);\nconst accessory = pickRandom(accessories);\n\nreturn [\n  {\n    json: {\n      style,\n      pose,\n      outfit,\n      location,\n      expression,\n      accessory\n    }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        416,
+        0
+      ],
+      "id": "91ba323c-46b7-48fa-a4ab-47e4cb04a04e",
+      "name": "Pick.Random.Elements"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "16e4cfcc-4a22-41b4-a26a-8c63ef6305b2",
+              "name": "prompt",
+              "value": "=a realistic full-body photo of a voluptuous caucasian teenage woman (18+), long brunette hair, blue eyes, huge breasts, large butt, wearing {{$json[\"outfit\"]}}, {{$json[\"pose\"]}}, in a {{$json[\"location\"]}}, {{$json[\"expression\"]}}, {{$json[\"accessory\"]}}, soft natural lighting, wet or glowing skin, highly detailed skin, skin pores, realistic skin texture, subsurface scattering, delicate imperfections, human skin, DSLR photo quality, photorealistic",
+              "type": "string"
+            },
+            {
+              "id": "cb4fb9c6-f162-4258-8c74-f172a894d512",
+              "name": "negative_prompt",
+              "value": "blurry, cartoon, anime, illustration, painting, plastic skin, waxy skin, doll-like, over-smoothed, airbrushed, unrealistic, extra fingers, distorted face, bad anatomy, watermark, logo, text",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        624,
+        0
+      ],
+      "id": "5b1bcca6-26c4-4de0-b2a8-3ed234b39340",
+      "name": "Build.Prompt"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "ddf1cc93-c17e-4b6b-928a-7af10763034f",
+              "name": "gemini_prompt",
+              "value": "=Prompt: {{$json[\"prompt\"]}}. Avoid: {{$json[\"negative_prompt\"]}}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        832,
+        0
+      ],
+      "id": "e9c2037d-d042-4327-aecc-2059b3acfe71",
+      "name": "Build.IA.Prompt"
+    },
+    {
+      "parameters": {
+        "httpRequestMethod": "POST",
+        "graphApiVersion": "v22.0",
+        "node": "me",
+        "edge": "photos",
+        "options": {
+          "queryParameters": {
+            "parameter": [
+              {
+                "name": "url",
+                "value": "={{ $('Replicate.minimax').item.json.output[0] }}"
+              }
+            ]
+          }
+        }
+      },
+      "type": "n8n-nodes-base.facebookGraphApi",
+      "typeVersion": 1,
+      "position": [
+        336,
+        208
+      ],
+      "id": "e6931551-0fac-4323-b6ca-6e29f9aa5040",
+      "name": "Post.CodigoAlfa",
+      "credentials": {
+        "facebookGraphApi": {
+          "id": "hOMT44BIxjiDsVdw",
+          "name": "Facebook.CodigoAlfa"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.replicate.com/v1/models/minimax/image-01/predictions",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "name": "Prefer",
+              "value": "wait"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"input\": {\n    \"prompt\": \"{{ $json.gemini_prompt }}\",\n    \"aspect_ratio\": \"1:1\"\n  }\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        64,
+        208
+      ],
+      "id": "f3375a66-fa28-4345-861c-fae2168de6b7",
+      "name": "Replicate.minimax",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "L9yQttThWndrdNn3",
+          "name": "Replicate.msn"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 13
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        32,
+        0
+      ],
+      "id": "38c1f0b2-347d-4f56-876e-5e5696da71a1",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "operation": "sendPhoto",
+        "chatId": "=1704819492",
+        "file": "={{ $('Replicate.minimax').item.json.output[0] }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        624,
+        208
+      ],
+      "id": "e5626139-4c27-4461-9d8c-d3fecc9f5ed3",
+      "name": "Foto",
+      "webhookId": "834b2a54-20a4-4982-a705-2ccdbffcda1b",
+      "credentials": {
+        "telegramApi": {
+          "id": "zxkALNj2uZW1uxoX",
+          "name": "Telegram.jomBusiness"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        32,
+        -160
+      ],
+      "id": "c3550b75-a645-4d4c-af6c-d9baf28c0416",
+      "name": "When clicking ‘Execute workflow’"
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1",
+    "timezone": "America/Lima",
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": "iNdV46Bame2vCTJz"
+  },
+  "staticData": {
+    "node:Schedule Trigger": {
+      "recurrenceRules": []
+    }
+  },
+  "tags": [
+    {
+      "createdAt": "2025-07-18T02:37:28.170Z",
+      "updatedAt": "2025-07-18T02:37:28.170Z",
+      "id": "Za1YQUqDKWnwNOuD",
+      "name": "🤖 IA al mando"
+    },
+    {
+      "createdAt": "2025-07-28T23:05:51.332Z",
+      "updatedAt": "2025-07-28T23:05:51.332Z",
+      "id": "zSAshwfFPUXVrLqy",
+      "name": "🦊 Codigo.Alfa"
+    }
+  ],
+  "triggerCount": 1,
+  "updatedAt": "2025-07-29T06:41:34.000Z",
+  "versionId": "e6862d4d-7a13-45be-909e-85d7fe16a529"
+}
