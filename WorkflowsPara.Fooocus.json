@@ -1,0 +1,115 @@
+{
+  "active": false,
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Code",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Convert to File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-07-14T01:21:34.595Z",
+  "id": "opbc8rZ51pmPy1WP",
+  "isArchived": false,
+  "meta": null,
+  "name": "Para.Fooocus",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -320,
+        -112
+      ],
+      "id": "204c2128-c6a7-4f49-b11f-b4b3c33d0171",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Definir las listas de opciones para cada categoría\nconst etnias = [\"latina\", \"european\"];\nconst lugares = [\"in a luxurious penthouse suite with city views\", \"in a high-end spa's private relaxation area\", \"on a secluded yacht deck at sunset\", \"in a lavish mansion's master bedroom\", \"by an opulent indoor swimming pool\", \"in a sophisticated hotel's exclusive lounge\", \"on a private villa's infinity terrace\", \"in a designer dressing room with elegant decor\"];\nconst vestimentas = [\"wearing a micro bikini, showcasing breasts and glutes\", \"in sheer lace lingerie, emphasizing cleavage and curves\", \"wearing a wet white t-shirt, highlighting breasts and form\", \"in a thong bodysuit, accentuating bust and backside\", \"topless with high-cut thong underwear, enhancing assets\", \"wearing a revealing mesh top and string bottoms, showing skin\", \"in a strapless bra and matching thong, maximizing exposure\", \"wearing only a tiny bralette and cheeky shorts, celebrating contours\", \"nude, strategically posed to emphasize breasts and glutes\"];\nconst poses = [\"posing seductively on her back\", \"arching her back provocatively\", \"kneeling with a sensual gaze\", \"lying on her stomach, looking over her shoulder\", \"sitting with legs crossed, revealing her thighs\", \"standing with one leg bent, emphasizing her curves\", \"leaning against a surface, with a hand on her hip\", \"reaching up, subtly exposing her torso\", \"with hands in her hair, looking playful\", \"crawling on all fours, looking back\", \"with legs spread slightly, looking directly at the viewer\", \"in a squatting position, highlighting her backside\", \"lying on her side, with a leg lifted\", \"posing with hands on her inner thighs\", \"with one hand touching her chest, looking intimate\", \"straddling a prop, looking confident\", \"bending over, looking back at the camera\", \"with a leg up on a surface, showing off her leg\", \"sitting on the edge of a surface, legs dangling\", \"with arms above her head, accentuating her body lines\"];\n\nconst prompts = [];\n\n// Bucle anidado para generar todas las combinaciones\nfor (const etnia of etnias) {\n  for (const lugar of lugares) {\n    for (const vestimenta of vestimentas) {\n      for (const pose of poses) {\n        const prompt = `realistic photography of an 18-20 year old voluptuous woman, ${etnia}, with a seductive and playful expression, ${lugar}, ${vestimenta}, ${pose}, no tattoos, no piercings, full body shot, boudoir photography style, bokeh background, no accessories.`;\n        prompts.push({\n          json: {\n            prompt: prompt,\n            etnia: etnia,\n            lugar: lugar,\n            vestimenta: vestimenta,\n            pose: pose\n          }\n        });\n      }\n    }\n  }\n}\n\n// Devuelve los prompts generados como ítems de salida\nreturn prompts;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -112,
+        -112
+      ],
+      "id": "35560cca-3ecf-400c-aba4-4703e826502d",
+      "name": "Code"
+    },
+    {
+      "parameters": {
+        "binaryPropertyName": "={{ $json.prompt }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.convertToFile",
+      "typeVersion": 1.1,
+      "position": [
+        352,
+        -112
+      ],
+      "id": "91caa2bf-30ac-4d8f-8e76-4c8fee966b3c",
+      "name": "Convert to File"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "2b5aeeb2-3dd8-4965-bb8f-245fdd7b3189",
+              "name": "prompt",
+              "value": "={{ $json.prompt }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        112,
+        -112
+      ],
+      "id": "4f127436-f175-4a72-9dbb-5d4a707f35a0",
+      "name": "Edit Fields"
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-07-14T03:08:36.000Z",
+  "versionId": "b455aa1c-a029-4889-a1fa-532012b091ad"
+}
