@@ -164,7 +164,7 @@
       "main": [
         [
           {
-            "node": "Wait.30",
+            "node": "Wait.5",
             "type": "main",
             "index": 0
           }
@@ -175,7 +175,7 @@
       "main": [
         [
           {
-            "node": "Wait.35",
+            "node": "Wait.50",
             "type": "main",
             "index": 0
           },
@@ -192,7 +192,18 @@
         ]
       ]
     },
-    "Wait.30": {
+    "Filter": {
+      "main": [
+        [
+          {
+            "node": "Select.Rss",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait.5": {
       "main": [
         [
           {
@@ -203,22 +214,11 @@
         ]
       ]
     },
-    "Wait.35": {
+    "Wait.50": {
       "main": [
         [
           {
             "node": "Upload.Image",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Filter": {
-      "main": [
-        [
-          {
-            "node": "Select.Rss",
             "type": "main",
             "index": 0
           }
@@ -714,20 +714,6 @@
     },
     {
       "parameters": {
-        "amount": 30
-      },
-      "type": "n8n-nodes-base.wait",
-      "typeVersion": 1.1,
-      "position": [
-        192,
-        128
-      ],
-      "id": "f2c405c6-940b-4471-9207-fb160660603c",
-      "name": "Wait.30",
-      "webhookId": "5dbfa580-58e8-44cb-8ec7-ada44805b8e1"
-    },
-    {
-      "parameters": {
         "content": "## Se debería de usar Ideograma  \n[Guide](https://about.ideogram.ai/api-pricing)",
         "height": 128
       },
@@ -773,20 +759,6 @@
           "name": "Facebook.SmartWeb"
         }
       }
-    },
-    {
-      "parameters": {
-        "amount": 35
-      },
-      "type": "n8n-nodes-base.wait",
-      "typeVersion": 1.1,
-      "position": [
-        32,
-        560
-      ],
-      "id": "a6f555ac-ff1e-405b-997c-f871306ef0e9",
-      "name": "Wait.35",
-      "webhookId": "1339756b-50e8-4e75-baf1-bf91b39d0b7b"
     },
     {
       "parameters": {
@@ -838,6 +810,32 @@
       ],
       "id": "b6e18156-cc11-4225-a7bf-52edf127b1fe",
       "name": "Filter"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        192,
+        128
+      ],
+      "id": "f2c405c6-940b-4471-9207-fb160660603c",
+      "name": "Wait.5",
+      "webhookId": "5dbfa580-58e8-44cb-8ec7-ada44805b8e1"
+    },
+    {
+      "parameters": {
+        "amount": 50
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        32,
+        560
+      ],
+      "id": "a6f555ac-ff1e-405b-997c-f871306ef0e9",
+      "name": "Wait.50",
+      "webhookId": "1339756b-50e8-4e75-baf1-bf91b39d0b7b"
     }
   ],
   "pinData": {},
@@ -856,6 +854,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2025-08-02T15:46:40.000Z",
-  "versionId": "99277107-0618-4a89-9f79-ba15c00ce27e"
+  "updatedAt": "2025-08-06T16:20:36.000Z",
+  "versionId": "93e7afaa-fa46-4c5f-97c5-e183e9201e1b"
 }
