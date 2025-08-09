@@ -140,7 +140,7 @@
       "main": [
         [
           {
-            "node": "Send a text message",
+            "node": "Fin",
             "type": "main",
             "index": 0
           }
@@ -175,17 +175,6 @@
         [
           {
             "node": "Merge",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Send a text message": {
-      "main": [
-        [
-          {
-            "node": "Fin",
             "type": "main",
             "index": 0
           }
@@ -425,8 +414,8 @@
       "type": "n8n-nodes-base.noOp",
       "typeVersion": 1,
       "position": [
-        -208,
-        -400
+        -416,
+        -320
       ]
     },
     {
@@ -472,25 +461,19 @@
     },
     {
       "parameters": {
-        "chatId": "1704819492",
-        "text": "GitHGub.Optimiza termino correctamente",
-        "additionalFields": {}
+        "content": "## Consultar\n[GitHub - Optimiza.n8n](https://github.com/SMARTweb-SaaS/Optimiza.n8n)",
+        "height": 112,
+        "width": 312,
+        "color": 5
       },
-      "type": "n8n-nodes-base.telegram",
-      "typeVersion": 1.2,
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
       "position": [
-        -400,
-        -400
+        -976,
+        -272
       ],
-      "id": "e32a2785-6154-425a-a2ef-670b18a60dec",
-      "name": "Send a text message",
-      "webhookId": "f4771b9c-7cac-4374-b390-fe8489bcabfe",
-      "credentials": {
-        "telegramApi": {
-          "id": "zxkALNj2uZW1uxoX",
-          "name": "Telegram.jomBusiness"
-        }
-      }
+      "id": "3b0ccc67-5736-4674-8edc-722354ca472e",
+      "name": "Sticky Note4"
     }
   ],
   "pinData": {},
@@ -515,6 +498,6 @@
     }
   ],
   "triggerCount": 1,
-  "updatedAt": "2025-08-06T16:28:07.000Z",
-  "versionId": "189cf78c-840c-4d54-8e54-6b15eddef78b"
+  "updatedAt": "2025-08-09T00:08:38.000Z",
+  "versionId": "eee0823d-22e8-4a5c-90e4-a568c269809a"
 }
