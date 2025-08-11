@@ -77,12 +77,12 @@
     {
       "parameters": {
         "method": "POST",
-        "url": "https://queue.fal.run/fal-ai/flux/dev",
+        "url": "https://queue.fal.run/fal-ai/stable-diffusion-v35-large",
         "authentication": "genericCredentialType",
         "genericAuthType": "httpHeaderAuth",
         "sendBody": true,
         "specifyBody": "json",
-        "jsonBody": "{\n  \"prompt\": \"Ultra-realistic vertical portrait of a curvy young {hair_color} woman with full breasts (not oversized) and wide hips, {pose}, {head_position} looking directly at the viewer, long silky {hair_style} hair, wearing {outfit}, hourglass figure, fit and toned body with natural proportions, perfect soft warm studio lighting (no glare or shiny skin), detailed smooth skin texture, sharp focus, cinematic composition, suggestive and erotic but non-explicit, in a {scenario}. Avoid: nude, porn, extra limbs, blurry, deformed body, bad anatomy, low quality, grainy, overexposed, underexposed, cartoon, anime.\",\n  \"image_size\": {\n    \"width\": 832,\n    \"height\": 1216\n  },\n  \"num_inference_steps\": 31,\n  \"guidance_scale\": 7,\n  \"num_images\": 1,\n  \"enable_safety_checker\": false,\n  \"output_format\": \"png\",\n  \"acceleration\": \"none\"\n}",
+        "jsonBody": "{\n  \"prompt\": \"Ultra-realistic vertical portrait of a curvy young woman with full breasts (not oversized) and round, prominent hips, standing with one leg slightly forward and arched back to accentuate her curves, one hand resting on her hip, the other brushing her long silky dark brown hair with subtle caramel highlights over one shoulder, wearing a micro-short denim cut-off with frayed edges and a tight red satin bikini top, hourglass figure, fit and toned body with natural proportions, even soft diffused lighting with no glare or hotspots, matte smooth skin texture, sharp focus, cinematic composition, suggestive and erotic but non-explicit, in a luxury penthouse bedroom with warm ambient light and blurred city lights in the background. Avoid: nude, explicit, porn, extra limbs, blurry, deformed body, bad anatomy, low quality, grainy, overexposed, underexposed, cartoon, anime.\",\n  \"image_size\": {\n    \"width\": 832,\n    \"height\": 1216\n  },\n  \"num_inference_steps\": 31,\n  \"guidance_scale\": 7,\n  \"num_images\": 1,\n  \"enable_safety_checker\": false,\n  \"output_format\": \"png\"\n}",
         "options": {}
       },
       "type": "n8n-nodes-base.httpRequest",
@@ -102,7 +102,7 @@
     },
     {
       "parameters": {
-        "url": "=https://queue.fal.run/fal-ai/flux/requests/{{ $json.request_id }}",
+        "url": "=https://queue.fal.run/fal-ai/stable-diffusion-v35-large/requests/{{ $json.request_id }}",
         "authentication": "genericCredentialType",
         "genericAuthType": "httpHeaderAuth",
         "options": {}
@@ -168,7 +168,9 @@
       }
     },
     {
-      "parameters": {},
+      "parameters": {
+        "amount": 10
+      },
       "type": "n8n-nodes-base.wait",
       "typeVersion": 1.1,
       "position": [
@@ -181,7 +183,8 @@
     },
     {
       "parameters": {
-        "content": "## I'm a note \n**Double click** to edit me. [Guide](https://docs.n8n.io/workflows/sticky-notes/)\ncrear tablas en base row\n\nhttps://chatgpt.com/share/689810be-83d4-800d-8014-e2b2559158ab"
+        "content": "## I'm a note \n**Usar Flux Dev**\ncrear tablas en base row\n\nhttps://chatgpt.com/share/689810be-83d4-800d-8014-e2b2559158ab",
+        "width": 368
       },
       "type": "n8n-nodes-base.stickyNote",
       "position": [
@@ -200,6 +203,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2025-08-10T03:23:59.000Z",
-  "versionId": "4807b989-1f09-4403-9db6-9b46bce3f55d"
+  "updatedAt": "2025-08-11T12:43:50.000Z",
+  "versionId": "c13c5b79-44d0-4026-9399-2fff31e20e88"
 }
