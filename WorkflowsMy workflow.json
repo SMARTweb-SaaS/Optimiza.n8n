@@ -5,51 +5,51 @@
       "main": [
         [
           {
-            "node": "HTTP Request",
+            "node": "Fal.flux.dev.post",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "HTTP Request": {
+    "Fal.flux.dev.post": {
       "main": [
         [
           {
-            "node": "FalAi.Get.Videos1",
+            "node": "Fal.flux.dev.get",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "FalAi.Get.Videos": {
+    "Fal.flux.dev.get": {
+      "main": [
+        [
+          {
+            "node": "Wait.10",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait.10": {
+      "main": [
+        [
+          {
+            "node": "Fal.flex.dev.get.url",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fal.flex.dev.get.url": {
       "main": [
         [
           {
             "node": "Foto",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "FalAi.Get.Videos1": {
-      "main": [
-        [
-          {
-            "node": "Wait1",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Wait1": {
-      "main": [
-        [
-          {
-            "node": "FalAi.Get.Videos",
             "type": "main",
             "index": 0
           }
@@ -76,54 +76,6 @@
     },
     {
       "parameters": {
-        "method": "POST",
-        "url": "https://queue.fal.run/fal-ai/stable-diffusion-v35-large",
-        "authentication": "genericCredentialType",
-        "genericAuthType": "httpHeaderAuth",
-        "sendBody": true,
-        "specifyBody": "json",
-        "jsonBody": "{\n  \"prompt\": \"Ultra-realistic vertical portrait of a curvy young woman with full breasts (not oversized) and round, prominent hips, standing with one leg slightly forward and arched back to accentuate her curves, one hand resting on her hip, the other brushing her long silky dark brown hair with subtle caramel highlights over one shoulder, wearing a micro-short denim cut-off with frayed edges and a tight red satin bikini top, hourglass figure, fit and toned body with natural proportions, even soft diffused lighting with no glare or hotspots, matte smooth skin texture, sharp focus, cinematic composition, suggestive and erotic but non-explicit, in a luxury penthouse bedroom with warm ambient light and blurred city lights in the background. Avoid: nude, explicit, porn, extra limbs, blurry, deformed body, bad anatomy, low quality, grainy, overexposed, underexposed, cartoon, anime.\",\n  \"image_size\": {\n    \"width\": 832,\n    \"height\": 1216\n  },\n  \"num_inference_steps\": 31,\n  \"guidance_scale\": 7,\n  \"num_images\": 1,\n  \"enable_safety_checker\": false,\n  \"output_format\": \"png\"\n}",
-        "options": {}
-      },
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.2,
-      "position": [
-        688,
-        0
-      ],
-      "id": "d1f745d3-ad0e-4f4b-affb-61a03bc1299b",
-      "name": "HTTP Request",
-      "credentials": {
-        "httpHeaderAuth": {
-          "id": "CTU31n1iM3emZIHK",
-          "name": "FalAi.gmail"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "url": "=https://queue.fal.run/fal-ai/stable-diffusion-v35-large/requests/{{ $json.request_id }}",
-        "authentication": "genericCredentialType",
-        "genericAuthType": "httpHeaderAuth",
-        "options": {}
-      },
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.2,
-      "position": [
-        544,
-        208
-      ],
-      "id": "57de49db-5eb0-4c1e-97f9-6350770f95a5",
-      "name": "FalAi.Get.Videos",
-      "credentials": {
-        "httpHeaderAuth": {
-          "id": "CTU31n1iM3emZIHK",
-          "name": "FalAi.gmail"
-        }
-      }
-    },
-    {
-      "parameters": {
         "operation": "sendPhoto",
         "chatId": "=1704819492",
         "file": "={{ $json.images[0].url }}",
@@ -147,6 +99,46 @@
     },
     {
       "parameters": {
+        "content": "## I'm a note \n**Usar Flux Dev**\ncrear tablas en base row\n\nhttps://chatgpt.com/share/689810be-83d4-800d-8014-e2b2559158ab",
+        "width": 368
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        288,
+        -176
+      ],
+      "typeVersion": 1,
+      "id": "fc8d591f-51be-4e12-9d64-5a6a3965f744",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://queue.fal.run/fal-ai/flux/dev",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "{\n  \"prompt\": \"(Contexto: La imagen es para una sesión de contenido premium de alto impacto visual para una creadora en OnlyFans. El objetivo es lograr una fotografía altamente atractiva, elegante, sensual y viral, con calidad de portada de revista, cuidando la estética, la iluminación y la pose. Actuar como un fotógrafo profesional especializado en glamour y retratos de alto nivel) (Context: The image is for a high visual impact premium content shoot for a creator on OnlyFans. The goal is to achieve a highly attractive, elegant, sensual and viral photograph, with magazine cover quality, taking care of the aesthetics, lighting and pose. Act as a professional photographer specialized in glamour and high-end portraits) Ultra-realistic vertical portrait of a young blonde woman, curvaceous figure, large breasts (not too large) and round and prominent hips, standing in front of the camera with one leg slightly forward, one hand resting on her hip and the other brushing her long silky golden blonde hair over her shoulder, wearing a micro denim shorts with frayed edges and a tight red satin bikini top, hourglass figure, fit and toned body with natural proportions, even soft diffused lighting with no reflections or hot spots, smooth and matte skin texture, sharp focus, boudoir-style composition, suggestive and erotic but not explicit, in a bedroom of a Luxury penthouse with warm ambient lighting and blurred city lights in the background. Avoid: nudity, explicit images, pornography, extra limbs, blurry images, deformed bodies, poor anatomy, low quality, grain, overexposed images, underexposed images, cartoons, anime.\",\n  \"image_size\": {\n    \"width\": 832,\n    \"height\": 1216\n  },\n  \"num_inference_steps\": 31,\n  \"guidance_scale\": 7,\n  \"num_images\": 1,\n  \"enable_safety_checker\": false,\n  \"output_format\": \"png\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        688,
+        0
+      ],
+      "id": "d1f745d3-ad0e-4f4b-affb-61a03bc1299b",
+      "name": "Fal.flux.dev.post",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "CTU31n1iM3emZIHK",
+          "name": "FalAi.gmail"
+        }
+      }
+    },
+    {
+      "parameters": {
         "url": "={{ $json.status_url }}",
         "authentication": "genericCredentialType",
         "genericAuthType": "httpHeaderAuth",
@@ -159,7 +151,7 @@
         208
       ],
       "id": "7256a474-bcad-40ff-a48d-5509d42b9415",
-      "name": "FalAi.Get.Videos1",
+      "name": "Fal.flux.dev.get",
       "credentials": {
         "httpHeaderAuth": {
           "id": "CTU31n1iM3emZIHK",
@@ -178,22 +170,30 @@
         208
       ],
       "id": "a229144c-08da-4afb-bc2f-1479b8bfe96d",
-      "name": "Wait1",
+      "name": "Wait.10",
       "webhookId": "c508c161-77ab-4d85-9cb6-dab43b60f46e"
     },
     {
       "parameters": {
-        "content": "## I'm a note \n**Usar Flux Dev**\ncrear tablas en base row\n\nhttps://chatgpt.com/share/689810be-83d4-800d-8014-e2b2559158ab",
-        "width": 368
+        "url": "=https://queue.fal.run/fal-ai/stable-diffusion-v35-large/requests/{{ $json.request_id }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {}
       },
-      "type": "n8n-nodes-base.stickyNote",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
       "position": [
-        288,
-        -176
+        544,
+        208
       ],
-      "typeVersion": 1,
-      "id": "fc8d591f-51be-4e12-9d64-5a6a3965f744",
-      "name": "Sticky Note"
+      "id": "57de49db-5eb0-4c1e-97f9-6350770f95a5",
+      "name": "Fal.flex.dev.get.url",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "CTU31n1iM3emZIHK",
+          "name": "FalAi.gmail"
+        }
+      }
     }
   ],
   "pinData": {},
@@ -203,6 +203,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2025-08-11T12:43:50.000Z",
-  "versionId": "c13c5b79-44d0-4026-9399-2fff31e20e88"
+  "updatedAt": "2025-08-12T00:41:17.000Z",
+  "versionId": "fb550df9-0573-4bcf-9e89-462d980a7cbb"
 }
