@@ -1,5 +1,5 @@
 {
-  "active": false,
+  "active": true,
   "connections": {
     "Basic LLM Chain": {
       "main": [
@@ -23,48 +23,11 @@
         ]
       ]
     },
-    "ReemplazarTexto": {
-      "main": [
-        [
-          {
-            "node": "ObtenerSlides",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "ObtenerSlides": {
       "main": [
         [
           {
-            "node": "ObtenerImagen",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "ObtenerImagen": {
-      "main": [
-        [
-          {
-            "node": "Send a photo message",
-            "type": "main",
-            "index": 0
-          },
-          {
-            "node": "BorrarSlide",
-            "type": "main",
-            "index": 0
-          },
-          {
-            "node": "Enviar imagem",
-            "type": "main",
-            "index": 0
-          },
-          {
-            "node": "ObtenerImagen1",
+            "node": "ObtenerUrlImagen",
             "type": "main",
             "index": 0
           }
@@ -86,17 +49,6 @@
         [
           {
             "node": "Edit Fields",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Edit Fields": {
-      "main": [
-        [
-          {
-            "node": "Basic LLM Chain",
             "type": "main",
             "index": 0
           }
@@ -135,7 +87,18 @@
         []
       ]
     },
-    "ObtenerImagen1": {
+    "ReemplazarTexto": {
+      "main": [
+        [
+          {
+            "node": "ObtenerSlides",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract from File": {
       "main": [
         [
           {
@@ -146,14 +109,52 @@
         ]
       ]
     },
-    "Code": {
+    "Edit Fields": {
       "main": [
-        []
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "main",
+            "index": 0
+          }
+        ]
       ]
     },
-    "Extract from File": {
+    "ObtenerUrlImagen": {
       "main": [
-        []
+        [
+          {
+            "node": "ObtenerImagen",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Enviar imagem",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Send a photo message",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "BorrarSlide",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "ObtenerImagen": {
+      "main": [
+        [
+          {
+            "node": "Extract from File",
+            "type": "main",
+            "index": 0
+          }
+        ]
       ]
     }
   },
@@ -173,7 +174,7 @@
         "messages": {
           "messageValues": [
             {
-              "message": "Eres un experto en personalización de invitaciones para eventos. Tu tarea es analizar los datos de UN invitado específico de una boda y generar un mensaje personalizado único para esa persona.\n\n## DATOS DE ENTRADA:\nRecibirás los datos de un solo invitado con el siguiente formato:\n- Nombre: [nombre del invitado]\n- Relación: [relación con los novios]\n- Interés: [principal interés o pasión de la persona]\n- Mensaje Específico: [mensaje base relacionado con su importancia]\n\n## PLANTILLA BASE:\n\"Querido/a [NOMBRE], sabemos que te encanta [INTERÉS], por eso [MOTIVO_PERSONALIZADO]. Te esperamos el [FECHA]. [MENSAJE_ESPECÍFICO]\"\n\n## TU TRABAJO:\nPara este invitado específico, debes generar:\n1. FRASE DE INTERÉS: Completa la frase \"sabemos que te encanta/apasiona/te gusta [INTERÉS]\" de forma natural\n2. MOTIVO_PERSONALIZADO: Una razón específica de por qué disfrutará la boda conectada con su interés. Debe comenzar con un verbo de acción.\n\n## REGLAS IMPORTANTES:\n- SIEMPRE usa \"te encanta\", \"te apasiona\" o \"te gusta\" antes del interés\n- El MOTIVO_PERSONALIZADO debe empezar con verbo (preparamos, tendremos, contratamos, etc.)\n- Máximo 12 palabras para MOTIVO_PERSONALIZADO\n- El mensaje debe fluir naturalmente al leerlo en voz alta\n- Evita repetir palabras del interés en el motivo personalizado\n\n## EJEMPLOS CORRECTOS:\n- \"sabemos que te encanta la fotografía, por eso preparamos rincones perfectos para tomar fotos\"\n- \"sabemos que te apasiona la música, por eso contratamos banda en vivo\"\n- \"sabemos que te gusta cocinar, por eso tendremos chef en vivo\"\n\n## FORMATO DE SALIDA JSON:\n{\n  \"nombre\": \"nombre_exacto_del_invitado\",\n  \"frase_interes\": \"te encanta/apasiona/gusta [interés]\",\n  \"motivo_personalizado\": \"razón específica que empiece con verbo de acción\",\n  \"mensaje_completo\": \"mensaje final completo y bien estructurado\"\n}\n\nIMPORTANTE: Revisa que el mensaje final suene natural al leerlo completo y que la persona sienta que es un mensaje natural"
+              "message": "Eres un experto en personalización de mensajes de cumpleaños. Tu tarea es analizar los datos de UNA persona y generar un mensaje de cumpleaños único y personalizado para ella, tanto en un formato estructurado como en un formato corto para WhatsApp.\n\n## DATOS DE ENTRADA:\nRecibirás los datos de una sola persona con el siguiente formato:\n\n  - Nombre: [nombre del cumpleañero/a]\n  - Relación: [relación contigo]\n  - Interés: [principal interés o pasión de la persona]\n  - Mensaje Específico: [un deseo o recuerdo especial que quieres incluir]\n\n## PLANTILLA BASE:\n\"¡Feliz cumpleaños, [NOMBRE]\\! Sabemos que te encanta [INTERÉS], por eso [MOTIVO\\_PERSONALIZADO]. [MENSAJE\\_ESPECÍFICO]\"\n\n## TU TRABAJO:\nPara esta persona específica, debes generar:\n1.  **FRASE DE INTERÉS:** Completa la frase \"sabemos que te encanta/apasiona/te gusta [INTERÉS]\" de forma natural.\n2.  **MOTIVO\\_PERSONALIZADO:** Una razón específica de por qué este día especial (o el año que viene) está conectado con su interés. Debe comenzar con un verbo de acción y ser un deseo o una promesa.\n3.  **MENSAJE\\_WHATSAPP:** Un mensaje de cumpleaños corto e informal, ideal para WhatsApp. Debe incluir emojis relevantes, texto en negrita y un tono cercano.\n\n## REGLAS IMPORTANTES:\n  - SIEMPRE usa \"te encanta\", \"te apasiona\" o \"te gusta\" antes del interés.\n  - El **MOTIVO\\_PERSONALIZADO** debe empezar con un verbo (celebrar, desear, regalar, etc.).\n  - Máximo 15 palabras para el **MOTIVO\\_PERSONALIZADO**.\n  - El mensaje debe fluir naturalmente al leerlo en voz alta.\n  - El **MENSAJE\\_WHATSAPP** debe tener entre 20 y 35 palabras.\n  - El **MENSAJE\\_WHATSAPP** debe incluir emojis y texto en negrita.\n  - **IMPORTANTE**: El texto en negrita para WhatsApp debe usar un solo asterisco (*) al inicio y al final de la palabra o frase, como en Mensaje importante.\n  - Evita repetir palabras del interés en el motivo personalizado.\n\n## EJEMPLOS CORRECTOS:\n  - \"sabemos que te encanta el senderismo, por eso deseamos que este año te regale muchas rutas nuevas\"\n  - \"sabemos que te apasiona la repostería, por eso celebramos tu día con una tarta hecha especialmente para ti\"\n  - \"sabemos que te gusta la fotografía, por eso te deseamos un año lleno de momentos dignos de capturar\"\n\n## FORMATO DE SALIDA JSON:\n{\n  \"nombre\": \"nombre_exacto_del_cumpleañero\",\n  \"frase_interes\": \"te encanta/apasiona/gusta [interés]\",\n  \"motivo_personalizado\": \"razón específica que empiece con verbo de acción\",\n  \"mensaje_completo\": \"mensaje final completo y bien estructurado\",\n  \"mensaje_whatsapp\": \"mensaje corto para WhatsApp con emojis y negritas\"\n}\n\n**IMPORTANTE:** Revisa que el mensaje final suene natural al leerlo completo y que la persona sienta que es un mensaje genuino y pensado para ella. El mensaje de WhatsApp debe ser lo suficientemente personal para que la persona sienta que fue escrito específicamente para ella."
             }
           ]
         },
@@ -227,36 +228,6 @@
     },
     {
       "parameters": {
-        "method": "POST",
-        "url": "=https://slides.googleapis.com/v1/presentations/{{$node[\"CopiarPlantilla\"].json[\"id\"]}}:batchUpdate",
-        "authentication": "predefinedCredentialType",
-        "nodeCredentialType": "googleOAuth2Api",
-        "sendBody": true,
-        "specifyBody": "json",
-        "jsonBody": "={\n  \"requests\": [\n    {\n      \"replaceAllText\": {\n        \"containsText\": {\n          \"text\": \"nombre\",\n          \"matchCase\": true\n        },\n        \"replaceText\": \"{{ $('Edit Fields').item.json.Nombre }}\"\n      }\n    },\n    {\n      \"replaceAllText\": {\n        \"containsText\": {\n          \"text\": \"mensaje\",\n          \"matchCase\": true\n        },\n        \"replaceText\": \"{{ $('Basic LLM Chain').item.json.output.mensaje_completo }}\"\n      }\n    }\n  ]\n}\n",
-        "options": {}
-      },
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.2,
-      "position": [
-        576,
-        16
-      ],
-      "id": "e5dccc0a-3125-46c2-aab0-b1e10ea2a950",
-      "name": "ReemplazarTexto",
-      "credentials": {
-        "googleSlidesOAuth2Api": {
-          "id": "r33mZaNsUtZk4fVS",
-          "name": "Slides.jomBusiness"
-        },
-        "googleOAuth2Api": {
-          "id": "vkWvvbQeke2SGX0V",
-          "name": "Google.jomBusiness"
-        }
-      }
-    },
-    {
-      "parameters": {
         "url": "=https://slides.googleapis.com/v1/presentations/{{ $json.presentationId }}",
         "authentication": "predefinedCredentialType",
         "nodeCredentialType": "googleOAuth2Api",
@@ -279,28 +250,6 @@
     },
     {
       "parameters": {
-        "url": "=https://slides.googleapis.com/v1/presentations/{{ $('ReemplazarTexto').item.json.presentationId }}/pages/{{ $('ObtenerSlides').item.json.slides[0].objectId}}/thumbnail?thumbnailProperties.mimeType=PNG&thumbnailProperties.thumbnailSize=LARGE",
-        "authentication": "predefinedCredentialType",
-        "nodeCredentialType": "googleOAuth2Api",
-        "options": {}
-      },
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.2,
-      "position": [
-        -112,
-        240
-      ],
-      "id": "0d2821e1-e7d7-4f1f-b355-df9fe66991bf",
-      "name": "ObtenerImagen",
-      "credentials": {
-        "googleOAuth2Api": {
-          "id": "vkWvvbQeke2SGX0V",
-          "name": "Google.jomBusiness"
-        }
-      }
-    },
-    {
-      "parameters": {
         "operation": "sendPhoto",
         "chatId": "1704819492",
         "file": "={{ $json.contentUrl }}",
@@ -309,8 +258,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        384,
-        240
+        352,
+        576
       ],
       "id": "e948d52a-1e44-4fe2-8ff0-7cf938328181",
       "name": "Send a photo message",
@@ -320,8 +269,7 @@
           "id": "zxkALNj2uZW1uxoX",
           "name": "Telegram.jomBusiness"
         }
-      },
-      "disabled": true
+      }
     },
     {
       "parameters": {
@@ -344,8 +292,7 @@
           "id": "vkWvvbQeke2SGX0V",
           "name": "Google.jomBusiness"
         }
-      },
-      "disabled": true
+      }
     },
     {
       "parameters": {
@@ -424,8 +371,8 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
       "typeVersion": 1,
       "position": [
-        64,
-        176
+        -16,
+        128
       ],
       "id": "7175226a-6b0d-4a3c-ab27-faeffb2bc32e",
       "name": "gpt-4o-mini",
@@ -443,13 +390,13 @@
         "instanceName": "Optimiza.ia.pro",
         "remoteJid": "={{ $('Edit Fields').item.json.Celular }}",
         "media": "={{ $json.contentUrl }}",
-        "caption": "=*¡Feliz Cumpleaños!*",
+        "caption": "={{ $('Basic LLM Chain').item.json.output.mensaje_whatsapp }}",
         "options_message": {}
       },
       "type": "n8n-nodes-evolution-api.evolutionApi",
       "typeVersion": 1,
       "position": [
-        384,
+        352,
         400
       ],
       "id": "ebeb14ec-4e58-4c90-9e63-f4cafe4cd255",
@@ -459,28 +406,22 @@
           "id": "nQ7tKF0mFkgyIYyn",
           "name": "Evolution.Optimiza"
         }
-      },
-      "disabled": true
+      }
     },
     {
       "parameters": {
         "sendTo": "={{ $('Edit Fields').item.json.Correo }}",
-        "subject": "¡ Feliz Cumpleaños !",
-        "message": "=<p>¡Hola!</p>\n<p>Aquí tienes la imagen incrustada:</p>\n<br/>\n<img src=\"cid:image_0\" alt=\"Tu Imagen\">\n<p>¡Saludos!</p>",
+        "subject": "=Feliz Cumpleaños {{ $('Edit Fields').item.json.Nombre }}",
+        "message": "=<img src=\"data:image/png;base64,{{ $json.data }}\" alt=\"{{ $('Basic LLM Chain').item.json.output.mensaje_completo }}\" width=\"944\">",
         "options": {
-          "appendAttribution": false,
-          "attachmentsUi": {
-            "attachmentsBinary": [
-              {}
-            ]
-          }
+          "appendAttribution": false
         }
       },
       "type": "n8n-nodes-base.gmail",
       "typeVersion": 2.1,
       "position": [
-        368,
-        592
+        560,
+        240
       ],
       "id": "6556b86c-b0f9-476b-919f-ed930d453608",
       "name": "Send a message",
@@ -494,16 +435,97 @@
     },
     {
       "parameters": {
-        "jsonSchemaExample": "{\n  \"nombre\": \"nombre_exacto_del_invitado\",\n  \"frase_interes\": \"te encanta/apasiona/gusta [interés]\",\n  \"motivo_personalizado\": \"razón específica que empiece con verbo de acción\",\n  \"mensaje_completo\": \"mensaje final completo y bien estructurado\"\n}"
+        "jsonSchemaExample": "{\n  \"nombre\": \"nombre_exacto_del_cumpleañero\",\n  \"frase_interes\": \"te encanta/apasiona/gusta [interés]\",\n  \"motivo_personalizado\": \"razón específica que empiece con verbo de acción\",\n  \"mensaje_completo\": \"mensaje final completo y bien estructurado\",\n  \"mensaje_whatsapp\": \"mensaje corto para WhatsApp con emojis y negritas\"\n}"
       },
       "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
       "typeVersion": 1.3,
       "position": [
-        208,
-        176
+        288,
+        128
       ],
       "id": "4dbd6637-6031-400b-96c8-9b17d0c4a4b7",
       "name": "estructura.json"
+    },
+    {
+      "parameters": {
+        "operation": "binaryToPropery",
+        "binaryPropertyName": "=data",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1,
+      "position": [
+        384,
+        240
+      ],
+      "id": "4884c65a-1e84-46b1-95f9-02d51e2f8be0",
+      "name": "Extract from File"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://slides.googleapis.com/v1/presentations/{{$node[\"CopiarPlantilla\"].json[\"id\"]}}:batchUpdate",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "googleOAuth2Api",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"requests\": [\n    {\n      \"replaceAllText\": {\n        \"containsText\": {\n          \"text\": \"nombre\",\n          \"matchCase\": true\n        },\n        \"replaceText\": \"{{ $('Edit Fields').item.json.Nombre }}\"\n      }\n    },\n    {\n      \"replaceAllText\": {\n        \"containsText\": {\n          \"text\": \"mensaje\",\n          \"matchCase\": true\n        },\n        \"replaceText\": \"{{ $('Basic LLM Chain').item.json.output.mensaje_completo }}\"\n      }\n    }\n  ]\n}\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        592,
+        16
+      ],
+      "id": "f1ad01e4-13a0-4f7f-a195-0638499125d0",
+      "name": "ReemplazarTexto",
+      "credentials": {
+        "googleSlidesOAuth2Api": {
+          "id": "r33mZaNsUtZk4fVS",
+          "name": "Slides.jomBusiness"
+        },
+        "googleOAuth2Api": {
+          "id": "vkWvvbQeke2SGX0V",
+          "name": "Google.jomBusiness"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## Tally \n[Formulario](https://tally.so/r/w8B1xO)\n\n[Editar formulario](https://tally.so/forms/w8B1xO)",
+        "height": 128
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -256,
+        480
+      ],
+      "typeVersion": 1,
+      "id": "8de2d1c1-e244-40e4-a4ea-b2bc353b6fde",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "url": "=https://slides.googleapis.com/v1/presentations/{{ $('ReemplazarTexto').item.json.presentationId }}/pages/{{ $('ObtenerSlides').item.json.slides[0].objectId}}/thumbnail?thumbnailProperties.mimeType=PNG&thumbnailProperties.thumbnailSize=LARGE",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "googleOAuth2Api",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -112,
+        240
+      ],
+      "id": "0d2821e1-e7d7-4f1f-b355-df9fe66991bf",
+      "name": "ObtenerUrlImagen",
+      "credentials": {
+        "googleOAuth2Api": {
+          "id": "vkWvvbQeke2SGX0V",
+          "name": "Google.jomBusiness"
+        }
+      }
     },
     {
       "parameters": {
@@ -521,137 +543,39 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        128,
-        432
+        192,
+        240
       ],
       "id": "e7602d9d-86f3-4e0e-84a4-de779fe742d0",
-      "name": "ObtenerImagen1",
+      "name": "ObtenerImagen",
       "credentials": {
         "googleOAuth2Api": {
           "id": "vkWvvbQeke2SGX0V",
           "name": "Google.jomBusiness"
         }
       }
-    },
-    {
-      "parameters": {
-        "jsCode": "const imageData = items[0].binary.data;\nconst base64Image = `data:image/jpeg;base64,${imageData}`;\nreturn [{ json: { base64Image: base64Image } }];"
-      },
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [
-        592,
-        320
-      ],
-      "id": "ebf33d9d-c243-4b4b-ab77-9a1deb9559d9",
-      "name": "Code"
-    },
-    {
-      "parameters": {
-        "operation": "binaryToPropery",
-        "options": {}
-      },
-      "type": "n8n-nodes-base.extractFromFile",
-      "typeVersion": 1,
-      "position": [
-        736,
-        464
-      ],
-      "id": "4884c65a-1e84-46b1-95f9-02d51e2f8be0",
-      "name": "Extract from File"
     }
   ],
-  "pinData": {
-    "Webhook": [
-      {
-        "json": {
-          "headers": {
-            "host": "smartweb-web-n8n.izq3rn.easypanel.host",
-            "user-agent": "Tally Webhooks",
-            "content-length": "757",
-            "accept": "application/json, text/plain, */*",
-            "accept-encoding": "gzip, compress, deflate, br",
-            "baggage": "sentry-environment=production,sentry-release=5897508e7ba6c0d76a7e9e2485dce2a151611da9,sentry-public_key=6af4b6673f1648edaa8fef3f2ca43405,sentry-trace_id=15e2b4a14bcde6d8bd3fc1c64b98bf7a,sentry-org_id=407628,sentry-sampled=false,sentry-sample_rand=0.5384017822574876,sentry-sample_rate=0.001",
-            "content-type": "application/json",
-            "sentry-trace": "15e2b4a14bcde6d8bd3fc1c64b98bf7a-67c6406670747536-0",
-            "x-forwarded-for": "34.96.41.155",
-            "x-forwarded-host": "smartweb-web-n8n.izq3rn.easypanel.host",
-            "x-forwarded-port": "443",
-            "x-forwarded-proto": "https",
-            "x-forwarded-server": "ef50f8ff3fef",
-            "x-real-ip": "34.96.41.155"
-          },
-          "params": {},
-          "query": {},
-          "body": {
-            "eventId": "4a3c7225-168f-4f4f-a9c9-374ffae100ea",
-            "eventType": "FORM_RESPONSE",
-            "createdAt": "2025-08-13T14:37:26.589Z",
-            "data": {
-              "responseId": "xXN4Z0r",
-              "submissionId": "xXN4Z0r",
-              "respondentId": "AkdRvo",
-              "formId": "w8B1xO",
-              "formName": "Saludo por cumpleaños",
-              "createdAt": "2025-08-13T14:37:26.000Z",
-              "fields": [
-                {
-                  "key": "question_KVVNAk",
-                  "label": "Nombre",
-                  "type": "INPUT_TEXT",
-                  "value": "John"
-                },
-                {
-                  "key": "question_LPPqBO",
-                  "label": "Interés",
-                  "type": "INPUT_TEXT",
-                  "value": "Automatizaciones con IA"
-                },
-                {
-                  "key": "question_pDD6XZ",
-                  "label": "Relación",
-                  "type": "INPUT_TEXT",
-                  "value": "Socio"
-                },
-                {
-                  "key": "question_199gzO",
-                  "label": "Celular",
-                  "type": "INPUT_PHONE_NUMBER",
-                  "value": "+51952947576"
-                },
-                {
-                  "key": "question_MEEQlg",
-                  "label": "Correo",
-                  "type": "INPUT_EMAIL",
-                  "value": "jordonezm@cmactacna.com.pe"
-                }
-              ]
-            }
-          },
-          "webhookUrl": "https://smartweb-web-n8n.izq3rn.easypanel.host/webhook-test/d98c5263-e803-4b0f-b4b7-ba47084888cb",
-          "executionMode": "test"
-        }
-      }
-    ],
-    "Basic LLM Chain": [
-      {
-        "json": {
-          "output": {
-            "nombre": "John",
-            "frase_interes": "te encanta la automatización con IA",
-            "motivo_personalizado": "tendremos increíbles demostraciones tecnológicas durante la boda",
-            "mensaje_completo": "Querido John, sabemos que te encanta la automatización con IA, por eso tendremos increíbles demostraciones tecnológicas durante la boda. Te esperamos el 15 de octubre. Tu presencia hace todo perfecto."
-          }
-        }
-      }
-    ]
-  },
+  "pinData": {},
   "settings": {
     "executionOrder": "v1"
   },
   "staticData": null,
-  "tags": [],
-  "triggerCount": 0,
-  "updatedAt": "2025-08-13T16:24:55.000Z",
-  "versionId": "756b1ab1-d9ec-44ca-9bdd-4f333d1e0f32"
+  "tags": [
+    {
+      "createdAt": "2025-07-28T23:13:44.849Z",
+      "updatedAt": "2025-07-28T23:13:44.849Z",
+      "id": "E7azoCbE6H7Fjix1",
+      "name": "✨ Optimiza.ia.pro"
+    },
+    {
+      "createdAt": "2025-07-18T02:37:28.170Z",
+      "updatedAt": "2025-07-18T02:37:28.170Z",
+      "id": "Za1YQUqDKWnwNOuD",
+      "name": "🤖 IA al mando"
+    }
+  ],
+  "triggerCount": 1,
+  "updatedAt": "2025-08-13T22:53:10.000Z",
+  "versionId": "d5e6377f-927e-4169-a7de-4fac96bc2c41"
 }
