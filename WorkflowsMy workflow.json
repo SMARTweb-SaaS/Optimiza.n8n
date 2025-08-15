@@ -5,7 +5,7 @@
       "main": [
         [
           {
-            "node": "Fal.flux.dev.post",
+            "node": "Prompt",
             "type": "main",
             "index": 0
           }
@@ -55,6 +55,17 @@
           }
         ]
       ]
+    },
+    "Prompt": {
+      "main": [
+        [
+          {
+            "node": "Fal.flux.dev.post",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "createdAt": "2025-08-10T01:48:40.935Z",
@@ -70,7 +81,7 @@
       "type": "n8n-nodes-base.manualTrigger",
       "typeVersion": 1,
       "position": [
-        64,
+        272,
         0
       ],
       "id": "6899c1dc-2479-427a-a4ba-f7f86fc652fa",
@@ -81,12 +92,14 @@
         "operation": "sendPhoto",
         "chatId": "=1704819492",
         "file": "={{ $json.images[0].url }}",
-        "additionalFields": {}
+        "additionalFields": {
+          "caption": "={{ $('Prompt').item.json.prompt }}"
+        }
       },
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        736,
+        944,
         208
       ],
       "id": "53084952-0bc9-4d0f-9ff4-c348de1079eb",
@@ -106,7 +119,7 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        288,
+        336,
         -176
       ],
       "typeVersion": 1,
@@ -121,13 +134,13 @@
         "genericAuthType": "httpHeaderAuth",
         "sendBody": true,
         "specifyBody": "json",
-        "jsonBody": "{\n  \"prompt\": \"(Contexto: La imagen es para una sesión de contenido premium de alto impacto visual para una creadora en OnlyFans. El objetivo es lograr una fotografía altamente atractiva, elegante, sensual y viral, con calidad de portada de revista, cuidando la estética, la iluminación y la pose. Actuar como un fotógrafo profesional especializado en glamour y retratos de alto nivel) (Context: The image is for a high visual impact premium content shoot for a creator on OnlyFans. The goal is to achieve a highly attractive, elegant, sensual and viral photograph, with magazine cover quality, taking care of the aesthetics, lighting and pose. Act as a professional photographer specialized in glamour and high-end portraits) Ultra-realistic vertical portrait of a young blonde woman, curvaceous figure, large breasts (not too large) and round and prominent hips, standing in front of the camera with one leg slightly forward, one hand resting on her hip and the other brushing her long silky golden blonde hair over her shoulder, wearing a micro denim shorts with frayed edges and a tight red satin bikini top, hourglass figure, fit and toned body with natural proportions, even soft diffused lighting with no reflections or hot spots, smooth and matte skin texture, sharp focus, boudoir-style composition, suggestive and erotic but not explicit, in a bedroom of a Luxury penthouse with warm ambient lighting and blurred city lights in the background. Avoid: nudity, explicit images, pornography, extra limbs, blurry images, deformed bodies, poor anatomy, low quality, grain, overexposed images, underexposed images, cartoons, anime.\",\n  \"image_size\": {\n    \"width\": 832,\n    \"height\": 1216\n  },\n  \"num_inference_steps\": 31,\n  \"guidance_scale\": 7,\n  \"num_images\": 1,\n  \"enable_safety_checker\": false,\n  \"output_format\": \"png\"\n}",
+        "jsonBody": "={\n  \"prompt\": \"{{ $json.prompt }}\",\n  \"image_size\": {\n    \"width\": 832,\n    \"height\": 1216\n  },\n  \"num_inference_steps\": 28,\n  \"guidance_scale\": 3.5,\n  \"num_images\": 1,\n  \"enable_safety_checker\": false,\n  \"output_format\": \"png\"\n} ",
         "options": {}
       },
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        688,
+        896,
         0
       ],
       "id": "d1f745d3-ad0e-4f4b-affb-61a03bc1299b",
@@ -149,7 +162,7 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        112,
+        320,
         208
       ],
       "id": "7256a474-bcad-40ff-a48d-5509d42b9415",
@@ -168,7 +181,7 @@
       "type": "n8n-nodes-base.wait",
       "typeVersion": 1.1,
       "position": [
-        320,
+        544,
         208
       ],
       "id": "a229144c-08da-4afb-bc2f-1479b8bfe96d",
@@ -185,7 +198,7 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        544,
+        752,
         208
       ],
       "id": "57de49db-5eb0-4c1e-97f9-6350770f95a5",
@@ -196,6 +209,29 @@
           "name": "FalAi.gmail"
         }
       }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "81ff2295-afd6-4a4c-84dc-5b2797f39860",
+              "name": "prompt",
+              "value": "=Highly detailed, photorealistic 8k photograph of a young woman with a naturally curvy, proportionate hourglass figure. She has subtle muscle definition and smooth, realistic skin texture with a natural skin tone. Wavy dark hair. The pose is from behind, showing her back and hips, with a soft turn of the head. The atmosphere is relaxed and elegant, captured with professional photography. The scene is illuminated by soft, natural golden hour lighting, with a shallow depth of field, sharp focus, and cinematic quality.",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        688,
+        0
+      ],
+      "id": "69c1f2f5-9ae1-4afb-9db8-5e85811953bb",
+      "name": "Prompt"
     }
   ],
   "pinData": {},
@@ -205,6 +241,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2025-08-12T20:17:33.000Z",
-  "versionId": "dbd23271-af85-4c19-8c5c-f650badcab8b"
+  "updatedAt": "2025-08-15T00:05:38.000Z",
+  "versionId": "a798c215-05ba-4d9f-961b-0d753ed0f7d7"
 }
