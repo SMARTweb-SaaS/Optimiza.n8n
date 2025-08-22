@@ -1038,6 +1038,15 @@
     "errorWorkflow": "iNdV46Bame2vCTJz",
     "timezone": "America/Lima"
   },
+  "shared": [
+    {
+      "createdAt": "2025-07-24T03:17:23.482Z",
+      "updatedAt": "2025-07-24T03:17:23.482Z",
+      "role": "workflow:owner",
+      "workflowId": "TS7lDrYoeZGGcrdF",
+      "projectId": "uBzdLipflPbb1Tbz"
+    }
+  ],
   "staticData": null,
   "tags": [
     {
