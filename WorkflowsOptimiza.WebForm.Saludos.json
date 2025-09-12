@@ -94,6 +94,11 @@
             "node": "Send a message",
             "type": "main",
             "index": 0
+          },
+          {
+            "node": "Send email",
+            "type": "main",
+            "index": 0
           }
         ]
       ]
@@ -359,7 +364,7 @@
       "type": "n8n-nodes-evolution-api.evolutionApi",
       "typeVersion": 1,
       "position": [
-        352,
+        304,
         400
       ],
       "id": "ebeb14ec-4e58-4c90-9e63-f4cafe4cd255",
@@ -554,6 +559,33 @@
           "name": "Google.jomBusiness"
         }
       }
+    },
+    {
+      "parameters": {
+        "fromEmail": "hola@optimiza-ia.com",
+        "toEmail": "{{ $('Edit Fields').item.json.Correo }}",
+        "subject": "Feliz Cumpleaños {{ $('Edit Fields').item.json.Nombre }}",
+        "html": "=<img src=\"data:image/png;base64,{{ $json.data }}\" alt=\"{{ $('Basic LLM Chain').item.json.output.mensaje_completo }}\" width=\"944\">",
+        "options": {
+          "appendAttribution": false,
+          "bccEmail": "jomBusiness@msn.com"
+        }
+      },
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [
+        560,
+        432
+      ],
+      "id": "e9cb9497-5da3-4b39-a427-9b971212a524",
+      "name": "Send email",
+      "webhookId": "f4c94d16-2482-4d18-b3c3-41ae05868902",
+      "credentials": {
+        "smtp": {
+          "id": "g9Le19jvw1BGykSt",
+          "name": "SMTP.optimiza"
+        }
+      }
     }
   ],
   "pinData": {},
@@ -585,6 +617,6 @@
     }
   ],
   "triggerCount": 1,
-  "updatedAt": "2025-08-19T23:04:58.000Z",
-  "versionId": "8a439e8a-4641-45d1-bdaf-148fb9b18732"
+  "updatedAt": "2025-09-12T16:14:28.000Z",
+  "versionId": "aa3dbc70-671c-4c14-b025-f8d07765f84b"
 }
