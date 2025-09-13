@@ -1,11 +1,16 @@
 {
-  "active": true,
+  "active": false,
   "connections": {
     "Basic LLM Chain": {
       "main": [
         [
           {
             "node": "CopiarPlantilla",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Code",
             "type": "main",
             "index": 0
           }
@@ -161,6 +166,33 @@
           }
         ]
       ]
+    },
+    "Send SMS": {
+      "main": [
+        []
+      ]
+    },
+    "Code": {
+      "main": [
+        [
+          {
+            "node": "Send SMS",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "On form submission": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "createdAt": "2025-08-13T14:23:37.290Z",
@@ -188,8 +220,8 @@
       "type": "@n8n/n8n-nodes-langchain.chainLlm",
       "typeVersion": 1.7,
       "position": [
-        64,
-        16
+        80,
+        496
       ],
       "id": "0b1b8ce7-ce14-4aeb-aa57-6e0fa119e42a",
       "name": "Basic LLM Chain"
@@ -204,8 +236,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        -288,
-        240
+        880,
+        400
       ],
       "id": "9c4fbce6-7eb9-4618-a24b-2216ba9bab96",
       "name": "ObtenerSlides",
@@ -226,8 +258,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        352,
-        576
+        1328,
+        496
       ],
       "id": "e948d52a-1e44-4fe2-8ff0-7cf938328181",
       "name": "Send a photo message",
@@ -250,8 +282,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        128,
-        592
+        1328,
+        688
       ],
       "id": "cfabe6f8-eece-401d-8359-803a86ce1737",
       "name": "BorrarSlide",
@@ -271,8 +303,8 @@
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2.1,
       "position": [
-        -336,
-        16
+        -368,
+        400
       ],
       "id": "ef1df261-310b-453e-a7f8-d94ab173730f",
       "name": "Webhook",
@@ -285,37 +317,37 @@
             {
               "id": "94480326-dc38-4f80-905b-81ca0ac063b1",
               "name": "Nombre",
-              "value": "={{ $json.body.nombre }}",
+              "value": "={{ $json.body ? $json.body.nombre : $json.Nombre }}",
               "type": "string"
             },
             {
               "id": "f04070b8-1bbf-4046-bda7-e7afcdcfb950",
               "name": "Relacion",
-              "value": "={{ $json.body.relacion }}",
+              "value": "={{ $json.body ? $json.body.relacion : $json.Relacion }}",
               "type": "string"
             },
             {
               "id": "a1959e66-e440-4241-bf52-bf8ffa6fcb56",
               "name": "Interes",
-              "value": "={{ $json.body.interes }}",
+              "value": "={{ $json.body ? $json.body.interes : $json.Interes }}\n",
               "type": "string"
             },
             {
               "id": "93df26f2-4e6e-44e5-ab98-f2a68e40cf5f",
               "name": "MensajeEspecifico",
-              "value": "Tu presencia hace todo perfecto",
+              "value": "Que sigan los éxitos.",
               "type": "string"
             },
             {
               "id": "d8f6b8cf-3b25-40e7-9c2d-00cadebd98f3",
               "name": "Celular",
-              "value": "={{ $json.body.celular }}",
+              "value": "={{ $json.body ? $json.body.celular : $json.Celular }}",
               "type": "string"
             },
             {
               "id": "d28f6370-cdc1-45fa-9590-e04820753aec",
               "name": "Correo",
-              "value": "={{ $json.body.correo }}",
+              "value": "={{ $json.body ? $json.body.correo : $json.Correo }}",
               "type": "string"
             }
           ]
@@ -325,8 +357,8 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        -128,
-        16
+        -144,
+        496
       ],
       "id": "35994469-2d90-4258-a5d1-9615686eb4e3",
       "name": "Edit Fields"
@@ -339,8 +371,8 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
       "typeVersion": 1,
       "position": [
-        -32,
-        128
+        88,
+        720
       ],
       "id": "7175226a-6b0d-4a3c-ab27-faeffb2bc32e",
       "name": "gpt-4o-mini",
@@ -364,8 +396,8 @@
       "type": "n8n-nodes-evolution-api.evolutionApi",
       "typeVersion": 1,
       "position": [
-        304,
-        400
+        1328,
+        304
       ],
       "id": "ebeb14ec-4e58-4c90-9e63-f4cafe4cd255",
       "name": "Enviar imagem",
@@ -388,8 +420,8 @@
       "type": "n8n-nodes-base.gmail",
       "typeVersion": 2.1,
       "position": [
-        560,
-        240
+        1776,
+        16
       ],
       "id": "6556b86c-b0f9-476b-919f-ed930d453608",
       "name": "Send a message",
@@ -408,8 +440,8 @@
       "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
       "typeVersion": 1.3,
       "position": [
-        288,
-        128
+        216,
+        720
       ],
       "id": "4dbd6637-6031-400b-96c8-9b17d0c4a4b7",
       "name": "estructura.json"
@@ -423,8 +455,8 @@
       "type": "n8n-nodes-base.extractFromFile",
       "typeVersion": 1,
       "position": [
-        384,
-        240
+        1552,
+        16
       ],
       "id": "4884c65a-1e84-46b1-95f9-02d51e2f8be0",
       "name": "Extract from File"
@@ -443,8 +475,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        592,
-        16
+        656,
+        400
       ],
       "id": "f1ad01e4-13a0-4f7f-a195-0638499125d0",
       "name": "ReemplazarTexto",
@@ -466,8 +498,8 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        -256,
-        496
+        128,
+        304
       ],
       "typeVersion": 1,
       "id": "8de2d1c1-e244-40e4-a4ea-b2bc353b6fde",
@@ -483,8 +515,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        -112,
-        240
+        1104,
+        400
       ],
       "id": "0d2821e1-e7d7-4f1f-b355-df9fe66991bf",
       "name": "ObtenerUrlImagen",
@@ -511,8 +543,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        192,
-        240
+        1328,
+        112
       ],
       "id": "e7602d9d-86f3-4e0e-84a4-de779fe742d0",
       "name": "ObtenerImagen",
@@ -540,8 +572,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        416,
-        16
+        432,
+        400
       ],
       "id": "76337ed5-4810-49a8-83ba-116874a09a8d",
       "name": "CopiarPlantilla",
@@ -563,19 +595,19 @@
     {
       "parameters": {
         "fromEmail": "hola@optimiza-ia.com",
-        "toEmail": "{{ $('Edit Fields').item.json.Correo }}",
-        "subject": "Feliz Cumpleaños {{ $('Edit Fields').item.json.Nombre }}",
-        "html": "=<img src=\"data:image/png;base64,{{ $json.data }}\" alt=\"{{ $('Basic LLM Chain').item.json.output.mensaje_completo }}\" width=\"944\">",
+        "toEmail": "=jomBusiness@msn.com",
+        "subject": "=Feliz Cumpleaños {{ $('Edit Fields').item.json.Nombre }}",
+        "html": "=<p>¡Feliz cumpleaños, {{ $('Edit Fields').item.json.Nombre }}!</p>\n\n<img src=\"cid:image_1\" alt=\"Feliz Cumpleaños\" width=\"944\">\n\n<p>Mensaje completo: {{ $('Basic LLM Chain').item.json.output.mensaje_completo }}</p>",
         "options": {
           "appendAttribution": false,
-          "bccEmail": "jomBusiness@msn.com"
+          "attachments": "={{ $json.data }}"
         }
       },
       "type": "n8n-nodes-base.emailSend",
       "typeVersion": 2.1,
       "position": [
-        560,
-        432
+        1792,
+        240
       ],
       "id": "e9cb9497-5da3-4b39-a427-9b971212a524",
       "name": "Send email",
@@ -586,11 +618,133 @@
           "name": "SMTP.optimiza"
         }
       }
+    },
+    {
+      "parameters": {
+        "resource": "sms",
+        "operation": "send",
+        "smsMessagesArray": {
+          "messagesArray": [
+            {
+              "body": "={{ $json.mensaje_sanitizado }}",
+              "to": "={{ $('Edit Fields').item.json.Celular }}",
+              "list_id": 0,
+              "country": "PE"
+            }
+          ]
+        },
+        "requestOptions": {}
+      },
+      "type": "n8n-nodes-clicksend.clickSend",
+      "typeVersion": 1,
+      "position": [
+        656,
+        592
+      ],
+      "id": "8809194e-5bf3-468e-a0de-0df6c4061ab1",
+      "name": "Send SMS",
+      "credentials": {
+        "clickSendApi": {
+          "id": "TqNgFqvSRO8k91MT",
+          "name": "ClickSend.msn"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "for (const item of items) {\n  let mensaje = item.json.output.mensaje_completo;\n\n  // Reemplaza los caracteres especiales\n  mensaje = mensaje.replace(/á/g, 'a');\n  mensaje = mensaje.replace(/é/g, 'e');\n  mensaje = mensaje.replace(/í/g, 'i');\n  mensaje = mensaje.replace(/ó/g, 'o');\n  mensaje = mensaje.replace(/ú/g, 'u');\n  mensaje = mensaje.replace(/ü/g, 'u');\n\n  // Limita el mensaje a 160 caracteres.\n  // Usamos substring(0, 160) para evitar errores con 160 caracteres exactos.\n  let mensaje_final = mensaje.substring(0, 160);\n\n  // Guarda el resultado final en la nueva variable 'mensaje_sanitizado'.\n  item.json.mensaje_sanitizado = mensaje_final;\n}\n\nreturn items;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        432,
+        592
+      ],
+      "id": "a6172ddf-a5f9-4c68-b85c-47ca298686a3",
+      "name": "Code"
+    },
+    {
+      "parameters": {
+        "formTitle": "Saludo de Cumpleaños",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "Nombre",
+              "placeholder": "John",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Interes",
+              "placeholder": "Futbol",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Relacion",
+              "placeholder": "Amigo",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Correo",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Celular",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "MensajeEspecifico",
+              "placeholder": "Que sigan los éxitos."
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.3,
+      "position": [
+        -368,
+        592
+      ],
+      "id": "705a6136-8593-4e3c-8967-819ba79699d1",
+      "name": "On form submission",
+      "webhookId": "cb491735-f466-468b-9636-587b297115a2"
     }
   ],
-  "pinData": {},
+  "pinData": {
+    "On form submission": [
+      {
+        "json": {
+          "Nombre": "John",
+          "Interes": "Fútbol",
+          "Relacion": "Amigo",
+          "Correo": "jomBusiness@msn.com",
+          "Celular": "+51952947576",
+          "MensajeEspecifico": "Que sigan los éxitos.",
+          "submittedAt": "2025-09-12T15:24:38.727-05:00",
+          "formMode": "test"
+        }
+      }
+    ],
+    "Basic LLM Chain": [
+      {
+        "json": {
+          "output": {
+            "nombre": "John",
+            "frase_interes": "te encanta el fútbol",
+            "motivo_personalizado": "deseo que sigas logrando grandes éxitos este año",
+            "mensaje_completo": "¡Feliz cumpleaños, John! Sabemos que te encanta el fútbol, por eso deseo que sigas logrando grandes éxitos este año.",
+            "mensaje_whatsapp": "🎉 ¡Feliz cumpleaños, *John*! Que este año esté lleno de *éxitos* en el fútbol y en la vida! ⚽️🎂"
+          }
+        }
+      }
+    ]
+  },
   "settings": {
-    "executionOrder": "v1"
+    "executionOrder": "v1",
+    "timezone": "America/Lima",
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": "iNdV46Bame2vCTJz",
+    "timeSavedPerExecution": 5
   },
   "shared": [
     {
@@ -616,7 +770,7 @@
       "name": "🤖 IA al mando"
     }
   ],
-  "triggerCount": 1,
-  "updatedAt": "2025-09-12T16:14:28.000Z",
-  "versionId": "aa3dbc70-671c-4c14-b025-f8d07765f84b"
+  "triggerCount": 2,
+  "updatedAt": "2025-09-12T22:50:50.000Z",
+  "versionId": "f1846a9b-0d11-4ad0-a551-e0183f8765c3"
 }
