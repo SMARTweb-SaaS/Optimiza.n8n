@@ -95,16 +95,16 @@
     {
       "parameters": {
         "promptType": "define",
-        "text": "=nombre: {{ $json.nombre }}\nprofesion: {{ $json.profesion }}\npersonaje: {{ $json.personaje }}",
+        "text": "=nombre: {{ $json.nombre }}\nactriz: {{ $json.actriz }}\npersonaje: {{ $json.personaje }}",
         "hasOutputParser": true,
         "messages": {
           "messageValues": [
             {
-              "message": "Eres un narrador experto en crear textos narrativos para Shorts virales de YouTube.\nDirectrices claras:\n- Idioma: español.\n## Título\n## Narración\n- Título:\n  - Máximo 3 palabras.\n  - **No debe mencionar** la profesión tal cual aparece en {{$json.profesion}}.\n  - No usar puntos suspensivos ni puntuación innecesaria.\n  - Evitar artículos innecesarios; hacer el título impactante y conciso.\n- Narración:\n  - Longitud total: entre **80 y 90 palabras**.\n  - Tiempo: **presente**.\n  - Persona: **tercera persona** centrada **SOLO** en el personaje.\n  - Contenido: el personaje **siempre camina** y realiza una actividad en solitario (ejemplos válidos: caminando en la playa, recorriendo un museo, adentrándose en el bosque). **No mencionar otras personas ni personajes.**\n  - Formato: un bloque de texto fluido (uno o dos párrafos). Sin diálogos ni citas.\n- Originalidad: no repetir narraciones anteriores. Varía imágenes, verbos y metáforas.\n- Evita instrucciones técnicas en la salida."
+              "message": "=Eres un narrador experto en crear textos narrativos para Shorts virales de YouTube.  \n\nDirectrices claras:  \n- Idioma: español.  \n\n## Título  \n## Narración  \n\n- Título:  \n  - Máximo 3 palabras.  \n  - No usar puntos suspensivos ni puntuación innecesaria.  \n  - Evitar artículos innecesarios; hacerlo impactante y conciso.  \n\n- Narración:  \n  - Longitud total: entre **80 y 90 palabras**.  \n  - Tiempo: **presente**.  \n  - Persona: **tercera persona**, centrada **SOLO** en el personaje.  \n  - El personaje es siempre **{{$json.personaje}}** interpretado por **{{$json.actriz}}**.  \n  - El personaje **siempre camina** y realiza una actividad en solitario (ejemplos válidos: caminando en la playa, recorriendo un museo, adentrándose en el bosque).  \n  - No mencionar otras personas ni personajes.  \n  - Formato: un bloque de texto fluido (uno o dos párrafos). Sin diálogos ni citas.  \n\n- Originalidad: no repetir narraciones anteriores. Variar imágenes, verbos y metáforas.  \n- Evita instrucciones técnicas en la salida.  \n- Evita mencionar a la actriz **{{ $json.actriz }}**\n\n- **Adicional**: genera en inglés una descripción detallada del cosplay del personaje **{{$json.personaje}}** para la generación de imagen. Esta descripción debe incluir:\n  - Identificación del personaje: Mencionar el nombre del personaje (ej. 'Chun-Li', 'Catwoman').\n  - Atuendo principal: Tipo de ropa (ej. 'qipao-inspired dress', 'body-hugging leather suit'), color icónico y un material sugerente (ej. 'lustrous satin', 'stretch-latex', 'glossy vinyl'). Debe ser extremadamente ajustado, revelador y con cortes estratégicos (ej. 'deep side slits', 'plunging neckline', 'strategic cutouts').\n  - Elementos icónicos del personaje: Detalles clave que lo hagan reconocible (ej. 'ox horns hair buns', 'spiked bracelets', 'cat ears', 'utility belt'). Estos deben estar presentes y, si es posible, reinterpretados de forma sugerente.\n  - Accesorios: Incluir accesorios visibles y cualquier elemento característico del cosplay, manteniendo un estilo que realce la sexualidad (ej. 'fishnet stockings', 'high heels').\n  - Estilo general: Orientado a un público adulto (OnlyFans), muy sexy, erótico y que celebre la figura, sin dejar de ser inmediatamente reconocible como el personaje.\n\nFormato de salida esperado:  \n- Título: texto en español  \n- Narración: texto en español \n- Cosplay: texto en inlges"
             },
             {
               "type": "HumanMessagePromptTemplate",
-              "message": "=Usa estos datos:\n- Nombre: **{{$json.nombre}}**\n- Profesión: **{{$json.profesion}}**\n- Personaje de cosplay: **{{$json.personaje}}**\n\nRequisitos de salida (obligatorio):\n## Título\n[Título de máximo 3 palabras que no incluya la profeción: {{$json.profesion}}]\n\n## Narración\n[Texto narrativo en español, 80–90 palabras, presente, tercera persona. Centrado SOLO en {{$json.personaje}}. El personaje debe estar **siempre caminando** y actuando en solitario en un entorno tipo: playa, bosque o museo. Evita mencionar otras personas o personajes.]\n\nConsejos de estilo (para mejorar viralidad):\n- Usa verbos de movimiento y sensaciones táctiles (arena, paso, susurro del viento).\n- Mantén ritmo para lectura en ~20–30 segundos.\n- Sé evocador pero directo. No repitas estructuras comunes."
+              "message": "=Usa estos datos:  \n- Nombre: **{{$json.nombre}}**  \n- Personaje de cosplay: **{{$json.personaje}}**  \n- Actriz: **{{$json.actriz}}**  \n\nRequisitos de salida (obligatorio):  \n## Título  \n[Título de máximo 3 palabras]  \n\n## Narración  \n[Texto narrativo en español, 80–90 palabras, presente, tercera persona.  \nCentrado SOLO en {{$json.personaje}}, interpretado por {{$json.actriz}}.  \nEl personaje debe estar **siempre caminando** y actuando en solitario en un entorno tipo: playa, bosque, museo, ciudad nocturna, templo antiguo, desierto, jardín japonés o calle urbana.  \nEvita mencionar otras personas o personajes.]  \n\nConsejos de estilo (para mejorar viralidad):  \n- Usa verbos de movimiento y sensaciones táctiles (arena, paso, susurro del viento).  \n- Mantén ritmo para lectura en ~20–30 segundos.  \n- Sé evocador pero directo. No repitas estructuras comunes.  \n"
             }
           ]
         },
@@ -122,16 +122,16 @@
     {
       "parameters": {
         "promptType": "define",
-        "text": "=",
+        "text": "={{ $json.output.narracion }}",
         "hasOutputParser": true,
         "messages": {
           "messageValues": [
             {
-              "message": "Eres un experto en dividir narraciones en escenas y en construir prompts de imagen consistentes para generación IA.\n\nDirectrices:\n- Idioma de salida: **JSON válido** (sin texto extra fuera del JSON).\n- Debes dividir la narración en **exactamente 5 secciones** según este orden narrativo:\n  1. Inicio universal\n  2. Presentación del personaje\n  3. Acción (siempre el personaje **caminando**)\n  4. Resultado visible\n  5. Cierre evocador\n- Cada sección:\n  - Longitud en español: **18–25 palabras** (aprox. 1–2 frases).\n  - Tiempo: **presente**.\n  - Persona: **tercera persona**.\n  - Nunca mencionar otras personas o personajes.\n- Para cada sección debes devolver:\n  - `descripcion` (español, 18–25 palabras)\n  - `promptImagen` (prompt en inglés listo para el generador de imágenes, ver bloque fijo).\n- Devuelve **solo** el JSON con las claves: `seccion1` ... `seccion5`. Cada seccion contiene `{ \"descripcion\": \"...\", \"promptImagen\": \"...\" }`."
+              "message": "Eres un experto en dividir narraciones en escenas y en construir prompts de imagen consistentes para generación IA.  \n\nDirectrices:  \n- Idioma de salida: **JSON válido** (sin texto extra fuera del JSON).  \n- Debes dividir la narración en **exactamente 5 secciones** según este orden narrativo:  \n  1. Inicio universal (imagen de espaldas, alejándose caminando, mirando a la cámara).  \n  2. Presentación del personaje (imagen de frente, acercándose a la cámara).  \n  3. Acción (imagen de espaldas, alejándose caminando, mirando a la cámara).  \n  4. Resultado visible (imagen de frente, acercándose a la cámara).  \n  5. Cierre evocador (imagen de espaldas, alejándose caminando, mirando a la cámara).  \n\n- Cada sección:  \n  - Longitud en español: **18–25 palabras** (aprox. 1–2 frases).  \n  - Tiempo: **presente**.  \n  - Persona: **tercera persona**.  \n  - Nunca mencionar otras personas o personajes.  \n\n- Para cada sección debes devolver:  \n  - `descripcion` (en español, 18–25 palabras).  \n  - `promptImagen` (prompt en inglés, incluye bloque fijo y **debe especificar que la imagen sea sugerente y atrevida**).  \n\nBloque fijo (usar en cada `promptImagen`):  \n- Devuelve **solo** el JSON:\n{\n  \"seccion1\": {\n    \"descripcion\": \"short text\",\n    \"promptImagen\": \"fixed block + action of the section + make the image suggestive and provocative\"\n  },\n  \"seccion2\": {\n    \"descripcion\": \"short text\",\n    \"promptImagen\": \"fixed block + action of the section + make the image suggestive and provocative\"\n  },\n  \"seccion3\": {\n    \"descripcion\": \"short text\",\n    \"promptImagen\": \"fixed block + action of the section + make the image suggestive and provocative\"\n  },\n  \"seccion4\": {\n    \"descripcion\": \"short text\",\n    \"promptImagen\": \"fixed block + action of the section + make the image suggestive and provocative\"\n  },\n  \"seccion5\": {\n    \"descripcion\": \"short text\",\n    \"promptImagen\": \"fixed block + action of the section + make the image suggestive and provocative\"\n  }\n}"
             },
             {
               "type": "HumanMessagePromptTemplate",
-              "message": "=Toma esta narración en español:\n\"{{ $json.output.narracion }}\"\n\nBloque fijo (inglés). Mantener exactamente este bloque al inicio de cada promptImagen para máxima consistencia facial/corporal:\n\"19-year-old curvy Latina woman, wavy blue hair, consistent facial identity, same model across all scenes, {{ $('Info').item.json.personaje }} cosplay, detailed coherent outfit, photorealistic, high quality, natural lighting, full body\"\n\nInstrucciones para construir `promptImagen` por sección:\n- Estructura: `<Bloque fijo>, Scene X:, [acción física en inglés centrada en caminar y el entorno]`.\n- Acción en inglés debe ser corta y concreta. Ejemplos: \n  - \"walking along a quiet beach at sunset, looking ahead, soft breeze\"\n  - \"walking through a museum corridor, examining art, slow measured steps\"\n  - \"walking into a misty forest, footprints on wet leaves, thoughtful pace\"\n- Opcionales técnicos (añadir solo si tu generador los admite): una `seed=12345` idéntica para las 5 escenas para reforzar consistencia.\n- Mantén el enfoque: el sujeto está siempre caminando en solitario. No incluir otros seres.\n\nSalida solicitada (ejemplo de estructura, devolver JSON real):\n{\n  \"seccion1\": {\n    \"descripcion\": \"short text\",\n    \"promptImagen\": \"fixed block + action of the section\"\n  },\n  \"seccion2\": {\n    \"descripcion\": \"short text\",\n    \"promptImagen\": \"fixed block + action of the section\"\n  },\n  \"seccion3\": {\n    \"descripcion\": \"short text\",\n    \"promptImagen\": \"fixed block + action of the section\"\n  },\n  \"seccion4\": {\n    \"descripcion\": \"short text\",\n    \"promptImagen\": \"fixed block + action of the section\"\n  },\n  \"seccion5\": {\n    \"descripcion\": \"short text\",\n    \"promptImagen\": \"fixed block + action of the section\"\n  }\n}"
+              "message": "=Toma esta narración en español:\n\"{{ $json.output.narracion }}\"\n\nBloque fijo (inglés). Mantener exactamente este bloque al inicio de cada promptImagen para máxima consistencia facial/corporal:\n\"({{ $('Info').item.json.personaje }} cosplay:1.5), 19-year-old curvy, blue eyes, (similar facial features to {{ $('Info').item.json.actriz }}:1.3), photorealistic, high quality, natural lighting, full body, full {{ $json.output.cosplay }}, accentuating bust and hips, confident and provocative expression.\"\n\nInstrucciones para construir `promptImagen` por sección:\n- Estructura: `<Bloque fijo>, Scene X:, [acción física en inglés centrada en caminar y el entorno, manteniendo la pose exacta de la sección]`.\n- Acciones y poses por sección (en inglés, cortas y concretas):\n  1. Sección 1 (Inicio universal, espalda): \"walking away from camera, back visible, looking over shoulder seductively, cherry blossom garden\"\n  2. Sección 2 (Presentación del personaje, frente): \"approaching camera, front visible, seductive pose, soft breeze, confident expression\"\n  3. Sección 3 (Acción, espalda): \"walking away from camera, back visible, playful glance over shoulder, sunlit path\"\n  4. Sección 4 (Resultado visible, frente): \"approaching camera, front visible, provocative posture, petals falling, alluring gaze\"\n  5. Sección 5 (Cierre evocador, espalda): \"walking away from camera, back visible, last seductive glance, immersive natural environment\"\n- Mantén el enfoque: el sujeto está siempre caminando en solitario. No incluir otros seres.\n\nSalida solicitada (ejemplo de estructura, devolver JSON real):\n{\n  \"seccion1\": {\n    \"descripcion\": \"short text\",\n    \"promptImagen\": \"fixed block + action of section 1\"\n  },\n  \"seccion2\": {\n    \"descripcion\": \"short text\",\n    \"promptImagen\": \"fixed block + action of section 2\"\n  },\n  \"seccion3\": {\n    \"descripcion\": \"short text\",\n    \"promptImagen\": \"fixed block + action of section 3\"\n  },\n  \"seccion4\": {\n    \"descripcion\": \"short text\",\n    \"promptImagen\": \"fixed block + action of section 4\"\n  },\n  \"seccion5\": {\n    \"descripcion\": \"short text\",\n    \"promptImagen\": \"fixed block + action of section 5\"\n  }\n}\n"
             }
           ]
         },
@@ -158,8 +158,8 @@
             },
             {
               "id": "bdc79c04-4335-4baa-b028-9a428235554e",
-              "name": "profesion",
-              "value": "Enfermera",
+              "name": "actriz",
+              "value": "Scarlett Johansson",
               "type": "string"
             },
             {
@@ -189,7 +189,7 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
       "typeVersion": 1,
       "position": [
-        456,
+        464,
         224
       ],
       "id": "04610ac0-0ee4-4396-8bcc-e9afce7fc033",
@@ -203,12 +203,12 @@
     },
     {
       "parameters": {
-        "jsonSchemaExample": "{\n\t\"titulo\": \"string\",\n\t\"narracion\": \"string\"\n}"
+        "jsonSchemaExample": "{\n\t\"titulo\": \"string\",\n\t\"narracion\": \"string\",\n    \"cosplay\": \"string\"\n}\n"
       },
       "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
       "typeVersion": 1.3,
       "position": [
-        584,
+        592,
         224
       ],
       "id": "29a95ccd-1cb3-4090-82fb-e7ee0a31437c",
@@ -228,18 +228,7 @@
       "name": "secciones.json"
     }
   ],
-  "pinData": {
-    "Historia": [
-      {
-        "json": {
-          "output": {
-            "titulo": "Camino Valiente",
-            "narracion": "Chun-li avanza por la playa, sus pies descalzos se hunden en la arena suave y tibia. El sol brilla intensamente, y el sonido suave de las olas acompaña cada paso firme. Ella siente la brisa salada acariciar su rostro, mientras su mirada se pierde en el horizonte. Cada movimiento es una danza, cada inhalación, una promesa de libertad. A medida que camina, el océano la envuelve en un abrazo fresco, recordándole la fuerza que lleva dentro y la aventura que la espera."
-          }
-        }
-      }
-    ]
-  },
+  "pinData": {},
   "settings": {
     "executionOrder": "v1"
   },
@@ -255,6 +244,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2025-09-15T04:22:41.000Z",
-  "versionId": "4bd46c03-dc01-4c65-bc84-74012c23b4d1"
+  "updatedAt": "2025-09-15T06:40:31.000Z",
+  "versionId": "4199ebef-3a67-4bb6-a78f-a0ee10fb7862"
 }
