@@ -1,0 +1,260 @@
+{
+  "active": false,
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Info",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Historia": {
+      "main": [
+        [
+          {
+            "node": "Secciones",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Info": {
+      "main": [
+        [
+          {
+            "node": "Historia",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "gpt-4o-mini": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Historia",
+            "type": "ai_languageModel",
+            "index": 0
+          },
+          {
+            "node": "Secciones",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "historia.json": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "Historia",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "secciones.json": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "Secciones",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-09-15T03:50:13.197Z",
+  "id": "L5KAjSDhk43bqQI2",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "My workflow 3",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "1a612821-17a0-4825-8c2e-86aadf3753d9",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=nombre: {{ $json.nombre }}\nprofesion: {{ $json.profesion }}\npersonaje: {{ $json.personaje }}",
+        "hasOutputParser": true,
+        "messages": {
+          "messageValues": [
+            {
+              "message": "Eres un narrador experto en crear textos narrativos para Shorts virales de YouTube.\nDirectrices claras:\n- Idioma: español.\n## Título\n## Narración\n- Título:\n  - Máximo 3 palabras.\n  - **No debe mencionar** la profesión tal cual aparece en {{$json.profesion}}.\n  - No usar puntos suspensivos ni puntuación innecesaria.\n  - Evitar artículos innecesarios; hacer el título impactante y conciso.\n- Narración:\n  - Longitud total: entre **80 y 90 palabras**.\n  - Tiempo: **presente**.\n  - Persona: **tercera persona** centrada **SOLO** en el personaje.\n  - Contenido: el personaje **siempre camina** y realiza una actividad en solitario (ejemplos válidos: caminando en la playa, recorriendo un museo, adentrándose en el bosque). **No mencionar otras personas ni personajes.**\n  - Formato: un bloque de texto fluido (uno o dos párrafos). Sin diálogos ni citas.\n- Originalidad: no repetir narraciones anteriores. Varía imágenes, verbos y metáforas.\n- Evita instrucciones técnicas en la salida."
+            },
+            {
+              "type": "HumanMessagePromptTemplate",
+              "message": "=Usa estos datos:\n- Nombre: **{{$json.nombre}}**\n- Profesión: **{{$json.profesion}}**\n- Personaje de cosplay: **{{$json.personaje}}**\n\nRequisitos de salida (obligatorio):\n## Título\n[Título de máximo 3 palabras que no incluya la profeción: {{$json.profesion}}]\n\n## Narración\n[Texto narrativo en español, 80–90 palabras, presente, tercera persona. Centrado SOLO en {{$json.personaje}}. El personaje debe estar **siempre caminando** y actuando en solitario en un entorno tipo: playa, bosque o museo. Evita mencionar otras personas o personajes.]\n\nConsejos de estilo (para mejorar viralidad):\n- Usa verbos de movimiento y sensaciones táctiles (arena, paso, susurro del viento).\n- Mantén ritmo para lectura en ~20–30 segundos.\n- Sé evocador pero directo. No repitas estructuras comunes."
+            }
+          ]
+        },
+        "batching": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.7,
+      "position": [
+        448,
+        0
+      ],
+      "id": "3e96e5e0-3f3d-4872-aea6-2f11dd325585",
+      "name": "Historia"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=",
+        "hasOutputParser": true,
+        "messages": {
+          "messageValues": [
+            {
+              "message": "Eres un experto en dividir narraciones en escenas y en construir prompts de imagen consistentes para generación IA.\n\nDirectrices:\n- Idioma de salida: **JSON válido** (sin texto extra fuera del JSON).\n- Debes dividir la narración en **exactamente 5 secciones** según este orden narrativo:\n  1. Inicio universal\n  2. Presentación del personaje\n  3. Acción (siempre el personaje **caminando**)\n  4. Resultado visible\n  5. Cierre evocador\n- Cada sección:\n  - Longitud en español: **18–25 palabras** (aprox. 1–2 frases).\n  - Tiempo: **presente**.\n  - Persona: **tercera persona**.\n  - Nunca mencionar otras personas o personajes.\n- Para cada sección debes devolver:\n  - `descripcion` (español, 18–25 palabras)\n  - `promptImagen` (prompt en inglés listo para el generador de imágenes, ver bloque fijo).\n- Devuelve **solo** el JSON con las claves: `seccion1` ... `seccion5`. Cada seccion contiene `{ \"descripcion\": \"...\", \"promptImagen\": \"...\" }`."
+            },
+            {
+              "type": "HumanMessagePromptTemplate",
+              "message": "=Toma esta narración en español:\n\"{{ $json.output.narracion }}\"\n\nBloque fijo (inglés). Mantener exactamente este bloque al inicio de cada promptImagen para máxima consistencia facial/corporal:\n\"19-year-old curvy Latina woman, wavy blue hair, consistent facial identity, same model across all scenes, {{ $('Info').item.json.personaje }} cosplay, detailed coherent outfit, photorealistic, high quality, natural lighting, full body\"\n\nInstrucciones para construir `promptImagen` por sección:\n- Estructura: `<Bloque fijo>, Scene X:, [acción física en inglés centrada en caminar y el entorno]`.\n- Acción en inglés debe ser corta y concreta. Ejemplos: \n  - \"walking along a quiet beach at sunset, looking ahead, soft breeze\"\n  - \"walking through a museum corridor, examining art, slow measured steps\"\n  - \"walking into a misty forest, footprints on wet leaves, thoughtful pace\"\n- Opcionales técnicos (añadir solo si tu generador los admite): una `seed=12345` idéntica para las 5 escenas para reforzar consistencia.\n- Mantén el enfoque: el sujeto está siempre caminando en solitario. No incluir otros seres.\n\nSalida solicitada (ejemplo de estructura, devolver JSON real):\n{\n  \"seccion1\": {\n    \"descripcion\": \"short text\",\n    \"promptImagen\": \"fixed block + action of the section\"\n  },\n  \"seccion2\": {\n    \"descripcion\": \"short text\",\n    \"promptImagen\": \"fixed block + action of the section\"\n  },\n  \"seccion3\": {\n    \"descripcion\": \"short text\",\n    \"promptImagen\": \"fixed block + action of the section\"\n  },\n  \"seccion4\": {\n    \"descripcion\": \"short text\",\n    \"promptImagen\": \"fixed block + action of the section\"\n  },\n  \"seccion5\": {\n    \"descripcion\": \"short text\",\n    \"promptImagen\": \"fixed block + action of the section\"\n  }\n}"
+            }
+          ]
+        },
+        "batching": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.7,
+      "position": [
+        800,
+        0
+      ],
+      "id": "a4bd3f26-66d7-4d55-86e2-6e23cf98536c",
+      "name": "Secciones"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "aca1ff2d-1879-4417-ad38-318f27d9d8ab",
+              "name": "nombre",
+              "value": "Nelida",
+              "type": "string"
+            },
+            {
+              "id": "bdc79c04-4335-4baa-b028-9a428235554e",
+              "name": "profesion",
+              "value": "Enfermera",
+              "type": "string"
+            },
+            {
+              "id": "11273768-284e-4510-a17b-442c88176842",
+              "name": "personaje",
+              "value": "Chun-li",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        224,
+        0
+      ],
+      "id": "92ce4bf7-6915-4a9f-8b19-268a12085749",
+      "name": "Info"
+    },
+    {
+      "parameters": {
+        "model": "openai/gpt-4o-mini",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [
+        456,
+        224
+      ],
+      "id": "04610ac0-0ee4-4396-8bcc-e9afce7fc033",
+      "name": "gpt-4o-mini",
+      "credentials": {
+        "openRouterApi": {
+          "id": "fx7pdURTekgTilKM",
+          "name": "OpenRouter.msn"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsonSchemaExample": "{\n\t\"titulo\": \"string\",\n\t\"narracion\": \"string\"\n}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.3,
+      "position": [
+        584,
+        224
+      ],
+      "id": "29a95ccd-1cb3-4090-82fb-e7ee0a31437c",
+      "name": "historia.json"
+    },
+    {
+      "parameters": {
+        "jsonSchemaExample": "{\n  \"seccion1\": {\n    \"descripcion\": \"short text\",\n    \"promptImagen\": \"fixed block + action of the section\"\n  },\n  \"seccion2\": {\n    \"descripcion\": \"short text\",\n    \"promptImagen\": \"fixed block + action of the section\"\n  },\n  \"seccion3\": {\n    \"descripcion\": \"short text\",\n    \"promptImagen\": \"fixed block + action of the section\"\n  },\n  \"seccion4\": {\n    \"descripcion\": \"short text\",\n    \"promptImagen\": \"fixed block + action of the section\"\n  },\n  \"seccion5\": {\n    \"descripcion\": \"short text\",\n    \"promptImagen\": \"fixed block + action of the section\"\n  }\n}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.3,
+      "position": [
+        880,
+        224
+      ],
+      "id": "6756c08f-3e17-4465-953b-2c9f7149f247",
+      "name": "secciones.json"
+    }
+  ],
+  "pinData": {
+    "Historia": [
+      {
+        "json": {
+          "output": {
+            "titulo": "Camino Valiente",
+            "narracion": "Chun-li avanza por la playa, sus pies descalzos se hunden en la arena suave y tibia. El sol brilla intensamente, y el sonido suave de las olas acompaña cada paso firme. Ella siente la brisa salada acariciar su rostro, mientras su mirada se pierde en el horizonte. Cada movimiento es una danza, cada inhalación, una promesa de libertad. A medida que camina, el océano la envuelve en un abrazo fresco, recordándole la fuerza que lleva dentro y la aventura que la espera."
+          }
+        }
+      }
+    ]
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2025-09-15T03:50:13.211Z",
+      "updatedAt": "2025-09-15T03:50:13.211Z",
+      "role": "workflow:owner",
+      "workflowId": "L5KAjSDhk43bqQI2",
+      "projectId": "uBzdLipflPbb1Tbz"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-09-15T04:22:41.000Z",
+  "versionId": "4bd46c03-dc01-4c65-bc84-74012c23b4d1"
+}
