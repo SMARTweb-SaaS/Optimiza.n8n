@@ -1,0 +1,960 @@
+{
+  "active": false,
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Registros.Pendientes",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Historia": {
+      "main": [
+        [
+          {
+            "node": "Secciones",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Info": {
+      "main": [
+        [
+          {
+            "node": "Historia",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "gpt-4o-mini": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Historia",
+            "type": "ai_languageModel",
+            "index": 0
+          },
+          {
+            "node": "Secciones",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "historia.json": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "Historia",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "secciones.json": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "Secciones",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Registros.Pendientes": {
+      "main": [
+        [
+          {
+            "node": "Registro.Aleatorio",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Registro.Aleatorio": {
+      "main": [
+        [
+          {
+            "node": "Info",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Secciones": {
+      "main": [
+        [
+          {
+            "node": "Split Out1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [
+          {
+            "node": "Aggregate",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "If1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out1": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fal.flux.dev.post": {
+      "main": [
+        [
+          {
+            "node": "Wait.15",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fal.flux.dev.get": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fal.flex.dev.get.url": {
+      "main": [
+        [
+          {
+            "node": "Seed",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Foto": {
+      "main": [
+        []
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Fal.flex.dev.get.url",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Wait.15",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If1": {
+      "main": [
+        [
+          {
+            "node": "Fal.flux.dev.post",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Fal.flux.dev.post1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Aggregate": {
+      "main": [
+        [
+          {
+            "node": "Foto",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Seed": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait.15": {
+      "main": [
+        [
+          {
+            "node": "Fal.flux.dev.get",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fal.flux.dev.post1": {
+      "main": [
+        [
+          {
+            "node": "Wait.",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fal.flux.dev.get1": {
+      "main": [
+        [
+          {
+            "node": "If2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fal.flex.dev.get.url1": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If2": {
+      "main": [
+        [
+          {
+            "node": "Fal.flex.dev.get.url1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Wait.",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait.": {
+      "main": [
+        [
+          {
+            "node": "Fal.flux.dev.get1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-09-15T03:50:13.197Z",
+  "id": "L5KAjSDhk43bqQI2",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Auto.CodigoAlfa.Short",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        2176,
+        144
+      ],
+      "id": "1a612821-17a0-4825-8c2e-86aadf3753d9",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=nombre: {{ $json.nombre }}\nactriz: {{ $json.actriz }}\nprofesion: {{ $json.profesion }}",
+        "hasOutputParser": true,
+        "messages": {
+          "messageValues": [
+            {
+              "message": "=Eres un narrador experto en crear textos **narrativos virales para Shorts de YouTube**. Tu objetivo es que cada palabra genere imágenes mentales, emociones y curiosidad, haciendo que el espectador sienta que **acompaña al personaje en su día**. El texto debe ser **dinámico, sensorial y atractivo**, destacando movimientos, gestos, entornos y la elección del vestuario como parte de la historia.\n\nDirectrices claras:  \n- **Idioma:** español  \n\n## Título  \n## Narración  \n\n- **Título:**  \n  - Máximo 3 palabras.  \n  - Impactante, conciso y llamativo.  \n  - Evitar puntuación innecesaria y artículos que resten fuerza.  \n\n- **Narración:**  \n  - Longitud: entre **80 y 90 palabras**.  \n  - Tiempo: **presente**.  \n  - Persona: **tercera persona**, centrada **solo en el personaje**.  \n  - Personaje: **{{$json.profesion}}** interpretado por **{{$json.actriz}}**.  \n  - Contexto: un **día en la vida del personaje**, mostrando **una actividad cotidiana** (ej. universidad, café, gimnasio, paseo, cita amorosa).  \n  - Vestuario: explicar **qué ropa lleva y por qué la eligió**, vinculando el atuendo con la actividad y su personalidad.  \n  - Movimiento: el personaje **siempre camina** mientras realiza la actividad, incluyendo gestos, posturas y ritmo de paso.  \n  - Entornos: describir brevemente el lugar de manera sensorial (colores, sonidos, olores o sensaciones).  \n  - Emociones: transmitir cómo se siente el personaje durante la actividad, usando adjetivos que creen conexión emocional.  \n  - Formato: un bloque de texto fluido (1-2 párrafos), **sin diálogos ni citas**.  \n  - No incluir otras personas ni personajes.  \n  - **No mencionar la ropa ni su movimiento**.  \n\n- **Originalidad:**  \n  - No repetir narraciones anteriores.  \n  - Variar imágenes, verbos, metáforas y descripciones sensoriales para mantener frescura.  \n\n- **Estilo:**  \n  - Visual, emocional y sensorial.  \n  - Crear curiosidad y deseo de seguir viendo el Short.  \n  - Evitar instrucciones técnicas en la salida.  \n  - No mencionar a la actriz **{{$json.actriz}}**.\n\n## Adicional (Cosplay/Profesión)\n\nGenera en inglés una descripción detallada de la actriz **{{$json.actriz}}**, enfocada en su **profesión {{ $json.profesion }}**, que incluya:\n\n- **Profesión clara** (ej. 'Nurse', 'Police Officer', 'Engineer', 'Teacher').  \n- **Atuendo ceñido al cuerpo**: máximo 2 prendas principales, siempre ajustadas para **resaltar curvas** (ej. jean super ajustado, micro top, enterizo que marca su figura). Color **entero y sólido**, material uniforme y sugerente (ej. 'stretch latex', 'lustrous satin').  \n- **Pose**: siempre caminando, coherente con la narrativa.  \n- **Fondo e iluminación**: simple, uniforme y natural.\n\n**Objetivo**: Generar imágenes de cosplay que combinen **profesión + erotismo + coherencia visual**, manteniendo identidad y estilo del personaje.\n\n**Formato de salida esperado**:  \n{\n\t\"titulo\": \"Texto en español\",\n\t\"narracion\": \"Texto en español\",\n    \"profesion\": \"Texto en inglés\"\n}\n\n**Ejemplos**:\n{\n\t\"titulo\": \"En mi granja\",\n\t\"narracion\": \"Laura, una mujer granjera que comparte cada día en sus redes cómo es la verdadera rutina en el campo. Desde muy temprano alimenta a sus animales, revisa los cultivos y muestra la dedicación que se necesita para mantener todo en equilibrio. Con su cámara siempre a la mano, transforma las tareas más sencillas en historias inspiradoras. Para ella, cada amanecer con sus animales es un motivo para motivar a otros y recordar que la vida en el campo también puede ser mágica.\",\n    \"profesion\": \"Farmer\"\n}\n\n{\n\t\"titulo\": \"Mi regreso soñado\",\n\t\"narracion\": \"Tras un breve descanso, Aleja continuó su camino hacia un pequeño pueblo alejado de la ciudad. Un lugar donde ya casi no quedan muchos habitantes, salvo unas cuantas familias, y la suya. Entre calles tranquilas y recuerdos de infancia, comprendió que el deber no siempre es proteger a los demás. A veces también es reencontrarse con lo que realmente importa, la familia, las raíces y la paz que solo da el hogar.\",\n    \"profesion\": \"Nurse\"\n}\n\n{\n\t\"titulo\": \"Regalaré mi calendario\",\n\t\"narracion\": \"Juliana es una modelo con gran creatividad, ella eligió un bosque seco como escenario para una sesión de fotos muy especial. Con un elegante velo negro que le da un aire misterioso y un traje de cuero, posó entre árboles marchitos y tonos otoñales, creando imágenes y videos que parecen sacadas de una película. Todo esto forma parte de un calendario único que estará regalando en Halloween, un detalle que sus seguidores nunca olvidarán.\",\n    \"profesion\": \"Witch\"\n}\n\n{\n\t\"titulo\": \"Protegiendo mi comunidad\",\n\t\"narracion\": \"Irina es una mujer europea reconocida por su esfuerzo y dedicación. Siempre activa, siempre trabajando y cuidando de su ciudad como si fuera parte de su propia familia. Pero lo curioso es que, además de su carácter protector, su belleza ha llamado tanto la atención que muchas personas le han pedido fotos, convencidos de que se trata de una modelo de revista. Pero ella siempre se lo toma de broma, porque su verdadero rol es cuidar su hermosa ciudad.\",\n    \"profesion\": \"Police\"\n} "
+            },
+            {
+              "type": "HumanMessagePromptTemplate",
+              "message": "=Usa estos datos:  \n- Nombre: **{{$json.nombre}}**  \n- Personaje de cosplay: **{{$json.profesion}}**  \n- Actriz: **{{$json.actriz}}**  \n\nRequisitos de salida (obligatorio):  \n## Título  \n[Título de máximo 3 palabras]  \n\n## Narración  \n[Texto narrativo en español, 80–90 palabras, presente, tercera persona.  \nCentrado SOLO en {{$json.profesion}}, interpretado por {{$json.actriz}}.  \nEl personaje debe estar **siempre caminando** y actuando en solitario en un entorno tipo: playa, bosque, museo, ciudad nocturna, templo antiguo, desierto, jardín japonés o calle urbana.  \nEvita mencionar otras personas o personajes.]  \n\nConsejos de estilo (para mejorar viralidad):  \n- Usa verbos de movimiento y sensaciones táctiles (arena, paso, susurro del viento).  \n- Mantén ritmo para lectura en ~20–30 segundos.  \n- Sé evocador pero directo. No repitas estructuras comunes.  \n"
+            }
+          ]
+        },
+        "batching": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.7,
+      "position": [
+        2144,
+        344
+      ],
+      "id": "3e96e5e0-3f3d-4872-aea6-2f11dd325585",
+      "name": "Historia"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.output.narracion }}",
+        "hasOutputParser": true,
+        "messages": {
+          "messageValues": [
+            {
+              "message": "Eres un experto en dividir narraciones en escenas y en construir prompts de imagen consistentes para generación con IA.  \n\nDirectrices:  \n- Idioma de salida: **JSON válido** (sin texto extra fuera del JSON).  \n- Debes dividir la narración en **exactamente 5 secciones** según este orden narrativo:  \n  1. Inicio universal (imagen de espaldas, alejándose caminando, mirando a la cámara).  \n  2. Presentación del personaje (imagen de frente, acercándose a la cámara).  \n  3. Acción (imagen de espaldas, alejándose caminando, mirando a la cámara).  \n  4. Resultado visible (imagen de frente, acercándose a la cámara).  \n  5. Cierre evocador (imagen de espaldas, alejándose caminando, mirando a la cámara).  \n\n- Cada sección:  \n  - Longitud en español: **18–25 palabras** (aprox. 1–2 frases).  \n  - Tiempo: **presente**.  \n  - Persona: **tercera persona**.  \n  - Nunca mencionar otras personas o personajes.  \n\n- Para cada sección (de la 1 a la 5) debes devolver:  \n  - `descripcion` (en español, 18–25 palabras).  \n  - `promptImagen` (prompt en inglés, incluye bloque fijo y **debe especificar que la imagen sea sugerente y atrevida**).  \n\n- La `seccion0` contendrá:\n  - `descripcion` (nombre de la actriz).  \n  - `promptImagen` (Bloque fijo).  \n\nBloque fijo (usar en cada `promptImagen`):  \n- Devuelve **solo** el JSON:\n{\n  \"seccion0\": {\n    \"descripcion\": \"short text\",\n    \"promptImagen\": \"fixed block\"\n  },\n  \"seccion1\": {\n    \"descripcion\": \"short text\",\n    \"promptImagen\": \"fixed block + action of the section + make the image suggestive and provocative\"\n  },\n  \"seccion2\": {\n    \"descripcion\": \"short text\",\n    \"promptImagen\": \"fixed block + action of the section + make the image suggestive and provocative\"\n  },\n  \"seccion3\": {\n    \"descripcion\": \"short text\",\n    \"promptImagen\": \"fixed block + action of the section + make the image suggestive and provocative\"\n  },\n  \"seccion4\": {\n    \"descripcion\": \"short text\",\n    \"promptImagen\": \"fixed block + action of the section + make the image suggestive and provocative\"\n  },\n  \"seccion5\": {\n    \"descripcion\": \"short text\",\n    \"promptImagen\": \"fixed block + action of the section + make the image suggestive and provocative\"\n  }\n}"
+            },
+            {
+              "type": "HumanMessagePromptTemplate",
+              "message": "=Toma esta narración en español:\n\"{{ $json.output.narracion }}\"\n\nBloque fijo (inglés). Mantener exactamente este bloque al inicio de cada promptImagen para máxima consistencia facial/corporal:\n\"({{ $('Info').item.json.profesion }} cosplay:1.5), 19-year-old curvy, blue eyes, (similar facial features to {{ $('Info').item.json.actriz }}:1.3), photorealistic, high quality, natural lighting, full body, full {{ $json.output.profesion }}, accentuating bust and hips, confident and provocative expression.\"\n\nInstrucciones para construir `promptImagen` por sección:\n- Estructura: `<Bloque fijo>, Scene X:, [acción física en inglés centrada en caminar y el entorno, manteniendo la pose exacta de la sección]`.\n- Acciones y poses por sección (en inglés, cortas y concretas):\n  1. Sección 1 (Inicio universal, espalda): \"walking away from camera, back visible, looking over shoulder seductively, cherry blossom garden\"\n  2. Sección 2 (Presentación del personaje, frente): \"approaching camera, front visible, seductive pose, soft breeze, confident expression\"\n  3. Sección 3 (Acción, espalda): \"walking away from camera, back visible, playful glance over shoulder, sunlit path\"\n  4. Sección 4 (Resultado visible, frente): \"approaching camera, front visible, provocative posture, petals falling, alluring gaze\"\n  5. Sección 5 (Cierre evocador, espalda): \"walking away from camera, back visible, last seductive glance, immersive natural environment\"\n- Mantén el enfoque: el sujeto está siempre caminando en solitario. No incluir otros seres.\n\nSalida solicitada (ejemplo de estructura, devolver JSON real):\n{\n  \"seccion0\": {\n    \"descripcion\": \"short text\",\n    \"promptImagen\": \"fixed block\"\n  },\n  \"seccion1\": {\n    \"descripcion\": \"short text\",\n    \"promptImagen\": \"fixed block + action of section 1\"\n  },\n  \"seccion2\": {\n    \"descripcion\": \"short text\",\n    \"promptImagen\": \"fixed block + action of section 2\"\n  },\n  \"seccion3\": {\n    \"descripcion\": \"short text\",\n    \"promptImagen\": \"fixed block + action of section 3\"\n  },\n  \"seccion4\": {\n    \"descripcion\": \"short text\",\n    \"promptImagen\": \"fixed block + action of section 4\"\n  },\n  \"seccion5\": {\n    \"descripcion\": \"short text\",\n    \"promptImagen\": \"fixed block + action of section 5\"\n  }\n}\n"
+            }
+          ]
+        },
+        "batching": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.7,
+      "position": [
+        2496,
+        344
+      ],
+      "id": "a4bd3f26-66d7-4d55-86e2-6e23cf98536c",
+      "name": "Secciones"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "aca1ff2d-1879-4417-ad38-318f27d9d8ab",
+              "name": "nombre",
+              "value": "={{ $json.Nombre }}",
+              "type": "string"
+            },
+            {
+              "id": "bdc79c04-4335-4baa-b028-9a428235554e",
+              "name": "actriz",
+              "value": "={{ $json.Actriz }}",
+              "type": "string"
+            },
+            {
+              "id": "11273768-284e-4510-a17b-442c88176842",
+              "name": "profesion",
+              "value": "={{ $json.Profesion }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        2848,
+        144
+      ],
+      "id": "92ce4bf7-6915-4a9f-8b19-268a12085749",
+      "name": "Info"
+    },
+    {
+      "parameters": {
+        "model": "openai/gpt-4o-mini",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [
+        2152,
+        568
+      ],
+      "id": "04610ac0-0ee4-4396-8bcc-e9afce7fc033",
+      "name": "gpt-4o-mini",
+      "credentials": {
+        "openRouterApi": {
+          "id": "fx7pdURTekgTilKM",
+          "name": "OpenRouter.msn"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsonSchemaExample": "{\n\t\"titulo\": \"string\",\n\t\"narracion\": \"string\",\n    \"profesion\": \"string\"\n}\n"
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.3,
+      "position": [
+        2280,
+        568
+      ],
+      "id": "29a95ccd-1cb3-4090-82fb-e7ee0a31437c",
+      "name": "historia.json"
+    },
+    {
+      "parameters": {
+        "jsonSchemaExample": "{\n\"seccion0\": {\n    \"descripcion\": \"short text\",\n    \"promptImagen\": \"fixed block\"\n  },\n  \"seccion1\": {\n    \"descripcion\": \"short text\",\n    \"promptImagen\": \"fixed block + action of the section\"\n  },\n  \"seccion2\": {\n    \"descripcion\": \"short text\",\n    \"promptImagen\": \"fixed block + action of the section\"\n  },\n  \"seccion3\": {\n    \"descripcion\": \"short text\",\n    \"promptImagen\": \"fixed block + action of the section\"\n  },\n  \"seccion4\": {\n    \"descripcion\": \"short text\",\n    \"promptImagen\": \"fixed block + action of the section\"\n  },\n  \"seccion5\": {\n    \"descripcion\": \"short text\",\n    \"promptImagen\": \"fixed block + action of the section\"\n  }\n}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.3,
+      "position": [
+        2568,
+        568
+      ],
+      "id": "6756c08f-3e17-4465-953b-2c9f7149f247",
+      "name": "secciones.json"
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\nif (items.length === 0) {\n  throw new Error(\"No se encontraron registros con Estado = Pendiente\");\n}\n\nconst randomIndex = Math.floor(Math.random() * items.length);\nreturn [items[randomIndex]];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2624,
+        144
+      ],
+      "id": "726657c3-47fe-4b6f-8aee-37ec0012cd43",
+      "name": "Registro.Aleatorio"
+    },
+    {
+      "parameters": {
+        "databaseId": 245282,
+        "tableId": 675511,
+        "returnAll": true,
+        "additionalOptions": {
+          "filters": {
+            "fields": [
+              {
+                "field": 5568703,
+                "operator": "single_select_equal",
+                "value": "Pendiente"
+              }
+            ]
+          }
+        }
+      },
+      "type": "n8n-nodes-base.baserow",
+      "typeVersion": 1,
+      "position": [
+        2400,
+        144
+      ],
+      "id": "1ef73764-e965-48aa-9bb1-9ff57e534398",
+      "name": "Registros.Pendientes",
+      "credentials": {
+        "baserowApi": {
+          "id": "SNrllAn2sJZ5Lm7r",
+          "name": "Baserow.msn"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        3040,
+        352
+      ],
+      "id": "35ed2710-4c7f-43ab-90a6-cbdf7b3e81b0",
+      "name": "Loop Over Items"
+    },
+    {
+      "parameters": {
+        "fieldsToAggregate": {
+          "fieldToAggregate": [
+            {
+              "fieldToAggregate": "output"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.aggregate",
+      "typeVersion": 1,
+      "position": [
+        2128,
+        1008
+      ],
+      "id": "b0550d27-eef2-4259-b2f0-d350ac2fe2c1",
+      "name": "Aggregate"
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "=output",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        2848,
+        344
+      ],
+      "id": "bc4b279d-ae91-4e3c-8caa-b74c4279d922",
+      "name": "Split Out1"
+    },
+    {
+      "parameters": {
+        "operation": "sendPhoto",
+        "chatId": "=1704819492",
+        "file": "={{ $json.images[0].url }}",
+        "additionalFields": {
+          "caption": "={{ $('Prompt').item.json.prompt }}"
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        2352,
+        1008
+      ],
+      "id": "a61d29a1-913a-4139-8b0e-d84bca80bb76",
+      "name": "Foto",
+      "webhookId": "834b2a54-20a4-4982-a705-2ccdbffcda1b",
+      "credentials": {
+        "telegramApi": {
+          "id": "zxkALNj2uZW1uxoX",
+          "name": "Telegram.jomBusiness"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://queue.fal.run/fal-ai/flux/dev",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"prompt\": \"{{ $json.prompt }}\",\n  \"image_size\": {\n    \"width\": 832,\n    \"height\": 1216\n  },\n  \"num_inference_steps\": 28,\n  \"guidance_scale\": 3.5,\n  \"num_images\": 1,\n  \"enable_safety_checker\": false,\n  \"output_format\": \"png\"\n} ",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        3440,
+        352
+      ],
+      "id": "153465f3-6d66-4da0-be9d-90cb16702ccf",
+      "name": "Fal.flux.dev.post",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "CTU31n1iM3emZIHK",
+          "name": "FalAi.gmail"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.status_url }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        3872,
+        352
+      ],
+      "id": "1ea1f0f2-d151-4eb8-a0b1-040bb9878847",
+      "name": "Fal.flux.dev.get",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "CTU31n1iM3emZIHK",
+          "name": "FalAi.gmail"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "=https://queue.fal.run/fal-ai/stable-diffusion-v35-large/requests/{{ $json.request_id }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        4336,
+        416
+      ],
+      "id": "5e6762d6-0866-4a6c-9fdf-803a0473ebde",
+      "name": "Fal.flex.dev.get.url",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "CTU31n1iM3emZIHK",
+          "name": "FalAi.gmail"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "0351d503-4f52-4a78-ad1a-9da5c095f86c",
+              "leftValue": "",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        4048,
+        352
+      ],
+      "id": "55cd86f8-d1ad-4275-a141-4cb67bd267f7",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "c8dceadc-61e7-449b-bcb9-09e867bdf5b7",
+              "leftValue": "",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        3232,
+        368
+      ],
+      "id": "55c6d1fa-14d7-4c7d-b002-e0f5df0ce9b7",
+      "name": "If1"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "99916494-6f3f-45c0-916f-346c7e4ed3dd",
+              "name": "seed",
+              "value": "123",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        4496,
+        416
+      ],
+      "id": "8ac4ebe9-6d7e-4001-a867-69488f36ab15",
+      "name": "Seed"
+    },
+    {
+      "parameters": {
+        "amount": 15
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        3664,
+        352
+      ],
+      "id": "996ca7ab-a1f6-4f42-b141-1841a06d677d",
+      "name": "Wait.15",
+      "webhookId": "b4c754a6-b9ad-45cb-aff5-fadb5bd05689"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://queue.fal.run/fal-ai/flux/dev",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"prompt\": \"{{ $json.prompt }}\",\n  \"image_size\": {\n    \"width\": 832,\n    \"height\": 1216\n  },\n  \"num_inference_steps\": 28,\n  \"guidance_scale\": 3.5,\n  \"num_images\": 1,\n  \"enable_safety_checker\": false,\n  \"output_format\": \"png\"\n} ",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        3456,
+        608
+      ],
+      "id": "4b0676e4-35f5-4891-8fc6-92e137f64f4b",
+      "name": "Fal.flux.dev.post1",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "CTU31n1iM3emZIHK",
+          "name": "FalAi.gmail"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.status_url }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        3888,
+        608
+      ],
+      "id": "e10dfc12-e569-4617-85f6-77a16f2ba7ba",
+      "name": "Fal.flux.dev.get1",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "CTU31n1iM3emZIHK",
+          "name": "FalAi.gmail"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "=https://queue.fal.run/fal-ai/stable-diffusion-v35-large/requests/{{ $json.request_id }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        4352,
+        640
+      ],
+      "id": "f2da39a2-706f-47cd-bbe4-bf4fd71da603",
+      "name": "Fal.flex.dev.get.url1",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "CTU31n1iM3emZIHK",
+          "name": "FalAi.gmail"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "0351d503-4f52-4a78-ad1a-9da5c095f86c",
+              "leftValue": "",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        4128,
+        608
+      ],
+      "id": "d1110d0f-59ab-459b-8942-f608a14280c2",
+      "name": "If2"
+    },
+    {
+      "parameters": {
+        "amount": 15
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        3680,
+        608
+      ],
+      "id": "6a05714a-d614-4712-b7d4-8d4a0f9ebada",
+      "name": "Wait.",
+      "webhookId": "b4c754a6-b9ad-45cb-aff5-fadb5bd05689"
+    }
+  ],
+  "pinData": {
+    "Historia": [
+      {
+        "json": {
+          "output": {
+            "titulo": "Vida Nutricional",
+            "narracion": "Roxana avanza por un vibrante mercado, rodeada de colores intensos y aromas frescos. Cada paso resuena en su mente, mientras revisa frutas y verduras, sintiendo la textura crujiente de un pepino. El murmullo del público forma una melodía que acompaña su misión de compartir salud. Viste un ajustado top verde que destaca su pasión por la naturaleza, con un ligero pantalón que permite el movimiento libre. Entre risas y el suave viento, se siente llena de propósito. Hoy busca inspiración para nuevas recetas saludables que transformen vidas.",
+            "profesion": "Nutritionist"
+          }
+        }
+      }
+    ],
+    "Secciones": [
+      {
+        "json": {
+          "output": {
+            "seccion0": {
+              "descripcion": "Roxana",
+              "promptImagen": "(Nutricionista cosplay:1.5), 19-year-old curvy, blue eyes, (similar facial features to Emma Stone:1.3), photorealistic, high quality, natural lighting, full body, full Nutritionist, accentuating bust and hips, confident and provocative expression."
+            },
+            "seccion1": {
+              "descripcion": "Roxana avanza por un vibrante mercado, sintiendo los aromas frescos a su alrededor mientras camina con confianza, entre colores intensos.",
+              "promptImagen": "(Nutricionista cosplay:1.5), 19-year-old curvy, blue eyes, (similar facial features to Emma Stone:1.3), photorealistic, high quality, natural lighting, full body, full Nutritionist, accentuating bust and hips, confident and provocative expression. Scene 1: walking away from camera, back visible, looking over shoulder seductively, cherry blossom garden, make the image suggestive and provocative."
+            },
+            "seccion2": {
+              "descripcion": "Con un ajustado top verde, Roxana se acerca a la cámara, mostrando su pasión por la naturaleza y una expresión confiada.",
+              "promptImagen": "(Nutricionista cosplay:1.5), 19-year-old curvy, blue eyes, (similar facial features to Emma Stone:1.3), photorealistic, high quality, natural lighting, full body, full Nutritionist, accentuating bust and hips, confident and provocative expression. Scene 2: approaching camera, front visible, seductive pose, soft breeze, confident expression, make the image suggestive and provocative."
+            },
+            "seccion3": {
+              "descripcion": "Mientras explora el mercado, Roxana se aleja de la cámara, mirando atrás juguetonamente, disfrutando del cálido día soleado.",
+              "promptImagen": "(Nutricionista cosplay:1.5), 19-year-old curvy, blue eyes, (similar facial features to Emma Stone:1.3), photorealistic, high quality, natural lighting, full body, full Nutritionist, accentuating bust and hips, confident and provocative expression. Scene 3: walking away from camera, back visible, playful glance over shoulder, sunlit path, make the image suggestive and provocative."
+            },
+            "seccion4": {
+              "descripcion": "Roxana vuelve la vista a la cámara con una postura provocativa, rodeada de pétalos que caen mientras se siente inspirada.",
+              "promptImagen": "(Nutricionista cosplay:1.5), 19-year-old curvy, blue eyes, (similar facial features to Emma Stone:1.3), photorealistic, high quality, natural lighting, full body, full Nutritionist, accentuating bust and hips, confident and provocative expression. Scene 4: approaching camera, front visible, provocative posture, petals falling, alluring gaze, make the image suggestive and provocative."
+            },
+            "seccion5": {
+              "descripcion": "Con una última mirada seductora hacia la cámara, Roxana se aleja, sumergiéndose en el ambiente natural que la rodea.",
+              "promptImagen": "(Nutricionista cosplay:1.5), 19-year-old curvy, blue eyes, (similar facial features to Emma Stone:1.3), photorealistic, high quality, natural lighting, full body, full Nutritionist, accentuating bust and hips, confident and provocative expression. Scene 5: walking away from camera, back visible, last seductive glance, immersive natural environment, make the image suggestive and provocative."
+            }
+          }
+        }
+      }
+    ],
+    "Registro.Aleatorio": [
+      {
+        "json": {
+          "id": 102,
+          "order": "104.00000000000000000000",
+          "Nombre": "Roxana",
+          "Profesion": "Nutricionista",
+          "Actriz": "Emma Stone",
+          "Estado": {
+            "id": 4137999,
+            "value": "Pendiente",
+            "color": "darker-red"
+          },
+          "Última modificación": "2025-09-15T21:55:15.609921Z",
+          "Titulo": "",
+          "Historia": ""
+        }
+      }
+    ]
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2025-09-15T03:50:13.211Z",
+      "updatedAt": "2025-09-15T03:50:13.211Z",
+      "role": "workflow:owner",
+      "workflowId": "L5KAjSDhk43bqQI2",
+      "projectId": "uBzdLipflPbb1Tbz"
+    }
+  ],
+  "staticData": null,
+  "tags": [
+    {
+      "createdAt": "2025-07-28T23:05:51.332Z",
+      "updatedAt": "2025-07-28T23:05:51.332Z",
+      "id": "zSAshwfFPUXVrLqy",
+      "name": "🦊 Codigo.Alfa"
+    }
+  ],
+  "triggerCount": 0,
+  "updatedAt": "2025-09-16T03:22:58.000Z",
+  "versionId": "33aad2ca-7c27-4541-bca3-78cf513989af"
+}
