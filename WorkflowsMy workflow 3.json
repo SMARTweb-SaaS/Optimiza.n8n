@@ -5,29 +5,29 @@
       "main": [
         [
           {
-            "node": "Info",
+            "node": "Edit Fields",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "Historia": {
+    "Edit Fields": {
       "main": [
         [
           {
-            "node": "Secciones",
+            "node": "Basic LLM Chain",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "Info": {
+    "Basic LLM Chain": {
       "main": [
         [
           {
-            "node": "Historia",
+            "node": "Fal.flux.dev.post",
             "type": "main",
             "index": 0
           }
@@ -38,43 +38,78 @@
       "ai_languageModel": [
         [
           {
-            "node": "Historia",
-            "type": "ai_languageModel",
-            "index": 0
-          },
-          {
-            "node": "Secciones",
+            "node": "Basic LLM Chain",
             "type": "ai_languageModel",
             "index": 0
           }
         ]
       ]
     },
-    "historia.json": {
-      "ai_outputParser": [
+    "Fal.flux.dev.post": {
+      "main": [
         [
           {
-            "node": "Historia",
-            "type": "ai_outputParser",
+            "node": "Wait.5",
+            "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "secciones.json": {
-      "ai_outputParser": [
+    "Fal.flux.dev.get": {
+      "main": [
         [
           {
-            "node": "Secciones",
-            "type": "ai_outputParser",
+            "node": "Fal.flux.dev.completed",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fal.flex.dev.get.url": {
+      "main": [
+        [
+          {
+            "node": "Foto",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fal.flux.dev.completed": {
+      "main": [
+        [
+          {
+            "node": "Fal.flex.dev.get.url",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Wait.5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait.5": {
+      "main": [
+        [
+          {
+            "node": "Fal.flux.dev.get",
+            "type": "main",
             "index": 0
           }
         ]
       ]
     }
   },
-  "createdAt": "2025-09-15T03:50:13.197Z",
-  "id": "L5KAjSDhk43bqQI2",
+  "createdAt": "2025-09-16T15:08:09.415Z",
+  "id": "KzD5yr0TYeX5sETT",
   "isArchived": false,
   "meta": {
     "templateCredsSetupCompleted": true
@@ -86,25 +121,20 @@
       "type": "n8n-nodes-base.manualTrigger",
       "typeVersion": 1,
       "position": [
-        0,
+        -32,
         0
       ],
-      "id": "1a612821-17a0-4825-8c2e-86aadf3753d9",
+      "id": "797c7754-4daf-4d44-b9d0-076c351a0175",
       "name": "When clicking ‘Execute workflow’"
     },
     {
       "parameters": {
         "promptType": "define",
-        "text": "=nombre: {{ $json.nombre }}\nactriz: {{ $json.actriz }}\npersonaje: {{ $json.personaje }}",
-        "hasOutputParser": true,
+        "text": "=Genera un prompt para la profesión de: {{ $json.profesion }}",
         "messages": {
           "messageValues": [
             {
-              "message": "=Eres un narrador experto en crear textos narrativos para Shorts virales de YouTube.  \n\nDirectrices claras:  \n- Idioma: español.  \n\n## Título  \n## Narración  \n\n- Título:  \n  - Máximo 3 palabras.  \n  - No usar puntos suspensivos ni puntuación innecesaria.  \n  - Evitar artículos innecesarios; hacerlo impactante y conciso.  \n\n- Narración:  \n  - Longitud total: entre **80 y 90 palabras**.  \n  - Tiempo: **presente**.  \n  - Persona: **tercera persona**, centrada **SOLO** en el personaje.  \n  - El personaje es siempre **{{$json.personaje}}** interpretado por **{{$json.actriz}}**.  \n  - El personaje **siempre camina** y realiza una actividad en solitario (ejemplos válidos: caminando en la playa, recorriendo un museo, adentrándose en el bosque).  \n  - No mencionar otras personas ni personajes.  \n  - Formato: un bloque de texto fluido (uno o dos párrafos). Sin diálogos ni citas.  \n\n- Originalidad: no repetir narraciones anteriores. Variar imágenes, verbos y metáforas.  \n- Evita instrucciones técnicas en la salida.  \n- Evita mencionar a la actriz **{{ $json.actriz }}**\n\n- **Adicional**: genera en inglés una descripción detallada del cosplay del personaje **{{$json.personaje}}** para la generación de imagen. Esta descripción debe incluir:\n  - Identificación del personaje: Mencionar el nombre del personaje (ej. 'Chun-Li', 'Catwoman').\n  - Atuendo principal: Tipo de ropa (ej. 'qipao-inspired dress', 'body-hugging leather suit'), color icónico y un material sugerente (ej. 'lustrous satin', 'stretch-latex', 'glossy vinyl'). Debe ser extremadamente ajustado, revelador y con cortes estratégicos (ej. 'deep side slits', 'plunging neckline', 'strategic cutouts').\n  - Elementos icónicos del personaje: Detalles clave que lo hagan reconocible (ej. 'ox horns hair buns', 'spiked bracelets', 'cat ears', 'utility belt'). Estos deben estar presentes y, si es posible, reinterpretados de forma sugerente.\n  - Accesorios: Incluir accesorios visibles y cualquier elemento característico del cosplay, manteniendo un estilo que realce la sexualidad (ej. 'fishnet stockings', 'high heels').\n  - Estilo general: Orientado a un público adulto (OnlyFans), muy sexy, erótico y que celebre la figura, sin dejar de ser inmediatamente reconocible como el personaje.\n\nFormato de salida esperado:  \n- Título: texto en español  \n- Narración: texto en español \n- Cosplay: texto en inlges"
-            },
-            {
-              "type": "HumanMessagePromptTemplate",
-              "message": "=Usa estos datos:  \n- Nombre: **{{$json.nombre}}**  \n- Personaje de cosplay: **{{$json.personaje}}**  \n- Actriz: **{{$json.actriz}}**  \n\nRequisitos de salida (obligatorio):  \n## Título  \n[Título de máximo 3 palabras]  \n\n## Narración  \n[Texto narrativo en español, 80–90 palabras, presente, tercera persona.  \nCentrado SOLO en {{$json.personaje}}, interpretado por {{$json.actriz}}.  \nEl personaje debe estar **siempre caminando** y actuando en solitario en un entorno tipo: playa, bosque, museo, ciudad nocturna, templo antiguo, desierto, jardín japonés o calle urbana.  \nEvita mencionar otras personas o personajes.]  \n\nConsejos de estilo (para mejorar viralidad):  \n- Usa verbos de movimiento y sensaciones táctiles (arena, paso, susurro del viento).  \n- Mantén ritmo para lectura en ~20–30 segundos.  \n- Sé evocador pero directo. No repitas estructuras comunes.  \n"
+              "message": "=Tu tarea es generar un prompt de imagen en inglés para una mujer que representa una profesión específica. La descripción debe ser fotorealista, de alta calidad y seguir un formato de una sola línea.\n\n### **Ejemplos de salida:**\nEntrada: Mujer Policía\nSalida: An attractive young woman (not older than 20 years old) with a **very voluptuous and highly curvaceous figure** and an **angelic face**, with long honey-brown hair, wearing a modern and tight black police uniform, seen from a three-quarter rear view, looking back over her left shoulder directly at the camera with a subtle smile, standing in a blurred urban street with faint outlines of cars and buildings in the background, **low camera angle from below to highlight her buttocks**, professionally photographed, RAW photo, high resolution, cinematic lighting, vibrant, sexy, glamorous, lively lighting, ultra detailed, extreme realism, 8k, bokeh, subtle lights and shadows, focus on the face and body, detailed clothing textures, negative prompts: Deformed, blurry, bad anatomy, disfigured, poorly drawn, extra limbs, bad hands, mutated, cartoon, anime, 3D render, low resolution, bad lighting, facing away completely, full back view, dark lighting, dull colors.\n\nEntrada: Mujer Bombera\nSalida: An attractive young woman (not older than 20 years old) with a **very voluptuous and highly curvaceous figure** and an **angelic face**, with long honey-brown hair, wearing a modern and tight firefighter uniform with a black and red color scheme, seen from a three-quarter rear view, looking back over her left shoulder directly at the camera with a subtle smile, standing in a blurred urban street with a fire truck in the background, **low camera angle from below to highlight her buttocks**, professionally photographed, RAW photo, high resolution, cinematic lighting, vibrant, sexy, glamorous, lively lighting, ultra detailed, extreme realism, 8k, bokeh, subtle lights and shadows, focus on the face and body, detailed clothing textures, negative prompts: Deformed, blurry, bad anatomy, disfigured, poorly drawn, extra limbs, bad hands, mutated, cartoon, anime, 3D render, low resolution, bad lighting, facing away completely, full back view, dark lighting, dull colors.\n\n### **Instrucciones para la descripción:**\n* **Profesión:** El prompt debe identificar la profesión y el color y tipo de uniforme asociado.\n* **Sujeto:** La mujer debe ser joven (no mayor de 20 años), con una **figura muy voluptuosa y altamente curvilínea** y un **rostro angelical**. Debe replicar la pose de la imagen original: vista de tres cuartos trasera, girando la cabeza para mirar a la cámara sobre su hombro.\n* **Entorno:** El fondo debe estar desenfocado.\n* **Ángulo y calidad:** La imagen debe ser capturada con una cámara profesional desde un **ángulo bajo para resaltar sus glúteos**, con iluminación vibrante, sexy, glamorosa y con vida.\n\n### **Consideraciones adicionales:**\n* El prompt final debe estar completamente en inglés."
             }
           ]
         },
@@ -116,56 +146,17 @@
         448,
         0
       ],
-      "id": "3e96e5e0-3f3d-4872-aea6-2f11dd325585",
-      "name": "Historia"
-    },
-    {
-      "parameters": {
-        "promptType": "define",
-        "text": "={{ $json.output.narracion }}",
-        "hasOutputParser": true,
-        "messages": {
-          "messageValues": [
-            {
-              "message": "Eres un experto en dividir narraciones en escenas y en construir prompts de imagen consistentes para generación IA.  \n\nDirectrices:  \n- Idioma de salida: **JSON válido** (sin texto extra fuera del JSON).  \n- Debes dividir la narración en **exactamente 5 secciones** según este orden narrativo:  \n  1. Inicio universal (imagen de espaldas, alejándose caminando, mirando a la cámara).  \n  2. Presentación del personaje (imagen de frente, acercándose a la cámara).  \n  3. Acción (imagen de espaldas, alejándose caminando, mirando a la cámara).  \n  4. Resultado visible (imagen de frente, acercándose a la cámara).  \n  5. Cierre evocador (imagen de espaldas, alejándose caminando, mirando a la cámara).  \n\n- Cada sección:  \n  - Longitud en español: **18–25 palabras** (aprox. 1–2 frases).  \n  - Tiempo: **presente**.  \n  - Persona: **tercera persona**.  \n  - Nunca mencionar otras personas o personajes.  \n\n- Para cada sección debes devolver:  \n  - `descripcion` (en español, 18–25 palabras).  \n  - `promptImagen` (prompt en inglés, incluye bloque fijo y **debe especificar que la imagen sea sugerente y atrevida**).  \n\nBloque fijo (usar en cada `promptImagen`):  \n- Devuelve **solo** el JSON:\n{\n  \"seccion1\": {\n    \"descripcion\": \"short text\",\n    \"promptImagen\": \"fixed block + action of the section + make the image suggestive and provocative\"\n  },\n  \"seccion2\": {\n    \"descripcion\": \"short text\",\n    \"promptImagen\": \"fixed block + action of the section + make the image suggestive and provocative\"\n  },\n  \"seccion3\": {\n    \"descripcion\": \"short text\",\n    \"promptImagen\": \"fixed block + action of the section + make the image suggestive and provocative\"\n  },\n  \"seccion4\": {\n    \"descripcion\": \"short text\",\n    \"promptImagen\": \"fixed block + action of the section + make the image suggestive and provocative\"\n  },\n  \"seccion5\": {\n    \"descripcion\": \"short text\",\n    \"promptImagen\": \"fixed block + action of the section + make the image suggestive and provocative\"\n  }\n}"
-            },
-            {
-              "type": "HumanMessagePromptTemplate",
-              "message": "=Toma esta narración en español:\n\"{{ $json.output.narracion }}\"\n\nBloque fijo (inglés). Mantener exactamente este bloque al inicio de cada promptImagen para máxima consistencia facial/corporal:\n\"({{ $('Info').item.json.personaje }} cosplay:1.5), 19-year-old curvy, blue eyes, (similar facial features to {{ $('Info').item.json.actriz }}:1.3), photorealistic, high quality, natural lighting, full body, full {{ $json.output.cosplay }}, accentuating bust and hips, confident and provocative expression.\"\n\nInstrucciones para construir `promptImagen` por sección:\n- Estructura: `<Bloque fijo>, Scene X:, [acción física en inglés centrada en caminar y el entorno, manteniendo la pose exacta de la sección]`.\n- Acciones y poses por sección (en inglés, cortas y concretas):\n  1. Sección 1 (Inicio universal, espalda): \"walking away from camera, back visible, looking over shoulder seductively, cherry blossom garden\"\n  2. Sección 2 (Presentación del personaje, frente): \"approaching camera, front visible, seductive pose, soft breeze, confident expression\"\n  3. Sección 3 (Acción, espalda): \"walking away from camera, back visible, playful glance over shoulder, sunlit path\"\n  4. Sección 4 (Resultado visible, frente): \"approaching camera, front visible, provocative posture, petals falling, alluring gaze\"\n  5. Sección 5 (Cierre evocador, espalda): \"walking away from camera, back visible, last seductive glance, immersive natural environment\"\n- Mantén el enfoque: el sujeto está siempre caminando en solitario. No incluir otros seres.\n\nSalida solicitada (ejemplo de estructura, devolver JSON real):\n{\n  \"seccion1\": {\n    \"descripcion\": \"short text\",\n    \"promptImagen\": \"fixed block + action of section 1\"\n  },\n  \"seccion2\": {\n    \"descripcion\": \"short text\",\n    \"promptImagen\": \"fixed block + action of section 2\"\n  },\n  \"seccion3\": {\n    \"descripcion\": \"short text\",\n    \"promptImagen\": \"fixed block + action of section 3\"\n  },\n  \"seccion4\": {\n    \"descripcion\": \"short text\",\n    \"promptImagen\": \"fixed block + action of section 4\"\n  },\n  \"seccion5\": {\n    \"descripcion\": \"short text\",\n    \"promptImagen\": \"fixed block + action of section 5\"\n  }\n}\n"
-            }
-          ]
-        },
-        "batching": {}
-      },
-      "type": "@n8n/n8n-nodes-langchain.chainLlm",
-      "typeVersion": 1.7,
-      "position": [
-        800,
-        0
-      ],
-      "id": "a4bd3f26-66d7-4d55-86e2-6e23cf98536c",
-      "name": "Secciones"
+      "id": "d4463e3f-7973-4713-8468-a26e29eafa4d",
+      "name": "Basic LLM Chain"
     },
     {
       "parameters": {
         "assignments": {
           "assignments": [
             {
-              "id": "aca1ff2d-1879-4417-ad38-318f27d9d8ab",
-              "name": "nombre",
-              "value": "Nelida",
-              "type": "string"
-            },
-            {
-              "id": "bdc79c04-4335-4baa-b028-9a428235554e",
-              "name": "actriz",
-              "value": "Scarlett Johansson",
-              "type": "string"
-            },
-            {
-              "id": "11273768-284e-4510-a17b-442c88176842",
-              "name": "personaje",
-              "value": "Chun-li",
+              "id": "d0a8357c-0167-4d30-8199-ff1037a46851",
+              "name": "profesion",
+              "value": "Policia",
               "type": "string"
             }
           ]
@@ -175,11 +166,36 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        224,
+        208,
         0
       ],
-      "id": "92ce4bf7-6915-4a9f-8b19-268a12085749",
-      "name": "Info"
+      "id": "f62b3c21-48af-47c7-abb2-bd1290ce9efd",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "operation": "sendPhoto",
+        "chatId": "=1704819492",
+        "file": "={{ $json.images[0].url }}",
+        "additionalFields": {
+          "caption": "={{ $json.prompt }}"
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        976,
+        0
+      ],
+      "id": "643f8f99-0628-453c-8e34-7acedd84df85",
+      "name": "Foto",
+      "webhookId": "834b2a54-20a4-4982-a705-2ccdbffcda1b",
+      "credentials": {
+        "telegramApi": {
+          "id": "zxkALNj2uZW1uxoX",
+          "name": "Telegram.jomBusiness"
+        }
+      }
     },
     {
       "parameters": {
@@ -189,10 +205,10 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
       "typeVersion": 1,
       "position": [
-        464,
-        224
+        448,
+        176
       ],
-      "id": "04610ac0-0ee4-4396-8bcc-e9afce7fc033",
+      "id": "9675330e-220f-42c8-a989-5fd63a7ccdef",
       "name": "gpt-4o-mini",
       "credentials": {
         "openRouterApi": {
@@ -203,29 +219,119 @@
     },
     {
       "parameters": {
-        "jsonSchemaExample": "{\n\t\"titulo\": \"string\",\n\t\"narracion\": \"string\",\n    \"cosplay\": \"string\"\n}\n"
+        "method": "POST",
+        "url": "https://queue.fal.run/fal-ai/flux/dev",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"prompt\": \"{{ $json.text }}\",\n  \"image_size\": {\n    \"width\": 832,\n    \"height\": 1216\n  },\n  \"num_inference_steps\": 28,\n  \"guidance_scale\": 3.5,\n  \"num_images\": 1,\n  \"enable_safety_checker\": false,\n  \"output_format\": \"png\"\n} ",
+        "options": {}
       },
-      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
-      "typeVersion": 1.3,
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
       "position": [
-        592,
-        224
+        0,
+        304
       ],
-      "id": "29a95ccd-1cb3-4090-82fb-e7ee0a31437c",
-      "name": "historia.json"
+      "id": "50741eb4-6d26-45fd-8189-fdfb40e2db85",
+      "name": "Fal.flux.dev.post",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "vCwKmy0RQPjjcSbm",
+          "name": "Fal.tmp"
+        }
+      }
     },
     {
       "parameters": {
-        "jsonSchemaExample": "{\n  \"seccion1\": {\n    \"descripcion\": \"short text\",\n    \"promptImagen\": \"fixed block + action of the section\"\n  },\n  \"seccion2\": {\n    \"descripcion\": \"short text\",\n    \"promptImagen\": \"fixed block + action of the section\"\n  },\n  \"seccion3\": {\n    \"descripcion\": \"short text\",\n    \"promptImagen\": \"fixed block + action of the section\"\n  },\n  \"seccion4\": {\n    \"descripcion\": \"short text\",\n    \"promptImagen\": \"fixed block + action of the section\"\n  },\n  \"seccion5\": {\n    \"descripcion\": \"short text\",\n    \"promptImagen\": \"fixed block + action of the section\"\n  }\n}"
+        "url": "={{ $json.status_url }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {}
       },
-      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
-      "typeVersion": 1.3,
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
       "position": [
-        880,
-        224
+        384,
+        304
       ],
-      "id": "6756c08f-3e17-4465-953b-2c9f7149f247",
-      "name": "secciones.json"
+      "id": "1bce774d-ad9c-46b3-94b8-636bafd27422",
+      "name": "Fal.flux.dev.get",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "vCwKmy0RQPjjcSbm",
+          "name": "Fal.tmp"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "=https://queue.fal.run/fal-ai/stable-diffusion-v35-large/requests/{{ $json.request_id }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        800,
+        0
+      ],
+      "id": "6af91a04-7d57-459f-8d51-54e97e37d18a",
+      "name": "Fal.flex.dev.get.url",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "vCwKmy0RQPjjcSbm",
+          "name": "Fal.tmp"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "0351d503-4f52-4a78-ad1a-9da5c095f86c",
+              "leftValue": "={{ $json.status }}",
+              "rightValue": "COMPLETED",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        560,
+        304
+      ],
+      "id": "7f6455d9-ae7f-490e-bdf8-cd5258610f29",
+      "name": "Fal.flux.dev.completed"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        192,
+        304
+      ],
+      "id": "90ec02e4-d233-4771-be88-6d4e36c5a85f",
+      "name": "Wait.5",
+      "webhookId": "b4c754a6-b9ad-45cb-aff5-fadb5bd05689"
     }
   ],
   "pinData": {},
@@ -234,16 +340,16 @@
   },
   "shared": [
     {
-      "createdAt": "2025-09-15T03:50:13.211Z",
-      "updatedAt": "2025-09-15T03:50:13.211Z",
+      "createdAt": "2025-09-16T15:08:09.424Z",
+      "updatedAt": "2025-09-16T15:08:09.424Z",
       "role": "workflow:owner",
-      "workflowId": "L5KAjSDhk43bqQI2",
+      "workflowId": "KzD5yr0TYeX5sETT",
       "projectId": "uBzdLipflPbb1Tbz"
     }
   ],
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2025-09-15T06:40:31.000Z",
-  "versionId": "4199ebef-3a67-4bb6-a78f-a0ee10fb7862"
+  "updatedAt": "2025-09-16T16:23:14.000Z",
+  "versionId": "42b1ec35-9b50-4012-9a70-500b8dd2e439"
 }
