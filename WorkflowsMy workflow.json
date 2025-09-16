@@ -99,8 +99,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        944,
-        208
+        1616,
+        0
       ],
       "id": "53084952-0bc9-4d0f-9ff4-c348de1079eb",
       "name": "Foto",
@@ -119,8 +119,8 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        336,
-        -176
+        624,
+        -288
       ],
       "typeVersion": 1,
       "id": "fc8d591f-51be-4e12-9d64-5a6a3965f744",
@@ -140,7 +140,7 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        896,
+        720,
         0
       ],
       "id": "d1f745d3-ad0e-4f4b-affb-61a03bc1299b",
@@ -162,8 +162,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        320,
-        208
+        944,
+        0
       ],
       "id": "7256a474-bcad-40ff-a48d-5509d42b9415",
       "name": "Fal.flux.dev.get",
@@ -181,8 +181,8 @@
       "type": "n8n-nodes-base.wait",
       "typeVersion": 1.1,
       "position": [
-        544,
-        208
+        1168,
+        0
       ],
       "id": "a229144c-08da-4afb-bc2f-1479b8bfe96d",
       "name": "Wait.10",
@@ -198,8 +198,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        752,
-        208
+        1392,
+        0
       ],
       "id": "57de49db-5eb0-4c1e-97f9-6350770f95a5",
       "name": "Fal.flex.dev.get.url",
@@ -227,7 +227,7 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        640,
+        496,
         0
       ],
       "id": "69c1f2f5-9ae1-4afb-9db8-5e85811953bb",
@@ -250,6 +250,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2025-09-15T05:10:10.000Z",
-  "versionId": "7415897d-9e12-49a7-8cdf-69cf8f508236"
+  "updatedAt": "2025-09-16T02:23:09.000Z",
+  "versionId": "80df63bf-fb21-4119-92d4-9e2c613099ac"
 }
