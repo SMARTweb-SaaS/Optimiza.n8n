@@ -1,0 +1,507 @@
+{
+  "active": false,
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Basic LLM Chain": {
+      "main": [
+        [
+          {
+            "node": "Split Out",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "gpt-4o-mini": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fal.flux.dev.post": {
+      "main": [
+        [
+          {
+            "node": "Wait.5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fal.flux.dev.get": {
+      "main": [
+        [
+          {
+            "node": "Fal.flux.dev.completed",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fal.flex.dev.get.url": {
+      "main": [
+        [
+          {
+            "node": "Foto",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fal.flux.dev.completed": {
+      "main": [
+        [
+          {
+            "node": "Fal.flex.dev.get.url",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Wait.5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait.5": {
+      "main": [
+        [
+          {
+            "node": "Fal.flux.dev.get",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Structured Output Parser": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [],
+        [
+          {
+            "node": "Fal.flux.dev.post",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Foto": {
+      "main": [
+        [
+          {
+            "node": "Prompt",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prompt": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-09-16T15:08:09.415Z",
+  "id": "KzD5yr0TYeX5sETT",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Auto.CodigoAlfa.Short.Profesiones",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -32,
+        0
+      ],
+      "id": "797c7754-4daf-4d44-b9d0-076c351a0175",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.profesion }}",
+        "hasOutputParser": true,
+        "messages": {
+          "messageValues": [
+            {
+              "message": "=Tu tarea es generar 5 prompts de imagen en inglés para una mujer que representa una profesión específica. La descripción debe ser fotorealista, de alta calidad y seguir un formato de una sola línea.\n\n### **Ejemplos de salida:**\nEntrada: Mujer Policía\nSalida: \n[\n    {\n        \"prompt\": \"An attractive young woman (teenager, very young face, youthful glow, not older than 20 years old) of Latina descent with a very voluptuous and highly curvaceous hourglass figure with full and prominent bust and exceptionally large buttocks, and a naturally proportioned, smooth waist, and an angelic, smooth, youthful face without prominent cheekbones, with subtle, natural makeup, with long dark hair, wearing a modern and tight, form-fitting, sexy navy blue police uniform, seen from a three-quarter rear view, looking back over her left shoulder directly at the camera with a subtle smile, standing in a blurred urban street with a police car in the background, low camera angle from below to highlight her buttocks, professionally photographed, RAW photo, high resolution, cinematic lighting, vibrant, sexy, glamorous, lively lighting, ultra detailed, extreme realism, 8k, bokeh, subtle lights and shadows, focus on the face and body, detailed clothing textures, negative prompts: Deformed, blurry, bad anatomy, disfigured, poorly drawn, extra limbs, bad hands, mutated, cartoon, anime, 3D render, low resolution, bad lighting, facing away completely, full back view, dark lighting, dull colors, prominent cheekbones, mature face, deformed waist, unnatural body proportions, distorted body, adult face, old face, ugly hands, deformed hands, extra fingers, missing fingers, malformed limbs, two hands on one arm, twisted hands, fused fingers, obese, overweight, fat.\"\n    }\n]\nEntrada: Mujer Bombera\nSalida: \n[\n    {\n        \"prompt\": \"An attractive young woman (teenager, very young face, youthful glow, not older than 20 years old) of Caucasian descent with a very voluptuous and highly curvaceous hourglass figure with full and prominent bust and exceptionally large buttocks, and a naturally proportioned, smooth waist, and an angelic, smooth, youthful face without prominent cheekbones, with subtle, natural makeup, with long blonde hair, wearing a modern and **skin-tight, sexy plaid farm shirt tied at the waist and sexy denim shorts that accentuate her curves**, seen from a three-quarter rear view, looking back over her left shoulder directly at the camera with a confident, enticing smile, standing in a blurred lush green farm field with a barn in the background, low camera angle from below to highlight her buttocks, professionally photographed, RAW photo, high resolution, cinematic lighting, vibrant, sexy, glamorous, lively lighting, ultra detailed, extreme realism, 8k, bokeh, subtle lights and shadows, focus on the face and body, detailed clothing textures, negative prompts: Deformed, blurry, bad anatomy, disfigured, poorly drawn, extra limbs, bad hands, mutated, cartoon, anime, 3D render, low resolution, bad lighting, facing away completely, full back view, dark lighting, dull colors, prominent cheekbones, mature face, deformed waist, unnatural body proportions, distorted body, adult face, old face, ugly hands, deformed hands, extra fingers, missing fingers, malformed limbs, two hands on one arm, twisted hands, fused fingers, obese, overweight, fat.\"\n    }\n]\nEntrada: Mujer Enfermera\nSalida: \n[\n    {\n        \"prompt\": \"An attractive young woman (teenager, very young face, youthful glow, not older than 20 years old) of Asian descent with a very voluptuous and highly curvaceous hourglass figure with full and prominent bust and exceptionally large buttocks, and a naturally proportioned, smooth waist, and an angelic, smooth, youthful face without prominent cheekbones, with subtle, natural makeup, with long dark hair, wearing a modern and tight, form-fitting, sexy white nurse uniform with blue accents, seen from a three-quarter rear view, looking back over her left shoulder directly at the camera with a subtle smile, standing in a blurred hospital corridor with medical equipment in the background, low camera angle from below to highlight her buttocks, professionally photographed, RAW photo, high resolution, cinematic lighting, vibrant, sexy, glamorous, lively lighting, ultra detailed, extreme realism, 8k, bokeh, subtle lights and shadows, focus on the face and body, detailed clothing textures, negative prompts: Deformed, blurry, bad anatomy, disfigured, poorly drawn, extra limbs, bad hands, mutated, cartoon, anime, 3D render, low resolution, bad lighting, facing away completely, full back view, dark lighting, dull colors, prominent cheekbones, mature face, deformed waist, unnatural body proportions, distorted body, adult face, old face, ugly hands, deformed hands, extra fingers, missing fingers, malformed limbs, two hands on one arm, twisted hands, fused fingers, obese, overweight, fat.\"\n    }\n]\n---\n\n### **Instrucciones para la descripción:**\n* **Profesión:** El prompt debe identificar la profesión y el color y tipo de uniforme o atuendo asociado. Para profesiones con vestimenta tradicionalmente holgada o formal, se debe describir la vestimenta con términos ajustados y sexys (ej. `tight business suit`, `sexy pencil skirt` o `tight corset top`).\n* **Sujeto:** La mujer debe ser joven (teenager, muy joven, no mayor de 20 años), con un rostro angelical, juvenil y suave. Debe tener una figura de reloj de arena muy voluptuosa y altamente curvilínea con busto completo y prominente, glúteos excepcionalmente grandes y una cintura suave. Su pose debe ser una vista de tres cuartos trasera, girando la cabeza para mirar a la cámara sobre su hombro.\n* **Etnia:** Para la salida de las 5 imágenes, elige 5 etnias diferentes y aleatorias de la lista: Latina, Asiática, Caucásica, Rusa, Ucraniana, Polaca, Sueca, Noruega, Finlandesa, Turca, Italiana, Filipina.\n* **Entorno:** El fondo debe estar desenfocado.\n* **Ángulo y calidad:** La imagen debe ser capturada con una cámara profesional desde un ángulo bajo para resaltar sus glúteos, con iluminación vibrante, sexy, glamorosa y con vida.\n\n### **Consideraciones adicionales:**\n* **Genera exactamente 5 prompts.** El prompt final debe estar completamente en inglés. La salida debe ser un array JSON que contenga los prompts generados.\n* **El prompt final debe contener la siguiente sección de prompts negativos** para asegurar el resultado:\nold face, aged face, mature face, Deformed, blurry, bad anatomy, disfigured, poorly drawn, extra limbs, bad hands, mutated, cartoon, anime, 3D render, low resolution, bad lighting, facing away completely, full back view, dark lighting, dull colors, prominent cheekbones, deformed waist, unnatural body proportions, distorted body, adult face, ugly hands, deformed hands, extra fingers, missing fingers, malformed limbs, two hands on one arm, twisted hands, fused fingers, obese, overweight, fat, pregnant, loose clothing, loose shirt."
+            }
+          ]
+        },
+        "batching": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.7,
+      "position": [
+        448,
+        0
+      ],
+      "id": "d4463e3f-7973-4713-8468-a26e29eafa4d",
+      "name": "Basic LLM Chain"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "d0a8357c-0167-4d30-8199-ff1037a46851",
+              "name": "profesion",
+              "value": "Enfermera",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        208,
+        0
+      ],
+      "id": "f62b3c21-48af-47c7-abb2-bd1290ce9efd",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "operation": "sendPhoto",
+        "chatId": "=1704819492",
+        "file": "={{ $json.images[0].url }}",
+        "additionalFields": {
+          "caption": "={{ $('Edit Fields').item.json.profesion }}"
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1008,
+        288
+      ],
+      "id": "643f8f99-0628-453c-8e34-7acedd84df85",
+      "name": "Foto",
+      "webhookId": "834b2a54-20a4-4982-a705-2ccdbffcda1b",
+      "credentials": {
+        "telegramApi": {
+          "id": "zxkALNj2uZW1uxoX",
+          "name": "Telegram.jomBusiness"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": "openai/gpt-4o-mini",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [
+        448,
+        176
+      ],
+      "id": "9675330e-220f-42c8-a989-5fd63a7ccdef",
+      "name": "gpt-4o-mini",
+      "credentials": {
+        "openRouterApi": {
+          "id": "fx7pdURTekgTilKM",
+          "name": "OpenRouter.msn"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://queue.fal.run/fal-ai/flux/dev",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"prompt\": \"{{ $json.prompt }}\",\n  \"image_size\": {\n    \"width\": 832,\n    \"height\": 1216\n  },\n  \"num_inference_steps\": 28,\n  \"guidance_scale\": 3.5,\n  \"num_images\": 1,\n  \"enable_safety_checker\": false,\n  \"output_format\": \"png\"\n} ",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        0,
+        304
+      ],
+      "id": "50741eb4-6d26-45fd-8189-fdfb40e2db85",
+      "name": "Fal.flux.dev.post",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "CTU31n1iM3emZIHK",
+          "name": "FalAi.gmail"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.status_url }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        384,
+        304
+      ],
+      "id": "1bce774d-ad9c-46b3-94b8-636bafd27422",
+      "name": "Fal.flux.dev.get",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "CTU31n1iM3emZIHK",
+          "name": "FalAi.gmail"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "=https://queue.fal.run/fal-ai/stable-diffusion-v35-large/requests/{{ $json.request_id }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        752,
+        288
+      ],
+      "id": "6af91a04-7d57-459f-8d51-54e97e37d18a",
+      "name": "Fal.flex.dev.get.url",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "CTU31n1iM3emZIHK",
+          "name": "FalAi.gmail"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "0351d503-4f52-4a78-ad1a-9da5c095f86c",
+              "leftValue": "={{ $json.status }}",
+              "rightValue": "COMPLETED",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        560,
+        304
+      ],
+      "id": "7f6455d9-ae7f-490e-bdf8-cd5258610f29",
+      "name": "Fal.flux.dev.completed"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        192,
+        304
+      ],
+      "id": "90ec02e4-d233-4771-be88-6d4e36c5a85f",
+      "name": "Wait.5",
+      "webhookId": "b4c754a6-b9ad-45cb-aff5-fadb5bd05689"
+    },
+    {
+      "parameters": {
+        "chatId": "=1704819492",
+        "text": "={{ $('Loop Over Items').item.json.prompt }}",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1184,
+        288
+      ],
+      "id": "07cc90b9-fb9d-45c3-b8aa-23c2561db7fb",
+      "name": "Prompt",
+      "webhookId": "834b2a54-20a4-4982-a705-2ccdbffcda1b",
+      "credentials": {
+        "telegramApi": {
+          "id": "zxkALNj2uZW1uxoX",
+          "name": "Telegram.jomBusiness"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsonSchemaExample": "[\n  {\n    \"prompt\": \"text in english.\"\n  },\n  {\n    \"prompt\": \"text in english.\"\n  },\n  {\n    \"prompt\": \"text in english.\"\n  },\n  {\n    \"prompt\": \"text in english.\"\n  },\n  {\n    \"prompt\": \"text in english.\"\n  }\n]"
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.3,
+      "position": [
+        592,
+        176
+      ],
+      "id": "6f901641-bc31-47ad-aecc-713a3cd2a4b2",
+      "name": "Structured Output Parser"
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "output",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        768,
+        0
+      ],
+      "id": "46eabddd-9e3e-401c-9999-8d14b651cb9d",
+      "name": "Split Out"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        1184,
+        0
+      ],
+      "id": "e6ab53cc-ed38-47ca-9bc6-4ab05abfd391",
+      "name": "Loop Over Items"
+    },
+    {
+      "parameters": {
+        "jsCode": "const firstItem = items[0];\nreturn [firstItem];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        976,
+        0
+      ],
+      "id": "c4f05570-30c2-45f7-9aab-80b7916b494f",
+      "name": "Code in JavaScript"
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2025-09-16T15:08:09.424Z",
+      "updatedAt": "2025-09-16T15:08:09.424Z",
+      "role": "workflow:owner",
+      "workflowId": "KzD5yr0TYeX5sETT",
+      "projectId": "uBzdLipflPbb1Tbz"
+    }
+  ],
+  "staticData": null,
+  "tags": [
+    {
+      "createdAt": "2025-07-28T23:05:51.332Z",
+      "updatedAt": "2025-07-28T23:05:51.332Z",
+      "id": "zSAshwfFPUXVrLqy",
+      "name": "🦊 Codigo.Alfa"
+    }
+  ],
+  "triggerCount": 0,
+  "updatedAt": "2025-09-17T00:04:27.000Z",
+  "versionId": "74d5d302-77b7-4ee4-b6cb-dc2cff702c6f"
+}
