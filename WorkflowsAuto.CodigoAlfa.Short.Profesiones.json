@@ -5,29 +5,7 @@
       "main": [
         [
           {
-            "node": "Edit Fields",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Edit Fields": {
-      "main": [
-        [
-          {
-            "node": "Basic LLM Chain",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Basic LLM Chain": {
-      "main": [
-        [
-          {
-            "node": "Split Out",
+            "node": "Profesion",
             "type": "main",
             "index": 0
           }
@@ -38,7 +16,12 @@
       "ai_languageModel": [
         [
           {
-            "node": "Basic LLM Chain",
+            "node": "Imagenes",
+            "type": "ai_languageModel",
+            "index": 0
+          },
+          {
+            "node": "Historia",
             "type": "ai_languageModel",
             "index": 0
           }
@@ -107,17 +90,6 @@
         ]
       ]
     },
-    "Structured Output Parser": {
-      "ai_outputParser": [
-        [
-          {
-            "node": "Basic LLM Chain",
-            "type": "ai_outputParser",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Split Out": {
       "main": [
         [
@@ -173,6 +145,61 @@
           }
         ]
       ]
+    },
+    "Imagenes": {
+      "main": [
+        [
+          {
+            "node": "Split Out",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "imagenes.json": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "Imagenes",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Profesion": {
+      "main": [
+        [
+          {
+            "node": "Historia",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Structured Output Parser": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "Historia",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Historia": {
+      "main": [
+        [
+          {
+            "node": "Imagenes",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "createdAt": "2025-09-16T15:08:09.415Z",
@@ -188,57 +215,11 @@
       "type": "n8n-nodes-base.manualTrigger",
       "typeVersion": 1,
       "position": [
-        -32,
-        0
+        16,
+        -208
       ],
       "id": "797c7754-4daf-4d44-b9d0-076c351a0175",
       "name": "When clicking ‘Execute workflow’"
-    },
-    {
-      "parameters": {
-        "promptType": "define",
-        "text": "={{ $json.profesion }}",
-        "hasOutputParser": true,
-        "messages": {
-          "messageValues": [
-            {
-              "message": "=Tu tarea es generar 5 prompts de imagen en inglés para una mujer que representa una profesión específica. La descripción debe ser fotorealista, de alta calidad y seguir un formato de una sola línea.\n\n### **Ejemplos de salida:**\nEntrada: Mujer Policía\nSalida: \n[\n    {\n        \"prompt\": \"An attractive young woman (teenager, very young face, youthful glow, not older than 20 years old) of Latina descent with a very voluptuous and highly curvaceous hourglass figure with full and prominent bust and exceptionally large buttocks, and a naturally proportioned, smooth waist, and an angelic, smooth, youthful face without prominent cheekbones, with subtle, natural makeup, with long dark hair, wearing a modern and tight, form-fitting, sexy navy blue police uniform, seen from a three-quarter rear view, looking back over her left shoulder directly at the camera with a subtle smile, standing in a blurred urban street with a police car in the background, low camera angle from below to highlight her buttocks, professionally photographed, RAW photo, high resolution, cinematic lighting, vibrant, sexy, glamorous, lively lighting, ultra detailed, extreme realism, 8k, bokeh, subtle lights and shadows, focus on the face and body, detailed clothing textures, negative prompts: Deformed, blurry, bad anatomy, disfigured, poorly drawn, extra limbs, bad hands, mutated, cartoon, anime, 3D render, low resolution, bad lighting, facing away completely, full back view, dark lighting, dull colors, prominent cheekbones, mature face, deformed waist, unnatural body proportions, distorted body, adult face, old face, ugly hands, deformed hands, extra fingers, missing fingers, malformed limbs, two hands on one arm, twisted hands, fused fingers, obese, overweight, fat.\"\n    }\n]\nEntrada: Mujer Bombera\nSalida: \n[\n    {\n        \"prompt\": \"An attractive young woman (teenager, very young face, youthful glow, not older than 20 years old) of Caucasian descent with a very voluptuous and highly curvaceous hourglass figure with full and prominent bust and exceptionally large buttocks, and a naturally proportioned, smooth waist, and an angelic, smooth, youthful face without prominent cheekbones, with subtle, natural makeup, with long blonde hair, wearing a modern and **skin-tight, sexy plaid farm shirt tied at the waist and sexy denim shorts that accentuate her curves**, seen from a three-quarter rear view, looking back over her left shoulder directly at the camera with a confident, enticing smile, standing in a blurred lush green farm field with a barn in the background, low camera angle from below to highlight her buttocks, professionally photographed, RAW photo, high resolution, cinematic lighting, vibrant, sexy, glamorous, lively lighting, ultra detailed, extreme realism, 8k, bokeh, subtle lights and shadows, focus on the face and body, detailed clothing textures, negative prompts: Deformed, blurry, bad anatomy, disfigured, poorly drawn, extra limbs, bad hands, mutated, cartoon, anime, 3D render, low resolution, bad lighting, facing away completely, full back view, dark lighting, dull colors, prominent cheekbones, mature face, deformed waist, unnatural body proportions, distorted body, adult face, old face, ugly hands, deformed hands, extra fingers, missing fingers, malformed limbs, two hands on one arm, twisted hands, fused fingers, obese, overweight, fat.\"\n    }\n]\nEntrada: Mujer Enfermera\nSalida: \n[\n    {\n        \"prompt\": \"An attractive young woman (teenager, very young face, youthful glow, not older than 20 years old) of Asian descent with a very voluptuous and highly curvaceous hourglass figure with full and prominent bust and exceptionally large buttocks, and a naturally proportioned, smooth waist, and an angelic, smooth, youthful face without prominent cheekbones, with subtle, natural makeup, with long dark hair, wearing a modern and tight, form-fitting, sexy white nurse uniform with blue accents, seen from a three-quarter rear view, looking back over her left shoulder directly at the camera with a subtle smile, standing in a blurred hospital corridor with medical equipment in the background, low camera angle from below to highlight her buttocks, professionally photographed, RAW photo, high resolution, cinematic lighting, vibrant, sexy, glamorous, lively lighting, ultra detailed, extreme realism, 8k, bokeh, subtle lights and shadows, focus on the face and body, detailed clothing textures, negative prompts: Deformed, blurry, bad anatomy, disfigured, poorly drawn, extra limbs, bad hands, mutated, cartoon, anime, 3D render, low resolution, bad lighting, facing away completely, full back view, dark lighting, dull colors, prominent cheekbones, mature face, deformed waist, unnatural body proportions, distorted body, adult face, old face, ugly hands, deformed hands, extra fingers, missing fingers, malformed limbs, two hands on one arm, twisted hands, fused fingers, obese, overweight, fat.\"\n    }\n]\n---\n\n### **Instrucciones para la descripción:**\n* **Profesión:** El prompt debe identificar la profesión y el color y tipo de uniforme o atuendo asociado. Para profesiones con vestimenta tradicionalmente holgada o formal, se debe describir la vestimenta con términos ajustados y sexys (ej. `tight business suit`, `sexy pencil skirt` o `tight corset top`).\n* **Sujeto:** La mujer debe ser joven (teenager, muy joven, no mayor de 20 años), con un rostro angelical, juvenil y suave. Debe tener una figura de reloj de arena muy voluptuosa y altamente curvilínea con busto completo y prominente, glúteos excepcionalmente grandes y una cintura suave. Su pose debe ser una vista de tres cuartos trasera, girando la cabeza para mirar a la cámara sobre su hombro.\n* **Etnia:** Para la salida de las 5 imágenes, elige 5 etnias diferentes y aleatorias de la lista: Latina, Asiática, Caucásica, Rusa, Ucraniana, Polaca, Sueca, Noruega, Finlandesa, Turca, Italiana, Filipina.\n* **Entorno:** El fondo debe estar desenfocado.\n* **Ángulo y calidad:** La imagen debe ser capturada con una cámara profesional desde un ángulo bajo para resaltar sus glúteos, con iluminación vibrante, sexy, glamorosa y con vida.\n\n### **Consideraciones adicionales:**\n* **Genera exactamente 5 prompts.** El prompt final debe estar completamente en inglés. La salida debe ser un array JSON que contenga los prompts generados.\n* **El prompt final debe contener la siguiente sección de prompts negativos** para asegurar el resultado:\nold face, aged face, mature face, Deformed, blurry, bad anatomy, disfigured, poorly drawn, extra limbs, bad hands, mutated, cartoon, anime, 3D render, low resolution, bad lighting, facing away completely, full back view, dark lighting, dull colors, prominent cheekbones, deformed waist, unnatural body proportions, distorted body, adult face, ugly hands, deformed hands, extra fingers, missing fingers, malformed limbs, two hands on one arm, twisted hands, fused fingers, obese, overweight, fat, pregnant, loose clothing, loose shirt."
-            }
-          ]
-        },
-        "batching": {}
-      },
-      "type": "@n8n/n8n-nodes-langchain.chainLlm",
-      "typeVersion": 1.7,
-      "position": [
-        448,
-        0
-      ],
-      "id": "d4463e3f-7973-4713-8468-a26e29eafa4d",
-      "name": "Basic LLM Chain"
-    },
-    {
-      "parameters": {
-        "assignments": {
-          "assignments": [
-            {
-              "id": "d0a8357c-0167-4d30-8199-ff1037a46851",
-              "name": "profesion",
-              "value": "Enfermera",
-              "type": "string"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.set",
-      "typeVersion": 3.4,
-      "position": [
-        208,
-        0
-      ],
-      "id": "f62b3c21-48af-47c7-abb2-bd1290ce9efd",
-      "name": "Edit Fields"
     },
     {
       "parameters": {
@@ -246,13 +227,13 @@
         "chatId": "=1704819492",
         "file": "={{ $json.images[0].url }}",
         "additionalFields": {
-          "caption": "={{ $('Edit Fields').item.json.profesion }}"
+          "caption": "={{ $('Profesion').item.json.profesion }}"
         }
       },
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        1008,
+        976,
         288
       ],
       "id": "643f8f99-0628-453c-8e34-7acedd84df85",
@@ -273,8 +254,8 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
       "typeVersion": 1,
       "position": [
-        448,
-        176
+        256,
+        160
       ],
       "id": "9675330e-220f-42c8-a989-5fd63a7ccdef",
       "name": "gpt-4o-mini",
@@ -291,9 +272,18 @@
         "url": "https://queue.fal.run/fal-ai/flux/dev",
         "authentication": "genericCredentialType",
         "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
         "sendBody": true,
         "specifyBody": "json",
-        "jsonBody": "={\n  \"prompt\": \"{{ $json.prompt }}\",\n  \"image_size\": {\n    \"width\": 832,\n    \"height\": 1216\n  },\n  \"num_inference_steps\": 28,\n  \"guidance_scale\": 3.5,\n  \"num_images\": 1,\n  \"enable_safety_checker\": false,\n  \"output_format\": \"png\"\n} ",
+        "jsonBody": "={\n  \"prompt\": \"{{ $json.prompt }}\",\n  \"image_size\": {\n    \"width\": 832,\n    \"height\": 1216\n  },  \n  \"num_images\": 1,  \n  \"enable_safety_checker\": false,  \n  \"output_format\": \"png\",\n  \"num_inference_steps\": 28,\n  \"guidance_scale\": 3.5\n} ",
         "options": {}
       },
       "type": "n8n-nodes-base.httpRequest",
@@ -335,7 +325,7 @@
     },
     {
       "parameters": {
-        "url": "=https://queue.fal.run/fal-ai/stable-diffusion-v35-large/requests/{{ $json.request_id }}",
+        "url": "=https://queue.fal.run/fal-ai/flux/requests/{{ $json.request_id }}",
         "authentication": "genericCredentialType",
         "genericAuthType": "httpHeaderAuth",
         "options": {}
@@ -427,26 +417,13 @@
     },
     {
       "parameters": {
-        "jsonSchemaExample": "[\n  {\n    \"prompt\": \"text in english.\"\n  },\n  {\n    \"prompt\": \"text in english.\"\n  },\n  {\n    \"prompt\": \"text in english.\"\n  },\n  {\n    \"prompt\": \"text in english.\"\n  },\n  {\n    \"prompt\": \"text in english.\"\n  }\n]"
-      },
-      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
-      "typeVersion": 1.3,
-      "position": [
-        592,
-        176
-      ],
-      "id": "6f901641-bc31-47ad-aecc-713a3cd2a4b2",
-      "name": "Structured Output Parser"
-    },
-    {
-      "parameters": {
         "fieldToSplitOut": "output",
         "options": {}
       },
       "type": "n8n-nodes-base.splitOut",
       "typeVersion": 1,
       "position": [
-        768,
+        736,
         0
       ],
       "id": "46eabddd-9e3e-401c-9999-8d14b651cb9d",
@@ -459,7 +436,7 @@
       "type": "n8n-nodes-base.splitInBatches",
       "typeVersion": 3,
       "position": [
-        1184,
+        1168,
         0
       ],
       "id": "e6ab53cc-ed38-47ca-9bc6-4ab05abfd391",
@@ -472,16 +449,115 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        976,
+        960,
         0
       ],
       "id": "c4f05570-30c2-45f7-9aab-80b7916b494f",
       "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Mujer {{ $json.profesion }} (con atuendo ajustado)",
+        "hasOutputParser": true,
+        "messages": {
+          "messageValues": [
+            {
+              "message": "=Tu tarea es generar 5 prompts de imagen en inglés para una mujer que representa una profesión específica. La descripción debe ser fotorealista, de alta calidad y seguir un formato de una sola línea.\n\n### **Ejemplos de salida:**\nEntrada: Mujer Policía (con atuendo ajustado)\nSalida: \n[\n    {\n        \"prompt\": \"An attractive (young woman:1.3) ((teenager)), ((very young face)), (youthful glow), not older than 20 years old) of Latina descent with an extremely voluptuous and highly curvaceous hourglass figure with a (((gigantic, full and prominent bust))) and (((massively large buttocks))), and a naturally proportioned, smooth, tiny waist, and an angelic, smooth, youthful face without prominent cheekbones, with subtle, natural makeup, with long dark hair, wearing a modern and tight navy blue police uniform that highlights her curves, seen from a three-quarter rear view, looking back over her left shoulder directly at the camera with a subtle smile, standing in a blurred urban street with a police car in the background, low camera angle from below to highlight her buttocks, professionally photographed, RAW photo, high resolution, cinematic lighting, vibrant, sexy, glamorous, lively lighting, ultra detailed, extreme realism, 8k, bokeh, subtle lights and shadows, focus on the face and body, detailed clothing textures, negative prompts: Deformed, blurry, bad anatomy, disfigured, poorly drawn, extra limbs, bad hands, mutated, cartoon, anime, 3D render, low resolution, bad lighting, facing away completely, full back view, dark lighting, dull colors, prominent cheekbones, mature face, deformed waist, unnatural body proportions, distorted body, adult face, old face, ugly hands, deformed hands, extra fingers, missing fingers, malformed limbs, heavy makeup, exaggerated makeup, aged face, disproportionate hips, small bust, small glutes.\"\n    }\n]\nEntrada: Mujer Bombera (con atuendo ajustado)\nSalida: \n[\n    {\n        \"prompt\": \"An attractive (young woman:1.3) ((teenager)), ((very young face)), (youthful glow), not older than 20 years old) of Caucasian descent with an extremely voluptuous and highly curvaceous hourglass figure with a (((gigantic, full and prominent bust))) and (((massively large buttocks))), and a naturally proportioned, smooth, tiny waist, and an angelic, smooth, youthful face without prominent cheekbones, with subtle, natural makeup, with long blonde hair, wearing a modern and tight yellow firefighter uniform that highlights her curves, seen from a three-quarter rear view, looking back over her left shoulder directly at the camera with a confident, enticing smile, standing in a blurred urban street with a fire truck in the background, low camera angle from below to highlight her buttocks, professionally photographed, RAW photo, high resolution, cinematic lighting, vibrant, sexy, glamorous, lively lighting, ultra detailed, extreme realism, 8k, bokeh, subtle lights and shadows, focus on the face and body, detailed clothing textures, negative prompts: Deformed, blurry, bad anatomy, disfigured, poorly drawn, extra limbs, bad hands, mutated, cartoon, anime, 3D render, low resolution, bad lighting, facing away completely, full back view, dark lighting, dull colors, prominent cheekbones, mature face, deformed waist, unnatural body proportions, distorted body, adult face, old face, ugly hands, deformed hands, extra fingers, missing fingers, malformed limbs, heavy makeup, exaggerated makeup, aged face, disproportionate hips, small bust, small glutes.\"\n    }\n]\nEntrada: Mujer Enfermera (con atuendo ajustado)\nSalida: \n[\n    {\n        \"prompt\": \"An attractive (young woman:1.3) ((teenager)), ((very young face)), (youthful glow), not older than 20 years old) of Asian descent with an extremely voluptuous and highly curvaceous hourglass figure with a (((gigantic, full and prominent bust))) and (((massively large buttocks))), and a naturally proportioned, smooth, tiny waist, and an angelic, smooth, youthful face without prominent cheekbones, with subtle, natural makeup, with long dark hair, wearing a modern and tight white nurse uniform with blue accents, seen from a three-quarter rear view, looking back over her left shoulder directly at the camera with a subtle smile, standing in a blurred hospital corridor with medical equipment in the background, low camera angle from below to highlight her buttocks, professionally photographed, RAW photo, high resolution, cinematic lighting, vibrant, sexy, glamorous, lively lighting, ultra detailed, extreme realism, 8k, bokeh, subtle lights and shadows, focus on the face and body, detailed clothing textures, negative prompts: Deformed, blurry, bad anatomy, disfigured, poorly drawn, extra limbs, bad hands, mutated, cartoon, anime, 3D render, low resolution, bad lighting, facing away completely, full back view, dark lighting, dull colors, prominent cheekbones, mature face, deformed waist, unnatural body proportions, distorted body, adult face, old face, ugly hands, deformed hands, extra fingers, missing fingers, malformed limbs, heavy makeup, exaggerated makeup, aged face, disproportionate hips, small bust, small glutes.\"\n    }\n]\n---\n\n### **Instrucciones para la descripción:**\n* **Profesión:** El prompt debe identificar la profesión y el color y tipo de uniforme o atuendo asociado. **Para profesiones con vestimenta formal (como Contadora, Abogada, etc.), prioriza la descripción de la ropa sobre el título de la profesión.** Usa términos como `business suit`, `pencil skirt` o `tight office attire` para que la vestimenta sea ajustada y resalte la figura.\n* **Sujeto:** La mujer debe ser joven (teenager, muy joven, no mayor de 20 años), con un rostro angelical, juvenil y suave. Debe tener una figura de reloj de arena **extremadamente voluptuosa y altamente curvilínea** con un **busto gigantesco y lleno y glúteos masivamente grandes**, y una **cintura suave, proporcionada y muy pequeña**. Su pose debe ser una vista de tres cuartos trasera, girando la cabeza para mirar a la cámara sobre su hombro.\n* **Etnia:** Para la salida de las 5 imágenes, elige 5 etnias diferentes y aleatorias de la lista: Latina, Asiática, Caucásica, Rusa, Ucraniana, Polaca, Sueca, Noruega, Finlandesa, Turca, Italiana, Filipina.\n* **Entorno:** El fondo debe estar desenfocado.\n* **Ángulo y calidad:** La imagen debe ser capturada con una cámara profesional desde un ángulo bajo para resaltar sus glúteos, con iluminación vibrante, sexy, glamorosa y con vida.\n\n### **Consideraciones adicionales:**\n* **Genera exactamente 5 prompts.** El prompt final debe estar completamente en inglés. La salida debe ser un array JSON que contenga los prompts generados.\n* **El prompt final debe contener la siguiente sección de prompts negativos** para asegurar el resultado:\nDeformed, blurry, bad anatomy, disfigured, poorly drawn, extra limbs, bad hands, mutated, cartoon, anime, 3D render, low resolution, bad lighting, facing away completely, full back view, dark lighting, dull colors, prominent cheekbones, mature face, deformed waist, unnatural body proportions, distorted body, adult face, old face, ugly hands, deformed hands, extra fingers, missing fingers, malformed limbs, heavy makeup, exaggerated makeup, aged face, disproportionate hips, small bust, small glutes."
+            }
+          ]
+        },
+        "batching": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.7,
+      "position": [
+        384,
+        0
+      ],
+      "id": "d4463e3f-7973-4713-8468-a26e29eafa4d",
+      "name": "Imagenes"
+    },
+    {
+      "parameters": {
+        "jsonSchemaExample": "[\n  {\n    \"prompt\": \"text in english.\"\n  },\n  {\n    \"prompt\": \"text in english.\"\n  },\n  {\n    \"prompt\": \"text in english.\"\n  },\n  {\n    \"prompt\": \"text in english.\"\n  },\n  {\n    \"prompt\": \"text in english.\"\n  }\n]"
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.3,
+      "position": [
+        528,
+        160
+      ],
+      "id": "6f901641-bc31-47ad-aecc-713a3cd2a4b2",
+      "name": "imagenes.json"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "d0a8357c-0167-4d30-8199-ff1037a46851",
+              "name": "profesion",
+              "value": "Pirata",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        240,
+        -208
+      ],
+      "id": "f62b3c21-48af-47c7-abb2-bd1290ce9efd",
+      "name": "Profesion"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Quiero una historia motivadora para la profesión: {{ $json.profesion }}",
+        "hasOutputParser": true,
+        "messages": {
+          "messageValues": [
+            {
+              "message": "=Eres un narrador experto en crear textos **motivadores y descriptivos** para Shorts de YouTube. Tu objetivo es generar una descripción impactante y concisa de una profesión, destacando su lado más inspirador y aventurero.\n\n#### Directrices:\n\n1.  **Contenido:**\n    * El **título** debe ser de máximo 3 palabras, impactante y conciso.\n    * La **historia** debe ser en género femenino y tener entre **60 y 70 palabras**.\n    * El lenguaje debe ser inspirador y directo, usando metáforas o frases poéticas.\n    * El enfoque debe ser el propósito y el espíritu detrás del trabajo, evitando tareas cotidianas.\n    * Genera una lista de **hasta 7 hashtags** relevantes para la profesión y la narrativa.\n\n2.  **Formato de Salida:**\n    * La respuesta debe ser un objeto JSON válido con las claves `titulo`, `historia` y `hashtags`.\n    * El valor de `hashtags` debe ser una cadena de texto (string) con los hashtags separados por un espacio.\n\n#### Ejemplo de Salida (basado en la entrada):\nEntrada: Policía\nSalida: \n{\n  \"titulo\": \"Guardián de la Ciudad\",\n  \"historia\": \"Su mirada es un faro de la noche que recorre la ciudad. No es solo un deber, es una promesa de seguridad silenciosa. Cada paso es un escudo, un eco de coraje que resuena en las calles. Su presencia es el pulso de la calma, un recordatorio de que, incluso en la oscuridad, la justicia siempre vela. Es la valentía de quienes protegen sin buscar reconocimiento.\",\n  \"hashtags\": \"#Policía #Guardian #Justicia #Servicio #Coraje #Comunidad #Protector\"\n}\n\nEntrada: Enfermera\nSalida: \n{\n  \"titulo\": \"Corazón que Sana\",\n  \"historia\": \"Con el toque de sus manos, el miedo se disipa. Sus pasos son un bálsamo en pasillos de incertidumbre, su voz, una melodía de calma. No solo sana cuerpos, sino también almas, un pilar de fortaleza en los momentos más frágiles. Cada sonrisa es un hilo de esperanza, un recordatorio de que la verdadera medicina reside en la empatía. Es la dedicación de un espíritu que cuida la vida.\",\n  \"hashtags\": \"#Enfermera #Salud #Cuidado #Compasión #Héroes #Empatía #Sanar\"\n}\n\nEntrada: Bombero\nSalida: \n{\n  \"titulo\": \"Héroe del Fuego\",\n  \"historia\": \"El humo envuelve el aire, un enemigo furioso. Pero ella avanza, una gigante de acero en medio del caos. Cada paso es un acto de pura valentía, su única misión es el rescate, no la gloria. Siente el calor del infierno, pero su espíritu arde con una llama más fuerte, una que solo busca proteger la vida. Es el eco de la esperanza cuando todo parece perdido.\",\n  \"hashtags\": \"#Bombera #Héroe #Valentía #Rescate #Fuego #Servicio #Esperanza\"\n}\n\n\n\n\n\n\n"
+            }
+          ]
+        },
+        "batching": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.7,
+      "position": [
+        0,
+        0
+      ],
+      "id": "deefd71f-92df-46ee-b516-48fa883d035f",
+      "name": "Historia"
+    },
+    {
+      "parameters": {
+        "jsonSchemaExample": "{\n  \"titulo\": \"texto\",\n  \"historia\": \"texto\",\n  \"hashtags\": \"texto\"\n}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.3,
+      "position": [
+        144,
+        160
+      ],
+      "id": "6380306f-50b8-4731-a1aa-03a726acd5c9",
+      "name": "Structured Output Parser"
     }
   ],
   "pinData": {},
   "settings": {
-    "executionOrder": "v1"
+    "executionOrder": "v1",
+    "timezone": "America/Lima",
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": "iNdV46Bame2vCTJz",
+    "timeSavedPerExecution": 60
   },
   "shared": [
     {
@@ -502,6 +578,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2025-09-17T00:04:27.000Z",
-  "versionId": "74d5d302-77b7-4ee4-b6cb-dc2cff702c6f"
+  "updatedAt": "2025-09-17T22:44:00.000Z",
+  "versionId": "bf4ad60e-1b38-405c-89db-f2bb3ea5789d"
 }
