@@ -1,5 +1,5 @@
 {
-  "active": false,
+  "active": true,
   "connections": {
     "Basic LLM Chain": {
       "main": [
@@ -371,7 +371,7 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
       "typeVersion": 1,
       "position": [
-        88,
+        96,
         720
       ],
       "id": "7175226a-6b0d-4a3c-ab27-faeffb2bc32e",
@@ -440,7 +440,7 @@
       "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
       "typeVersion": 1.3,
       "position": [
-        216,
+        224,
         720
       ],
       "id": "4dbd6637-6031-400b-96c8-9b17d0c4a4b7",
@@ -597,10 +597,9 @@
         "fromEmail": "hola@optimiza-ia.com",
         "toEmail": "=jomBusiness@msn.com",
         "subject": "=Feliz Cumpleaños {{ $('Edit Fields').item.json.Nombre }}",
-        "html": "=<p>¡Feliz cumpleaños, {{ $('Edit Fields').item.json.Nombre }}!</p>\n\n<img src=\"cid:image_1\" alt=\"Feliz Cumpleaños\" width=\"944\">\n\n<p>Mensaje completo: {{ $('Basic LLM Chain').item.json.output.mensaje_completo }}</p>",
+        "html": "=<p>¡Feliz cumpleaños, {{ $('Edit Fields').item.json.Nombre }}!</p>\n\n<img src=\"data:image/png;base64,{{ $json.data }}\" alt=\"{{ $('Basic LLM Chain').item.json.output.mensaje_completo }}\" width=\"944\">\n\n<p>Mensaje completo: {{ $('Basic LLM Chain').item.json.output.mensaje_completo }}</p>",
         "options": {
-          "appendAttribution": false,
-          "attachments": "={{ $json.data }}"
+          "appendAttribution": false
         }
       },
       "type": "n8n-nodes-base.emailSend",
@@ -724,19 +723,6 @@
           "formMode": "test"
         }
       }
-    ],
-    "Basic LLM Chain": [
-      {
-        "json": {
-          "output": {
-            "nombre": "John",
-            "frase_interes": "te encanta el fútbol",
-            "motivo_personalizado": "deseo que sigas logrando grandes éxitos este año",
-            "mensaje_completo": "¡Feliz cumpleaños, John! Sabemos que te encanta el fútbol, por eso deseo que sigas logrando grandes éxitos este año.",
-            "mensaje_whatsapp": "🎉 ¡Feliz cumpleaños, *John*! Que este año esté lleno de *éxitos* en el fútbol y en la vida! ⚽️🎂"
-          }
-        }
-      }
     ]
   },
   "settings": {
@@ -771,6 +757,6 @@
     }
   ],
   "triggerCount": 2,
-  "updatedAt": "2025-09-12T22:50:50.000Z",
-  "versionId": "f1846a9b-0d11-4ad0-a551-e0183f8765c3"
+  "updatedAt": "2025-09-22T22:57:56.000Z",
+  "versionId": "70b264ff-6bb4-42da-9296-8e574e457269"
 }
