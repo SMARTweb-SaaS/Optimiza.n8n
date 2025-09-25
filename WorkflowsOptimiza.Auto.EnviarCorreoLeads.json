@@ -23,7 +23,7 @@
         ],
         [
           {
-            "node": "Send email",
+            "node": "Send.Lead",
             "type": "main",
             "index": 0
           }
@@ -46,17 +46,6 @@
         [
           {
             "node": "Wait.Random",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Send email": {
-      "main": [
-        [
-          {
-            "node": "Update a row",
             "type": "main",
             "index": 0
           }
@@ -122,7 +111,7 @@
       "main": [
         [
           {
-            "node": "Send a text message",
+            "node": "Send.msn.com",
             "type": "main",
             "index": 0
           }
@@ -145,6 +134,28 @@
         [
           {
             "node": "Parametros",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send.Lead": {
+      "main": [
+        [
+          {
+            "node": "Update a row",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send.msn.com": {
+      "main": [
+        [
+          {
+            "node": "Send.Confirmacion",
             "type": "main",
             "index": 0
           }
@@ -181,30 +192,6 @@
       ],
       "id": "8b57e049-10f5-4b01-9bc4-c1b4846e8721",
       "name": "Generador.Msg"
-    },
-    {
-      "parameters": {
-        "chatId": "1704819492",
-        "text": "=Se ha terminado el envío de correos.\n\nEmpresa: Optimiza.ia.pro\nCantidad: {{ $('Parametros').item.json.cantidad }}\n",
-        "additionalFields": {
-          "appendAttribution": false
-        }
-      },
-      "type": "n8n-nodes-base.telegram",
-      "typeVersion": 1.2,
-      "position": [
-        16,
-        -384
-      ],
-      "id": "84a78731-bcdb-4f1b-9dd8-9429cb90c596",
-      "name": "Send a text message",
-      "webhookId": "47768359-131c-4dcd-9e2b-e3a0a44fb69e",
-      "credentials": {
-        "telegramApi": {
-          "id": "zxkALNj2uZW1uxoX",
-          "name": "Telegram.jomBusiness"
-        }
-      }
     },
     {
       "parameters": {
@@ -245,32 +232,6 @@
       ],
       "id": "31b348c3-403b-40a2-8eb8-eeb9b2f2434f",
       "name": "Segundos"
-    },
-    {
-      "parameters": {
-        "fromEmail": "\"Optimiza IA Soluciones creativas\" <hola@optimiza-ia.com>",
-        "toEmail": "=jomBusiness@msn.com",
-        "subject": "={{ $json.asunto }}",
-        "html": "=<!DOCTYPE html>\n<html lang=\"es\">\n<head>\n  <meta charset=\"UTF-8\">\n  <title>Optimiza tu negocio con IA</title>\n</head>\n<body style=\"font-family: Segoe ui, Arial, sans-serif; color: #555555; line-height: 1.6; margin: 0; padding: 20px; background-color: #f9f9f9;\">\n  <table align=\"center\" width=\"600\" cellpadding=\"0\" cellspacing=\"0\" style=\"background: #ffffff; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 6px rgba(0,0,0,0.1);\">\n   \n    <!-- Encabezado -->\n    <tr>\n      <td align=\"center\" bgcolor=\"#0A2540\" style=\"padding:20px;\">\n        <img src=\"https://optimiza-ia.com/images/public/logo_white.png\" alt=\"Optimiza.ia.pro\" style=\"display:block;\">\n      </td>\n    </tr>\n\n    <!-- Bloque de mensaje personalizado -->\n    <tr>\n      <td style=\"padding:20px; font-size:18px; line-height:1.6; color:#333;\">\n        {{ $json.mensaje }}\n      \n<!-- Texto introductorio -->\n<p>Soy <strong>John</strong> y ayudo a negocios como el tuyo a <strong>{{ $json.beneficio_principal }}</strong>, por ese motivo quiero mostrarte cómo la <strong>automatización con Inteligencia Artificial</strong> puede ayudarte a ahorrar tiempo y aumentar tus ingresos.</p>\n\n<!-- Beneficios -->\n<ul style=\"list-style: none; padding: 0; margin: 0 0 20px;\">\n          <li style=\"margin-bottom: 10px;\">{{ $json.icono1 }} {{ $json.beneficio1 }}</li>\n          <li style=\"margin-bottom: 10px;\">{{ $json.icono2 }} {{ $json.beneficio2 }}</li>\n          <li style=\"margin-bottom: 10px;\">{{ $json.icono3 }} {{ $json.beneficio3 }}</li>\n        </ul>\n      </td>\n    </tr>\n\n    <!-- CTA -->\n    <tr>\n      <td align=\"center\" style=\"padding:30px;\">\n        <a href=\"https://optimiza-ia.com\" target=\"_blank\" \n           style=\"background-color:#28a745; color:#fff; text-decoration:none; padding:14px 28px; border-radius:8px; font-size:16px;\">\n           Conoce más en nuestra web\n        </a>\n      </td>\n    </tr>\n\n    <!-- Footer -->\n    <tr>\n      <td bgcolor=\"#0A2540\" align=\"center\" style=\"padding:15px; color:#fff; font-size:12px;\">\n        © 2025 Optimiza.ia.pro | Ayudamos a las pymes a crecer con IA 🚀\n      </td>\n    </tr>\n  </table>\n</body>\n</html>\n",
-        "options": {
-          "appendAttribution": false
-        }
-      },
-      "type": "n8n-nodes-base.emailSend",
-      "typeVersion": 2.1,
-      "position": [
-        -208,
-        -192
-      ],
-      "id": "4bdf8266-047b-4bda-a362-edd706330df0",
-      "name": "Send email",
-      "webhookId": "f4c94d16-2482-4d18-b3c3-41ae05868902",
-      "credentials": {
-        "smtp": {
-          "id": "g9Le19jvw1BGykSt",
-          "name": "SMTP.optimiza"
-        }
-      }
     },
     {
       "parameters": {
@@ -434,6 +395,96 @@
       ],
       "id": "6604b174-dad2-4b85-98b4-e4ae2c42fe70",
       "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "fromEmail": "\"Optimiza IA Soluciones creativas\" <hola@optimiza-ia.com>",
+        "toEmail": "=jomBusiness@msn.com",
+        "subject": "={{ $json.asunto }}",
+        "html": "=<!DOCTYPE html>\n<html lang=\"es\">\n<head>\n  <meta charset=\"UTF-8\">\n  <title>Optimiza tu negocio con IA</title>\n</head>\n<body style=\"font-family: Segoe ui, Arial, sans-serif; color: #555555; line-height: 1.6; margin: 0; padding: 20px; background-color: #f9f9f9;\">\n  <table align=\"center\" width=\"600\" cellpadding=\"0\" cellspacing=\"0\" style=\"background: #ffffff; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 6px rgba(0,0,0,0.1);\">\n   \n    <!-- Encabezado -->\n    <tr>\n      <td align=\"center\" bgcolor=\"#0A2540\" style=\"padding:20px;\">\n        <img src=\"https://optimiza-ia.com/images/public/logo_white.png\" alt=\"Optimiza.ia.pro\" style=\"display:block;\">\n      </td>\n    </tr>\n\n    <!-- Bloque de mensaje personalizado -->\n    <tr>\n      <td style=\"padding:20px; font-size:18px; line-height:1.6; color:#333;\">\n        {{ $json.mensaje }}\n      \n<!-- Texto introductorio -->\n<p>Soy <strong>John</strong> y ayudo a negocios como el tuyo a <strong>{{ $json.beneficio_principal }}</strong>, por ese motivo quiero mostrarte cómo la <strong>automatización con Inteligencia Artificial</strong> puede ayudarte a ahorrar tiempo y aumentar tus ingresos.</p>\n\n<!-- Beneficios -->\n<ul style=\"list-style: none; padding: 0; margin: 0 0 20px;\">\n          <li style=\"margin-bottom: 10px;\">{{ $json.icono1 }} {{ $json.beneficio1 }}</li>\n          <li style=\"margin-bottom: 10px;\">{{ $json.icono2 }} {{ $json.beneficio2 }}</li>\n          <li style=\"margin-bottom: 10px;\">{{ $json.icono3 }} {{ $json.beneficio3 }}</li>\n        </ul>\n      </td>\n    </tr>\n\n    <!-- CTA -->\n    <tr>\n      <td align=\"center\" style=\"padding:30px;\">\n        <a href=\"https://optimiza-ia.com\" target=\"_blank\" \n           style=\"background-color:#28a745; color:#fff; text-decoration:none; padding:14px 28px; border-radius:8px; font-size:16px;\">\n           Conoce más en nuestra web\n        </a>\n      </td>\n    </tr>\n\n    <!-- Footer -->\n    <tr>\n      <td bgcolor=\"#0A2540\" align=\"center\" style=\"padding:15px; color:#fff; font-size:12px;\">\n        © 2025 Optimiza.ia.pro | Ayudamos a las pymes a crecer con IA 🚀\n      </td>\n    </tr>\n  </table>\n</body>\n</html>\n",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [
+        -208,
+        -192
+      ],
+      "id": "4bdf8266-047b-4bda-a362-edd706330df0",
+      "name": "Send.Lead",
+      "webhookId": "f4c94d16-2482-4d18-b3c3-41ae05868902",
+      "credentials": {
+        "smtp": {
+          "id": "g9Le19jvw1BGykSt",
+          "name": "SMTP.optimiza"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "fromEmail": "\"Optimiza IA Soluciones creativas\" <hola@optimiza-ia.com>",
+        "toEmail": "=jomBusiness@msn.com",
+        "subject": "=Se ha terminado el envío de correos.",
+        "html": "=<b>Empresa</b>: Optimiza.ia.pro\n<b>Cantidad</b>: {{ $('Parametros').item.json.cantidad }}",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [
+        16,
+        -384
+      ],
+      "id": "252e3c03-3acf-42fe-ae27-82a68f69aa60",
+      "name": "Send.msn.com",
+      "webhookId": "f4c94d16-2482-4d18-b3c3-41ae05868902",
+      "credentials": {
+        "smtp": {
+          "id": "g9Le19jvw1BGykSt",
+          "name": "SMTP.optimiza"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "1704819492",
+        "text": "=Se ha terminado el envío de correos.\n\nEmpresa: Optimiza.ia.pro\nCantidad: {{ $('Parametros').item.json.cantidad }}\n",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        240,
+        -384
+      ],
+      "id": "84a78731-bcdb-4f1b-9dd8-9429cb90c596",
+      "name": "Send.Confirmacion",
+      "webhookId": "47768359-131c-4dcd-9e2b-e3a0a44fb69e",
+      "credentials": {
+        "telegramApi": {
+          "id": "zxkALNj2uZW1uxoX",
+          "name": "Telegram.jomBusiness"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## Optimiza.ia.pro \n- En el nodo '**Parametros**' se debe de indicar la cantidad de correos a enviar.\n- Se debe de configurar el nodo '**Schedule**' para la automatización.",
+        "width": 304
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -208,
+        -576
+      ],
+      "typeVersion": 1,
+      "id": "43ebe6a3-67cf-4ebf-856e-91c28181a3df",
+      "name": "Sticky Note"
     }
   ],
   "pinData": {},
@@ -465,6 +516,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2025-09-24T20:50:04.000Z",
-  "versionId": "5753c4e6-62f2-4afc-a659-9e67de009801"
+  "updatedAt": "2025-09-25T12:36:13.000Z",
+  "versionId": "eba83d3f-df17-4d3a-b6ec-d310901a8880"
 }
