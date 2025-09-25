@@ -1,0 +1,470 @@
+{
+  "active": false,
+  "connections": {
+    "Generador.Msg": {
+      "main": [
+        [
+          {
+            "node": "Mensaje.json",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Paginar.Correos": {
+      "main": [
+        [
+          {
+            "node": "PrimerItem",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Send email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait.Random": {
+      "main": [
+        [
+          {
+            "node": "Paginar.Correos",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Segundos": {
+      "main": [
+        [
+          {
+            "node": "Wait.Random",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send email": {
+      "main": [
+        [
+          {
+            "node": "Update a row",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Mensaje.json": {
+      "main": [
+        [
+          {
+            "node": "Paginar.Correos",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "gpt-4o-mini": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Generador.Msg",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Parametros",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get many rows": {
+      "main": [
+        [
+          {
+            "node": "Generador.Msg",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parametros": {
+      "main": [
+        [
+          {
+            "node": "Get many rows",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "PrimerItem": {
+      "main": [
+        [
+          {
+            "node": "Send a text message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update a row": {
+      "main": [
+        [
+          {
+            "node": "Segundos",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Parametros",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-09-24T16:43:35.338Z",
+  "id": "RBw884jVprwhUG19",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Optimiza.Auto.EnviarCorreoLeads",
+  "nodes": [
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Lead: {{ $json.Lead }}\nDescripcion: {{ $json.Descripcion }}\n",
+        "messages": {
+          "messageValues": [
+            {
+              "message": "=Eres un generador de rompehielos personalizados enfocados en leads de negocios encontrados mediante serper.dev (scraping de Google Search/Maps).\n\n## Objetivo:\nCrear un **mensaje breve, atractivo y profesional** que capte la atención inicial de un lead.  \nEl mensaje debe mostrar que investigaste el negocio, generar conexión emocional y despertar interés de forma sutil, **sin vender directamente**.  \n\n## Reglas del mensaje:\n- Máximo: **50 palabras**.  \n- Siempre termina con la frase: **\"Por eso pensé en contactarte.\"**  \n- No usar frases genéricas como: *\"espero que estés bien\"* o *\"me gustaría conocerte\"*.  \n- Evitar lenguaje comercial directo o agresivo.  \n- El tono debe ser **profesional, cercano y humano**.  \n\n## Estructura obligatoria:\n1. **Saludo inicial**:  \n   - Ejemplo: *\"Hola [nombre del negocio]!\"* o *\"¡Hola equipo de [nombre del negocio]!\"*  \n\n2. **Conexión personalizada** (usar un detalle del perfil de Google Maps, como):  \n   - Una reseña positiva o reciente.  \n   - Un logro o reconocimiento.  \n   - Un servicio que los diferencie.  \n   - Su ubicación, si es relevante.  \n\n3. **Comentario positivo** (elogio breve que muestre interés real).  \n\n4. **Transición suave**:  \n   - Ejemplo: *\"Esto me hizo pensar en...\"*, *\"Y justamente por eso...\"*, *\"Al ver esto, pensé que...\"*.  \n\n5. **Frase final obligatoria**:  \n   - *\"Por eso pensé en contactarte.\"*  \n\n## Reglas adicionales para el JSON\n- asunto:\n  - Incluir el nombre del negocio\n  - Máximo 1 emoji al inicio\n  - Atractivo, profesional y relacionado al beneficio principal\n  - Extensión máxima: 8 palabras\n\n- detalle_negocio\n  - Rasgo único o destacado del negocio\n  - Puede ser servicio, producto, ubicación o reseña frecuente\n  - Sonar natural, no genérico\n\n- beneficio_principal\n  - Propuesta de valor central\n  - Concreto y enfocado en resolver un dolor del negocio\n\n- icono1/2/3\n  - Emojis relevantes al sector, diferentes entre sí\n  - Profesionales y claros\n\n- beneficio1/2/3\n  - Máximo 10 palabras cada uno\n  - Diferentes entre sí\n  - Accionables, prácticos y relacionados a cómo la IA ayuda al negocio\n\n- mensaje\n  - Seguir la estructura obligatoria de rompehielos\n  - Máximo 50 palabras\n  - Sonar humano, profesional y personalizado\n\n## Formato obligatorio\n- JSON válido con todos los campos\n- No agregar texto fuera del objeto JSON\n- Debe ser parseable en n8n sin errores\n\n## Ejemplos:\n\n**Restaurante:**  \n{\n  \"asunto\": \"🍴 Más comensales frecuentes para La Casa de Toño\",\n  \"detalle_negocio\": \"ambiente acogedor y chilaquiles reconocidos en reseñas\",\n  \"beneficio_principal\": \"aumentar clientes recurrentes sin depender de apps de delivery\",\n  \"icono1\": \"📲\",\n  \"beneficio1\": \"Respuestas automáticas en WhatsApp para reservas\",\n  \"icono2\": \"⭐\",\n  \"beneficio2\": \"Gestión de reseñas para mejorar tu reputación online\",\n  \"icono3\": \"📢\",\n  \"beneficio3\": \"Campañas para fidelizar clientes habituales\",\n  \"mensaje\": \"¡Hola, equipo de La Casa de Toño! Me encantó ver las reseñas donde destacan el ambiente acogedor y lo delicioso de los chilaquiles. ¡Qué gran logro mantener esa satisfacción en tantos clientes! Por eso pensé en contactarte.\"\n}\n\n**Tienda de ropa:**  \n{\n  \"asunto\": \"👗 Más clientes fieles para Boutique Magnolia\",\n  \"detalle_negocio\": \"diseños únicos y calidad apreciada por clientes\",\n  \"beneficio_principal\": \"aumentar ventas recurrentes en tienda física y online\",\n  \"icono1\": \"🛍️\",\n  \"beneficio1\": \"Responde consultas sobre tallas y disponibilidad en WhatsApp.\",\n  \"icono2\": \"📦\",\n  \"beneficio2\": \"Recordatorios de ofertas y lanzamientos exclusivos.\",\n  \"icono3\": \"💳\",\n  \"beneficio3\": \"Campañas para incentivar compras repetidas.\",\n  \"mensaje\": \"Hola, Boutique Magnolia. ¡Qué genial ver que destacan por sus diseños únicos y la calidad que tanto valoran sus clientes! Ese tipo de diferenciación marca la pauta en la moda local. Por eso pensé en contactarte.\"\n}\n\n**Hotel:**  \n{\n  \"asunto\": \"🏨 Más reservas directas para Dorado Hotel Tacna\",\n  \"detalle_negocio\": \"un restaurante y una piscina al aire libre en la azotea\",\n  \"beneficio_principal\": \"aumentar tus reservas directas sin depender de agencias\",\n  \"icono1\": \"📲\",\n  \"beneficio1\": \"Respuestas automáticas en WhatsApp para consultas rápidas.\",\n  \"icono2\": \"⏰\",\n  \"beneficio2\": \"Recordatorios de check-in/out para tus huéspedes.\",\n  \"icono3\": \"🤝\",\n  \"beneficio3\": \"Campañas de fidelización para que vuelvan.\",\n  \"mensaje\": \"¡Hola, equipo de Dorado Hotel TACNA! Me llamó la atención que ofrezcan un restaurante y una piscina al aire libre en la azotea, ¡qué gran forma de disfrutar la vista! Es un detalle que sin duda hace la experiencia más memorable. Por eso pensé en contactarte.\"\n}\n\n**Colegio:**  \n{\n  \"asunto\": \"📚 Más familias conectadas con Colegio San Martín\",\n  \"detalle_negocio\": \"formación integral y ambiente positivo para estudiantes\",\n  \"beneficio_principal\": \"mejorar la comunicación con padres y captar más alumnos\",\n  \"icono1\": \"📲\",\n  \"beneficio1\": \"Responde consultas sobre inscripciones 24/7.\",\n  \"icono2\": \"📅\",\n  \"beneficio2\": \"Recordatorios automáticos de pagos y eventos.\",\n  \"icono3\": \"🤝\",\n  \"beneficio3\": \"Canales digitales para fortalecer la relación con padres.\",\n  \"mensaje\": \"¡Hola, Colegio San Martín! Me encantó ver comentarios de padres resaltando la formación integral y el ambiente positivo para los estudiantes. Es inspirador cómo combinan educación y valores en su propuesta. Por eso pensé en contactarte.\"\n}\n\n**Dentista:**  \n{\n  \"asunto\": \"😁 Más pacientes confiados en Clínica Dental Sonrisa\",\n  \"detalle_negocio\": \"trato amable y cuidado detallado en tratamientos\",\n  \"beneficio_principal\": \"aumentar reservas y fidelizar pacientes\",\n  \"icono1\": \"📲\",\n  \"beneficio1\": \"Agenda citas automáticamente por WhatsApp.\",\n  \"icono2\": \"💡\",\n  \"beneficio2\": \"Recordatorios de controles y limpiezas dentales.\",\n  \"icono3\": \"⭐\",\n  \"beneficio3\": \"Solicita reseñas positivas después de cada atención.\",\n  \"mensaje\": \"¡Hola, Clínica Dental Sonrisa! Me llamó la atención que sus pacientes destacan lo amables que son y lo cuidadosos en cada tratamiento. Mantener tantas reseñas positivas en odontología es admirable. Por eso pensé en contactarte.\"\n}\n\n**Ferretería:**  \n{\n  \"asunto\": \"🛠 Más clientes frecuentes para Ferretería El Tornillo de Oro\",\n  \"detalle_negocio\": \"amplia variedad de herramientas y materiales de construcción\",\n  \"beneficio_principal\": \"incrementar ventas y fidelizar a clientes locales\",\n  \"icono1\": \"📲\",\n  \"beneficio1\": \"Atiende consultas sobre stock y precios en WhatsApp.\",\n  \"icono2\": \"📦\",\n  \"beneficio2\": \"Recordatorios de promociones en temporadas clave.\",\n  \"icono3\": \"🤝\",\n  \"beneficio3\": \"Campañas para fidelizar a maestros de obra y clientes recurrentes.\",\n  \"mensaje\": \"¡Hola, Ferretería El Tornillo de Oro! Noté que destacan por su amplia variedad de herramientas y materiales de construcción, lo cual es clave para ganar clientes fieles en el rubro. Por eso pensé en contactarte.\"\n}"
+            }
+          ]
+        },
+        "batching": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.7,
+      "position": [
+        -1008,
+        -208
+      ],
+      "id": "8b57e049-10f5-4b01-9bc4-c1b4846e8721",
+      "name": "Generador.Msg"
+    },
+    {
+      "parameters": {
+        "chatId": "1704819492",
+        "text": "=Se ha terminado el envío de correos.\n\nEmpresa: Optimiza.ia.pro\nCantidad: {{ $('Parametros').item.json.cantidad }}\n",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        16,
+        -384
+      ],
+      "id": "84a78731-bcdb-4f1b-9dd8-9429cb90c596",
+      "name": "Send a text message",
+      "webhookId": "47768359-131c-4dcd-9e2b-e3a0a44fb69e",
+      "credentials": {
+        "telegramApi": {
+          "id": "zxkALNj2uZW1uxoX",
+          "name": "Telegram.jomBusiness"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        -432,
+        -208
+      ],
+      "id": "70057661-cc8d-4ff0-8c66-1f3a9d9d4a8d",
+      "name": "Paginar.Correos"
+    },
+    {
+      "parameters": {
+        "amount": "={{ $json.waitSec }}"
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        464,
+        -192
+      ],
+      "id": "685afcd4-ddfa-408e-b079-7c911ffe824c",
+      "name": "Wait.Random",
+      "webhookId": "a1559434-110a-43c6-b3f1-ce809ff89116"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Rango en segundos\nconst min = 45;  // tiempo mínimo\nconst max = 150;  // tiempo máximo\n\n// Generar número aleatorio entre min y max\nconst randomSeconds = Math.floor(Math.random() * (max - min + 1)) + min;\n\n// Pasarlo en milisegundos (n8n trabaja con ms)\nreturn [\n  {\n    json: {\n      waitMs: randomSeconds * 1000,\n      waitSec: randomSeconds\n    }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        240,
+        -192
+      ],
+      "id": "31b348c3-403b-40a2-8eb8-eeb9b2f2434f",
+      "name": "Segundos"
+    },
+    {
+      "parameters": {
+        "fromEmail": "\"Optimiza IA Soluciones creativas\" <hola@optimiza-ia.com>",
+        "toEmail": "=jomBusiness@msn.com",
+        "subject": "={{ $json.asunto }}",
+        "html": "=<!DOCTYPE html>\n<html lang=\"es\">\n<head>\n  <meta charset=\"UTF-8\">\n  <title>Optimiza tu negocio con IA</title>\n</head>\n<body style=\"font-family: Segoe ui, Arial, sans-serif; color: #555555; line-height: 1.6; margin: 0; padding: 20px; background-color: #f9f9f9;\">\n  <table align=\"center\" width=\"600\" cellpadding=\"0\" cellspacing=\"0\" style=\"background: #ffffff; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 6px rgba(0,0,0,0.1);\">\n   \n    <!-- Encabezado -->\n    <tr>\n      <td align=\"center\" bgcolor=\"#0A2540\" style=\"padding:20px;\">\n        <img src=\"https://optimiza-ia.com/images/public/logo_white.png\" alt=\"Optimiza.ia.pro\" style=\"display:block;\">\n      </td>\n    </tr>\n\n    <!-- Bloque de mensaje personalizado -->\n    <tr>\n      <td style=\"padding:20px; font-size:18px; line-height:1.6; color:#333;\">\n        {{ $json.mensaje }}\n      \n<!-- Texto introductorio -->\n<p>Soy <strong>John</strong> y ayudo a negocios como el tuyo a <strong>{{ $json.beneficio_principal }}</strong>, por ese motivo quiero mostrarte cómo la <strong>automatización con Inteligencia Artificial</strong> puede ayudarte a ahorrar tiempo y aumentar tus ingresos.</p>\n\n<!-- Beneficios -->\n<ul style=\"list-style: none; padding: 0; margin: 0 0 20px;\">\n          <li style=\"margin-bottom: 10px;\">{{ $json.icono1 }} {{ $json.beneficio1 }}</li>\n          <li style=\"margin-bottom: 10px;\">{{ $json.icono2 }} {{ $json.beneficio2 }}</li>\n          <li style=\"margin-bottom: 10px;\">{{ $json.icono3 }} {{ $json.beneficio3 }}</li>\n        </ul>\n      </td>\n    </tr>\n\n    <!-- CTA -->\n    <tr>\n      <td align=\"center\" style=\"padding:30px;\">\n        <a href=\"https://optimiza-ia.com\" target=\"_blank\" \n           style=\"background-color:#28a745; color:#fff; text-decoration:none; padding:14px 28px; border-radius:8px; font-size:16px;\">\n           Conoce más en nuestra web\n        </a>\n      </td>\n    </tr>\n\n    <!-- Footer -->\n    <tr>\n      <td bgcolor=\"#0A2540\" align=\"center\" style=\"padding:15px; color:#fff; font-size:12px;\">\n        © 2025 Optimiza.ia.pro | Ayudamos a las pymes a crecer con IA 🚀\n      </td>\n    </tr>\n  </table>\n</body>\n</html>\n",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [
+        -208,
+        -192
+      ],
+      "id": "4bdf8266-047b-4bda-a362-edd706330df0",
+      "name": "Send email",
+      "webhookId": "f4c94d16-2482-4d18-b3c3-41ae05868902",
+      "credentials": {
+        "smtp": {
+          "id": "g9Le19jvw1BGykSt",
+          "name": "SMTP.optimiza"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "return items.map(item => {\n  const parsed = JSON.parse(item.json.text);\n  return { json: parsed };\n});"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -656,
+        -208
+      ],
+      "id": "935a0d7c-78b0-4e4a-ac9f-c2df0482e62b",
+      "name": "Mensaje.json"
+    },
+    {
+      "parameters": {
+        "model": "openai/gpt-4o-mini",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [
+        -960,
+        -16
+      ],
+      "id": "7e84ca19-e347-4819-aa70-d55cae3272f7",
+      "name": "gpt-4o-mini",
+      "credentials": {
+        "openRouterApi": {
+          "id": "fx7pdURTekgTilKM",
+          "name": "OpenRouter.msn"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -1008,
+        -432
+      ],
+      "id": "b157601c-23ea-4a9d-b88c-83ea31ae126c",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "databaseId": 255701,
+        "tableId": 618503,
+        "limit": "={{ $json.cantidad }}",
+        "additionalOptions": {
+          "filters": {
+            "fields": [
+              {
+                "field": 5026871,
+                "value": "Optimiza.ia.pro"
+              },
+              {
+                "field": 5026888,
+                "operator": "boolean",
+                "value": "false"
+              }
+            ]
+          }
+        }
+      },
+      "type": "n8n-nodes-base.baserow",
+      "typeVersion": 1,
+      "position": [
+        -560,
+        -432
+      ],
+      "id": "b68810cf-b90b-43be-bba1-6222c6ed6901",
+      "name": "Get many rows",
+      "credentials": {
+        "baserowApi": {
+          "id": "SNrllAn2sJZ5Lm7r",
+          "name": "Baserow.msn"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "07e14414-6e4d-4fa2-a298-8de92405f0ee",
+              "name": "cantidad",
+              "value": "2",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -784,
+        -432
+      ],
+      "id": "6ecda6c9-d0b3-4ee3-8adf-c18b0b3c1b38",
+      "name": "Parametros"
+    },
+    {
+      "parameters": {
+        "jsCode": "return items[0];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -208,
+        -384
+      ],
+      "id": "2194b636-0662-4e66-befe-d5bb41bd8968",
+      "name": "PrimerItem"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "databaseId": 255701,
+        "tableId": 618503,
+        "rowId": "={{ $('Get many rows').item.json.id }}",
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": 5026888,
+              "fieldValue": "true"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.baserow",
+      "typeVersion": 1,
+      "position": [
+        16,
+        -192
+      ],
+      "id": "45f0496b-b617-41e6-a219-9977edf1ab6a",
+      "name": "Update a row",
+      "credentials": {
+        "baserowApi": {
+          "id": "SNrllAn2sJZ5Lm7r",
+          "name": "Baserow.msn"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {}
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -1008,
+        -576
+      ],
+      "id": "6604b174-dad2-4b85-98b4-e4ae2c42fe70",
+      "name": "Schedule Trigger"
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2025-09-24T16:43:35.346Z",
+      "updatedAt": "2025-09-24T16:43:35.346Z",
+      "role": "workflow:owner",
+      "workflowId": "RBw884jVprwhUG19",
+      "projectId": "uBzdLipflPbb1Tbz"
+    }
+  ],
+  "staticData": null,
+  "tags": [
+    {
+      "createdAt": "2025-07-28T23:13:44.849Z",
+      "updatedAt": "2025-07-28T23:13:44.849Z",
+      "id": "E7azoCbE6H7Fjix1",
+      "name": "✨ Optimiza.ia.pro"
+    },
+    {
+      "createdAt": "2025-07-18T02:37:28.170Z",
+      "updatedAt": "2025-07-18T02:37:28.170Z",
+      "id": "Za1YQUqDKWnwNOuD",
+      "name": "🤖 IA al mando"
+    }
+  ],
+  "triggerCount": 0,
+  "updatedAt": "2025-09-24T20:50:04.000Z",
+  "versionId": "5753c4e6-62f2-4afc-a659-9e67de009801"
+}
