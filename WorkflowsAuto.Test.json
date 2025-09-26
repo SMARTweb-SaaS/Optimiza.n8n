@@ -1,0 +1,477 @@
+{
+  "active": false,
+  "connections": {
+    "ObtenerSlides": {
+      "main": [
+        [
+          {
+            "node": "BorrarSlide",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "CopiarPlantilla",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Instagram.Optimiza",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Facebook.CodigoAlfa",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Facebook.Smartweb",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Facebook.Optimiza",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "ReemplazarTexto": {
+      "main": [
+        [
+          {
+            "node": "ObtenerSlides",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "CopiarPlantilla": {
+      "main": [
+        [
+          {
+            "node": "ReemplazarTexto",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "On form submission": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-09-25T16:10:13.322Z",
+  "id": "OcUacIKzdZ8BOrG8",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Auto.Test",
+  "nodes": [
+    {
+      "parameters": {
+        "url": "=https://slides.googleapis.com/v1/presentations/{{ $json.presentationId }}",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "googleOAuth2Api",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -48,
+        -32
+      ],
+      "id": "1c5471c9-f9e8-4f71-8ac8-caca0cabe742",
+      "name": "ObtenerSlides",
+      "credentials": {
+        "googleOAuth2Api": {
+          "id": "vkWvvbQeke2SGX0V",
+          "name": "Google.jomBusiness"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "d98c5263-e803-4b0f-b4b7-ba47084888cb",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -944,
+        256
+      ],
+      "id": "ff9f2b5d-6392-4d25-981d-5a6c8df26203",
+      "name": "Webhook",
+      "webhookId": "d98c5263-e803-4b0f-b4b7-ba47084888cb"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "94480326-dc38-4f80-905b-81ca0ac063b1",
+              "name": "Nombre",
+              "value": "={{ $json.body ? $json.body.nombre : $json.Nombre }}",
+              "type": "string"
+            },
+            {
+              "id": "f04070b8-1bbf-4046-bda7-e7afcdcfb950",
+              "name": "Relacion",
+              "value": "={{ $json.body ? $json.body.relacion : $json.Relacion }}",
+              "type": "string"
+            },
+            {
+              "id": "a1959e66-e440-4241-bf52-bf8ffa6fcb56",
+              "name": "Interes",
+              "value": "={{ $json.body ? $json.body.interes : $json.Interes }}\n",
+              "type": "string"
+            },
+            {
+              "id": "93df26f2-4e6e-44e5-ab98-f2a68e40cf5f",
+              "name": "MensajeEspecifico",
+              "value": "Que sigan los éxitos.",
+              "type": "string"
+            },
+            {
+              "id": "d8f6b8cf-3b25-40e7-9c2d-00cadebd98f3",
+              "name": "Celular",
+              "value": "={{ $json.body ? $json.body.celular : $json.Celular }}",
+              "type": "string"
+            },
+            {
+              "id": "d28f6370-cdc1-45fa-9590-e04820753aec",
+              "name": "Correo",
+              "value": "={{ $json.body ? $json.body.correo : $json.Correo }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -720,
+        352
+      ],
+      "id": "82348df4-46ad-4023-8259-387cc0e46dfd",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://slides.googleapis.com/v1/presentations/{{$node[\"CopiarPlantilla\"].json[\"id\"]}}:batchUpdate",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "googleOAuth2Api",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"requests\": [\n    {\n      \"replaceAllText\": {\n        \"containsText\": {\n          \"text\": \"nombre\",\n          \"matchCase\": true\n        },\n        \"replaceText\": \"{{ $('Edit Fields').item.json.Nombre }}\"\n      }\n    },\n    {\n      \"replaceAllText\": {\n        \"containsText\": {\n          \"text\": \"mensaje\",\n          \"matchCase\": true\n        },\n        \"replaceText\": \"{{ $('Edit Fields').item.json.MensajeEspecifico }}\"\n      }\n    }\n  ]\n}\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -272,
+        -32
+      ],
+      "id": "3a5bb75d-4a23-4520-92a1-de2edcac7d50",
+      "name": "ReemplazarTexto",
+      "credentials": {
+        "googleSlidesOAuth2Api": {
+          "id": "r33mZaNsUtZk4fVS",
+          "name": "Slides.jomBusiness"
+        },
+        "googleOAuth2Api": {
+          "id": "vkWvvbQeke2SGX0V",
+          "name": "Google.jomBusiness"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://www.googleapis.com/drive/v3/files/1Yagt11CRvgvCTGXkhDEMwQcNcK74I-cUvo1KlYZ5oDo/copy",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "googleOAuth2Api",
+        "sendQuery": true,
+        "specifyQuery": "json",
+        "jsonQuery": "={\n  \"name\": \"Presentación_{{ $json.Nombre }}\"\n}",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"nombre\": \"{{ $json.Nombre }}\",\n  \"mensaje\": \"{{ $json.MensajeEspecifico }}\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -496,
+        -32
+      ],
+      "id": "3a10ced7-1b21-4ab8-862b-00d76640cfc0",
+      "name": "CopiarPlantilla",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "9itbsHqDyr3Vwspb",
+          "name": "Sheets.jomBusiness"
+        },
+        "googleSlidesOAuth2Api": {
+          "id": "r33mZaNsUtZk4fVS",
+          "name": "Slides.jomBusiness"
+        },
+        "googleOAuth2Api": {
+          "id": "vkWvvbQeke2SGX0V",
+          "name": "Google.jomBusiness"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "formTitle": "Saludo de Cumpleaños",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "Nombre",
+              "placeholder": "John",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Interes",
+              "placeholder": "Futbol",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Relacion",
+              "placeholder": "Amigo",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Correo",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Celular",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "MensajeEspecifico",
+              "placeholder": "Que sigan los éxitos."
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.3,
+      "position": [
+        -944,
+        448
+      ],
+      "id": "58b322ce-a43c-44a1-9640-de2bfabaf799",
+      "name": "On form submission",
+      "webhookId": "cb491735-f466-468b-9636-587b297115a2"
+    },
+    {
+      "parameters": {
+        "method": "DELETE",
+        "url": "=https://www.googleapis.com/drive/v3/files/{{ $('CopiarPlantilla').item.json.id }}",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "googleOAuth2Api",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        176,
+        -32
+      ],
+      "id": "364249dc-cdbf-45aa-b78d-465c53693b57",
+      "name": "BorrarSlide",
+      "credentials": {
+        "googleOAuth2Api": {
+          "id": "vkWvvbQeke2SGX0V",
+          "name": "Google.jomBusiness"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "graphApiVersion": "v23.0",
+        "node": "/me?fields=id,name",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.facebookGraphApi",
+      "typeVersion": 1,
+      "position": [
+        -496,
+        160
+      ],
+      "id": "aa9db21a-9083-40e6-b724-09161ce12ab5",
+      "name": "Instagram.Optimiza",
+      "credentials": {
+        "facebookGraphApi": {
+          "id": "q07PnzaLdq09L9OE",
+          "name": "Instagram.Optimiza"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "graphApiVersion": "v23.0",
+        "node": "/me?fields=id,name",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.facebookGraphApi",
+      "typeVersion": 1,
+      "position": [
+        -496,
+        352
+      ],
+      "id": "6bc1f2b5-285a-4172-ba97-cfcdc2e4670f",
+      "name": "Facebook.CodigoAlfa",
+      "credentials": {
+        "facebookGraphApi": {
+          "id": "hOMT44BIxjiDsVdw",
+          "name": "Facebook.CodigoAlfa"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "graphApiVersion": "v23.0",
+        "node": "/me?fields=id,name",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.facebookGraphApi",
+      "typeVersion": 1,
+      "position": [
+        -496,
+        544
+      ],
+      "id": "9eb78023-6239-4405-8fac-8458d0953c9b",
+      "name": "Facebook.Smartweb",
+      "credentials": {
+        "facebookGraphApi": {
+          "id": "IdpHq8Mtl5spHnnr",
+          "name": "Facebook.SmartWeb"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "graphApiVersion": "v23.0",
+        "node": "/me?fields=id,name",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.facebookGraphApi",
+      "typeVersion": 1,
+      "position": [
+        -496,
+        736
+      ],
+      "id": "5e5c7cf0-d9f8-4c91-9559-1c6ce6b7ce00",
+      "name": "Facebook.Optimiza",
+      "credentials": {
+        "facebookGraphApi": {
+          "id": "ym2xOYOdM5h5E89o",
+          "name": "Facebook.Optimiza"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## Renovar Token: Facebook \n- Ingresar a [developers.facebook](https://developers.facebook.com/tools/explorer/)\n- Copiar: Token de acceso\n- [Depurador de token de acceso\n](https://developers.facebook.com/tools/debug/accesstoken/)\n- Regresar a [developers.facebook](https://developers.facebook.com/tools/explorer/)\n- Usar: me?fields=id,accounts\n- Copiar: access_token\n- Volver a conectar: Graph API ",
+        "height": 224,
+        "width": 400,
+        "color": 3
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -256,
+        176
+      ],
+      "typeVersion": 1,
+      "id": "d8986fad-37c6-4633-b34e-5a01cb1b1d38",
+      "name": "Sticky Note1"
+    }
+  ],
+  "pinData": {
+    "On form submission": [
+      {
+        "json": {
+          "Nombre": "John",
+          "Interes": "Fútbol",
+          "Relacion": "Amigo",
+          "Correo": "jomBusiness@msn.com",
+          "Celular": "+51952947576",
+          "MensajeEspecifico": "Que sigan los éxitos.",
+          "submittedAt": "2025-09-12T15:24:38.727-05:00",
+          "formMode": "test"
+        }
+      }
+    ]
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "timezone": "America/Lima",
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": "iNdV46Bame2vCTJz",
+    "timeSavedPerExecution": 10
+  },
+  "shared": [
+    {
+      "createdAt": "2025-09-25T16:10:13.394Z",
+      "updatedAt": "2025-09-25T16:10:13.394Z",
+      "role": "workflow:owner",
+      "workflowId": "OcUacIKzdZ8BOrG8",
+      "projectId": "uBzdLipflPbb1Tbz"
+    }
+  ],
+  "staticData": null,
+  "tags": [
+    {
+      "createdAt": "2025-07-28T23:13:44.849Z",
+      "updatedAt": "2025-07-28T23:13:44.849Z",
+      "id": "E7azoCbE6H7Fjix1",
+      "name": "✨ Optimiza.ia.pro"
+    },
+    {
+      "createdAt": "2025-07-18T02:37:28.170Z",
+      "updatedAt": "2025-07-18T02:37:28.170Z",
+      "id": "Za1YQUqDKWnwNOuD",
+      "name": "🤖 IA al mando"
+    }
+  ],
+  "triggerCount": 0,
+  "updatedAt": "2025-09-26T16:26:54.000Z",
+  "versionId": "1601689d-154e-48a3-b9d5-a94fcc8a4400"
+}
