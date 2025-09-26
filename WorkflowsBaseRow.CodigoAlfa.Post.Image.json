@@ -136,8 +136,18 @@
             "node": "Post.CodigoAlfa",
             "type": "main",
             "index": 0
+          },
+          {
+            "node": "Send a photo message",
+            "type": "main",
+            "index": 0
           }
         ]
+      ]
+    },
+    "Post.CodigoAlfa": {
+      "main": [
+        []
       ]
     }
   },
@@ -320,14 +330,14 @@
     },
     {
       "parameters": {
-        "content": "## Publicar en Facebook\n**Double click** to edit me.\n\n[YouTube - Conectar Facebook a n8n](https://www.youtube.com/watch?v=YN0990rg-PY&ab_channel=HackeandoLaRutina)\n\n[Facebook - CodigoAlfa.On](https://www.facebook.com/CodigoAlfa.On)",
+        "content": "## Publicar en Facebook\n[Baserow](https://baserow.io/database/247560/table/587368/1093813)\n\n[YouTube - Conectar Facebook a n8n](https://www.youtube.com/watch?v=YN0990rg-PY&ab_channel=HackeandoLaRutina)\n\n[Facebook - CodigoAlfa.On](https://www.facebook.com/CodigoAlfa.On)",
         "width": 320
       },
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        -512,
-        320
+        -608,
+        176
       ],
       "id": "e7a71957-3af2-4729-9176-682c02b6e871",
       "name": "Sticky Note"
@@ -432,7 +442,7 @@
       "type": "n8n-nodes-base.facebookGraphApi",
       "typeVersion": 1,
       "position": [
-        560,
+        400,
         432
       ],
       "id": "a7431104-0c76-49b0-89b6-0f56b1fa60ec",
@@ -490,12 +500,51 @@
       "type": "n8n-nodes-base.wait",
       "typeVersion": 1.1,
       "position": [
-        256,
+        160,
         432
       ],
       "id": "b43955a5-31ae-42ec-8d14-78a08383b9b6",
       "name": "Wait.30",
       "webhookId": "0c24d3b6-fe63-479d-964c-9da88c069c82"
+    },
+    {
+      "parameters": {
+        "operation": "sendPhoto",
+        "chatId": "1704819492",
+        "file": "={{ $json.output }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        624,
+        432
+      ],
+      "id": "921cf40d-e39d-4878-8902-8aeb52f21d7f",
+      "name": "Send a photo message",
+      "webhookId": "25d077d1-08d5-4d8b-beb2-b926e8631648",
+      "credentials": {
+        "telegramApi": {
+          "id": "zxkALNj2uZW1uxoX",
+          "name": "Telegram.jomBusiness"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## Renovar Token: Facebook \n- Ingresar a [developers.facebook](https://developers.facebook.com/tools/explorer/)\n- Copiar: Token de acceso\n- [Depurador de token de acceso\n](https://developers.facebook.com/tools/debug/accesstoken/)\n- Regresar a [developers.facebook](https://developers.facebook.com/tools/explorer/)\n- Usar: me?fields=id,accounts\n- Copiar: access_token\n- Volver a conectar: Graph API ",
+        "height": 224,
+        "width": 400,
+        "color": 3
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -608,
+        368
+      ],
+      "typeVersion": 1,
+      "id": "00b4aa2f-af24-4ac6-9464-8629afab2905",
+      "name": "Sticky Note1"
     }
   ],
   "pinData": {},
@@ -529,6 +578,6 @@
     }
   ],
   "triggerCount": 1,
-  "updatedAt": "2025-07-29T03:21:59.000Z",
-  "versionId": "3ba65590-b4b7-4d8b-95c1-f0c9956a5769"
+  "updatedAt": "2025-09-25T16:53:43.000Z",
+  "versionId": "208e7d17-aec7-4e2b-a0c2-d53c6103850f"
 }
