@@ -1,22 +1,11 @@
 {
-  "active": false,
+  "active": true,
   "connections": {
     "ObtenerSlides": {
       "main": [
         [
           {
             "node": "BorrarSlide",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Webhook": {
-      "main": [
-        [
-          {
-            "node": "Edit Fields",
             "type": "main",
             "index": 0
           }
@@ -32,11 +21,6 @@
             "index": 0
           },
           {
-            "node": "Instagram.Optimiza",
-            "type": "main",
-            "index": 0
-          },
-          {
             "node": "Facebook.CodigoAlfa",
             "type": "main",
             "index": 0
@@ -48,6 +32,11 @@
           },
           {
             "node": "Facebook.Optimiza",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Instagram.Optimiza",
             "type": "main",
             "index": 0
           }
@@ -76,7 +65,18 @@
         ]
       ]
     },
-    "On form submission": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger": {
       "main": [
         [
           {
@@ -106,7 +106,7 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        -48,
+        -320,
         -32
       ],
       "id": "1c5471c9-f9e8-4f71-8ac8-caca0cabe742",
@@ -120,58 +120,18 @@
     },
     {
       "parameters": {
-        "httpMethod": "POST",
-        "path": "d98c5263-e803-4b0f-b4b7-ba47084888cb",
-        "options": {}
-      },
-      "type": "n8n-nodes-base.webhook",
-      "typeVersion": 2.1,
-      "position": [
-        -944,
-        256
-      ],
-      "id": "ff9f2b5d-6392-4d25-981d-5a6c8df26203",
-      "name": "Webhook",
-      "webhookId": "d98c5263-e803-4b0f-b4b7-ba47084888cb"
-    },
-    {
-      "parameters": {
         "assignments": {
           "assignments": [
             {
               "id": "94480326-dc38-4f80-905b-81ca0ac063b1",
               "name": "Nombre",
-              "value": "={{ $json.body ? $json.body.nombre : $json.Nombre }}",
-              "type": "string"
-            },
-            {
-              "id": "f04070b8-1bbf-4046-bda7-e7afcdcfb950",
-              "name": "Relacion",
-              "value": "={{ $json.body ? $json.body.relacion : $json.Relacion }}",
-              "type": "string"
-            },
-            {
-              "id": "a1959e66-e440-4241-bf52-bf8ffa6fcb56",
-              "name": "Interes",
-              "value": "={{ $json.body ? $json.body.interes : $json.Interes }}\n",
+              "value": "=John",
               "type": "string"
             },
             {
               "id": "93df26f2-4e6e-44e5-ab98-f2a68e40cf5f",
               "name": "MensajeEspecifico",
               "value": "Que sigan los éxitos.",
-              "type": "string"
-            },
-            {
-              "id": "d8f6b8cf-3b25-40e7-9c2d-00cadebd98f3",
-              "name": "Celular",
-              "value": "={{ $json.body ? $json.body.celular : $json.Celular }}",
-              "type": "string"
-            },
-            {
-              "id": "d28f6370-cdc1-45fa-9590-e04820753aec",
-              "name": "Correo",
-              "value": "={{ $json.body ? $json.body.correo : $json.Correo }}",
               "type": "string"
             }
           ]
@@ -181,7 +141,7 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        -720,
+        -992,
         352
       ],
       "id": "82348df4-46ad-4023-8259-387cc0e46dfd",
@@ -201,7 +161,7 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        -272,
+        -544,
         -32
       ],
       "id": "3a5bb75d-4a23-4520-92a1-de2edcac7d50",
@@ -234,7 +194,7 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        -496,
+        -768,
         -32
       ],
       "id": "3a10ced7-1b21-4ab8-862b-00d76640cfc0",
@@ -256,52 +216,6 @@
     },
     {
       "parameters": {
-        "formTitle": "Saludo de Cumpleaños",
-        "formFields": {
-          "values": [
-            {
-              "fieldLabel": "Nombre",
-              "placeholder": "John",
-              "requiredField": true
-            },
-            {
-              "fieldLabel": "Interes",
-              "placeholder": "Futbol",
-              "requiredField": true
-            },
-            {
-              "fieldLabel": "Relacion",
-              "placeholder": "Amigo",
-              "requiredField": true
-            },
-            {
-              "fieldLabel": "Correo",
-              "requiredField": true
-            },
-            {
-              "fieldLabel": "Celular",
-              "requiredField": true
-            },
-            {
-              "fieldLabel": "MensajeEspecifico",
-              "placeholder": "Que sigan los éxitos."
-            }
-          ]
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.formTrigger",
-      "typeVersion": 2.3,
-      "position": [
-        -944,
-        448
-      ],
-      "id": "58b322ce-a43c-44a1-9640-de2bfabaf799",
-      "name": "On form submission",
-      "webhookId": "cb491735-f466-468b-9636-587b297115a2"
-    },
-    {
-      "parameters": {
         "method": "DELETE",
         "url": "=https://www.googleapis.com/drive/v3/files/{{ $('CopiarPlantilla').item.json.id }}",
         "authentication": "predefinedCredentialType",
@@ -311,7 +225,7 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        176,
+        -96,
         -32
       ],
       "id": "364249dc-cdbf-45aa-b78d-465c53693b57",
@@ -332,8 +246,8 @@
       "type": "n8n-nodes-base.facebookGraphApi",
       "typeVersion": 1,
       "position": [
-        -496,
-        160
+        -768,
+        736
       ],
       "id": "aa9db21a-9083-40e6-b724-09161ce12ab5",
       "name": "Instagram.Optimiza",
@@ -353,8 +267,8 @@
       "type": "n8n-nodes-base.facebookGraphApi",
       "typeVersion": 1,
       "position": [
-        -496,
-        352
+        -768,
+        160
       ],
       "id": "6bc1f2b5-285a-4172-ba97-cfcdc2e4670f",
       "name": "Facebook.CodigoAlfa",
@@ -374,8 +288,8 @@
       "type": "n8n-nodes-base.facebookGraphApi",
       "typeVersion": 1,
       "position": [
-        -496,
-        544
+        -768,
+        352
       ],
       "id": "9eb78023-6239-4405-8fac-8458d0953c9b",
       "name": "Facebook.Smartweb",
@@ -395,8 +309,8 @@
       "type": "n8n-nodes-base.facebookGraphApi",
       "typeVersion": 1,
       "position": [
-        -496,
-        736
+        -768,
+        544
       ],
       "id": "5e5c7cf0-d9f8-4c91-9559-1c6ce6b7ce00",
       "name": "Facebook.Optimiza",
@@ -416,30 +330,45 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        -256,
-        176
+        -448,
+        320
       ],
       "typeVersion": 1,
       "id": "d8986fad-37c6-4633-b34e-5a01cb1b1d38",
       "name": "Sticky Note1"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -1216,
+        448
+      ],
+      "id": "add01914-be49-4b09-93ce-3ff720ae820b",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 7
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -1216,
+        256
+      ],
+      "id": "dc0e191c-1d49-4f92-b541-abcb73b408ea",
+      "name": "Schedule Trigger"
     }
   ],
-  "pinData": {
-    "On form submission": [
-      {
-        "json": {
-          "Nombre": "John",
-          "Interes": "Fútbol",
-          "Relacion": "Amigo",
-          "Correo": "jomBusiness@msn.com",
-          "Celular": "+51952947576",
-          "MensajeEspecifico": "Que sigan los éxitos.",
-          "submittedAt": "2025-09-12T15:24:38.727-05:00",
-          "formMode": "test"
-        }
-      }
-    ]
-  },
+  "pinData": {},
   "settings": {
     "executionOrder": "v1",
     "timezone": "America/Lima",
@@ -456,8 +385,18 @@
       "projectId": "uBzdLipflPbb1Tbz"
     }
   ],
-  "staticData": null,
+  "staticData": {
+    "node:Schedule Trigger": {
+      "recurrenceRules": []
+    }
+  },
   "tags": [
+    {
+      "createdAt": "2025-07-28T23:16:55.585Z",
+      "updatedAt": "2025-07-28T23:16:55.585Z",
+      "id": "B0zvrFLy0yNSEhVJ",
+      "name": "💡SmartWeb"
+    },
     {
       "createdAt": "2025-07-28T23:13:44.849Z",
       "updatedAt": "2025-07-28T23:13:44.849Z",
@@ -471,7 +410,7 @@
       "name": "🤖 IA al mando"
     }
   ],
-  "triggerCount": 0,
-  "updatedAt": "2025-09-26T16:26:54.000Z",
-  "versionId": "1601689d-154e-48a3-b9d5-a94fcc8a4400"
+  "triggerCount": 1,
+  "updatedAt": "2025-09-26T20:25:24.000Z",
+  "versionId": "1f443efc-be58-4ecd-85c0-ab688641f596"
 }
