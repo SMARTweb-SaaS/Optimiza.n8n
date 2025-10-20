@@ -5,7 +5,7 @@
       "main": [
         [
           {
-            "node": "Profesion",
+            "node": "Get many rows",
             "type": "main",
             "index": 0
           }
@@ -54,7 +54,7 @@
       "main": [
         [
           {
-            "node": "Foto",
+            "node": "Update a row",
             "type": "main",
             "index": 0
           }
@@ -200,6 +200,28 @@
           }
         ]
       ]
+    },
+    "Get many rows": {
+      "main": [
+        [
+          {
+            "node": "Profesion",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update a row": {
+      "main": [
+        [
+          {
+            "node": "Foto",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "createdAt": "2025-09-16T15:08:09.415Z",
@@ -233,7 +255,7 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        976,
+        1120,
         288
       ],
       "id": "643f8f99-0628-453c-8e34-7acedd84df85",
@@ -254,7 +276,7 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
       "typeVersion": 1,
       "position": [
-        256,
+        272,
         160
       ],
       "id": "9675330e-220f-42c8-a989-5fd63a7ccdef",
@@ -311,7 +333,7 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        384,
+        400,
         304
       ],
       "id": "1bce774d-ad9c-46b3-94b8-636bafd27422",
@@ -333,7 +355,7 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        752,
+        768,
         288
       ],
       "id": "6af91a04-7d57-459f-8d51-54e97e37d18a",
@@ -373,7 +395,7 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        560,
+        576,
         304
       ],
       "id": "7f6455d9-ae7f-490e-bdf8-cd5258610f29",
@@ -384,7 +406,7 @@
       "type": "n8n-nodes-base.wait",
       "typeVersion": 1.1,
       "position": [
-        192,
+        208,
         304
       ],
       "id": "90ec02e4-d233-4771-be88-6d4e36c5a85f",
@@ -402,7 +424,7 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        1184,
+        1344,
         288
       ],
       "id": "07cc90b9-fb9d-45c3-b8aa-23c2561db7fb",
@@ -423,7 +445,7 @@
       "type": "n8n-nodes-base.splitOut",
       "typeVersion": 1,
       "position": [
-        736,
+        720,
         0
       ],
       "id": "46eabddd-9e3e-401c-9999-8d14b651cb9d",
@@ -436,7 +458,7 @@
       "type": "n8n-nodes-base.splitInBatches",
       "typeVersion": 3,
       "position": [
-        1168,
+        1200,
         0
       ],
       "id": "e6ab53cc-ed38-47ca-9bc6-4ab05abfd391",
@@ -449,7 +471,7 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        960,
+        944,
         0
       ],
       "id": "c4f05570-30c2-45f7-9aab-80b7916b494f",
@@ -472,7 +494,7 @@
       "type": "@n8n/n8n-nodes-langchain.chainLlm",
       "typeVersion": 1.7,
       "position": [
-        384,
+        368,
         0
       ],
       "id": "d4463e3f-7973-4713-8468-a26e29eafa4d",
@@ -485,7 +507,7 @@
       "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
       "typeVersion": 1.3,
       "position": [
-        528,
+        480,
         160
       ],
       "id": "6f901641-bc31-47ad-aecc-713a3cd2a4b2",
@@ -508,7 +530,7 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        240,
+        592,
         -208
       ],
       "id": "f62b3c21-48af-47c7-abb2-bd1290ce9efd",
@@ -544,11 +566,53 @@
       "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
       "typeVersion": 1.3,
       "position": [
-        144,
+        80,
         160
       ],
       "id": "6380306f-50b8-4731-a1aa-03a726acd5c9",
       "name": "Structured Output Parser"
+    },
+    {
+      "parameters": {
+        "databaseId": 245282,
+        "tableId": 710574,
+        "additionalOptions": {}
+      },
+      "type": "n8n-nodes-base.baserow",
+      "typeVersion": 1,
+      "position": [
+        224,
+        -208
+      ],
+      "id": "65cb7346-9184-4e8f-81fd-50653aa76bb0",
+      "name": "Get many rows",
+      "credentials": {
+        "baserowApi": {
+          "id": "SNrllAn2sJZ5Lm7r",
+          "name": "Baserow.msn"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "databaseId": 245282,
+        "tableId": 710574
+      },
+      "type": "n8n-nodes-base.baserow",
+      "typeVersion": 1,
+      "position": [
+        944,
+        288
+      ],
+      "id": "f160687b-04b5-4dfd-a07b-cf9eacfac1d3",
+      "name": "Update a row",
+      "credentials": {
+        "baserowApi": {
+          "id": "SNrllAn2sJZ5Lm7r",
+          "name": "Baserow.msn"
+        }
+      }
     }
   ],
   "pinData": {},
@@ -578,6 +642,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2025-09-17T22:44:00.000Z",
-  "versionId": "bf4ad60e-1b38-405c-89db-f2bb3ea5789d"
+  "updatedAt": "2025-10-20T00:51:53.000Z",
+  "versionId": "c9c9a410-e1a2-4936-83ca-e1b93af76412"
 }
