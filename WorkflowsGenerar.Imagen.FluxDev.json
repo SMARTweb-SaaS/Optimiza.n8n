@@ -1,0 +1,255 @@
+{
+  "active": false,
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Prompt",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fal.flux.dev.post": {
+      "main": [
+        [
+          {
+            "node": "Fal.flux.dev.get",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fal.flux.dev.get": {
+      "main": [
+        [
+          {
+            "node": "Wait.10",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait.10": {
+      "main": [
+        [
+          {
+            "node": "Fal.flex.dev.get.url",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fal.flex.dev.get.url": {
+      "main": [
+        [
+          {
+            "node": "Foto",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prompt": {
+      "main": [
+        [
+          {
+            "node": "Fal.flux.dev.post",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-08-10T01:48:40.935Z",
+  "id": "ClodztVZzfCicQAw",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Generar.Imagen.FluxDev",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        272,
+        0
+      ],
+      "id": "6899c1dc-2479-427a-a4ba-f7f86fc652fa",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "operation": "sendPhoto",
+        "chatId": "=1704819492",
+        "file": "={{ $json.images[0].url }}",
+        "additionalFields": {
+          "caption": "={{ $('Prompt').item.json.prompt }}"
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1616,
+        0
+      ],
+      "id": "53084952-0bc9-4d0f-9ff4-c348de1079eb",
+      "name": "Foto",
+      "webhookId": "834b2a54-20a4-4982-a705-2ccdbffcda1b",
+      "credentials": {
+        "telegramApi": {
+          "id": "zxkALNj2uZW1uxoX",
+          "name": "Telegram.jomBusiness"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## I'm a note \n**Usar Flux Dev**\ncrear tablas en base row\n\nhttps://chatgpt.com/share/689810be-83d4-800d-8014-e2b2559158ab",
+        "width": 368
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        624,
+        -288
+      ],
+      "typeVersion": 1,
+      "id": "fc8d591f-51be-4e12-9d64-5a6a3965f744",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://queue.fal.run/fal-ai/flux/dev",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"prompt\": \"{{ $json.prompt }}\",\n  \"image_size\": {\n    \"width\": 832,\n    \"height\": 1216\n  },\n  \"num_inference_steps\": 28,\n  \"guidance_scale\": 3.5,\n  \"num_images\": 1,\n  \"enable_safety_checker\": false,\n  \"output_format\": \"png\"\n} ",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        720,
+        0
+      ],
+      "id": "d1f745d3-ad0e-4f4b-affb-61a03bc1299b",
+      "name": "Fal.flux.dev.post",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "CTU31n1iM3emZIHK",
+          "name": "FalAi.gmail"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.status_url }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        944,
+        0
+      ],
+      "id": "7256a474-bcad-40ff-a48d-5509d42b9415",
+      "name": "Fal.flux.dev.get",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "CTU31n1iM3emZIHK",
+          "name": "FalAi.gmail"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "amount": 10
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        1168,
+        0
+      ],
+      "id": "a229144c-08da-4afb-bc2f-1479b8bfe96d",
+      "name": "Wait.10",
+      "webhookId": "c508c161-77ab-4d85-9cb6-dab43b60f46e"
+    },
+    {
+      "parameters": {
+        "url": "=https://queue.fal.run/fal-ai/stable-diffusion-v35-large/requests/{{ $json.request_id }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1392,
+        0
+      ],
+      "id": "57de49db-5eb0-4c1e-97f9-6350770f95a5",
+      "name": "Fal.flex.dev.get.url",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "CTU31n1iM3emZIHK",
+          "name": "FalAi.gmail"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "81ff2295-afd6-4a4c-84dc-5b2797f39860",
+              "name": "prompt",
+              "value": "=Highly detailed, photorealistic 8k photograph of a young woman with a naturally curvy, proportionate hourglass figure. She has subtle muscle definition and smooth, realistic skin texture with a natural skin tone. Wavy dark hair. The pose is from behind, showing her back and hips, with a soft turn of the head. The atmosphere is relaxed and elegant, captured with professional photography. The scene is illuminated by soft, natural golden hour lighting, with a shallow depth of field, sharp focus, and cinematic quality.",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        496,
+        0
+      ],
+      "id": "69c1f2f5-9ae1-4afb-9db8-5e85811953bb",
+      "name": "Prompt"
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2025-08-10T01:48:40.953Z",
+      "updatedAt": "2025-08-10T01:48:40.953Z",
+      "role": "workflow:owner",
+      "workflowId": "ClodztVZzfCicQAw",
+      "projectId": "uBzdLipflPbb1Tbz"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-10-20T01:27:21.000Z",
+  "versionId": "230acc25-7011-4a71-9306-737539ac0eb6"
+}
