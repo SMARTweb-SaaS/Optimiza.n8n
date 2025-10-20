@@ -104,6 +104,11 @@
             "node": "Send email",
             "type": "main",
             "index": 0
+          },
+          {
+            "node": "Create a row",
+            "type": "main",
+            "index": 0
           }
         ]
       ]
@@ -420,8 +425,8 @@
       "type": "n8n-nodes-base.gmail",
       "typeVersion": 2.1,
       "position": [
-        1776,
-        16
+        1792,
+        112
       ],
       "id": "6556b86c-b0f9-476b-919f-ed930d453608",
       "name": "Send a message",
@@ -455,8 +460,8 @@
       "type": "n8n-nodes-base.extractFromFile",
       "typeVersion": 1,
       "position": [
-        1552,
-        16
+        1568,
+        112
       ],
       "id": "4884c65a-1e84-46b1-95f9-02d51e2f8be0",
       "name": "Extract from File"
@@ -605,8 +610,8 @@
       "type": "n8n-nodes-base.emailSend",
       "typeVersion": 2.1,
       "position": [
-        1792,
-        240
+        1808,
+        336
       ],
       "id": "e9cb9497-5da3-4b39-a427-9b971212a524",
       "name": "Send email",
@@ -707,6 +712,25 @@
       "id": "705a6136-8593-4e3c-8967-819ba79699d1",
       "name": "On form submission",
       "webhookId": "cb491735-f466-468b-9636-587b297115a2"
+    },
+    {
+      "parameters": {
+        "operation": "create"
+      },
+      "type": "n8n-nodes-base.baserow",
+      "typeVersion": 1,
+      "position": [
+        1808,
+        560
+      ],
+      "id": "d8cda717-899f-47ce-884c-29b3d9926c01",
+      "name": "Create a row",
+      "credentials": {
+        "baserowApi": {
+          "id": "SNrllAn2sJZ5Lm7r",
+          "name": "Baserow.msn"
+        }
+      }
     }
   ],
   "pinData": {
@@ -757,6 +781,6 @@
     }
   ],
   "triggerCount": 2,
-  "updatedAt": "2025-09-22T22:57:56.000Z",
-  "versionId": "70b264ff-6bb4-42da-9296-8e574e457269"
+  "updatedAt": "2025-10-20T00:26:54.000Z",
+  "versionId": "f7c184d7-f7c2-4fc5-809e-b64fc7fa7a99"
 }
