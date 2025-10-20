@@ -141,6 +141,73 @@
           }
         ]
       ]
+    },
+    "Validar.Facebook.Optimiza": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Send a text message",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Send.Lead",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "No Operation, do nothing",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Validar.CodigoAlfa": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Validar.SmartWeb": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Validar.Instagram.Optimiza": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "createdAt": "2025-09-25T16:10:13.322Z",
@@ -171,8 +238,7 @@
           "id": "vkWvvbQeke2SGX0V",
           "name": "Google.jomBusiness"
         }
-      },
-      "disabled": true
+      }
     },
     {
       "parameters": {
@@ -231,8 +297,7 @@
           "id": "vkWvvbQeke2SGX0V",
           "name": "Google.jomBusiness"
         }
-      },
-      "disabled": true
+      }
     },
     {
       "parameters": {
@@ -271,7 +336,6 @@
           "name": "Google.jomBusiness"
         }
       },
-      "disabled": true,
       "onError": "continueRegularOutput"
     },
     {
@@ -295,8 +359,7 @@
           "id": "vkWvvbQeke2SGX0V",
           "name": "Google.jomBusiness"
         }
-      },
-      "disabled": true
+      }
     },
     {
       "parameters": {
@@ -340,7 +403,6 @@
           "name": "Facebook.CodigoAlfa"
         }
       },
-      "disabled": true,
       "onError": "continueRegularOutput"
     },
     {
@@ -363,7 +425,6 @@
           "name": "Facebook.SmartWeb"
         }
       },
-      "disabled": true,
       "onError": "continueRegularOutput"
     },
     {
@@ -397,8 +458,8 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        -80,
-        368
+        -1168,
+        -16
       ],
       "typeVersion": 1,
       "id": "d8986fad-37c6-4633-b34e-5a01cb1b1d38",
@@ -420,8 +481,8 @@
         "rule": {
           "interval": [
             {
-              "triggerAtHour": 22,
-              "triggerAtMinute": 58
+              "triggerAtHour": 8,
+              "triggerAtMinute": 30
             }
           ]
         }
@@ -446,12 +507,11 @@
         -32
       ],
       "id": "2c223457-4115-4d5d-8b74-ff94d2d80359",
-      "name": "Validar.gmail",
-      "disabled": true
+      "name": "Validar.gmail"
     },
     {
       "parameters": {
-        "jsCode": "const data = $json;\nconst headers = data.headers || {};\nconst authHeader = headers['www-authenticate'] || '';\nconst status = data.statusCode || 0;\n\n// Detecta token vencido o inválido\nif (\n  status === 400 &&\n  authHeader.includes('invalid_token')\n) {\n  throw new Error('⚠️ Token de Facebook.CodigoAlfa expirado o inválido: ' + authHeader);\n}\n\n// Todo correcto\nreturn [{ json: { token: 'válido' } }];\n"
+        "jsCode": "const res = $json;\nif (res.statusCode >= 400 || res.error || (res.headers && res.headers[\"www-authenticate\"])) {\n  const text = `⚠️ Token de Facebook.CodigoAlfa caducado o inválido.\\n\\n${\n    res.headers[\"www-authenticate\"] || res.error || ''\n  }`\n    .replace(/[_*[\\]()~`>#+=|{}.!-]/g, ''); // elimina caracteres conflictivos\n\n  return [\n    {\n      json: {\n        notify: true,\n        message: text\n      }\n    }\n  ];\n}\nreturn [{ json: { notify: false } }];"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -460,12 +520,11 @@
         160
       ],
       "id": "2a941e77-5860-4083-b4af-a4936c0ca17b",
-      "name": "Validar.CodigoAlfa",
-      "disabled": true
+      "name": "Validar.CodigoAlfa"
     },
     {
       "parameters": {
-        "jsCode": "const data = $json;\nconst headers = data.headers || {};\nconst authHeader = headers['www-authenticate'] || '';\nconst status = data.statusCode || 0;\n\n// Detecta token vencido o inválido\nif (\n  status === 400 &&\n  authHeader.includes('invalid_token')\n) {\n  throw new Error('⚠️ Token de Facebook.SmartWeb expirado o inválido: ' + authHeader);\n}\n\n// Todo correcto\nreturn [{ json: { token: 'válido' } }];\n"
+        "jsCode": "const res = $json;\nif (res.statusCode >= 400 || res.error || (res.headers && res.headers[\"www-authenticate\"])) {\n  const text = `⚠️ Token de Facebook.SMARTweb caducado o inválido.\\n\\n${\n    res.headers[\"www-authenticate\"] || res.error || ''\n  }`\n    .replace(/[_*[\\]()~`>#+=|{}.!-]/g, ''); // elimina caracteres conflictivos\n\n  return [\n    {\n      json: {\n        notify: true,\n        message: text\n      }\n    }\n  ];\n}\nreturn [{ json: { notify: false } }];"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -474,12 +533,11 @@
         352
       ],
       "id": "3095424c-28ef-40b2-bbbc-092579b06503",
-      "name": "Validar.SmartWeb",
-      "disabled": true
+      "name": "Validar.SmartWeb"
     },
     {
       "parameters": {
-        "jsCode": "throw new Error('⚠️ Credenciales de Facebook.Optimiza caducadas o inválidas: ' + $input.first().json.headers['www-authenticate']);"
+        "jsCode": "const res = $json;\nif (res.statusCode >= 400 || res.error || (res.headers && res.headers[\"www-authenticate\"])) {\n  const text = `⚠️ Token de Facebook.Optimiza caducado o inválido.\\n\\n${\n    res.headers[\"www-authenticate\"] || res.error || ''\n  }`\n    .replace(/[_*[\\]()~`>#+=|{}.!-]/g, ''); // elimina caracteres conflictivos\n\n  return [\n    {\n      json: {\n        notify: true,\n        message: text\n      }\n    }\n  ];\n}\nreturn [{ json: { notify: false } }];"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -488,11 +546,13 @@
         544
       ],
       "id": "f35990b1-cb0f-4ed7-a955-5a189045f8bb",
-      "name": "Validar.Facebook.Optimiza"
+      "name": "Validar.Facebook.Optimiza",
+      "executeOnce": false,
+      "retryOnFail": false
     },
     {
       "parameters": {
-        "jsCode": "const data = $json;\nconst headers = data.headers || {};\nconst authHeader = headers['www-authenticate'] || '';\nconst status = data.statusCode || 0;\n\n// Detecta token vencido o inválido\nif (\n  status === 400 &&\n  authHeader.includes('invalid_token')\n) {\n  throw new Error('⚠️ Token de Instagram.Optimiza expirado o inválido: ' + authHeader);\n}\n\n// Todo correcto\nreturn [{ json: { token: 'válido' } }];\n"
+        "jsCode": "const res = $json;\nif (res.statusCode >= 400 || res.error || (res.headers && res.headers[\"www-authenticate\"])) {\n  const text = `⚠️ Token de Instagram.Optimiza caducado o inválido.\\n\\n${\n    res.headers[\"www-authenticate\"] || res.error || ''\n  }`\n    .replace(/[_*[\\]()~`>#+=|{}.!-]/g, ''); // elimina caracteres conflictivos\n\n  return [\n    {\n      json: {\n        notify: true,\n        message: text\n      }\n    }\n  ];\n}\nreturn [{ json: { notify: false } }];"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -502,6 +562,101 @@
       ],
       "id": "4e30ae8b-13a7-49e0-8bbc-0e99f4932d51",
       "name": "Validar.Instagram.Optimiza"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "ea99df7e-df22-4eb1-9555-a98e7c946042",
+              "leftValue": "={{ $json.notify }}",
+              "rightValue": "true",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -64,
+        416
+      ],
+      "id": "a01341ce-5e1a-44c1-aef4-c76c687d1813",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "chatId": "1704819492",
+        "text": "={{ $json.message }}",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        160,
+        384
+      ],
+      "id": "870a73e5-557b-4f47-9dd8-493bf67477f8",
+      "name": "Send a text message",
+      "webhookId": "47768359-131c-4dcd-9e2b-e3a0a44fb69e",
+      "credentials": {
+        "telegramApi": {
+          "id": "zxkALNj2uZW1uxoX",
+          "name": "Telegram.jomBusiness"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "fromEmail": "\"Optimiza IA Soluciones creativas\" <hola@optimiza-ia.com>",
+        "toEmail": "=jomBusiness@msn.com;jordonezm@cmactacna.com.pe",
+        "subject": "=💥 URGENTE: Critical Error",
+        "html": "={{ $json.message }}",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [
+        160,
+        224
+      ],
+      "id": "15e03f40-c582-4586-b254-bf3061425d9e",
+      "name": "Send.Lead",
+      "webhookId": "f4c94d16-2482-4d18-b3c3-41ae05868902",
+      "credentials": {
+        "smtp": {
+          "id": "g9Le19jvw1BGykSt",
+          "name": "SMTP.optimiza"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        176,
+        576
+      ],
+      "id": "e2f27cfa-c6f7-43be-87b5-99bf8cad05e3",
+      "name": "No Operation, do nothing"
     }
   ],
   "pinData": {},
@@ -547,6 +702,6 @@
     }
   ],
   "triggerCount": 1,
-  "updatedAt": "2025-10-20T03:57:11.000Z",
-  "versionId": "a4b20b70-205d-40fd-afbb-711b071b6586"
+  "updatedAt": "2025-10-20T04:38:44.000Z",
+  "versionId": "6e0539ec-9ea7-4217-919f-6069071f8ad6"
 }
