@@ -16,11 +16,6 @@
       "main": [
         [
           {
-            "node": "CopiarPlantilla",
-            "type": "main",
-            "index": 0
-          },
-          {
             "node": "Facebook.CodigoAlfa",
             "type": "main",
             "index": 0
@@ -37,6 +32,11 @@
           },
           {
             "node": "Instagram.Optimiza",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "CopiarPlantilla",
             "type": "main",
             "index": 0
           }
@@ -58,7 +58,7 @@
       "main": [
         [
           {
-            "node": "ReemplazarTexto",
+            "node": "Validar.gmail",
             "type": "main",
             "index": 0
           }
@@ -86,6 +86,61 @@
           }
         ]
       ]
+    },
+    "Facebook.Optimiza": {
+      "main": [
+        [
+          {
+            "node": "Validar.Facebook.Optimiza",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Facebook.CodigoAlfa": {
+      "main": [
+        [
+          {
+            "node": "Validar.CodigoAlfa",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Validar.gmail": {
+      "main": [
+        [
+          {
+            "node": "ReemplazarTexto",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Facebook.Smartweb": {
+      "main": [
+        [
+          {
+            "node": "Validar.SmartWeb",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Instagram.Optimiza": {
+      "main": [
+        [
+          {
+            "node": "Validar.Instagram.Optimiza",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "createdAt": "2025-09-25T16:10:13.322Z",
@@ -106,7 +161,7 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        -320,
+        32,
         -32
       ],
       "id": "1c5471c9-f9e8-4f71-8ac8-caca0cabe742",
@@ -116,7 +171,8 @@
           "id": "vkWvvbQeke2SGX0V",
           "name": "Google.jomBusiness"
         }
-      }
+      },
+      "disabled": true
     },
     {
       "parameters": {
@@ -161,7 +217,7 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        -544,
+        -160,
         -32
       ],
       "id": "3a5bb75d-4a23-4520-92a1-de2edcac7d50",
@@ -175,7 +231,8 @@
           "id": "vkWvvbQeke2SGX0V",
           "name": "Google.jomBusiness"
         }
-      }
+      },
+      "disabled": true
     },
     {
       "parameters": {
@@ -194,11 +251,12 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        -768,
+        -544,
         -32
       ],
       "id": "3a10ced7-1b21-4ab8-862b-00d76640cfc0",
       "name": "CopiarPlantilla",
+      "notesInFlow": false,
       "credentials": {
         "googleSheetsOAuth2Api": {
           "id": "9itbsHqDyr3Vwspb",
@@ -212,7 +270,9 @@
           "id": "vkWvvbQeke2SGX0V",
           "name": "Google.jomBusiness"
         }
-      }
+      },
+      "disabled": true,
+      "onError": "continueRegularOutput"
     },
     {
       "parameters": {
@@ -225,7 +285,7 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        -96,
+        208,
         -32
       ],
       "id": "364249dc-cdbf-45aa-b78d-465c53693b57",
@@ -235,7 +295,8 @@
           "id": "vkWvvbQeke2SGX0V",
           "name": "Google.jomBusiness"
         }
-      }
+      },
+      "disabled": true
     },
     {
       "parameters": {
@@ -246,7 +307,7 @@
       "type": "n8n-nodes-base.facebookGraphApi",
       "typeVersion": 1,
       "position": [
-        -768,
+        -560,
         736
       ],
       "id": "aa9db21a-9083-40e6-b724-09161ce12ab5",
@@ -256,7 +317,8 @@
           "id": "q07PnzaLdq09L9OE",
           "name": "Instagram.Optimiza"
         }
-      }
+      },
+      "onError": "continueRegularOutput"
     },
     {
       "parameters": {
@@ -267,7 +329,7 @@
       "type": "n8n-nodes-base.facebookGraphApi",
       "typeVersion": 1,
       "position": [
-        -768,
+        -560,
         160
       ],
       "id": "6bc1f2b5-285a-4172-ba97-cfcdc2e4670f",
@@ -277,7 +339,9 @@
           "id": "hOMT44BIxjiDsVdw",
           "name": "Facebook.CodigoAlfa"
         }
-      }
+      },
+      "disabled": true,
+      "onError": "continueRegularOutput"
     },
     {
       "parameters": {
@@ -288,7 +352,7 @@
       "type": "n8n-nodes-base.facebookGraphApi",
       "typeVersion": 1,
       "position": [
-        -768,
+        -560,
         352
       ],
       "id": "9eb78023-6239-4405-8fac-8458d0953c9b",
@@ -298,7 +362,9 @@
           "id": "IdpHq8Mtl5spHnnr",
           "name": "Facebook.SmartWeb"
         }
-      }
+      },
+      "disabled": true,
+      "onError": "continueRegularOutput"
     },
     {
       "parameters": {
@@ -309,7 +375,7 @@
       "type": "n8n-nodes-base.facebookGraphApi",
       "typeVersion": 1,
       "position": [
-        -768,
+        -560,
         544
       ],
       "id": "5e5c7cf0-d9f8-4c91-9559-1c6ce6b7ce00",
@@ -319,7 +385,8 @@
           "id": "ym2xOYOdM5h5E89o",
           "name": "Facebook.Optimiza"
         }
-      }
+      },
+      "onError": "continueRegularOutput"
     },
     {
       "parameters": {
@@ -330,8 +397,8 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        -448,
-        320
+        -80,
+        368
       ],
       "typeVersion": 1,
       "id": "d8986fad-37c6-4633-b34e-5a01cb1b1d38",
@@ -353,7 +420,8 @@
         "rule": {
           "interval": [
             {
-              "triggerAtHour": 7
+              "triggerAtHour": 22,
+              "triggerAtMinute": 58
             }
           ]
         }
@@ -366,6 +434,74 @@
       ],
       "id": "dc0e191c-1d49-4f92-b541-abcb73b408ea",
       "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Captura el objeto devuelto por el nodo Gmail\nconst error = $input.first().json.error\n\n// Si existe error y contiene mensaje de credenciales\nif (error && error.message && (\n    error.message.includes('invalid') ||\n    error.message.includes('expired') ||\n    error.message.includes('revoked')\n)) {\n  throw new Error('⚠️ Credenciales de Google caducadas o inválidas: ' + error.message);\n}\n\n// Si todo está bien, continúa\nreturn [{ json: { status: 'ok' } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -352,
+        -32
+      ],
+      "id": "2c223457-4115-4d5d-8b74-ff94d2d80359",
+      "name": "Validar.gmail",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "jsCode": "const data = $json;\nconst headers = data.headers || {};\nconst authHeader = headers['www-authenticate'] || '';\nconst status = data.statusCode || 0;\n\n// Detecta token vencido o inválido\nif (\n  status === 400 &&\n  authHeader.includes('invalid_token')\n) {\n  throw new Error('⚠️ Token de Facebook.CodigoAlfa expirado o inválido: ' + authHeader);\n}\n\n// Todo correcto\nreturn [{ json: { token: 'válido' } }];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -352,
+        160
+      ],
+      "id": "2a941e77-5860-4083-b4af-a4936c0ca17b",
+      "name": "Validar.CodigoAlfa",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "jsCode": "const data = $json;\nconst headers = data.headers || {};\nconst authHeader = headers['www-authenticate'] || '';\nconst status = data.statusCode || 0;\n\n// Detecta token vencido o inválido\nif (\n  status === 400 &&\n  authHeader.includes('invalid_token')\n) {\n  throw new Error('⚠️ Token de Facebook.SmartWeb expirado o inválido: ' + authHeader);\n}\n\n// Todo correcto\nreturn [{ json: { token: 'válido' } }];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -352,
+        352
+      ],
+      "id": "3095424c-28ef-40b2-bbbc-092579b06503",
+      "name": "Validar.SmartWeb",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "jsCode": "throw new Error('⚠️ Credenciales de Facebook.Optimiza caducadas o inválidas: ' + $input.first().json.headers['www-authenticate']);"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -352,
+        544
+      ],
+      "id": "f35990b1-cb0f-4ed7-a955-5a189045f8bb",
+      "name": "Validar.Facebook.Optimiza"
+    },
+    {
+      "parameters": {
+        "jsCode": "const data = $json;\nconst headers = data.headers || {};\nconst authHeader = headers['www-authenticate'] || '';\nconst status = data.statusCode || 0;\n\n// Detecta token vencido o inválido\nif (\n  status === 400 &&\n  authHeader.includes('invalid_token')\n) {\n  throw new Error('⚠️ Token de Instagram.Optimiza expirado o inválido: ' + authHeader);\n}\n\n// Todo correcto\nreturn [{ json: { token: 'válido' } }];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -352,
+        736
+      ],
+      "id": "4e30ae8b-13a7-49e0-8bbc-0e99f4932d51",
+      "name": "Validar.Instagram.Optimiza"
     }
   ],
   "pinData": {},
@@ -411,6 +547,6 @@
     }
   ],
   "triggerCount": 1,
-  "updatedAt": "2025-09-26T20:25:24.000Z",
-  "versionId": "1f443efc-be58-4ecd-85c0-ab688641f596"
+  "updatedAt": "2025-10-20T03:57:11.000Z",
+  "versionId": "a4b20b70-205d-40fd-afbb-711b071b6586"
 }
