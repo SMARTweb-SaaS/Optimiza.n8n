@@ -39,6 +39,11 @@
             "node": "CopiarPlantilla",
             "type": "main",
             "index": 0
+          },
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
           }
         ]
       ]
@@ -58,7 +63,7 @@
       "main": [
         [
           {
-            "node": "Validar.gmail",
+            "node": "Validar.google.docs",
             "type": "main",
             "index": 0
           }
@@ -103,17 +108,6 @@
         [
           {
             "node": "Validar.CodigoAlfa",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Validar.gmail": {
-      "main": [
-        [
-          {
-            "node": "ReemplazarTexto",
             "type": "main",
             "index": 0
           }
@@ -203,6 +197,39 @@
         [
           {
             "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a message": {
+      "main": [
+        [
+          {
+            "node": "Validar.Instagram.Optimiza1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Validar.Instagram.Optimiza1": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Validar.google.docs": {
+      "main": [
+        [
+          {
+            "node": "ReemplazarTexto",
             "type": "main",
             "index": 0
           }
@@ -498,19 +525,6 @@
     },
     {
       "parameters": {
-        "jsCode": "// Captura el objeto devuelto por el nodo Gmail\nconst error = $input.first().json.error\n\n// Si existe error y contiene mensaje de credenciales\nif (error && error.message && (\n    error.message.includes('invalid') ||\n    error.message.includes('expired') ||\n    error.message.includes('revoked')\n)) {\n  throw new Error('⚠️ Credenciales de Google caducadas o inválidas: ' + error.message);\n}\n\n// Si todo está bien, continúa\nreturn [{ json: { status: 'ok' } }];"
-      },
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [
-        -352,
-        -32
-      ],
-      "id": "2c223457-4115-4d5d-8b74-ff94d2d80359",
-      "name": "Validar.gmail"
-    },
-    {
-      "parameters": {
         "jsCode": "const res = $json;\nif (res.statusCode >= 400 || res.error || (res.headers && res.headers[\"www-authenticate\"])) {\n  const text = `⚠️ Token de Facebook.CodigoAlfa caducado o inválido.\\n\\n${\n    res.headers[\"www-authenticate\"] || res.error || ''\n  }`\n    .replace(/[_*[\\]()~`>#+=|{}.!-]/g, ''); // elimina caracteres conflictivos\n\n  return [\n    {\n      json: {\n        notify: true,\n        message: text\n      }\n    }\n  ];\n}\nreturn [{ json: { notify: false } }];"
       },
       "type": "n8n-nodes-base.code",
@@ -657,6 +671,58 @@
       ],
       "id": "e2f27cfa-c6f7-43be-87b5-99bf8cad05e3",
       "name": "No Operation, do nothing"
+    },
+    {
+      "parameters": {
+        "sendTo": "=jombusiness@msn.com",
+        "subject": "=AutoTest.n8n",
+        "message": "=Esto es una prueba automatizada desde n8n",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        -560,
+        928
+      ],
+      "id": "85726068-973d-4fe0-b762-30c2f046c2d6",
+      "name": "Send a message",
+      "webhookId": "4e4499dc-4fa7-4228-9f17-453e18b78e6e",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "klbYdrcdLX4W0ONj",
+          "name": "Gmail.jomBusiness"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "const res = $json;\nif (res.statusCode >= 400 || res.error || (res.headers && res.headers[\"www-authenticate\"])) {\n  const text = `⚠️ Token de Instagram.Optimiza caducado o inválido.\\n\\n${\n    res.headers[\"www-authenticate\"] || res.error || ''\n  }`\n    .replace(/[_*[\\]()~`>#+=|{}.!-]/g, ''); // elimina caracteres conflictivos\n\n  return [\n    {\n      json: {\n        notify: true,\n        message: text\n      }\n    }\n  ];\n}\nreturn [{ json: { notify: false } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -352,
+        928
+      ],
+      "id": "9c32397e-3e6a-4b15-baf6-cec4674c4906",
+      "name": "Validar.Instagram.Optimiza1"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Captura el objeto devuelto por el nodo Gmail\nconst error = $input.first().json.error\n\n// Si existe error y contiene mensaje de credenciales\nif (error && error.message && (\n    error.message.includes('invalid') ||\n    error.message.includes('expired') ||\n    error.message.includes('revoked')\n)) {\n  throw new Error('⚠️ Credenciales de Google caducadas o inválidas: ' + error.message);\n}\n\n// Si todo está bien, continúa\nreturn [{ json: { status: 'ok' } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -352,
+        -32
+      ],
+      "id": "2c223457-4115-4d5d-8b74-ff94d2d80359",
+      "name": "Validar.google.docs"
     }
   ],
   "pinData": {},
@@ -702,6 +768,6 @@
     }
   ],
   "triggerCount": 1,
-  "updatedAt": "2025-10-20T04:38:44.000Z",
-  "versionId": "6e0539ec-9ea7-4217-919f-6069071f8ad6"
+  "updatedAt": "2025-11-08T16:27:52.000Z",
+  "versionId": "da4a8692-2260-4b69-b894-a914fb2e4f96"
 }
