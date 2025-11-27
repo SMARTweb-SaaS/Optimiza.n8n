@@ -256,7 +256,18 @@
       "main": [
         [
           {
-            "node": "ReemplazarTexto",
+            "node": "ReemplazarTexto.Docs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "ReemplazarTexto.Docs": {
+      "main": [
+        [
+          {
+            "node": "BorrarDoc",
             "type": "main",
             "index": 0
           }
@@ -754,38 +765,6 @@
     {
       "parameters": {
         "method": "POST",
-        "url": "=https://docs.googleapis.com/v1/documents/{{$node[\"CopiarPlantilla.Docs\"].json[\"id\"]}}:batchUpdate",
-        "authentication": "predefinedCredentialType",
-        "nodeCredentialType": "googleOAuth2Api",
-        "sendBody": true,
-        "specifyBody": "json",
-        "jsonBody": "={\n  \"requests\": [\n    {\n      \"replaceAllText\": {\n        \"containsText\": {\n          \"text\": \"Name\",\n          \"matchCase\": true\n        },\n        \"replaceText\": \"{{ $('Historia').item.json.output.titulo_principal }}\"\n      }\n    },\n    {\n      \"replaceAllText\": {\n        \"containsText\": {\n          \"text\": \"SubTitle\",\n          \"matchCase\": true\n        },\n        \"replaceText\": \"{{ $('Historia').item.json.output.subtitulo }}\"\n      }\n    },\n    {\n      \"replaceAllText\": {\n        \"containsText\": {\n          \"text\": \"Review\",\n          \"matchCase\": true\n        },\n        \"replaceText\": \"{{ $('Historia').item.json.output.resena }}\"\n      }\n    },\n    {\n      \"replaceAllText\": {\n        \"containsText\": {\n          \"text\": \"MicroStory\",\n          \"matchCase\": true\n        },\n        \"replaceText\": \"{{ $('Historia').item.json.output.microcuento[0].contenido }}\\n\\n{{ $('Historia').item.json.output.microcuento[1].contenido }}\\n\\n{{ $('Historia').item.json.output.microcuento[2].contenido }}\\n\\n{{ $('Historia').item.json.output.microcuento[3].contenido }}\\n\\n{{ $('Historia').item.json.output.microcuento[4].contenido }}\\n\\n{{ $('Historia').item.json.output.microcuento[5].contenido }}\\n\\n\\n{{ $('Historia').item.json.output.analisis_del_giro }}\\n\\n\\n\\n{{ JSON.stringify( $('Poderes').item.json.output[0].miniCardMarkdown).replace(/^\"|\"$/g, '') }}\\n\\n\\n\\n{{ JSON.stringify($('Poderes').item.json.output[1].miniCardMarkdown).replace(/^\"|\"$/g, '') }}\"\n      }\n    }\n  ]\n}\n",
-        "options": {}
-      },
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.2,
-      "position": [
-        -160,
-        -224
-      ],
-      "id": "4539b045-a185-44f8-bca5-d41754d18a20",
-      "name": "ReemplazarTexto",
-      "alwaysOutputData": false,
-      "credentials": {
-        "googleSlidesOAuth2Api": {
-          "id": "r33mZaNsUtZk4fVS",
-          "name": "Slides.jomBusiness"
-        },
-        "googleOAuth2Api": {
-          "id": "vkWvvbQeke2SGX0V",
-          "name": "Google.jomBusiness"
-        }
-      },
-      "disabled": true
-    },
-    {
-      "parameters": {
-        "method": "POST",
         "url": "=https://www.googleapis.com/drive/v3/files/1EfTpOlNkJh81FMt6XVX9tjW22iaQcj3UKRUt7KCYmz0/copy",
         "authentication": "predefinedCredentialType",
         "nodeCredentialType": "googleDriveOAuth2Api",
@@ -820,7 +799,6 @@
           "name": "Google.jomBusiness"
         }
       },
-      "disabled": true,
       "onError": "continueRegularOutput"
     },
     {
@@ -834,8 +812,61 @@
         -224
       ],
       "id": "d9e515da-aef8-4711-afa2-2b78ea02c3cc",
-      "name": "Validar.Docs",
-      "disabled": true
+      "name": "Validar.Docs"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://docs.googleapis.com/v1/documents/{{$node[\"CopiarPlantilla.Docs\"].json[\"id\"]}}:batchUpdate",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "googleOAuth2Api",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"requests\": [\n    {\n      \"replaceAllText\": {\n        \"containsText\": {\n          \"text\": \"Name\",\n          \"matchCase\": true\n        },\n        \"replaceText\": \"Titulo Principal\"\n      }\n    },\n    {\n      \"replaceAllText\": {\n        \"containsText\": {\n          \"text\": \"SubTitle\",\n          \"matchCase\": true\n        },\n        \"replaceText\": \"Sub-Titulo\"\n      }\n    },\n    {\n      \"replaceAllText\": {\n        \"containsText\": {\n          \"text\": \"Review\",\n          \"matchCase\": true\n        },\n        \"replaceText\": \"Reseña\"\n      }\n    },\n    {\n      \"replaceAllText\": {\n        \"containsText\": {\n          \"text\": \"MicroStory\",\n          \"matchCase\": true\n        },\n        \"replaceText\": \"MiniHistoria\"\n      }\n    }\n  ]\n}\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -160,
+        -224
+      ],
+      "id": "4539b045-a185-44f8-bca5-d41754d18a20",
+      "name": "ReemplazarTexto.Docs",
+      "alwaysOutputData": false,
+      "credentials": {
+        "googleSlidesOAuth2Api": {
+          "id": "r33mZaNsUtZk4fVS",
+          "name": "Slides.jomBusiness"
+        },
+        "googleOAuth2Api": {
+          "id": "vkWvvbQeke2SGX0V",
+          "name": "Google.jomBusiness"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "DELETE",
+        "url": "=https://www.googleapis.com/drive/v3/files/{{$node[\"CopiarPlantilla.Docs\"].json[\"id\"]}}",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "googleOAuth2Api",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        32,
+        -224
+      ],
+      "id": "7e3e95e5-0b73-4406-b5d3-8171f96797a7",
+      "name": "BorrarDoc",
+      "credentials": {
+        "googleOAuth2Api": {
+          "id": "vkWvvbQeke2SGX0V",
+          "name": "Google.jomBusiness"
+        }
+      }
     }
   ],
   "pinData": {},
@@ -881,6 +912,6 @@
     }
   ],
   "triggerCount": 1,
-  "updatedAt": "2025-11-27T00:01:34.000Z",
-  "versionId": "178ce193-3397-41e6-8f42-9c0d10a04020"
+  "updatedAt": "2025-11-27T14:54:45.000Z",
+  "versionId": "3206c48a-7cf7-47fb-be9b-11051460c5ca"
 }
