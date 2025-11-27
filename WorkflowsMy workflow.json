@@ -1,66 +1,56 @@
 {
   "active": false,
   "connections": {
-    "When clicking ‘Execute workflow’": {
+    "Get many rows": {
       "main": [
         [
           {
-            "node": "Prompt",
+            "node": "Loop Over Items",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "Fal.flux.dev.post": {
+    "Update a row": {
       "main": [
         [
           {
-            "node": "Fal.flux.dev.get",
+            "node": "Loop Over Items",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "Fal.flux.dev.get": {
+    "On form submission": {
       "main": [
         [
           {
-            "node": "Wait.10",
+            "node": "Get many rows",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "Wait.10": {
+    "Loop Over Items": {
       "main": [
+        [],
         [
           {
-            "node": "Fal.flex.dev.get.url",
+            "node": "Get a row",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "Fal.flex.dev.get.url": {
+    "Get a row": {
       "main": [
         [
           {
-            "node": "Foto",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Prompt": {
-      "main": [
-        [
-          {
-            "node": "Fal.flux.dev.post",
+            "node": "Update a row",
             "type": "main",
             "index": 0
           }
@@ -68,170 +58,159 @@
       ]
     }
   },
-  "createdAt": "2025-08-10T01:48:40.935Z",
-  "id": "ClodztVZzfCicQAw",
+  "createdAt": "2025-11-27T16:01:52.717Z",
+  "id": "3D5mHrAKGxrYHrSX",
   "isArchived": false,
-  "meta": {
-    "templateCredsSetupCompleted": true
-  },
+  "meta": null,
   "name": "My workflow",
   "nodes": [
     {
-      "parameters": {},
-      "type": "n8n-nodes-base.manualTrigger",
+      "parameters": {
+        "databaseId": 324695,
+        "tableId": 747259,
+        "limit": "={{ $json.Limite }}",
+        "additionalOptions": {
+          "filters": {
+            "fields": [
+              {
+                "field": 6301142,
+                "operator": "single_select_equal",
+                "value": "Proyecto"
+              },
+              {
+                "field": 6301129,
+                "value": "={{ $json['Mitología'] }}"
+              }
+            ]
+          }
+        }
+      },
+      "type": "n8n-nodes-base.baserow",
       "typeVersion": 1,
       "position": [
-        272,
-        0
+        -80,
+        -112
       ],
-      "id": "6899c1dc-2479-427a-a4ba-f7f86fc652fa",
-      "name": "When clicking ‘Execute workflow’"
-    },
-    {
-      "parameters": {
-        "operation": "sendPhoto",
-        "chatId": "=1704819492",
-        "file": "={{ $json.images[0].url }}",
-        "additionalFields": {
-          "caption": "={{ $('Prompt').item.json.prompt }}"
-        }
-      },
-      "type": "n8n-nodes-base.telegram",
-      "typeVersion": 1.2,
-      "position": [
-        1616,
-        0
-      ],
-      "id": "53084952-0bc9-4d0f-9ff4-c348de1079eb",
-      "name": "Foto",
-      "webhookId": "834b2a54-20a4-4982-a705-2ccdbffcda1b",
+      "id": "01ed6a1e-716d-4cfb-9e00-b444026e2d2e",
+      "name": "Get many rows",
       "credentials": {
-        "telegramApi": {
-          "id": "zxkALNj2uZW1uxoX",
-          "name": "Telegram.jomBusiness"
+        "baserowApi": {
+          "id": "SNrllAn2sJZ5Lm7r",
+          "name": "Baserow.msn"
         }
       }
     },
     {
       "parameters": {
-        "content": "## I'm a note \n**Usar Flux Dev**\ncrear tablas en base row\n\nhttps://chatgpt.com/share/689810be-83d4-800d-8014-e2b2559158ab",
-        "width": 368
-      },
-      "type": "n8n-nodes-base.stickyNote",
-      "position": [
-        624,
-        -288
-      ],
-      "typeVersion": 1,
-      "id": "fc8d591f-51be-4e12-9d64-5a6a3965f744",
-      "name": "Sticky Note"
-    },
-    {
-      "parameters": {
-        "method": "POST",
-        "url": "https://queue.fal.run/fal-ai/flux/dev",
-        "authentication": "genericCredentialType",
-        "genericAuthType": "httpHeaderAuth",
-        "sendBody": true,
-        "specifyBody": "json",
-        "jsonBody": "={\n  \"prompt\": \"{{ $json.prompt }}\",\n  \"image_size\": {\n    \"width\": 832,\n    \"height\": 1216\n  },\n  \"num_inference_steps\": 28,\n  \"guidance_scale\": 3.5,\n  \"num_images\": 1,\n  \"enable_safety_checker\": false,\n  \"output_format\": \"png\"\n} ",
-        "options": {}
-      },
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.2,
-      "position": [
-        720,
-        0
-      ],
-      "id": "d1f745d3-ad0e-4f4b-affb-61a03bc1299b",
-      "name": "Fal.flux.dev.post",
-      "credentials": {
-        "httpHeaderAuth": {
-          "id": "CTU31n1iM3emZIHK",
-          "name": "FalAi.gmail"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "url": "={{ $json.status_url }}",
-        "authentication": "genericCredentialType",
-        "genericAuthType": "httpHeaderAuth",
-        "options": {}
-      },
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.2,
-      "position": [
-        944,
-        0
-      ],
-      "id": "7256a474-bcad-40ff-a48d-5509d42b9415",
-      "name": "Fal.flux.dev.get",
-      "credentials": {
-        "httpHeaderAuth": {
-          "id": "CTU31n1iM3emZIHK",
-          "name": "FalAi.gmail"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "amount": 10
-      },
-      "type": "n8n-nodes-base.wait",
-      "typeVersion": 1.1,
-      "position": [
-        1168,
-        0
-      ],
-      "id": "a229144c-08da-4afb-bc2f-1479b8bfe96d",
-      "name": "Wait.10",
-      "webhookId": "c508c161-77ab-4d85-9cb6-dab43b60f46e"
-    },
-    {
-      "parameters": {
-        "url": "=https://queue.fal.run/fal-ai/stable-diffusion-v35-large/requests/{{ $json.request_id }}",
-        "authentication": "genericCredentialType",
-        "genericAuthType": "httpHeaderAuth",
-        "options": {}
-      },
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.2,
-      "position": [
-        1392,
-        0
-      ],
-      "id": "57de49db-5eb0-4c1e-97f9-6350770f95a5",
-      "name": "Fal.flex.dev.get.url",
-      "credentials": {
-        "httpHeaderAuth": {
-          "id": "CTU31n1iM3emZIHK",
-          "name": "FalAi.gmail"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "assignments": {
-          "assignments": [
+        "operation": "update",
+        "databaseId": 324695,
+        "tableId": 747259,
+        "rowId": "={{ $('Get a row').item.json.id }}",
+        "fieldsUi": {
+          "fieldValues": [
             {
-              "id": "81ff2295-afd6-4a4c-84dc-5b2797f39860",
-              "name": "prompt",
-              "value": "=Highly detailed, photorealistic 8k photograph of a young woman with a naturally curvy, proportionate hourglass figure. She has subtle muscle definition and smooth, realistic skin texture with a natural skin tone. Wavy dark hair. The pose is from behind, showing her back and hips, with a soft turn of the head. The atmosphere is relaxed and elegant, captured with professional photography. The scene is illuminated by soft, natural golden hour lighting, with a shallow depth of field, sharp focus, and cinematic quality.",
-              "type": "string"
+              "fieldId": 6301132,
+              "fieldValue": "={{ $('Get a row').item.json.id }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.baserow",
+      "typeVersion": 1,
+      "position": [
+        240,
+        144
+      ],
+      "id": "b8e14a5c-2132-4eea-b81b-29d551ca61d1",
+      "name": "Update a row",
+      "credentials": {
+        "baserowApi": {
+          "id": "SNrllAn2sJZ5Lm7r",
+          "name": "Baserow.msn"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "formTitle": "Generar MicroCuentos",
+        "formDescription": "Batallas mitológicas entre Dioses",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "Mitología",
+              "fieldType": "dropdown",
+              "fieldOptions": {
+                "values": [
+                  {
+                    "option": "Griega"
+                  },
+                  {
+                    "option": "Nórdica"
+                  },
+                  {
+                    "option": "Egipcia"
+                  },
+                  {
+                    "option": "Crossover"
+                  }
+                ]
+              },
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Limite",
+              "fieldType": "number",
+              "placeholder": "10",
+              "requiredField": true
             }
           ]
         },
         "options": {}
       },
-      "type": "n8n-nodes-base.set",
-      "typeVersion": 3.4,
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.3,
       "position": [
-        496,
-        0
+        -288,
+        -112
       ],
-      "id": "69c1f2f5-9ae1-4afb-9db8-5e85811953bb",
-      "name": "Prompt"
+      "id": "0456e42c-c3a3-43ee-b568-4224cc10efec",
+      "name": "On form submission",
+      "webhookId": "09957d30-2c06-4a60-bc8a-be0c373d94b4"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        -272,
+        128
+      ],
+      "id": "0afaf0e9-a5da-480e-bc56-b85ccc2d3160",
+      "name": "Loop Over Items"
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "databaseId": 324695,
+        "tableId": 747259,
+        "rowId": "={{ $json.id }}"
+      },
+      "type": "n8n-nodes-base.baserow",
+      "typeVersion": 1,
+      "position": [
+        -48,
+        144
+      ],
+      "id": "443f4ad1-5961-4f66-a47a-c37700c567db",
+      "name": "Get a row",
+      "credentials": {
+        "baserowApi": {
+          "id": "SNrllAn2sJZ5Lm7r",
+          "name": "Baserow.msn"
+        }
+      }
     }
   ],
   "pinData": {},
@@ -240,16 +219,16 @@
   },
   "shared": [
     {
-      "createdAt": "2025-08-10T01:48:40.953Z",
-      "updatedAt": "2025-08-10T01:48:40.953Z",
+      "createdAt": "2025-11-27T16:01:52.730Z",
+      "updatedAt": "2025-11-27T16:01:52.730Z",
       "role": "workflow:owner",
-      "workflowId": "ClodztVZzfCicQAw",
+      "workflowId": "3D5mHrAKGxrYHrSX",
       "projectId": "uBzdLipflPbb1Tbz"
     }
   ],
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2025-09-16T02:23:09.000Z",
-  "versionId": "80df63bf-fb21-4119-92d4-9e2c613099ac"
+  "updatedAt": "2025-11-27T16:01:52.717Z",
+  "versionId": "2a124de4-6b79-443e-8c5b-8ce6f8b4adff"
 }
