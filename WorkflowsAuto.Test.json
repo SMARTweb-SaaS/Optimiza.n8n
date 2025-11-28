@@ -1,5 +1,877 @@
 {
   "active": true,
+  "activeVersion": {
+    "updatedAt": "2025-11-27T14:54:45.443Z",
+    "createdAt": "2025-11-27T14:54:45.443Z",
+    "versionId": "3206c48a-7cf7-47fb-be9b-11051460c5ca",
+    "workflowId": "OcUacIKzdZ8BOrG8",
+    "nodes": [
+      {
+        "parameters": {
+          "url": "=https://slides.googleapis.com/v1/presentations/{{ $json.presentationId }}",
+          "authentication": "predefinedCredentialType",
+          "nodeCredentialType": "googleOAuth2Api",
+          "options": {}
+        },
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.2,
+        "position": [
+          32,
+          -32
+        ],
+        "id": "1c5471c9-f9e8-4f71-8ac8-caca0cabe742",
+        "name": "ObtenerSlides",
+        "credentials": {
+          "googleOAuth2Api": {
+            "id": "vkWvvbQeke2SGX0V",
+            "name": "Google.jomBusiness"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "assignments": {
+            "assignments": [
+              {
+                "id": "94480326-dc38-4f80-905b-81ca0ac063b1",
+                "name": "Nombre",
+                "value": "=John",
+                "type": "string"
+              },
+              {
+                "id": "93df26f2-4e6e-44e5-ab98-f2a68e40cf5f",
+                "name": "MensajeEspecifico",
+                "value": "Que sigan los éxitos.",
+                "type": "string"
+              }
+            ]
+          },
+          "options": {}
+        },
+        "type": "n8n-nodes-base.set",
+        "typeVersion": 3.4,
+        "position": [
+          -992,
+          352
+        ],
+        "id": "82348df4-46ad-4023-8259-387cc0e46dfd",
+        "name": "Edit Fields"
+      },
+      {
+        "parameters": {
+          "method": "DELETE",
+          "url": "=https://www.googleapis.com/drive/v3/files/{{ $('CopiarPlantilla.Slides').item.json.id }}",
+          "authentication": "predefinedCredentialType",
+          "nodeCredentialType": "googleOAuth2Api",
+          "options": {}
+        },
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.2,
+        "position": [
+          208,
+          -32
+        ],
+        "id": "364249dc-cdbf-45aa-b78d-465c53693b57",
+        "name": "BorrarSlide",
+        "credentials": {
+          "googleOAuth2Api": {
+            "id": "vkWvvbQeke2SGX0V",
+            "name": "Google.jomBusiness"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "graphApiVersion": "v23.0",
+          "node": "/me?fields=id,name",
+          "options": {}
+        },
+        "type": "n8n-nodes-base.facebookGraphApi",
+        "typeVersion": 1,
+        "position": [
+          -560,
+          736
+        ],
+        "id": "aa9db21a-9083-40e6-b724-09161ce12ab5",
+        "name": "Instagram.Optimiza",
+        "credentials": {
+          "facebookGraphApi": {
+            "id": "q07PnzaLdq09L9OE",
+            "name": "Instagram.Optimiza"
+          }
+        },
+        "onError": "continueRegularOutput"
+      },
+      {
+        "parameters": {
+          "graphApiVersion": "v23.0",
+          "node": "/me?fields=id,name",
+          "options": {}
+        },
+        "type": "n8n-nodes-base.facebookGraphApi",
+        "typeVersion": 1,
+        "position": [
+          -560,
+          160
+        ],
+        "id": "6bc1f2b5-285a-4172-ba97-cfcdc2e4670f",
+        "name": "Facebook.CodigoAlfa",
+        "credentials": {
+          "facebookGraphApi": {
+            "id": "hOMT44BIxjiDsVdw",
+            "name": "Facebook.CodigoAlfa"
+          }
+        },
+        "onError": "continueRegularOutput"
+      },
+      {
+        "parameters": {
+          "graphApiVersion": "v23.0",
+          "node": "/me?fields=id,name",
+          "options": {}
+        },
+        "type": "n8n-nodes-base.facebookGraphApi",
+        "typeVersion": 1,
+        "position": [
+          -560,
+          352
+        ],
+        "id": "9eb78023-6239-4405-8fac-8458d0953c9b",
+        "name": "Facebook.Smartweb",
+        "credentials": {
+          "facebookGraphApi": {
+            "id": "IdpHq8Mtl5spHnnr",
+            "name": "Facebook.SmartWeb"
+          }
+        },
+        "onError": "continueRegularOutput"
+      },
+      {
+        "parameters": {
+          "graphApiVersion": "v23.0",
+          "node": "/me?fields=id,name",
+          "options": {}
+        },
+        "type": "n8n-nodes-base.facebookGraphApi",
+        "typeVersion": 1,
+        "position": [
+          -560,
+          544
+        ],
+        "id": "5e5c7cf0-d9f8-4c91-9559-1c6ce6b7ce00",
+        "name": "Facebook.Optimiza",
+        "credentials": {
+          "facebookGraphApi": {
+            "id": "ym2xOYOdM5h5E89o",
+            "name": "Facebook.Optimiza"
+          }
+        },
+        "onError": "continueRegularOutput"
+      },
+      {
+        "parameters": {
+          "content": "## Renovar Token: Facebook \n- Ingresar a [developers.facebook](https://developers.facebook.com/tools/explorer/)\n- Copiar: Token de acceso\n- [Depurador de token de acceso\n](https://developers.facebook.com/tools/debug/accesstoken/)\n- Regresar a [developers.facebook](https://developers.facebook.com/tools/explorer/)\n- Usar: me?fields=id,accounts\n- Copiar: access_token\n- Volver a conectar: Graph API ",
+          "height": 224,
+          "width": 400,
+          "color": 3
+        },
+        "type": "n8n-nodes-base.stickyNote",
+        "position": [
+          -80,
+          800
+        ],
+        "typeVersion": 1,
+        "id": "d8986fad-37c6-4633-b34e-5a01cb1b1d38",
+        "name": "Sticky Note1"
+      },
+      {
+        "parameters": {},
+        "type": "n8n-nodes-base.manualTrigger",
+        "typeVersion": 1,
+        "position": [
+          -1216,
+          448
+        ],
+        "id": "add01914-be49-4b09-93ce-3ff720ae820b",
+        "name": "When clicking ‘Execute workflow’"
+      },
+      {
+        "parameters": {
+          "rule": {
+            "interval": [
+              {
+                "triggerAtHour": 8,
+                "triggerAtMinute": 30
+              }
+            ]
+          }
+        },
+        "type": "n8n-nodes-base.scheduleTrigger",
+        "typeVersion": 1.2,
+        "position": [
+          -1216,
+          256
+        ],
+        "id": "dc0e191c-1d49-4f92-b541-abcb73b408ea",
+        "name": "Schedule Trigger"
+      },
+      {
+        "parameters": {
+          "jsCode": "const res = $json;\nif (res.statusCode >= 400 || res.error || (res.headers && res.headers[\"www-authenticate\"])) {\n  const text = `⚠️ Token de Facebook.CodigoAlfa caducado o inválido.\\n\\n${\n    res.headers[\"www-authenticate\"] || res.error || ''\n  }`\n    .replace(/[_*[\\]()~`>#+=|{}.!-]/g, ''); // elimina caracteres conflictivos\n\n  return [\n    {\n      json: {\n        notify: true,\n        message: text\n      }\n    }\n  ];\n}\nreturn [{ json: { notify: false } }];"
+        },
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          -352,
+          160
+        ],
+        "id": "2a941e77-5860-4083-b4af-a4936c0ca17b",
+        "name": "Validar.CodigoAlfa"
+      },
+      {
+        "parameters": {
+          "jsCode": "const res = $json;\nif (res.statusCode >= 400 || res.error || (res.headers && res.headers[\"www-authenticate\"])) {\n  const text = `⚠️ Token de Facebook.SMARTweb caducado o inválido.\\n\\n${\n    res.headers[\"www-authenticate\"] || res.error || ''\n  }`\n    .replace(/[_*[\\]()~`>#+=|{}.!-]/g, ''); // elimina caracteres conflictivos\n\n  return [\n    {\n      json: {\n        notify: true,\n        message: text\n      }\n    }\n  ];\n}\nreturn [{ json: { notify: false } }];"
+        },
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          -352,
+          352
+        ],
+        "id": "3095424c-28ef-40b2-bbbc-092579b06503",
+        "name": "Validar.SmartWeb"
+      },
+      {
+        "parameters": {
+          "jsCode": "const res = $json;\nif (res.statusCode >= 400 || res.error || (res.headers && res.headers[\"www-authenticate\"])) {\n  const text = `⚠️ Token de Facebook.Optimiza caducado o inválido.\\n\\n${\n    res.headers[\"www-authenticate\"] || res.error || ''\n  }`\n    .replace(/[_*[\\]()~`>#+=|{}.!-]/g, ''); // elimina caracteres conflictivos\n\n  return [\n    {\n      json: {\n        notify: true,\n        message: text\n      }\n    }\n  ];\n}\nreturn [{ json: { notify: false } }];"
+        },
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          -352,
+          544
+        ],
+        "id": "f35990b1-cb0f-4ed7-a955-5a189045f8bb",
+        "name": "Validar.Facebook.Optimiza",
+        "executeOnce": false,
+        "retryOnFail": false
+      },
+      {
+        "parameters": {
+          "jsCode": "const res = $json;\nif (res.statusCode >= 400 || res.error || (res.headers && res.headers[\"www-authenticate\"])) {\n  const text = `⚠️ Token de Instagram.Optimiza caducado o inválido.\\n\\n${\n    res.headers[\"www-authenticate\"] || res.error || ''\n  }`\n    .replace(/[_*[\\]()~`>#+=|{}.!-]/g, ''); // elimina caracteres conflictivos\n\n  return [\n    {\n      json: {\n        notify: true,\n        message: text\n      }\n    }\n  ];\n}\nreturn [{ json: { notify: false } }];"
+        },
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          -352,
+          736
+        ],
+        "id": "4e30ae8b-13a7-49e0-8bbc-0e99f4932d51",
+        "name": "Validar.Instagram.Optimiza"
+      },
+      {
+        "parameters": {
+          "conditions": {
+            "options": {
+              "caseSensitive": true,
+              "leftValue": "",
+              "typeValidation": "strict",
+              "version": 2
+            },
+            "conditions": [
+              {
+                "id": "ea99df7e-df22-4eb1-9555-a98e7c946042",
+                "leftValue": "={{ $json.notify }}",
+                "rightValue": "true",
+                "operator": {
+                  "type": "boolean",
+                  "operation": "true",
+                  "singleValue": true
+                }
+              }
+            ],
+            "combinator": "and"
+          },
+          "options": {}
+        },
+        "type": "n8n-nodes-base.if",
+        "typeVersion": 2.2,
+        "position": [
+          -64,
+          416
+        ],
+        "id": "a01341ce-5e1a-44c1-aef4-c76c687d1813",
+        "name": "If"
+      },
+      {
+        "parameters": {
+          "chatId": "1704819492",
+          "text": "={{ $json.message }}",
+          "additionalFields": {
+            "appendAttribution": false
+          }
+        },
+        "type": "n8n-nodes-base.telegram",
+        "typeVersion": 1.2,
+        "position": [
+          160,
+          384
+        ],
+        "id": "870a73e5-557b-4f47-9dd8-493bf67477f8",
+        "name": "Send a text message",
+        "webhookId": "47768359-131c-4dcd-9e2b-e3a0a44fb69e",
+        "credentials": {
+          "telegramApi": {
+            "id": "zxkALNj2uZW1uxoX",
+            "name": "Telegram.jomBusiness"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "fromEmail": "\"Optimiza IA Soluciones creativas\" <hola@optimiza-ia.com>",
+          "toEmail": "=jomBusiness@msn.com;jordonezm@cmactacna.com.pe",
+          "subject": "=💥 URGENTE: Critical Error",
+          "html": "={{ $json.message }}",
+          "options": {
+            "appendAttribution": false
+          }
+        },
+        "type": "n8n-nodes-base.emailSend",
+        "typeVersion": 2.1,
+        "position": [
+          160,
+          224
+        ],
+        "id": "15e03f40-c582-4586-b254-bf3061425d9e",
+        "name": "Send.Lead",
+        "webhookId": "f4c94d16-2482-4d18-b3c3-41ae05868902",
+        "credentials": {
+          "smtp": {
+            "id": "g9Le19jvw1BGykSt",
+            "name": "SMTP.optimiza"
+          }
+        }
+      },
+      {
+        "parameters": {},
+        "type": "n8n-nodes-base.noOp",
+        "typeVersion": 1,
+        "position": [
+          176,
+          576
+        ],
+        "id": "e2f27cfa-c6f7-43be-87b5-99bf8cad05e3",
+        "name": "No Operation, do nothing"
+      },
+      {
+        "parameters": {
+          "sendTo": "=jombusiness@msn.com",
+          "subject": "=AutoTest.n8n",
+          "message": "=Esto es una prueba automatizada desde n8n",
+          "options": {
+            "appendAttribution": false
+          }
+        },
+        "type": "n8n-nodes-base.gmail",
+        "typeVersion": 2.1,
+        "position": [
+          -560,
+          928
+        ],
+        "id": "85726068-973d-4fe0-b762-30c2f046c2d6",
+        "name": "Gmail",
+        "webhookId": "4e4499dc-4fa7-4228-9f17-453e18b78e6e",
+        "credentials": {
+          "gmailOAuth2": {
+            "id": "klbYdrcdLX4W0ONj",
+            "name": "Gmail.jomBusiness"
+          }
+        },
+        "onError": "continueRegularOutput"
+      },
+      {
+        "parameters": {
+          "jsCode": "const res = $json;\nif (res.statusCode >= 400 || res.error || (res.headers && res.headers[\"www-authenticate\"])) {\n  const text = `⚠️ Token de Instagram.Optimiza caducado o inválido.\\n\\n${\n    res.headers[\"www-authenticate\"] || res.error || ''\n  }`\n    .replace(/[_*[\\]()~`>#+=|{}.!-]/g, ''); // elimina caracteres conflictivos\n\n  return [\n    {\n      json: {\n        notify: true,\n        message: text\n      }\n    }\n  ];\n}\nreturn [{ json: { notify: false } }];"
+        },
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          -352,
+          928
+        ],
+        "id": "9c32397e-3e6a-4b15-baf6-cec4674c4906",
+        "name": "Validar.Gmail"
+      },
+      {
+        "parameters": {
+          "method": "POST",
+          "url": "=https://www.googleapis.com/drive/v3/files/1Yagt11CRvgvCTGXkhDEMwQcNcK74I-cUvo1KlYZ5oDo/copy",
+          "authentication": "predefinedCredentialType",
+          "nodeCredentialType": "googleOAuth2Api",
+          "sendQuery": true,
+          "specifyQuery": "json",
+          "jsonQuery": "={\n  \"name\": \"Presentación_{{ $json.Nombre }}\"\n}",
+          "sendBody": true,
+          "specifyBody": "json",
+          "jsonBody": "={\n  \"nombre\": \"{{ $json.Nombre }}\",\n  \"mensaje\": \"{{ $json.MensajeEspecifico }}\"\n}",
+          "options": {}
+        },
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.2,
+        "position": [
+          -544,
+          -32
+        ],
+        "id": "3a10ced7-1b21-4ab8-862b-00d76640cfc0",
+        "name": "CopiarPlantilla.Slides",
+        "notesInFlow": false,
+        "credentials": {
+          "googleSheetsOAuth2Api": {
+            "id": "9itbsHqDyr3Vwspb",
+            "name": "Sheets.jomBusiness"
+          },
+          "googleSlidesOAuth2Api": {
+            "id": "r33mZaNsUtZk4fVS",
+            "name": "Slides.jomBusiness"
+          },
+          "googleOAuth2Api": {
+            "id": "vkWvvbQeke2SGX0V",
+            "name": "Google.jomBusiness"
+          }
+        },
+        "onError": "continueRegularOutput"
+      },
+      {
+        "parameters": {
+          "jsCode": "// Captura el objeto devuelto por el nodo Gmail\nconst error = $input.first().json.error\n\n// Si existe error y contiene mensaje de credenciales\nif (error && error.message && (\n    error.message.includes('invalid') ||\n    error.message.includes('expired') ||\n    error.message.includes('revoked')\n)) {\n  throw new Error('⚠️ Credenciales de Google caducadas o inválidas: ' + error.message);\n}\n\n// Si todo está bien, continúa\nreturn [{ json: { status: 'ok' } }];"
+        },
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          -352,
+          -32
+        ],
+        "id": "2c223457-4115-4d5d-8b74-ff94d2d80359",
+        "name": "Validar.Slides"
+      },
+      {
+        "parameters": {
+          "method": "POST",
+          "url": "=https://slides.googleapis.com/v1/presentations/{{$node[\"CopiarPlantilla.Slides\"].json[\"id\"]}}:batchUpdate",
+          "authentication": "predefinedCredentialType",
+          "nodeCredentialType": "googleOAuth2Api",
+          "sendBody": true,
+          "specifyBody": "json",
+          "jsonBody": "={\n  \"requests\": [\n    {\n      \"replaceAllText\": {\n        \"containsText\": {\n          \"text\": \"nombre\",\n          \"matchCase\": true\n        },\n        \"replaceText\": \"{{ $('Edit Fields').item.json.Nombre }}\"\n      }\n    },\n    {\n      \"replaceAllText\": {\n        \"containsText\": {\n          \"text\": \"mensaje\",\n          \"matchCase\": true\n        },\n        \"replaceText\": \"{{ $('Edit Fields').item.json.MensajeEspecifico }}\"\n      }\n    }\n  ]\n}\n",
+          "options": {}
+        },
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.2,
+        "position": [
+          -160,
+          -32
+        ],
+        "id": "3a5bb75d-4a23-4520-92a1-de2edcac7d50",
+        "name": "ReemplazarTexto.Slides",
+        "credentials": {
+          "googleSlidesOAuth2Api": {
+            "id": "r33mZaNsUtZk4fVS",
+            "name": "Slides.jomBusiness"
+          },
+          "googleOAuth2Api": {
+            "id": "vkWvvbQeke2SGX0V",
+            "name": "Google.jomBusiness"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "method": "POST",
+          "url": "=https://www.googleapis.com/drive/v3/files/1EfTpOlNkJh81FMt6XVX9tjW22iaQcj3UKRUt7KCYmz0/copy",
+          "authentication": "predefinedCredentialType",
+          "nodeCredentialType": "googleDriveOAuth2Api",
+          "sendBody": true,
+          "specifyBody": "json",
+          "jsonBody": "={\n  \"name\": \"Documento_{{ $json.Nombre }}\"\n}",
+          "options": {}
+        },
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.2,
+        "position": [
+          -544,
+          -224
+        ],
+        "id": "c45e4bca-1f67-405f-b9f3-d1e3b537f507",
+        "name": "CopiarPlantilla.Docs",
+        "credentials": {
+          "googleSheetsOAuth2Api": {
+            "id": "9itbsHqDyr3Vwspb",
+            "name": "Sheets.jomBusiness"
+          },
+          "googleSlidesOAuth2Api": {
+            "id": "r33mZaNsUtZk4fVS",
+            "name": "Slides.jomBusiness"
+          },
+          "googleOAuth2Api": {
+            "id": "vkWvvbQeke2SGX0V",
+            "name": "Google.jomBusiness"
+          },
+          "googleDriveOAuth2Api": {
+            "id": "oXon4EKi27kb1xiA",
+            "name": "Google.jomBusiness"
+          }
+        },
+        "onError": "continueRegularOutput"
+      },
+      {
+        "parameters": {
+          "jsCode": "// Captura el objeto devuelto por el nodo Gmail\nconst error = $input.first().json.error\n\n// Si existe error y contiene mensaje de credenciales\nif (error && error.message && (\n    error.message.includes('invalid') ||\n    error.message.includes('expired') ||\n    error.message.includes('revoked')\n)) {\n  throw new Error('⚠️ Credenciales de Google caducadas o inválidas: ' + error.message);\n}\n\n// Si todo está bien, continúa\nreturn [{ json: { status: 'ok' } }];"
+        },
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          -352,
+          -224
+        ],
+        "id": "d9e515da-aef8-4711-afa2-2b78ea02c3cc",
+        "name": "Validar.Docs"
+      },
+      {
+        "parameters": {
+          "method": "POST",
+          "url": "=https://docs.googleapis.com/v1/documents/{{$node[\"CopiarPlantilla.Docs\"].json[\"id\"]}}:batchUpdate",
+          "authentication": "predefinedCredentialType",
+          "nodeCredentialType": "googleOAuth2Api",
+          "sendBody": true,
+          "specifyBody": "json",
+          "jsonBody": "={\n  \"requests\": [\n    {\n      \"replaceAllText\": {\n        \"containsText\": {\n          \"text\": \"Name\",\n          \"matchCase\": true\n        },\n        \"replaceText\": \"Titulo Principal\"\n      }\n    },\n    {\n      \"replaceAllText\": {\n        \"containsText\": {\n          \"text\": \"SubTitle\",\n          \"matchCase\": true\n        },\n        \"replaceText\": \"Sub-Titulo\"\n      }\n    },\n    {\n      \"replaceAllText\": {\n        \"containsText\": {\n          \"text\": \"Review\",\n          \"matchCase\": true\n        },\n        \"replaceText\": \"Reseña\"\n      }\n    },\n    {\n      \"replaceAllText\": {\n        \"containsText\": {\n          \"text\": \"MicroStory\",\n          \"matchCase\": true\n        },\n        \"replaceText\": \"MiniHistoria\"\n      }\n    }\n  ]\n}\n",
+          "options": {}
+        },
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.2,
+        "position": [
+          -160,
+          -224
+        ],
+        "id": "4539b045-a185-44f8-bca5-d41754d18a20",
+        "name": "ReemplazarTexto.Docs",
+        "alwaysOutputData": false,
+        "credentials": {
+          "googleSlidesOAuth2Api": {
+            "id": "r33mZaNsUtZk4fVS",
+            "name": "Slides.jomBusiness"
+          },
+          "googleOAuth2Api": {
+            "id": "vkWvvbQeke2SGX0V",
+            "name": "Google.jomBusiness"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "method": "DELETE",
+          "url": "=https://www.googleapis.com/drive/v3/files/{{$node[\"CopiarPlantilla.Docs\"].json[\"id\"]}}",
+          "authentication": "predefinedCredentialType",
+          "nodeCredentialType": "googleOAuth2Api",
+          "options": {}
+        },
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.2,
+        "position": [
+          32,
+          -224
+        ],
+        "id": "7e3e95e5-0b73-4406-b5d3-8171f96797a7",
+        "name": "BorrarDoc",
+        "credentials": {
+          "googleOAuth2Api": {
+            "id": "vkWvvbQeke2SGX0V",
+            "name": "Google.jomBusiness"
+          }
+        }
+      }
+    ],
+    "connections": {
+      "ObtenerSlides": {
+        "main": [
+          [
+            {
+              "node": "BorrarSlide",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Edit Fields": {
+        "main": [
+          [
+            {
+              "node": "Facebook.CodigoAlfa",
+              "type": "main",
+              "index": 0
+            },
+            {
+              "node": "Facebook.Smartweb",
+              "type": "main",
+              "index": 0
+            },
+            {
+              "node": "Facebook.Optimiza",
+              "type": "main",
+              "index": 0
+            },
+            {
+              "node": "Instagram.Optimiza",
+              "type": "main",
+              "index": 0
+            },
+            {
+              "node": "CopiarPlantilla.Slides",
+              "type": "main",
+              "index": 0
+            },
+            {
+              "node": "Gmail",
+              "type": "main",
+              "index": 0
+            },
+            {
+              "node": "CopiarPlantilla.Docs",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "When clicking ‘Execute workflow’": {
+        "main": [
+          [
+            {
+              "node": "Edit Fields",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Schedule Trigger": {
+        "main": [
+          [
+            {
+              "node": "Edit Fields",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Facebook.Optimiza": {
+        "main": [
+          [
+            {
+              "node": "Validar.Facebook.Optimiza",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Facebook.CodigoAlfa": {
+        "main": [
+          [
+            {
+              "node": "Validar.CodigoAlfa",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Facebook.Smartweb": {
+        "main": [
+          [
+            {
+              "node": "Validar.SmartWeb",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Instagram.Optimiza": {
+        "main": [
+          [
+            {
+              "node": "Validar.Instagram.Optimiza",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Validar.Facebook.Optimiza": {
+        "main": [
+          [
+            {
+              "node": "If",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "If": {
+        "main": [
+          [
+            {
+              "node": "Send a text message",
+              "type": "main",
+              "index": 0
+            },
+            {
+              "node": "Send.Lead",
+              "type": "main",
+              "index": 0
+            }
+          ],
+          [
+            {
+              "node": "No Operation, do nothing",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Validar.CodigoAlfa": {
+        "main": [
+          [
+            {
+              "node": "If",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Validar.SmartWeb": {
+        "main": [
+          [
+            {
+              "node": "If",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Validar.Instagram.Optimiza": {
+        "main": [
+          [
+            {
+              "node": "If",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Gmail": {
+        "main": [
+          [
+            {
+              "node": "Validar.Gmail",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Validar.Gmail": {
+        "main": [
+          [
+            {
+              "node": "If",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "CopiarPlantilla.Slides": {
+        "main": [
+          [
+            {
+              "node": "Validar.Slides",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Validar.Slides": {
+        "main": [
+          [
+            {
+              "node": "ReemplazarTexto.Slides",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "ReemplazarTexto.Slides": {
+        "main": [
+          [
+            {
+              "node": "ObtenerSlides",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "CopiarPlantilla.Docs": {
+        "main": [
+          [
+            {
+              "node": "Validar.Docs",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Validar.Docs": {
+        "main": [
+          [
+            {
+              "node": "ReemplazarTexto.Docs",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "ReemplazarTexto.Docs": {
+        "main": [
+          [
+            {
+              "node": "BorrarDoc",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      }
+    },
+    "authors": "John Ordóñez Monroy",
+    "name": null,
+    "description": null
+  },
+  "activeVersionId": "3206c48a-7cf7-47fb-be9b-11051460c5ca",
   "connections": {
     "ObtenerSlides": {
       "main": [
@@ -879,8 +1751,8 @@
   },
   "shared": [
     {
-      "createdAt": "2025-09-25T16:10:13.394Z",
       "updatedAt": "2025-09-25T16:10:13.394Z",
+      "createdAt": "2025-09-25T16:10:13.394Z",
       "role": "workflow:owner",
       "workflowId": "OcUacIKzdZ8BOrG8",
       "projectId": "uBzdLipflPbb1Tbz"
@@ -893,20 +1765,20 @@
   },
   "tags": [
     {
-      "createdAt": "2025-07-28T23:16:55.585Z",
       "updatedAt": "2025-07-28T23:16:55.585Z",
+      "createdAt": "2025-07-28T23:16:55.585Z",
       "id": "B0zvrFLy0yNSEhVJ",
       "name": "💡SmartWeb"
     },
     {
-      "createdAt": "2025-07-28T23:13:44.849Z",
       "updatedAt": "2025-07-28T23:13:44.849Z",
+      "createdAt": "2025-07-28T23:13:44.849Z",
       "id": "E7azoCbE6H7Fjix1",
       "name": "✨ Optimiza.ia.pro"
     },
     {
-      "createdAt": "2025-07-18T02:37:28.170Z",
       "updatedAt": "2025-07-18T02:37:28.170Z",
+      "createdAt": "2025-07-18T02:37:28.170Z",
       "id": "Za1YQUqDKWnwNOuD",
       "name": "🤖 IA al mando"
     }
