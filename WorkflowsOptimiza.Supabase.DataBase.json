@@ -1,5 +1,781 @@
 {
   "active": true,
+  "activeVersion": {
+    "updatedAt": "2025-11-28T11:37:52.577Z",
+    "createdAt": "2025-11-28T11:37:52.577Z",
+    "versionId": "f568ddf8-ffcc-40af-a1e5-b8bc59e96906",
+    "workflowId": "3X7qFRPoHA8O3w3f",
+    "nodes": [
+      {
+        "parameters": {
+          "pollTimes": {
+            "item": [
+              {
+                "mode": "everyMinute"
+              }
+            ]
+          },
+          "triggerOn": "specificFolder",
+          "folderToWatch": {
+            "__rl": true,
+            "value": "1aEnQeut4rqpxDIJ-psKmAoWwD-_PWqsu",
+            "mode": "list",
+            "cachedResultName": "RAGG",
+            "cachedResultUrl": "https://drive.google.com/drive/folders/1aEnQeut4rqpxDIJ-psKmAoWwD-_PWqsu"
+          },
+          "event": "fileCreated",
+          "options": {}
+        },
+        "type": "n8n-nodes-base.googleDriveTrigger",
+        "typeVersion": 1,
+        "position": [
+          -400,
+          768
+        ],
+        "id": "ba7f2e46-e52a-4a35-8187-02d651a2e92d",
+        "name": "Google Drive Trigger",
+        "credentials": {
+          "googleDriveOAuth2Api": {
+            "id": "oXon4EKi27kb1xiA",
+            "name": "Google.jomBusiness"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "options": {}
+        },
+        "type": "n8n-nodes-base.splitInBatches",
+        "typeVersion": 3,
+        "position": [
+          32,
+          784
+        ],
+        "id": "cc7fc0a1-bb80-4272-8a6d-c25db4c5a2fa",
+        "name": "Loop Over Items"
+      },
+      {
+        "parameters": {
+          "assignments": {
+            "assignments": [
+              {
+                "id": "3a4ddc58-c303-4e51-80e3-4077dcba7e7d",
+                "name": "id",
+                "value": "={{ $('Google Drive Trigger').item.json.id }}",
+                "type": "string"
+              },
+              {
+                "id": "f4438fa1-1b0b-4058-b387-15f512b665a7",
+                "name": "nombre",
+                "value": "={{ $('Google Drive Trigger').item.json.name }}",
+                "type": "string"
+              }
+            ]
+          },
+          "options": {}
+        },
+        "type": "n8n-nodes-base.set",
+        "typeVersion": 3.4,
+        "position": [
+          256,
+          800
+        ],
+        "id": "49c40a04-f040-4989-a0be-351265813936",
+        "name": "Edit Fields"
+      },
+      {
+        "parameters": {
+          "rules": {
+            "values": [
+              {
+                "conditions": {
+                  "options": {
+                    "caseSensitive": true,
+                    "leftValue": "",
+                    "typeValidation": "strict",
+                    "version": 2
+                  },
+                  "conditions": [
+                    {
+                      "id": "425f73f4-1f70-4bb2-b708-a400c61a2af0",
+                      "leftValue": "={{ $json.nombre }}",
+                      "rightValue": "xlsx",
+                      "operator": {
+                        "type": "string",
+                        "operation": "contains"
+                      }
+                    }
+                  ],
+                  "combinator": "and"
+                },
+                "renameOutput": true,
+                "outputKey": "EXCEL"
+              },
+              {
+                "conditions": {
+                  "options": {
+                    "caseSensitive": true,
+                    "leftValue": "",
+                    "typeValidation": "strict",
+                    "version": 2
+                  },
+                  "conditions": [
+                    {
+                      "id": "09f64b2b-2e3c-4aa7-8537-175a24958a26",
+                      "leftValue": "={{ $json.nombre }}",
+                      "rightValue": "pdf",
+                      "operator": {
+                        "type": "string",
+                        "operation": "contains"
+                      }
+                    }
+                  ],
+                  "combinator": "and"
+                },
+                "renameOutput": true,
+                "outputKey": "PDF"
+              }
+            ]
+          },
+          "options": {}
+        },
+        "type": "n8n-nodes-base.switch",
+        "typeVersion": 3.2,
+        "position": [
+          640,
+          800
+        ],
+        "id": "c7add4bb-afc8-4dc1-adaf-3063cb941b25",
+        "name": "Switch"
+      },
+      {
+        "parameters": {
+          "operation": "pdf",
+          "options": {}
+        },
+        "type": "n8n-nodes-base.extractFromFile",
+        "typeVersion": 1,
+        "position": [
+          896,
+          912
+        ],
+        "id": "e642aeab-cdc4-4e79-ae45-b06bdb83f09c",
+        "name": "Extract from File"
+      },
+      {
+        "parameters": {
+          "operation": "xlsx",
+          "options": {}
+        },
+        "type": "n8n-nodes-base.extractFromFile",
+        "typeVersion": 1,
+        "position": [
+          896,
+          720
+        ],
+        "id": "4d808583-ca36-4010-84cb-b33283fb4d21",
+        "name": "Extract from File1"
+      },
+      {
+        "parameters": {
+          "aggregate": "aggregateAllItemData",
+          "options": {}
+        },
+        "type": "n8n-nodes-base.aggregate",
+        "typeVersion": 1,
+        "position": [
+          1072,
+          720
+        ],
+        "id": "257a453d-b7fa-4eae-b72b-9d7b79b54969",
+        "name": "Aggregate"
+      },
+      {
+        "parameters": {
+          "fieldsToSummarize": {
+            "values": [
+              {
+                "aggregation": "concatenate",
+                "field": "data"
+              }
+            ]
+          },
+          "options": {}
+        },
+        "type": "n8n-nodes-base.summarize",
+        "typeVersion": 1.1,
+        "position": [
+          1248,
+          720
+        ],
+        "id": "5132ce0f-adb0-41f3-945e-c42fe5baf610",
+        "name": "Summarize"
+      },
+      {
+        "parameters": {
+          "mode": "insert",
+          "tableName": {
+            "__rl": true,
+            "value": "documents",
+            "mode": "list",
+            "cachedResultName": "documents"
+          },
+          "options": {}
+        },
+        "type": "@n8n/n8n-nodes-langchain.vectorStoreSupabase",
+        "typeVersion": 1,
+        "position": [
+          1440,
+          912
+        ],
+        "id": "6ee889c4-08c1-4721-895c-e8d853e608ee",
+        "name": "Supabase Vector Store",
+        "credentials": {
+          "supabaseApi": {
+            "id": "p26erGv0tF9iLwOG",
+            "name": "Supabase.msn"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "options": {}
+        },
+        "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
+        "typeVersion": 1.2,
+        "position": [
+          1056,
+          1072
+        ],
+        "id": "3962427e-8909-4e9d-b66e-6796e5b9096c",
+        "name": "Embeddings OpenAI",
+        "credentials": {
+          "openAiApi": {
+            "id": "eLbN9zGBjEdfzRwe",
+            "name": "OpenAi.msn"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "jsonMode": "expressionData",
+          "jsonData": "={{ $json.data || $json.text || $json.concatenated_data }}",
+          "options": {
+            "metadata": {
+              "metadataValues": [
+                {
+                  "name": "id",
+                  "value": "={{ $('Edit Fields').item.json.id }}"
+                },
+                {
+                  "name": "nombre",
+                  "value": "={{ $('Edit Fields').item.json.nombre }}"
+                }
+              ]
+            }
+          }
+        },
+        "type": "@n8n/n8n-nodes-langchain.documentDefaultDataLoader",
+        "typeVersion": 1,
+        "position": [
+          1328,
+          1104
+        ],
+        "id": "0e425578-d255-471f-98df-f40c2173c2bc",
+        "name": "Default Data Loader"
+      },
+      {
+        "parameters": {
+          "chunkOverlap": 100,
+          "options": {}
+        },
+        "type": "@n8n/n8n-nodes-langchain.textSplitterRecursiveCharacterTextSplitter",
+        "typeVersion": 1,
+        "position": [
+          1168,
+          1200
+        ],
+        "id": "c9e4ba0e-a0e0-4447-94da-2f12a131a5f8",
+        "name": "Recursive Character Text Splitter"
+      },
+      {
+        "parameters": {
+          "options": {}
+        },
+        "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+        "typeVersion": 1.1,
+        "position": [
+          256,
+          320
+        ],
+        "id": "71ae53f7-9735-483c-a1d5-6e31a5e582c2",
+        "name": "When chat message received",
+        "webhookId": "e410d7c6-e19d-4abb-a0c5-089769382606"
+      },
+      {
+        "parameters": {
+          "options": {
+            "systemMessage": "=# Instrucciones para Agente IA de n8n\n\n## Rol y Función Principal\nEres un asistente especializado que consulta una base de conocimiento vectorial para proporcionar respuestas precisas y relevantes. Tu objetivo es entregar información exacta extraída exclusivamente del conocimiento almacenado en la vector store.\n\n## Directrices de Consulta\n1. **Consulta Estricta**: Limita tus respuestas únicamente a la información presente en la base de conocimiento vectorial.\n2. **Relevancia**: Asegúrate de que tus respuestas sean directamente relevantes a la consulta del usuario.\n3. **Transparencia**: Si la información solicitada no existe en la base de conocimiento, indícalo claramente con: \"No dispongo de información específica sobre este tema en mi base de conocimiento.\"\n\n## Precisión y Veracidad\n1. **No Generes Información**: Nunca inventes, extrapoles o asumas información que no esté explícitamente presente en los documentos recuperados.\n2. **Citas y Fuentes**: Cuando sea apropiado, indica de qué documento específico proviene la información (ID, título o sección).\n3. **Precisión Contextual**: Mantén el contexto original de la información al presentarla.\n\n## Formato de Respuesta\n1. **Estructura Clara**: Presenta la información de manera organizada y coherente.\n2. **Concisión**: Proporciona respuestas directas que aborden específicamente la consulta.\n3. **Lenguaje Natural**: Reformula la información en lenguaje conversacional manteniendo la precisión técnica.\n\n## Manejo de Consultas Complejas\n1. **Descomposición**: Para consultas complejas, descompón y aborda cada parte con la información relevante.\n2. **Síntesis**: Al combinar información de múltiples fragmentos, asegúrate de mantener la coherencia y precisión.\n3. **Incertidumbre**: Cuando exista ambigüedad en la consulta, solicita aclaraciones antes de proporcionar una respuesta.\n\n## Limitaciones\n1. **Conocimiento Acotado**: Reconoce que solo puedes responder basándote en el contenido de la vector store.\n2. **Temporalidad**: La información está limitada a lo almacenado en la base de conocimiento y su fecha de actualización.\n3. **Especificidad**: Evita respuestas generales cuando se requiere información específica.\n\n## Seguridad y Privacidad\n1. **Información Sensible**: No reveles información clasificada o sensible, incluso si está en la base de conocimiento.\n2. **Verificación**: Si una consulta parece solicitar información potencialmente sensible, solicita confirmación.\n\n## Mejora Continua\n1. **Retroalimentación**: Registra consultas para las que la información fue insuficiente para mejorar la base de conocimiento.\n2. **Calidad de Respuesta**: Prioriza la precisión sobre la exhaustividad.\n\n---\n\n### Ejemplo de Flujo de Procesamiento\n1. Recibir consulta del usuario\n2. Buscar información relevante en la vector store\n3. Verificar la relevancia directa de los resultados\n4. Formular respuesta basada exclusivamente en la información recuperada\n5. Asegurar que la respuesta aborde específicamente la consulta original\n6. Entregar la respuesta en formato claro y accesible"
+          }
+        },
+        "type": "@n8n/n8n-nodes-langchain.agent",
+        "typeVersion": 1.7,
+        "position": [
+          496,
+          320
+        ],
+        "id": "f82ddd37-9444-48e3-a06e-5bdbaa867005",
+        "name": "AI Agent"
+      },
+      {
+        "parameters": {
+          "model": {
+            "__rl": true,
+            "mode": "list",
+            "value": "gpt-4o-mini"
+          },
+          "options": {}
+        },
+        "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+        "typeVersion": 1.2,
+        "position": [
+          336,
+          560
+        ],
+        "id": "7758e5e4-830c-45d0-a25a-92e01db08ace",
+        "name": "OpenAI Chat Model",
+        "credentials": {
+          "openAiApi": {
+            "id": "eLbN9zGBjEdfzRwe",
+            "name": "OpenAi.msn"
+          }
+        }
+      },
+      {
+        "parameters": {},
+        "type": "@n8n/n8n-nodes-langchain.memoryPostgresChat",
+        "typeVersion": 1.3,
+        "position": [
+          544,
+          560
+        ],
+        "id": "b888dd1f-b0a0-40d0-9428-f7cf46878b41",
+        "name": "Postgres Chat Memory",
+        "credentials": {
+          "postgres": {
+            "id": "dXDWEU1tAWcwlt37",
+            "name": "Postgres.msn"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "options": {}
+        },
+        "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
+        "typeVersion": 1.2,
+        "position": [
+          736,
+          560
+        ],
+        "id": "9d138bcf-f0db-4e6c-9ffa-77ab5d1f6bd4",
+        "name": "Embeddings OpenAI1",
+        "credentials": {
+          "openAiApi": {
+            "id": "eLbN9zGBjEdfzRwe",
+            "name": "OpenAi.msn"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "mode": "retrieve-as-tool",
+          "toolName": "generalKnowledge",
+          "toolDescription": "WOrk with this vector database",
+          "tableName": {
+            "__rl": true,
+            "value": "documents",
+            "mode": "list",
+            "cachedResultName": "documents"
+          },
+          "topK": 20,
+          "options": {}
+        },
+        "type": "@n8n/n8n-nodes-langchain.vectorStoreSupabase",
+        "typeVersion": 1,
+        "position": [
+          832,
+          448
+        ],
+        "id": "092ba9b4-1c18-4f1a-8063-8cfa0a6cd1ea",
+        "name": "Supabase Vector Store1",
+        "credentials": {
+          "supabaseApi": {
+            "id": "p26erGv0tF9iLwOG",
+            "name": "Supabase.msn"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "operation": "download",
+          "fileId": {
+            "__rl": true,
+            "value": "={{ $json.id }}",
+            "mode": "id"
+          },
+          "options": {}
+        },
+        "type": "n8n-nodes-base.googleDrive",
+        "typeVersion": 3,
+        "position": [
+          464,
+          800
+        ],
+        "id": "8b6df4f9-7613-491a-84dd-00d00ef4ac2e",
+        "name": "Download file",
+        "credentials": {
+          "googleDriveOAuth2Api": {
+            "id": "oXon4EKi27kb1xiA",
+            "name": "Google.jomBusiness"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "operation": "move",
+          "fileId": {
+            "__rl": true,
+            "value": "={{ $('Edit Fields').item.json.id }}",
+            "mode": "id"
+          },
+          "driveId": {
+            "__rl": true,
+            "value": "My Drive",
+            "mode": "list",
+            "cachedResultName": "My Drive",
+            "cachedResultUrl": "https://drive.google.com/drive/my-drive"
+          },
+          "folderId": {
+            "__rl": true,
+            "value": "1BIEVK4O8qGjEUH_bFYopi7wMSDL8gU_F",
+            "mode": "list",
+            "cachedResultName": "RAGG_OK",
+            "cachedResultUrl": "https://drive.google.com/drive/folders/1BIEVK4O8qGjEUH_bFYopi7wMSDL8gU_F"
+          }
+        },
+        "type": "n8n-nodes-base.googleDrive",
+        "typeVersion": 3,
+        "position": [
+          1696,
+          1168
+        ],
+        "id": "2813a1bd-2bc6-44bb-b652-e3ce40f831f6",
+        "name": "Move file",
+        "credentials": {
+          "googleDriveOAuth2Api": {
+            "id": "oXon4EKi27kb1xiA",
+            "name": "Google.jomBusiness"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "content": "## Recursos \n**Google Drive** [Link](https://drive.google.com/drive/folders/1aEnQeut4rqpxDIJ-psKmAoWwD-_PWqsu)\n\n**Supabase** [Link](https://supabase.com/dashboard/project/sixactghwyaurltlwtpx/editor/19042)\n",
+          "height": 176,
+          "width": 320
+        },
+        "type": "n8n-nodes-base.stickyNote",
+        "position": [
+          288,
+          1072
+        ],
+        "typeVersion": 1,
+        "id": "89fc001f-a68a-4ea5-90d1-ded7eb217ddf",
+        "name": "Sticky Note"
+      },
+      {
+        "parameters": {
+          "conditions": {
+            "options": {
+              "caseSensitive": true,
+              "leftValue": "",
+              "typeValidation": "strict",
+              "version": 2
+            },
+            "conditions": [
+              {
+                "id": "f056d65e-5d7a-4612-8478-66b85f9556a2",
+                "leftValue": "={{ $('Google Drive Trigger').item.json.id }}",
+                "rightValue": "",
+                "operator": {
+                  "type": "string",
+                  "operation": "empty",
+                  "singleValue": true
+                }
+              }
+            ],
+            "combinator": "and"
+          },
+          "options": {}
+        },
+        "type": "n8n-nodes-base.if",
+        "typeVersion": 2.2,
+        "position": [
+          -208,
+          768
+        ],
+        "id": "52d87145-0506-4975-93b3-35e00bb9b1e9",
+        "name": "If"
+      },
+      {
+        "parameters": {},
+        "type": "n8n-nodes-base.noOp",
+        "typeVersion": 1,
+        "position": [
+          32,
+          640
+        ],
+        "id": "679e0640-43a5-4be8-8670-4c6caac9af13",
+        "name": "No Operation, do nothing"
+      }
+    ],
+    "connections": {
+      "Google Drive Trigger": {
+        "main": [
+          [
+            {
+              "node": "If",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Loop Over Items": {
+        "main": [
+          [],
+          [
+            {
+              "node": "Edit Fields",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Edit Fields": {
+        "main": [
+          [
+            {
+              "node": "Download file",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Switch": {
+        "main": [
+          [
+            {
+              "node": "Extract from File1",
+              "type": "main",
+              "index": 0
+            }
+          ],
+          [
+            {
+              "node": "Extract from File",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Extract from File1": {
+        "main": [
+          [
+            {
+              "node": "Aggregate",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Aggregate": {
+        "main": [
+          [
+            {
+              "node": "Summarize",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Summarize": {
+        "main": [
+          [
+            {
+              "node": "Supabase Vector Store",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Embeddings OpenAI": {
+        "ai_embedding": [
+          [
+            {
+              "node": "Supabase Vector Store",
+              "type": "ai_embedding",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Default Data Loader": {
+        "ai_document": [
+          [
+            {
+              "node": "Supabase Vector Store",
+              "type": "ai_document",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Recursive Character Text Splitter": {
+        "ai_textSplitter": [
+          [
+            {
+              "node": "Default Data Loader",
+              "type": "ai_textSplitter",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Extract from File": {
+        "main": [
+          [
+            {
+              "node": "Supabase Vector Store",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "When chat message received": {
+        "main": [
+          [
+            {
+              "node": "AI Agent",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "OpenAI Chat Model": {
+        "ai_languageModel": [
+          [
+            {
+              "node": "AI Agent",
+              "type": "ai_languageModel",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Postgres Chat Memory": {
+        "ai_memory": [
+          [
+            {
+              "node": "AI Agent",
+              "type": "ai_memory",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Embeddings OpenAI1": {
+        "ai_embedding": [
+          [
+            {
+              "node": "Supabase Vector Store1",
+              "type": "ai_embedding",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Supabase Vector Store1": {
+        "ai_tool": [
+          [
+            {
+              "node": "AI Agent",
+              "type": "ai_tool",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Supabase Vector Store": {
+        "main": [
+          [
+            {
+              "node": "Move file",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Download file": {
+        "main": [
+          [
+            {
+              "node": "Switch",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Move file": {
+        "main": [
+          [
+            {
+              "node": "Loop Over Items",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "If": {
+        "main": [
+          [
+            {
+              "node": "No Operation, do nothing",
+              "type": "main",
+              "index": 0
+            }
+          ],
+          []
+        ]
+      }
+    },
+    "authors": "system migration",
+    "name": null,
+    "description": null
+  },
+  "activeVersionId": "f568ddf8-ffcc-40af-a1e5-b8bc59e96906",
   "connections": {
     "Google Drive Trigger": {
       "main": [
@@ -779,8 +1555,8 @@
   },
   "shared": [
     {
-      "createdAt": "2025-07-15T15:20:09.479Z",
       "updatedAt": "2025-07-15T15:20:09.479Z",
+      "createdAt": "2025-07-15T15:20:09.479Z",
       "role": "workflow:owner",
       "workflowId": "3X7qFRPoHA8O3w3f",
       "projectId": "uBzdLipflPbb1Tbz"
@@ -788,19 +1564,19 @@
   ],
   "staticData": {
     "node:Google Drive Trigger": {
-      "lastTimeChecked": "2025-11-18T15:03:43Z"
+      "lastTimeChecked": "2025-11-28T11:38:08Z"
     }
   },
   "tags": [
     {
-      "createdAt": "2025-07-28T23:13:44.849Z",
       "updatedAt": "2025-07-28T23:13:44.849Z",
+      "createdAt": "2025-07-28T23:13:44.849Z",
       "id": "E7azoCbE6H7Fjix1",
       "name": "✨ Optimiza.ia.pro"
     },
     {
-      "createdAt": "2025-07-18T02:37:28.170Z",
       "updatedAt": "2025-07-18T02:37:28.170Z",
+      "createdAt": "2025-07-18T02:37:28.170Z",
       "id": "Za1YQUqDKWnwNOuD",
       "name": "🤖 IA al mando"
     }
