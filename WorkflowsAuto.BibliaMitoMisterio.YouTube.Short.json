@@ -1,5 +1,7 @@
 {
   "active": false,
+  "activeVersion": null,
+  "activeVersionId": null,
   "connections": {
     "Split Out": {
       "main": [
@@ -1040,8 +1042,8 @@
   },
   "shared": [
     {
-      "createdAt": "2025-07-24T03:17:23.482Z",
       "updatedAt": "2025-07-24T03:17:23.482Z",
+      "createdAt": "2025-07-24T03:17:23.482Z",
       "role": "workflow:owner",
       "workflowId": "TS7lDrYoeZGGcrdF",
       "projectId": "uBzdLipflPbb1Tbz"
@@ -1050,8 +1052,8 @@
   "staticData": null,
   "tags": [
     {
-      "createdAt": "2025-07-18T02:37:28.170Z",
       "updatedAt": "2025-07-18T02:37:28.170Z",
+      "createdAt": "2025-07-18T02:37:28.170Z",
       "id": "Za1YQUqDKWnwNOuD",
       "name": "🤖 IA al mando"
     }
