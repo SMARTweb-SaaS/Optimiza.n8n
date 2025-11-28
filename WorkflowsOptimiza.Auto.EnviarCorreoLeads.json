@@ -1,5 +1,7 @@
 {
   "active": false,
+  "activeVersion": null,
+  "activeVersionId": null,
   "connections": {
     "Generador.Msg": {
       "main": [
@@ -493,8 +495,8 @@
   },
   "shared": [
     {
-      "createdAt": "2025-09-24T16:43:35.346Z",
       "updatedAt": "2025-09-24T16:43:35.346Z",
+      "createdAt": "2025-09-24T16:43:35.346Z",
       "role": "workflow:owner",
       "workflowId": "RBw884jVprwhUG19",
       "projectId": "uBzdLipflPbb1Tbz"
@@ -503,14 +505,14 @@
   "staticData": null,
   "tags": [
     {
-      "createdAt": "2025-07-28T23:13:44.849Z",
       "updatedAt": "2025-07-28T23:13:44.849Z",
+      "createdAt": "2025-07-28T23:13:44.849Z",
       "id": "E7azoCbE6H7Fjix1",
       "name": "✨ Optimiza.ia.pro"
     },
     {
-      "createdAt": "2025-07-18T02:37:28.170Z",
       "updatedAt": "2025-07-18T02:37:28.170Z",
+      "createdAt": "2025-07-18T02:37:28.170Z",
       "id": "Za1YQUqDKWnwNOuD",
       "name": "🤖 IA al mando"
     }
