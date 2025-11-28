@@ -1,5 +1,7 @@
 {
   "active": false,
+  "activeVersion": null,
+  "activeVersionId": null,
   "connections": {
     "When clicking ‘Execute workflow’": {
       "main": [
@@ -625,8 +627,8 @@
   },
   "shared": [
     {
-      "createdAt": "2025-09-16T15:08:09.424Z",
       "updatedAt": "2025-09-16T15:08:09.424Z",
+      "createdAt": "2025-09-16T15:08:09.424Z",
       "role": "workflow:owner",
       "workflowId": "KzD5yr0TYeX5sETT",
       "projectId": "uBzdLipflPbb1Tbz"
@@ -635,8 +637,8 @@
   "staticData": null,
   "tags": [
     {
-      "createdAt": "2025-07-28T23:05:51.332Z",
       "updatedAt": "2025-07-28T23:05:51.332Z",
+      "createdAt": "2025-07-28T23:05:51.332Z",
       "id": "zSAshwfFPUXVrLqy",
       "name": "🦊 Codigo.Alfa"
     }
