@@ -12,17 +12,6 @@
         ]
       ]
     },
-    "Update a row": {
-      "main": [
-        [
-          {
-            "node": "Loop Over Items",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "On form submission": {
       "main": [
         [
@@ -36,21 +25,27 @@
     },
     "Loop Over Items": {
       "main": [
-        [],
         [
           {
-            "node": "Get a row",
+            "node": "Aggregate",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Loop Over Items",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "Get a row": {
+    "Aggregate": {
       "main": [
         [
           {
-            "node": "Update a row",
+            "node": "Send a text message",
             "type": "main",
             "index": 0
           }
@@ -93,36 +88,6 @@
       ],
       "id": "01ed6a1e-716d-4cfb-9e00-b444026e2d2e",
       "name": "Get many rows",
-      "credentials": {
-        "baserowApi": {
-          "id": "SNrllAn2sJZ5Lm7r",
-          "name": "Baserow.msn"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "operation": "update",
-        "databaseId": 324695,
-        "tableId": 747259,
-        "rowId": "={{ $('Get a row').item.json.id }}",
-        "fieldsUi": {
-          "fieldValues": [
-            {
-              "fieldId": 6301132,
-              "fieldValue": "={{ $('Get a row').item.json.id }}"
-            }
-          ]
-        }
-      },
-      "type": "n8n-nodes-base.baserow",
-      "typeVersion": 1,
-      "position": [
-        240,
-        144
-      ],
-      "id": "b8e14a5c-2132-4eea-b81b-29d551ca61d1",
-      "name": "Update a row",
       "credentials": {
         "baserowApi": {
           "id": "SNrllAn2sJZ5Lm7r",
@@ -188,32 +153,173 @@
         128
       ],
       "id": "0afaf0e9-a5da-480e-bc56-b85ccc2d3160",
-      "name": "Loop Over Items"
+      "name": "Loop Over Items",
+      "executeOnce": false
     },
     {
       "parameters": {
-        "operation": "get",
-        "databaseId": 324695,
-        "tableId": 747259,
-        "rowId": "={{ $json.id }}"
+        "chatId": "1704819492",
+        "text": "=Hola...",
+        "additionalFields": {
+          "appendAttribution": false
+        }
       },
-      "type": "n8n-nodes-base.baserow",
-      "typeVersion": 1,
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
       "position": [
-        -48,
-        144
+        208,
+        112
       ],
-      "id": "443f4ad1-5961-4f66-a47a-c37700c567db",
-      "name": "Get a row",
+      "id": "53ea8dbf-283d-4953-9bea-e1d4921cc115",
+      "name": "Send a text message",
+      "webhookId": "47768359-131c-4dcd-9e2b-e3a0a44fb69e",
       "credentials": {
-        "baserowApi": {
-          "id": "SNrllAn2sJZ5Lm7r",
-          "name": "Baserow.msn"
+        "telegramApi": {
+          "id": "zxkALNj2uZW1uxoX",
+          "name": "Telegram.jomBusiness"
         }
       }
+    },
+    {
+      "parameters": {
+        "fieldsToAggregate": {
+          "fieldToAggregate": [
+            {
+              "fieldToAggregate": "id"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.aggregate",
+      "typeVersion": 1,
+      "position": [
+        -16,
+        112
+      ],
+      "id": "f2726f99-1230-45f8-9d4c-2fabc052b8a3",
+      "name": "Aggregate"
     }
   ],
-  "pinData": {},
+  "pinData": {
+    "On form submission": [
+      {
+        "json": {
+          "Mitología": "Griega",
+          "Limite": 3,
+          "submittedAt": "2025-11-27T12:19:02.077-05:00",
+          "formMode": "test"
+        }
+      }
+    ],
+    "Get many rows": [
+      {
+        "json": {
+          "id": 2,
+          "order": "2.00000000000000000000",
+          "Volumen": "La PURGA de los DIOSES GRIEGOS: El Final del Olimpo",
+          "Mitologia": "Griega",
+          "DeidadUno": "Zeus (Rayo y el Cielo)",
+          "DeidadDos": "Hades (Inframundo y Muertos)",
+          "Titulo": "El Cielo y el Abismo: Cuando los Dioses Rompieron el Mundo",
+          "SubTitulo": "La batalla que partió el firmamento y desató el caos eterno entre Zeus y Hades",
+          "Sinopsis": "Un duelo de proporciones cósmicas donde el rayo desafía a la oscuridad, y el destino de los vivos y los muertos pende de un hilo. García Márquez encontraría en este microcuento el eco de su realismo mágico: **deidades que sangran, montañas que se arrodillan y un silencio que lo cambia todo**. ¿Qué ocurre cuando el cielo y el inframundo chocan sin testigos mortales que los detengan?",
+          "Relato": "Desde el **Olimpo resquebrajado**, Zeus observaba cómo **Hades emergía de las fisuras del mundo**, arrastrando consigo el aliento helado de mil almas olvidadas. *‘El inframundo ya no es tuyo, hermano’*, susurró el dios del cielo mientras el **relámpago eterno** temblaba en su puño. Hades, envuelto en su capa de **sombras que devoraban la luz**, sonrió con la crueldad de quien sabe que **la muerte no negocia**: *‘Viniste a reclamar lo que nunca fue tuyo’*. Entre ellos, el **abismo se abrió como una herida viva**, y el aire olió a azufre y tormentas por nacer.\\n\\nZeus **alzó el Martillo de los Cielos**, forjado en el yunque de los titanes, y el primer golpe **partió el horizonte en dos**. Los **picos del Pelión se postraron**, y los ríos fluyeron al revés, arrastrando peces de plata hacia las nubes. *‘¡Que el firmamento recuerde mi nombre!’*, rugió, mientras **mil rayos serpenteaban** desde sus ojos, reduciendo a cenizas los árboles que osaron mirarlo. Hasta los **cuervos de Hades** huyeron, sus alas convertidas en brasas.\\n\\nPero Hades **no se arrodilló**. Con un gesto, **las grietas del inframundo vomitaron espectros**, y sus **manos esqueléticas** atraparon los rayos como si fueran hilos de seda. *‘Tu luz es solo un suspiro en mi reino’*, murmuró, mientras **la tierra bajo Zeus se pudría**, brotando flores negras que **ahogaban el trueno en su fragancia**. El choque de sus poderes **hizo temblar el eje del mundo**: los **volcanes escupieron lágrimas de obsidiana**, y el **sol palideció**, avergonzado.\\n\\nEl dios del inframundo **desplegó su Guadaña de Ébano**, tallada en los huesos de los dioses primigenios, y su hoja **cortó el viento en silenciosos aullidos**. Zeus, herido en el hombro por un **filamento de oscuridad**, respondió **invocando el Escudo del Éter**, tejido con las tormentas del caos. *‘¡Ningún muerto gobernará a los vivos!’*, gritó, pero su voz se perdió cuando **Hades liberó el Lamento de las Sombras**: un coro de almas que **congeló la sangre en las venas del Olimpo**. Los **pájaros cayeron del cielo, convertidos en estatuas de sal**.\\n\\nDe pronto, **el tiempo se detuvo**. Zeus, con el pecho ardiente y la barba chamuscada por el **veneno de la noche eterna**, **clavó su tridente en el corazón de Hades**... pero la hoja **atravesó solo sombra**. Hades, a su vez, **cerró sus puños sobre el pecho de Zeus**, y por un instante, **el dios del cielo sintió el peso de todas las tumbas del mundo**. Entonces, **algo imposible sucedió**: los dos dioses **se miraron**, y en ese silencio, **el universo contuvo el aliento**.\\n\\nNo hubo vencedor. **El rayo y la oscuridad se fundieron en un abrazo letal**, y donde sus cuerpos se tocaron, **nació el primer eclipse absoluto**. Los mortales, al alzaron los ojos, vieron un **cielo rasgado en dos**: mitad día eterno, mitad noche sin estrellas. *‘Hermano...’*, susurró Zeus, pero Hades ya se desvanecía, arrastrando consigo **la mitad de la luz del mundo**. Desde entonces, **los días son más cortos**, y en el crepúsculo, si escuchas con atención, **aún se oye el eco de su risa compartida**—la de dos dioses que aprendieron, demasiado tarde, que **el poder no llena el vacío de un hermano perdido**.\\n\\n\\nEl clímax revela que el verdadero conflicto no era el dominio, sino **la soledad divina**: su abrazo crea un equilibrio forzado, donde la victoria se convierte en **pérdida eterna compartida**.\\n\\n\\n\\nZeus\\n### Zeus | Dios del Rayo\n> *\"El trueno es mi voz, el rayo mi fuerza.\"*\n\n* **Arma:** Rayo Divino\n* **Poder:** Control del Tiempo (Invocación de tormentas)\n* **Estadísticas:**\n    * ⚔️ Fuerza: 10 ██████████\n    * 🌀 Caos: 8 ████████░░\n\\n\\n\\n\\nHades\\n### Hades | Señor del Inframundo\n> *\"No temas la muerte, es solo un nuevo comienzo.\"*\n\n* **Arma:** Cosechador de Almas\n* **Poder:** Dominio sobre los Muertos (Resurrección temporal)\n* **Estadísticas:**\n    * ⚔️ Fuerza: 7 ███████░░░\n    * 🌀 Caos: 9 █████████░░",
+          "CTA": "¿Qué harías si el cielo y el inframundo se disputaran tu alma? **Comparte este duelo cósmico y descubre qué lado llevas dentro**. 🌩️⚰️ #EligeTuDestino",
+          "Hashtag": "#ZeusVsHades,#BatallaDeDioses,#MitologíaOscura,#RealismoMágicoÉpico,#ElAbismoYElCielo,#MicrocuentoTrágico,#LeyendasOlvidadas,#ElPesoDeLaEternidad",
+          "PromptImagen": "A hyperrealistic, highly detailed ancient dark fantasy illustration in A4 vertical format (21 cm × 29.7 cm), depicting the epic battle between Zeus and Hades. Zeus stands on the left, wielding a crackling thunderbolt hammer, his golden beard singed by blackened frost, lightning veins pulsing across his bare chest, and the Olympus mountains crumbling behind him. Hades, on the right, emerges from a chasm of skeletal hands and swirling shadows, his obsidian scythe glowing with eerie green runes, his tattered cloak made of screaming faces, while dead trees sprout from his footsteps. Between them, the sky is split: half blinding storm, half abyssal void with floating spectral chains. The ground is fractured, revealing rivers of molten gold and black blood. Style inspired by Zdzisław Beksiński’s nightmares and Luis Royo’s dark grandeur, ultra HD, cinematic lighting, with a focus on the divine despair in their eyes.",
+          "Imagen": [],
+          "PromptVideo": "A 5-second hyperrealistic dark fantasy animation teaser in A4 vertical ratio, slow-motion scene: Zeus raises his thunderbolt hammer as jagged lightning splits the sky, while Hades lunges forward, his scythe dragging chains of lost souls. The camera zooms out slightly as their weapons clash, creating a shockwave that shatters nearby pillars of stone into spectral dust. The background shows a storm merging with swirling shadows, and the ground cracks to reveal glowing embers. Subtle details: Zeus’ eyes flicker with golden fire, Hades’ cloak writhes like smoke, and the wind carries whispers of the dead. Moody, cinematic, with a color palette of stormy blues, obsidian blacks, and veins of sickly green. Inspired by the scale of Shadow of the Colossus and the aesthetic of Dark Souls, ultra HD, 120fps, depth of field.",
+          "Video": [],
+          "Estado": {
+            "id": 4540063,
+            "value": "Borrador",
+            "color": "darker-yellow"
+          },
+          "Facebook": false,
+          "Instagram": false,
+          "YouTube": false,
+          "TikTok": false,
+          "Gumroad": false,
+          "Amazon": false,
+          "FechaCreacion": "2025-11-20T20:43:21.240722Z",
+          "FechaActualizacion": "2025-11-27T16:44:47.708135Z",
+          "PromptCardDeidadUno": "A striking digital art composition divided vertically. The left side features a powerful and majestic depiction of Zeus, the God of Thunder, standing atop a stormy mountain peak. He wields the glowing Divine Lightning Bolt in his right hand, with crackling energy and dynamic lightning storm clouds swirling dramatically around him. His expression is fierce and commanding, embodying the essence of a god. The background shows dark thunderclouds and flashes of lightning illuminating the night sky. The right side is a clean, decorative text panel with an ornate border of stylized lightning bolts and thunder motifs. The panel clearly displays the following text, which must be extremely legible and printed in a BOLD, modern font: 'Zeus | Dios del Rayo\n\"El trueno es mi voz, el rayo mi fuerza.\"\n**ARMA:** Rayo Divino\n**PODER:** Control del Tiempo (Invocación de tormentas)\n**ESTADÍSTICAS:**\n**FUERZA:** 10/10\n**CAOS:** 8/10'.",
+          "PromptCardDeidadDos": "A striking digital art composition divided vertically. The left side features a powerful and majestic depiction of Zeus, the God of Thunder, standing atop a stormy mountain peak. He wields the glowing Divine Lightning Bolt in his right hand, with crackling energy and dynamic lightning storm clouds swirling dramatically around him. His expression is fierce and commanding, embodying the essence of a god. The background shows dark thunderclouds and flashes of lightning illuminating the night sky. The right side is a clean, decorative text panel with an ornate border of stylized lightning bolts and thunder motifs. The panel clearly displays the following text, which must be extremely legible and printed in a BOLD, modern font: 'Zeus | Dios del Rayo\n\"El trueno es mi voz, el rayo mi fuerza.\"\n**ARMA:** Rayo Divino\n**PODER:** Control del Tiempo (Invocación de tormentas)\n**ESTADÍSTICAS:**\n**FUERZA:** 10/10\n**CAOS:** 8/10'."
+        }
+      },
+      {
+        "json": {
+          "id": 3,
+          "order": "3.00000000000000000000",
+          "Volumen": "La PURGA de los DIOSES GRIEGOS: El Final del Olimpo",
+          "Mitologia": "Griega",
+          "DeidadUno": "Poseidón (Océanos y Terremotos)",
+          "DeidadDos": "Atenea (Estrategia y Sabiduría)",
+          "Titulo": "El Cielo y el Abismo: Cuando los Dioses Rompieron el Mundo",
+          "SubTitulo": "La batalla que partió el firmamento y desató el caos eterno entre Zeus y Hades",
+          "Sinopsis": "Un duelo de proporciones cósmicas donde el rayo desafía a la oscuridad, y el destino de los vivos y los muertos pende de un hilo. García Márquez encontraría en este microcuento el eco de su realismo mágico: **deidades que sangran, montañas que se arrodillan y un silencio que lo cambia todo**. ¿Qué ocurre cuando el cielo y el inframundo chocan sin testigos mortales que los detengan?",
+          "Relato": "Desde el **Olimpo resquebrajado**, Zeus observaba cómo **Hades emergía de las fisuras del mundo**, arrastrando consigo el aliento helado de mil almas olvidadas. *‘El inframundo ya no es tuyo, hermano’*, susurró el dios del cielo mientras el **relámpago eterno** temblaba en su puño. Hades, envuelto en su capa de **sombras que devoraban la luz**, sonrió con la crueldad de quien sabe que **la muerte no negocia**: *‘Viniste a reclamar lo que nunca fue tuyo’*. Entre ellos, el **abismo se abrió como una herida viva**, y el aire olió a azufre y tormentas por nacer.\\n\\nZeus **alzó el Martillo de los Cielos**, forjado en el yunque de los titanes, y el primer golpe **partió el horizonte en dos**. Los **picos del Pelión se postraron**, y los ríos fluyeron al revés, arrastrando peces de plata hacia las nubes. *‘¡Que el firmamento recuerde mi nombre!’*, rugió, mientras **mil rayos serpenteaban** desde sus ojos, reduciendo a cenizas los árboles que osaron mirarlo. Hasta los **cuervos de Hades** huyeron, sus alas convertidas en brasas.\\n\\nPero Hades **no se arrodilló**. Con un gesto, **las grietas del inframundo vomitaron espectros**, y sus **manos esqueléticas** atraparon los rayos como si fueran hilos de seda. *‘Tu luz es solo un suspiro en mi reino’*, murmuró, mientras **la tierra bajo Zeus se pudría**, brotando flores negras que **ahogaban el trueno en su fragancia**. El choque de sus poderes **hizo temblar el eje del mundo**: los **volcanes escupieron lágrimas de obsidiana**, y el **sol palideció**, avergonzado.\\n\\nEl dios del inframundo **desplegó su Guadaña de Ébano**, tallada en los huesos de los dioses primigenios, y su hoja **cortó el viento en silenciosos aullidos**. Zeus, herido en el hombro por un **filamento de oscuridad**, respondió **invocando el Escudo del Éter**, tejido con las tormentas del caos. *‘¡Ningún muerto gobernará a los vivos!’*, gritó, pero su voz se perdió cuando **Hades liberó el Lamento de las Sombras**: un coro de almas que **congeló la sangre en las venas del Olimpo**. Los **pájaros cayeron del cielo, convertidos en estatuas de sal**.\\n\\nDe pronto, **el tiempo se detuvo**. Zeus, con el pecho ardiente y la barba chamuscada por el **veneno de la noche eterna**, **clavó su tridente en el corazón de Hades**... pero la hoja **atravesó solo sombra**. Hades, a su vez, **cerró sus puños sobre el pecho de Zeus**, y por un instante, **el dios del cielo sintió el peso de todas las tumbas del mundo**. Entonces, **algo imposible sucedió**: los dos dioses **se miraron**, y en ese silencio, **el universo contuvo el aliento**.\\n\\nNo hubo vencedor. **El rayo y la oscuridad se fundieron en un abrazo letal**, y donde sus cuerpos se tocaron, **nació el primer eclipse absoluto**. Los mortales, al alzaron los ojos, vieron un **cielo rasgado en dos**: mitad día eterno, mitad noche sin estrellas. *‘Hermano...’*, susurró Zeus, pero Hades ya se desvanecía, arrastrando consigo **la mitad de la luz del mundo**. Desde entonces, **los días son más cortos**, y en el crepúsculo, si escuchas con atención, **aún se oye el eco de su risa compartida**—la de dos dioses que aprendieron, demasiado tarde, que **el poder no llena el vacío de un hermano perdido**.\\n\\n\\nEl clímax revela que el verdadero conflicto no era el dominio, sino **la soledad divina**: su abrazo crea un equilibrio forzado, donde la victoria se convierte en **pérdida eterna compartida**.\\n\\n\\n\\nZeus\\n### Zeus | Dios del Rayo\n> *\"El trueno es mi voz, el rayo mi fuerza.\"*\n\n* **Arma:** Rayo Divino\n* **Poder:** Control del Tiempo (Invocación de tormentas)\n* **Estadísticas:**\n    * ⚔️ Fuerza: 10 ██████████\n    * 🌀 Caos: 8 ████████░░\n\\n\\n\\n\\nHades\\n### Hades | Señor del Inframundo\n> *\"No temas la muerte, es solo un nuevo comienzo.\"*\n\n* **Arma:** Cosechador de Almas\n* **Poder:** Dominio sobre los Muertos (Resurrección temporal)\n* **Estadísticas:**\n    * ⚔️ Fuerza: 7 ███████░░░\n    * 🌀 Caos: 9 █████████░░",
+          "CTA": "¿Qué harías si el cielo y el inframundo se disputaran tu alma? **Comparte este duelo cósmico y descubre qué lado llevas dentro**. 🌩️⚰️ #EligeTuDestino",
+          "Hashtag": "#ZeusVsHades,#BatallaDeDioses,#MitologíaOscura,#RealismoMágicoÉpico,#ElAbismoYElCielo,#MicrocuentoTrágico,#LeyendasOlvidadas,#ElPesoDeLaEternidad",
+          "PromptImagen": "A hyperrealistic, highly detailed ancient dark fantasy illustration in A4 vertical format (21 cm × 29.7 cm), depicting the epic battle between Zeus and Hades. Zeus stands on the left, wielding a crackling thunderbolt hammer, his golden beard singed by blackened frost, lightning veins pulsing across his bare chest, and the Olympus mountains crumbling behind him. Hades, on the right, emerges from a chasm of skeletal hands and swirling shadows, his obsidian scythe glowing with eerie green runes, his tattered cloak made of screaming faces, while dead trees sprout from his footsteps. Between them, the sky is split: half blinding storm, half abyssal void with floating spectral chains. The ground is fractured, revealing rivers of molten gold and black blood. Style inspired by Zdzisław Beksiński’s nightmares and Luis Royo’s dark grandeur, ultra HD, cinematic lighting, with a focus on the divine despair in their eyes.",
+          "Imagen": [],
+          "PromptVideo": "A 5-second hyperrealistic dark fantasy animation teaser in A4 vertical ratio, slow-motion scene: Zeus raises his thunderbolt hammer as jagged lightning splits the sky, while Hades lunges forward, his scythe dragging chains of lost souls. The camera zooms out slightly as their weapons clash, creating a shockwave that shatters nearby pillars of stone into spectral dust. The background shows a storm merging with swirling shadows, and the ground cracks to reveal glowing embers. Subtle details: Zeus’ eyes flicker with golden fire, Hades’ cloak writhes like smoke, and the wind carries whispers of the dead. Moody, cinematic, with a color palette of stormy blues, obsidian blacks, and veins of sickly green. Inspired by the scale of Shadow of the Colossus and the aesthetic of Dark Souls, ultra HD, 120fps, depth of field.",
+          "Video": [],
+          "Estado": {
+            "id": 4540062,
+            "value": "Proyecto",
+            "color": "darker-red"
+          },
+          "Facebook": false,
+          "Instagram": false,
+          "YouTube": false,
+          "TikTok": false,
+          "Gumroad": false,
+          "Amazon": false,
+          "FechaCreacion": "2025-11-20T20:43:21.240791Z",
+          "FechaActualizacion": "2025-11-27T16:53:32.473145Z",
+          "PromptCardDeidadUno": "A striking digital art composition divided vertically. The left side features a powerful and majestic depiction of Zeus, the God of Thunder, standing atop a stormy mountain peak. He wields the glowing Divine Lightning Bolt in his right hand, with crackling energy and dynamic lightning storm clouds swirling dramatically around him. His expression is fierce and commanding, embodying the essence of a god. The background shows dark thunderclouds and flashes of lightning illuminating the night sky. The right side is a clean, decorative text panel with an ornate border of stylized lightning bolts and thunder motifs. The panel clearly displays the following text, which must be extremely legible and printed in a BOLD, modern font: 'Zeus | Dios del Rayo\n\"El trueno es mi voz, el rayo mi fuerza.\"\n**ARMA:** Rayo Divino\n**PODER:** Control del Tiempo (Invocación de tormentas)\n**ESTADÍSTICAS:**\n**FUERZA:** 10/10\n**CAOS:** 8/10'.",
+          "PromptCardDeidadDos": "A striking digital art composition divided vertically. The left side features a powerful and majestic depiction of Zeus, the God of Thunder, standing atop a stormy mountain peak. He wields the glowing Divine Lightning Bolt in his right hand, with crackling energy and dynamic lightning storm clouds swirling dramatically around him. His expression is fierce and commanding, embodying the essence of a god. The background shows dark thunderclouds and flashes of lightning illuminating the night sky. The right side is a clean, decorative text panel with an ornate border of stylized lightning bolts and thunder motifs. The panel clearly displays the following text, which must be extremely legible and printed in a BOLD, modern font: 'Zeus | Dios del Rayo\n\"El trueno es mi voz, el rayo mi fuerza.\"\n**ARMA:** Rayo Divino\n**PODER:** Control del Tiempo (Invocación de tormentas)\n**ESTADÍSTICAS:**\n**FUERZA:** 10/10\n**CAOS:** 8/10'."
+        }
+      },
+      {
+        "json": {
+          "id": 4,
+          "order": "4.00000000000000000000",
+          "Volumen": "La PURGA de los DIOSES GRIEGOS: El Final del Olimpo",
+          "Mitologia": "Griega",
+          "DeidadUno": "Hera (Matrimonio y Venganza)",
+          "DeidadDos": "Afrodita (Amor y Lujuria)",
+          "Titulo": "",
+          "SubTitulo": "",
+          "Sinopsis": "",
+          "Relato": "",
+          "CTA": "",
+          "Hashtag": "",
+          "PromptImagen": "",
+          "Imagen": [],
+          "PromptVideo": "",
+          "Video": [],
+          "Estado": {
+            "id": 4540062,
+            "value": "Proyecto",
+            "color": "darker-red"
+          },
+          "Facebook": false,
+          "Instagram": false,
+          "YouTube": false,
+          "TikTok": false,
+          "Gumroad": false,
+          "Amazon": false,
+          "FechaCreacion": "2025-11-20T20:43:21.240825Z",
+          "FechaActualizacion": "2025-11-20T20:43:21.240825Z",
+          "PromptCardDeidadUno": null,
+          "PromptCardDeidadDos": null
+        }
+      }
+    ]
+  },
   "settings": {
     "executionOrder": "v1"
   },
@@ -229,6 +335,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2025-11-27T16:01:52.717Z",
-  "versionId": "2a124de4-6b79-443e-8c5b-8ce6f8b4adff"
+  "updatedAt": "2025-11-27T17:20:26.000Z",
+  "versionId": "4d72c7a8-d5cc-4ced-96c0-f0ece1b4212a"
 }
