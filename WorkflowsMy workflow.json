@@ -1,5 +1,7 @@
 {
   "active": false,
+  "activeVersion": null,
+  "activeVersionId": null,
   "connections": {
     "Get many rows": {
       "main": [
@@ -325,8 +327,8 @@
   },
   "shared": [
     {
-      "createdAt": "2025-11-27T16:01:52.730Z",
       "updatedAt": "2025-11-27T16:01:52.730Z",
+      "createdAt": "2025-11-27T16:01:52.730Z",
       "role": "workflow:owner",
       "workflowId": "3D5mHrAKGxrYHrSX",
       "projectId": "uBzdLipflPbb1Tbz"
