@@ -1,9 +1,9 @@
 {
   "active": true,
   "activeVersion": {
-    "updatedAt": "2025-11-27T14:54:45.443Z",
-    "createdAt": "2025-11-27T14:54:45.443Z",
-    "versionId": "3206c48a-7cf7-47fb-be9b-11051460c5ca",
+    "updatedAt": "2025-12-05T13:57:59.372Z",
+    "createdAt": "2025-12-05T13:57:59.372Z",
+    "versionId": "e6e8fb25-e5d9-425f-bdeb-baaa8475f37f",
     "workflowId": "OcUacIKzdZ8BOrG8",
     "nodes": [
       {
@@ -392,7 +392,7 @@
       },
       {
         "parameters": {
-          "jsCode": "const res = $json;\nif (res.statusCode >= 400 || res.error || (res.headers && res.headers[\"www-authenticate\"])) {\n  const text = `⚠️ Token de Instagram.Optimiza caducado o inválido.\\n\\n${\n    res.headers[\"www-authenticate\"] || res.error || ''\n  }`\n    .replace(/[_*[\\]()~`>#+=|{}.!-]/g, ''); // elimina caracteres conflictivos\n\n  return [\n    {\n      json: {\n        notify: true,\n        message: text\n      }\n    }\n  ];\n}\nreturn [{ json: { notify: false } }];"
+          "jsCode": "// Captura el objeto devuelto por el nodo Gmail\nconst error = $input.first().json.error\n\n// Si existe error y contiene mensaje de credenciales\nif (error && (\n    error.includes('invalid') ||\n    error.includes('expired') ||\n    error.includes('revoked')\n)) {\n  return [\n    {\n      json: {\n        notify: true,\n        message: '⚠️ Credenciales de Google caducadas o inválidas: ' + error\n      }\n    }\n  ];\n}\n\n// Si todo está bien, continúa\nreturn [{ json: { notify: false } }];"
         },
         "type": "n8n-nodes-base.code",
         "typeVersion": 2,
@@ -871,7 +871,7 @@
     "name": null,
     "description": null
   },
-  "activeVersionId": "3206c48a-7cf7-47fb-be9b-11051460c5ca",
+  "activeVersionId": "e6e8fb25-e5d9-425f-bdeb-baaa8475f37f",
   "connections": {
     "ObtenerSlides": {
       "main": [
@@ -1541,7 +1541,7 @@
     },
     {
       "parameters": {
-        "jsCode": "const res = $json;\nif (res.statusCode >= 400 || res.error || (res.headers && res.headers[\"www-authenticate\"])) {\n  const text = `⚠️ Token de Instagram.Optimiza caducado o inválido.\\n\\n${\n    res.headers[\"www-authenticate\"] || res.error || ''\n  }`\n    .replace(/[_*[\\]()~`>#+=|{}.!-]/g, ''); // elimina caracteres conflictivos\n\n  return [\n    {\n      json: {\n        notify: true,\n        message: text\n      }\n    }\n  ];\n}\nreturn [{ json: { notify: false } }];"
+        "jsCode": "// Captura el objeto devuelto por el nodo Gmail\nconst error = $input.first().json.error\n\n// Si existe error y contiene mensaje de credenciales\nif (error && (\n    error.includes('invalid') ||\n    error.includes('expired') ||\n    error.includes('revoked')\n)) {\n  return [\n    {\n      json: {\n        notify: true,\n        message: '⚠️ Credenciales de Google caducadas o inválidas: ' + error\n      }\n    }\n  ];\n}\n\n// Si todo está bien, continúa\nreturn [{ json: { notify: false } }];"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -1784,6 +1784,6 @@
     }
   ],
   "triggerCount": 1,
-  "updatedAt": "2025-11-27T14:54:45.000Z",
-  "versionId": "3206c48a-7cf7-47fb-be9b-11051460c5ca"
+  "updatedAt": "2025-12-05T13:57:59.000Z",
+  "versionId": "e6e8fb25-e5d9-425f-bdeb-baaa8475f37f"
 }
