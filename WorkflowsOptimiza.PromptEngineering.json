@@ -1,0 +1,220 @@
+{
+  "active": false,
+  "activeVersion": null,
+  "activeVersionId": null,
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Obtener.todos",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Obtener.todos": {
+      "main": [
+        [
+          {
+            "node": "Obtener.uno.aleatorio",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Obtener.uno.aleatorio": {
+      "main": [
+        [
+          {
+            "node": "Actualizar.estado",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Formatear.mensaje": {
+      "main": [
+        [
+          {
+            "node": "Enviar.mensaje",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Actualizar.estado": {
+      "main": [
+        [
+          {
+            "node": "Formatear.mensaje",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-11-27T16:01:52.717Z",
+  "id": "3D5mHrAKGxrYHrSX",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Optimiza.PromptEngineering",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -416,
+        -112
+      ],
+      "id": "bfe18c52-c27a-4aae-969b-b4ebc5335570",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "databaseId": 255701,
+        "tableId": 876516,
+        "returnAll": true,
+        "additionalOptions": {
+          "filters": {
+            "fields": [
+              {
+                "field": 7572998,
+                "operator": "single_select_equal",
+                "value": "Pendiente"
+              }
+            ]
+          }
+        }
+      },
+      "type": "n8n-nodes-base.baserow",
+      "typeVersion": 1,
+      "position": [
+        -192,
+        -112
+      ],
+      "id": "01ed6a1e-716d-4cfb-9e00-b444026e2d2e",
+      "name": "Obtener.todos",
+      "credentials": {
+        "baserowApi": {
+          "id": "SNrllAn2sJZ5Lm7r",
+          "name": "Baserow.msn"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\n\n// elegir índice aleatorio\nconst randomIndex = Math.floor(Math.random() * items.length);\n\n// devolver solo ese registro\nreturn [items[randomIndex]];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        32,
+        -112
+      ],
+      "id": "257a9773-b169-4a47-8a6b-7d6d8a149a87",
+      "name": "Obtener.uno.aleatorio"
+    },
+    {
+      "parameters": {
+        "jsCode": "const item = $input.first().json;\nlet text = '';\n\ntext += `<b>Tema</b>: ${item.Tema}\\n<b>Prompt</b>: ${item.Prompt_corto_idea}\\n<b>Imágen 01</b>: ${item.Tipo_Imagen_01}\\n<b>Imágen 02</b>: ${item.Tipo_Imagen_02}\\n<b>Imágen 03</b>: ${item.Tipo_Imagen_03}\\n`;\n\nreturn [\n  {\n    json: {\n      message: text\n    }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        480,
+        -112
+      ],
+      "id": "452ba7bb-152b-4f26-87bc-3632f7fcc715",
+      "name": "Formatear.mensaje"
+    },
+    {
+      "parameters": {
+        "chatId": "1704819492",
+        "text": "={{ $json.message }}",
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "HTML"
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        704,
+        -112
+      ],
+      "id": "53ea8dbf-283d-4953-9bea-e1d4921cc115",
+      "name": "Enviar.mensaje",
+      "webhookId": "47768359-131c-4dcd-9e2b-e3a0a44fb69e",
+      "credentials": {
+        "telegramApi": {
+          "id": "zxkALNj2uZW1uxoX",
+          "name": "Telegram.jomBusiness"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "databaseId": 255701,
+        "tableId": 876516,
+        "rowId": "={{ $json.id }}",
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": 7572998,
+              "fieldValue": "Realizado"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.baserow",
+      "typeVersion": 1,
+      "position": [
+        256,
+        -112
+      ],
+      "id": "5300c3c6-11b3-411c-bb4b-e173f9fa3893",
+      "name": "Actualizar.estado",
+      "credentials": {
+        "baserowApi": {
+          "id": "SNrllAn2sJZ5Lm7r",
+          "name": "Baserow.msn"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "updatedAt": "2025-11-27T16:01:52.730Z",
+      "createdAt": "2025-11-27T16:01:52.730Z",
+      "role": "workflow:owner",
+      "workflowId": "3D5mHrAKGxrYHrSX",
+      "projectId": "uBzdLipflPbb1Tbz"
+    }
+  ],
+  "staticData": null,
+  "tags": [
+    {
+      "updatedAt": "2025-07-28T23:13:44.849Z",
+      "createdAt": "2025-07-28T23:13:44.849Z",
+      "id": "E7azoCbE6H7Fjix1",
+      "name": "✨ Optimiza.ia.pro"
+    }
+  ],
+  "triggerCount": 0,
+  "updatedAt": "2026-03-10T13:31:13.000Z",
+  "versionId": "9ff80fc5-017a-47d3-8372-6c05f9d5315f"
+}
