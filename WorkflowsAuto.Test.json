@@ -1,9 +1,9 @@
 {
   "active": true,
   "activeVersion": {
-    "updatedAt": "2026-03-03T18:10:28.604Z",
-    "createdAt": "2026-03-03T18:10:28.604Z",
-    "versionId": "c47e592e-136a-4d7a-af8e-7ee1f9172a6c",
+    "updatedAt": "2026-03-14T22:30:45.681Z",
+    "createdAt": "2026-03-14T22:30:45.681Z",
+    "versionId": "1345970a-5705-40cc-95bd-b51729c6cd2a",
     "workflowId": "OcUacIKzdZ8BOrG8",
     "nodes": [
       {
@@ -26,8 +26,7 @@
             "id": "vkWvvbQeke2SGX0V",
             "name": "Google.jomBusiness"
           }
-        },
-        "disabled": true
+        }
       },
       {
         "parameters": {
@@ -79,8 +78,7 @@
             "id": "vkWvvbQeke2SGX0V",
             "name": "Google.jomBusiness"
           }
-        },
-        "disabled": true
+        }
       },
       {
         "parameters": {
@@ -408,7 +406,7 @@
       {
         "parameters": {
           "method": "POST",
-          "url": "=https://www.googleapis.com/drive/v3/files/1Yagt11CRvgvCTGXkhDEMwQcNcK74I-cUvo1KlYZ5oDo/copy",
+          "url": "=https://www.googleapis.com/drive/v3/files/1TWZIt7H4su0HaYM8-UbakQIpFweIQaWxvN0IwEVe9T8/copy",
           "authentication": "predefinedCredentialType",
           "nodeCredentialType": "googleOAuth2Api",
           "sendQuery": true,
@@ -442,7 +440,6 @@
             "name": "Google.jomBusiness"
           }
         },
-        "disabled": true,
         "onError": "continueRegularOutput"
       },
       {
@@ -456,8 +453,7 @@
           -32
         ],
         "id": "2c223457-4115-4d5d-8b74-ff94d2d80359",
-        "name": "Validar.Slides",
-        "disabled": true
+        "name": "Validar.Slides"
       },
       {
         "parameters": {
@@ -487,8 +483,7 @@
             "id": "vkWvvbQeke2SGX0V",
             "name": "Google.jomBusiness"
           }
-        },
-        "disabled": true
+        }
       },
       {
         "parameters": {
@@ -527,7 +522,6 @@
             "name": "Google.jomBusiness"
           }
         },
-        "disabled": true,
         "onError": "continueRegularOutput"
       },
       {
@@ -541,8 +535,7 @@
           -224
         ],
         "id": "d9e515da-aef8-4711-afa2-2b78ea02c3cc",
-        "name": "Validar.Docs",
-        "disabled": true
+        "name": "Validar.Docs"
       },
       {
         "parameters": {
@@ -573,8 +566,7 @@
             "id": "vkWvvbQeke2SGX0V",
             "name": "Google.jomBusiness"
           }
-        },
-        "disabled": true
+        }
       },
       {
         "parameters": {
@@ -597,8 +589,7 @@
             "id": "vkWvvbQeke2SGX0V",
             "name": "Google.jomBusiness"
           }
-        },
-        "disabled": true
+        }
       }
     ],
     "connections": {
@@ -880,7 +871,7 @@
     "name": null,
     "description": null
   },
-  "activeVersionId": "c47e592e-136a-4d7a-af8e-7ee1f9172a6c",
+  "activeVersionId": "1345970a-5705-40cc-95bd-b51729c6cd2a",
   "connections": {
     "ObtenerSlides": {
       "main": [
@@ -1184,8 +1175,7 @@
           "id": "vkWvvbQeke2SGX0V",
           "name": "Google.jomBusiness"
         }
-      },
-      "disabled": true
+      }
     },
     {
       "parameters": {
@@ -1237,8 +1227,7 @@
           "id": "vkWvvbQeke2SGX0V",
           "name": "Google.jomBusiness"
         }
-      },
-      "disabled": true
+      }
     },
     {
       "parameters": {
@@ -1566,7 +1555,7 @@
     {
       "parameters": {
         "method": "POST",
-        "url": "=https://www.googleapis.com/drive/v3/files/1Yagt11CRvgvCTGXkhDEMwQcNcK74I-cUvo1KlYZ5oDo/copy",
+        "url": "=https://www.googleapis.com/drive/v3/files/1TWZIt7H4su0HaYM8-UbakQIpFweIQaWxvN0IwEVe9T8/copy",
         "authentication": "predefinedCredentialType",
         "nodeCredentialType": "googleOAuth2Api",
         "sendQuery": true,
@@ -1600,7 +1589,6 @@
           "name": "Google.jomBusiness"
         }
       },
-      "disabled": true,
       "onError": "continueRegularOutput"
     },
     {
@@ -1614,8 +1602,7 @@
         -32
       ],
       "id": "2c223457-4115-4d5d-8b74-ff94d2d80359",
-      "name": "Validar.Slides",
-      "disabled": true
+      "name": "Validar.Slides"
     },
     {
       "parameters": {
@@ -1645,8 +1632,7 @@
           "id": "vkWvvbQeke2SGX0V",
           "name": "Google.jomBusiness"
         }
-      },
-      "disabled": true
+      }
     },
     {
       "parameters": {
@@ -1685,7 +1671,6 @@
           "name": "Google.jomBusiness"
         }
       },
-      "disabled": true,
       "onError": "continueRegularOutput"
     },
     {
@@ -1699,8 +1684,7 @@
         -224
       ],
       "id": "d9e515da-aef8-4711-afa2-2b78ea02c3cc",
-      "name": "Validar.Docs",
-      "disabled": true
+      "name": "Validar.Docs"
     },
     {
       "parameters": {
@@ -1731,8 +1715,7 @@
           "id": "vkWvvbQeke2SGX0V",
           "name": "Google.jomBusiness"
         }
-      },
-      "disabled": true
+      }
     },
     {
       "parameters": {
@@ -1755,8 +1738,7 @@
           "id": "vkWvvbQeke2SGX0V",
           "name": "Google.jomBusiness"
         }
-      },
-      "disabled": true
+      }
     }
   ],
   "pinData": {},
@@ -1802,6 +1784,6 @@
     }
   ],
   "triggerCount": 1,
-  "updatedAt": "2026-03-03T18:10:28.000Z",
-  "versionId": "c47e592e-136a-4d7a-af8e-7ee1f9172a6c"
+  "updatedAt": "2026-03-14T22:30:45.000Z",
+  "versionId": "1345970a-5705-40cc-95bd-b51729c6cd2a"
 }
