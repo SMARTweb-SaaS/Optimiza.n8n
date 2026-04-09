@@ -1,9 +1,9 @@
 {
   "active": true,
   "activeVersion": {
-    "updatedAt": "2026-03-14T22:30:45.681Z",
-    "createdAt": "2026-03-14T22:30:45.681Z",
-    "versionId": "1345970a-5705-40cc-95bd-b51729c6cd2a",
+    "updatedAt": "2026-04-08T17:36:31.200Z",
+    "createdAt": "2026-04-08T17:36:31.200Z",
+    "versionId": "e44b016a-bb93-400d-b108-5de7e2f4e94f",
     "workflowId": "OcUacIKzdZ8BOrG8",
     "nodes": [
       {
@@ -16,8 +16,8 @@
         "type": "n8n-nodes-base.httpRequest",
         "typeVersion": 4.2,
         "position": [
-          32,
-          -32
+          272,
+          -16
         ],
         "id": "1c5471c9-f9e8-4f71-8ac8-caca0cabe742",
         "name": "ObtenerSlides",
@@ -68,8 +68,8 @@
         "type": "n8n-nodes-base.httpRequest",
         "typeVersion": 4.2,
         "position": [
-          208,
-          -32
+          448,
+          -16
         ],
         "id": "364249dc-cdbf-45aa-b78d-465c53693b57",
         "name": "BorrarSlide",
@@ -177,8 +177,8 @@
         },
         "type": "n8n-nodes-base.stickyNote",
         "position": [
-          -80,
-          800
+          80,
+          736
         ],
         "typeVersion": 1,
         "id": "d8986fad-37c6-4633-b34e-5a01cb1b1d38",
@@ -297,8 +297,8 @@
         "type": "n8n-nodes-base.if",
         "typeVersion": 2.2,
         "position": [
-          -64,
-          416
+          160,
+          352
         ],
         "id": "a01341ce-5e1a-44c1-aef4-c76c687d1813",
         "name": "If"
@@ -314,8 +314,8 @@
         "type": "n8n-nodes-base.telegram",
         "typeVersion": 1.2,
         "position": [
-          160,
-          384
+          384,
+          320
         ],
         "id": "870a73e5-557b-4f47-9dd8-493bf67477f8",
         "name": "Send a text message",
@@ -340,8 +340,8 @@
         "type": "n8n-nodes-base.emailSend",
         "typeVersion": 2.1,
         "position": [
-          160,
-          224
+          384,
+          160
         ],
         "id": "15e03f40-c582-4586-b254-bf3061425d9e",
         "name": "Send.Lead",
@@ -358,8 +358,8 @@
         "type": "n8n-nodes-base.noOp",
         "typeVersion": 1,
         "position": [
-          176,
-          576
+          400,
+          512
         ],
         "id": "e2f27cfa-c6f7-43be-87b5-99bf8cad05e3",
         "name": "No Operation, do nothing"
@@ -392,7 +392,7 @@
       },
       {
         "parameters": {
-          "jsCode": "// Captura el objeto devuelto por el nodo Gmail\nconst error = $input.first().json.error\n\n// Si existe error y contiene mensaje de credenciales\nif (error && (\n    error.includes('invalid') ||\n    error.includes('expired') ||\n    error.includes('revoked')\n)) {\n  return [\n    {\n      json: {\n        notify: true,\n        message: '⚠️ Credenciales de Google caducadas o inválidas: ' + error\n      }\n    }\n  ];\n}\n\n// Si todo está bien, continúa\nreturn [{ json: { notify: false } }];"
+          "jsCode": "// Captura el objeto devuelto por el nodo Gmail\nconst error = $input.first().json.error\n\n// Si existe error y contiene mensaje de credenciales\nif (error && (\n    error.includes('invalid') ||\n    error.includes('expired') ||\n    error.includes('revoked')\n)) {\n  return [\n    {\n      json: {\n        notify: true,\n        message: '⚠️ Credenciales de Google (gmail) caducadas o inválidas: ' + error\n      }\n    }\n  ];\n}\n\n// Si todo está bien, continúa\nreturn [{ json: { notify: false } }];"
         },
         "type": "n8n-nodes-base.code",
         "typeVersion": 2,
@@ -444,7 +444,7 @@
       },
       {
         "parameters": {
-          "jsCode": "// Captura el objeto devuelto por el nodo Gmail\nconst error = $input.first().json.error\n\n// Si existe error y contiene mensaje de credenciales\nif (error && error.message && (\n    error.message.includes('invalid') ||\n    error.message.includes('expired') ||\n    error.message.includes('revoked')\n)) {\n  throw new Error('⚠️ Credenciales de Google caducadas o inválidas: ' + error.message);\n}\n\n// Si todo está bien, continúa\nreturn [{ json: { status: 'ok' } }];"
+          "jsCode": "// Captura el objeto devuelto por el nodo Gmail\nconst error = $input.first().json.error\n\n// Si existe error y contiene mensaje de credenciales\nif (error && error.message && (\n    error.message.includes('invalid') ||\n    error.message.includes('expired') ||\n    error.message.includes('revoked')\n)) {\n  \n  return [\n    {\n      json: {\n        notify: true,\n        message: '⚠️ Credenciales de Google (Slides) caducadas o inválidas: ' + error.message\n      }\n    }\n  ];\n}\n\n// Si todo está bien, continúa\nreturn [{ json: { status: 'ok' } }];"
         },
         "type": "n8n-nodes-base.code",
         "typeVersion": 2,
@@ -469,8 +469,8 @@
         "type": "n8n-nodes-base.httpRequest",
         "typeVersion": 4.2,
         "position": [
-          -160,
-          -32
+          80,
+          -16
         ],
         "id": "3a5bb75d-4a23-4520-92a1-de2edcac7d50",
         "name": "ReemplazarTexto.Slides",
@@ -526,7 +526,7 @@
       },
       {
         "parameters": {
-          "jsCode": "// Captura el objeto devuelto por el nodo Gmail\nconst error = $input.first().json.error\n\n// Si existe error y contiene mensaje de credenciales\nif (error && error.message && (\n    error.message.includes('invalid') ||\n    error.message.includes('expired') ||\n    error.message.includes('revoked')\n)) {\n  throw new Error('⚠️ Credenciales de Google caducadas o inválidas: ' + error.message);\n}\n\n// Si todo está bien, continúa\nreturn [{ json: { status: 'ok' } }];"
+          "jsCode": "// Captura el objeto devuelto por el nodo Gmail\nconst error = $input.first().json.error\n\n// Si existe error y contiene mensaje de credenciales\nif (error && error.message && (\n    error.message.includes('invalid') ||\n    error.message.includes('expired') ||\n    error.message.includes('revoked')\n)) {\n\n  return [\n    {\n      json: {\n        notify: true,\n        message: '⚠️ Credenciales de Google (Docs) caducadas o inválidas: ' + error.message\n      }\n    }\n  ];\n}\n\n// Si todo está bien, continúa\nreturn [{ json: { status: 'ok' } }];"
         },
         "type": "n8n-nodes-base.code",
         "typeVersion": 2,
@@ -551,8 +551,8 @@
         "type": "n8n-nodes-base.httpRequest",
         "typeVersion": 4.2,
         "position": [
-          -160,
-          -224
+          80,
+          -208
         ],
         "id": "4539b045-a185-44f8-bca5-d41754d18a20",
         "name": "ReemplazarTexto.Docs",
@@ -579,8 +579,8 @@
         "type": "n8n-nodes-base.httpRequest",
         "typeVersion": 4.2,
         "position": [
-          32,
-          -224
+          272,
+          -208
         ],
         "id": "7e3e95e5-0b73-4406-b5d3-8171f96797a7",
         "name": "BorrarDoc",
@@ -590,6 +590,74 @@
             "name": "Google.jomBusiness"
           }
         }
+      },
+      {
+        "parameters": {
+          "conditions": {
+            "options": {
+              "caseSensitive": true,
+              "leftValue": "",
+              "typeValidation": "strict",
+              "version": 2
+            },
+            "conditions": [
+              {
+                "id": "00d32d6b-0e7e-4aae-8fcc-67aba5b063b8",
+                "leftValue": "={{ $json.notify }}",
+                "rightValue": "",
+                "operator": {
+                  "type": "boolean",
+                  "operation": "true",
+                  "singleValue": true
+                }
+              }
+            ],
+            "combinator": "and"
+          },
+          "options": {}
+        },
+        "type": "n8n-nodes-base.if",
+        "typeVersion": 2.2,
+        "position": [
+          -144,
+          -224
+        ],
+        "id": "b1ad4427-6ad5-49bd-90d8-ed59759bcc64",
+        "name": "If1"
+      },
+      {
+        "parameters": {
+          "conditions": {
+            "options": {
+              "caseSensitive": true,
+              "leftValue": "",
+              "typeValidation": "strict",
+              "version": 2
+            },
+            "conditions": [
+              {
+                "id": "cbac2d80-b82c-4c0b-9266-f5644c82fc89",
+                "leftValue": "",
+                "rightValue": "",
+                "operator": {
+                  "type": "string",
+                  "operation": "equals",
+                  "name": "filter.operator.equals"
+                }
+              }
+            ],
+            "combinator": "and"
+          },
+          "options": {}
+        },
+        "type": "n8n-nodes-base.if",
+        "typeVersion": 2.2,
+        "position": [
+          -144,
+          -32
+        ],
+        "id": "21c75f71-835a-4223-8db3-903fc39293d9",
+        "name": "If2"
       }
     ],
     "connections": {
@@ -815,7 +883,7 @@
         "main": [
           [
             {
-              "node": "ReemplazarTexto.Slides",
+              "node": "If2",
               "type": "main",
               "index": 0
             }
@@ -848,7 +916,7 @@
         "main": [
           [
             {
-              "node": "ReemplazarTexto.Docs",
+              "node": "If1",
               "type": "main",
               "index": 0
             }
@@ -865,13 +933,50 @@
             }
           ]
         ]
+      },
+      "If1": {
+        "main": [
+          [
+            {
+              "node": "If",
+              "type": "main",
+              "index": 0
+            }
+          ],
+          [
+            {
+              "node": "ReemplazarTexto.Docs",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "If2": {
+        "main": [
+          [
+            {
+              "node": "If",
+              "type": "main",
+              "index": 0
+            }
+          ],
+          [
+            {
+              "node": "ReemplazarTexto.Slides",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
       }
     },
     "authors": "John Ordóñez Monroy",
     "name": null,
-    "description": null
+    "description": null,
+    "autosaved": false
   },
-  "activeVersionId": "1345970a-5705-40cc-95bd-b51729c6cd2a",
+  "activeVersionId": "e44b016a-bb93-400d-b108-5de7e2f4e94f",
   "connections": {
     "ObtenerSlides": {
       "main": [
@@ -1095,7 +1200,7 @@
       "main": [
         [
           {
-            "node": "ReemplazarTexto.Slides",
+            "node": "If2",
             "type": "main",
             "index": 0
           }
@@ -1128,7 +1233,7 @@
       "main": [
         [
           {
-            "node": "ReemplazarTexto.Docs",
+            "node": "If1",
             "type": "main",
             "index": 0
           }
@@ -1140,6 +1245,42 @@
         [
           {
             "node": "BorrarDoc",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If1": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "ReemplazarTexto.Docs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If2": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "ReemplazarTexto.Slides",
             "type": "main",
             "index": 0
           }
@@ -1165,8 +1306,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        32,
-        -32
+        272,
+        -16
       ],
       "id": "1c5471c9-f9e8-4f71-8ac8-caca0cabe742",
       "name": "ObtenerSlides",
@@ -1217,8 +1358,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        208,
-        -32
+        448,
+        -16
       ],
       "id": "364249dc-cdbf-45aa-b78d-465c53693b57",
       "name": "BorrarSlide",
@@ -1326,8 +1467,8 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        -80,
-        800
+        80,
+        736
       ],
       "typeVersion": 1,
       "id": "d8986fad-37c6-4633-b34e-5a01cb1b1d38",
@@ -1446,8 +1587,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        -64,
-        416
+        160,
+        352
       ],
       "id": "a01341ce-5e1a-44c1-aef4-c76c687d1813",
       "name": "If"
@@ -1463,8 +1604,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        160,
-        384
+        384,
+        320
       ],
       "id": "870a73e5-557b-4f47-9dd8-493bf67477f8",
       "name": "Send a text message",
@@ -1489,8 +1630,8 @@
       "type": "n8n-nodes-base.emailSend",
       "typeVersion": 2.1,
       "position": [
-        160,
-        224
+        384,
+        160
       ],
       "id": "15e03f40-c582-4586-b254-bf3061425d9e",
       "name": "Send.Lead",
@@ -1507,8 +1648,8 @@
       "type": "n8n-nodes-base.noOp",
       "typeVersion": 1,
       "position": [
-        176,
-        576
+        400,
+        512
       ],
       "id": "e2f27cfa-c6f7-43be-87b5-99bf8cad05e3",
       "name": "No Operation, do nothing"
@@ -1541,7 +1682,7 @@
     },
     {
       "parameters": {
-        "jsCode": "// Captura el objeto devuelto por el nodo Gmail\nconst error = $input.first().json.error\n\n// Si existe error y contiene mensaje de credenciales\nif (error && (\n    error.includes('invalid') ||\n    error.includes('expired') ||\n    error.includes('revoked')\n)) {\n  return [\n    {\n      json: {\n        notify: true,\n        message: '⚠️ Credenciales de Google caducadas o inválidas: ' + error\n      }\n    }\n  ];\n}\n\n// Si todo está bien, continúa\nreturn [{ json: { notify: false } }];"
+        "jsCode": "// Captura el objeto devuelto por el nodo Gmail\nconst error = $input.first().json.error\n\n// Si existe error y contiene mensaje de credenciales\nif (error && (\n    error.includes('invalid') ||\n    error.includes('expired') ||\n    error.includes('revoked')\n)) {\n  return [\n    {\n      json: {\n        notify: true,\n        message: '⚠️ Credenciales de Google (gmail) caducadas o inválidas: ' + error\n      }\n    }\n  ];\n}\n\n// Si todo está bien, continúa\nreturn [{ json: { notify: false } }];"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -1593,7 +1734,7 @@
     },
     {
       "parameters": {
-        "jsCode": "// Captura el objeto devuelto por el nodo Gmail\nconst error = $input.first().json.error\n\n// Si existe error y contiene mensaje de credenciales\nif (error && error.message && (\n    error.message.includes('invalid') ||\n    error.message.includes('expired') ||\n    error.message.includes('revoked')\n)) {\n  throw new Error('⚠️ Credenciales de Google caducadas o inválidas: ' + error.message);\n}\n\n// Si todo está bien, continúa\nreturn [{ json: { status: 'ok' } }];"
+        "jsCode": "// Captura el objeto devuelto por el nodo Gmail\nconst error = $input.first().json.error\n\n// Si existe error y contiene mensaje de credenciales\nif (error && error.message && (\n    error.message.includes('invalid') ||\n    error.message.includes('expired') ||\n    error.message.includes('revoked')\n)) {\n  \n  return [\n    {\n      json: {\n        notify: true,\n        message: '⚠️ Credenciales de Google (Slides) caducadas o inválidas: ' + error.message\n      }\n    }\n  ];\n}\n\n// Si todo está bien, continúa\nreturn [{ json: { status: 'ok' } }];"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -1618,8 +1759,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        -160,
-        -32
+        80,
+        -16
       ],
       "id": "3a5bb75d-4a23-4520-92a1-de2edcac7d50",
       "name": "ReemplazarTexto.Slides",
@@ -1675,7 +1816,7 @@
     },
     {
       "parameters": {
-        "jsCode": "// Captura el objeto devuelto por el nodo Gmail\nconst error = $input.first().json.error\n\n// Si existe error y contiene mensaje de credenciales\nif (error && error.message && (\n    error.message.includes('invalid') ||\n    error.message.includes('expired') ||\n    error.message.includes('revoked')\n)) {\n  throw new Error('⚠️ Credenciales de Google caducadas o inválidas: ' + error.message);\n}\n\n// Si todo está bien, continúa\nreturn [{ json: { status: 'ok' } }];"
+        "jsCode": "// Captura el objeto devuelto por el nodo Gmail\nconst error = $input.first().json.error\n\n// Si existe error y contiene mensaje de credenciales\nif (error && error.message && (\n    error.message.includes('invalid') ||\n    error.message.includes('expired') ||\n    error.message.includes('revoked')\n)) {\n\n  return [\n    {\n      json: {\n        notify: true,\n        message: '⚠️ Credenciales de Google (Docs) caducadas o inválidas: ' + error.message\n      }\n    }\n  ];\n}\n\n// Si todo está bien, continúa\nreturn [{ json: { status: 'ok' } }];"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -1700,8 +1841,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        -160,
-        -224
+        80,
+        -208
       ],
       "id": "4539b045-a185-44f8-bca5-d41754d18a20",
       "name": "ReemplazarTexto.Docs",
@@ -1728,8 +1869,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        32,
-        -224
+        272,
+        -208
       ],
       "id": "7e3e95e5-0b73-4406-b5d3-8171f96797a7",
       "name": "BorrarDoc",
@@ -1739,6 +1880,74 @@
           "name": "Google.jomBusiness"
         }
       }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "00d32d6b-0e7e-4aae-8fcc-67aba5b063b8",
+              "leftValue": "={{ $json.notify }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -144,
+        -224
+      ],
+      "id": "b1ad4427-6ad5-49bd-90d8-ed59759bcc64",
+      "name": "If1"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "cbac2d80-b82c-4c0b-9266-f5644c82fc89",
+              "leftValue": "",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -144,
+        -32
+      ],
+      "id": "21c75f71-835a-4223-8db3-903fc39293d9",
+      "name": "If2"
     }
   ],
   "pinData": {},
@@ -1784,6 +1993,6 @@
     }
   ],
   "triggerCount": 1,
-  "updatedAt": "2026-03-14T22:30:45.000Z",
-  "versionId": "1345970a-5705-40cc-95bd-b51729c6cd2a"
+  "updatedAt": "2026-04-08T17:36:31.000Z",
+  "versionId": "e44b016a-bb93-400d-b108-5de7e2f4e94f"
 }
