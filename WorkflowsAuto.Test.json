@@ -1956,7 +1956,11 @@
     "timezone": "America/Lima",
     "callerPolicy": "workflowsFromSameOwner",
     "errorWorkflow": "iNdV46Bame2vCTJz",
-    "timeSavedPerExecution": 10
+    "timeSavedPerExecution": 10,
+    "binaryMode": "separate",
+    "timeSavedMode": "fixed",
+    "availableInMCP": false,
+    "executionTimeout": 600
   },
   "shared": [
     {
@@ -1993,6 +1997,6 @@
     }
   ],
   "triggerCount": 1,
-  "updatedAt": "2026-04-08T17:36:31.000Z",
+  "updatedAt": "2026-04-10T12:35:47.133Z",
   "versionId": "e44b016a-bb93-400d-b108-5de7e2f4e94f"
 }
