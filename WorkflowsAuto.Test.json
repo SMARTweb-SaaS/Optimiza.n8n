@@ -1395,7 +1395,7 @@
     {
       "parameters": {
         "graphApiVersion": "v23.0",
-        "node": "/me?fields=id,name",
+        "node": "625574693983199",
         "options": {}
       },
       "type": "n8n-nodes-base.facebookGraphApi",
@@ -1417,7 +1417,7 @@
     {
       "parameters": {
         "graphApiVersion": "v23.0",
-        "node": "/me?fields=id,name",
+        "node": "157152044640637",
         "options": {}
       },
       "type": "n8n-nodes-base.facebookGraphApi",
@@ -1456,6 +1456,7 @@
           "name": "Facebook.Optimiza"
         }
       },
+      "disabled": true,
       "onError": "continueRegularOutput"
     },
     {
@@ -1544,7 +1545,8 @@
       "id": "f35990b1-cb0f-4ed7-a955-5a189045f8bb",
       "name": "Validar.Facebook.Optimiza",
       "executeOnce": false,
-      "retryOnFail": false
+      "retryOnFail": false,
+      "disabled": true
     },
     {
       "parameters": {
@@ -1927,12 +1929,12 @@
           "conditions": [
             {
               "id": "cbac2d80-b82c-4c0b-9266-f5644c82fc89",
-              "leftValue": "",
+              "leftValue": "={{ $json.notify }}",
               "rightValue": "",
               "operator": {
-                "type": "string",
-                "operation": "equals",
-                "name": "filter.operator.equals"
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
               }
             }
           ],
@@ -1997,6 +1999,6 @@
     }
   ],
   "triggerCount": 1,
-  "updatedAt": "2026-04-10T12:35:47.133Z",
-  "versionId": "e44b016a-bb93-400d-b108-5de7e2f4e94f"
+  "updatedAt": "2026-04-17T22:57:56.749Z",
+  "versionId": "541a4372-19ec-4a29-8b21-bde5a40a340d"
 }
