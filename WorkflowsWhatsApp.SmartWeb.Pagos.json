@@ -1,5 +1,7 @@
 {
   "active": false,
+  "activeVersion": null,
+  "activeVersionId": null,
   "connections": {
     "Webhook": {
       "main": [
@@ -1128,17 +1130,26 @@
     "callerPolicy": "workflowsFromSameOwner",
     "errorWorkflow": "iNdV46Bame2vCTJz"
   },
+  "shared": [
+    {
+      "updatedAt": "2025-07-27T00:37:11.825Z",
+      "createdAt": "2025-07-27T00:37:11.825Z",
+      "role": "workflow:owner",
+      "workflowId": "uJDQXOuA9ZIU1C4m",
+      "projectId": "uBzdLipflPbb1Tbz"
+    }
+  ],
   "staticData": null,
   "tags": [
     {
-      "createdAt": "2025-07-28T23:16:55.585Z",
       "updatedAt": "2025-07-28T23:16:55.585Z",
+      "createdAt": "2025-07-28T23:16:55.585Z",
       "id": "B0zvrFLy0yNSEhVJ",
       "name": "💡SmartWeb"
     },
     {
-      "createdAt": "2025-07-18T02:37:28.170Z",
       "updatedAt": "2025-07-18T02:37:28.170Z",
+      "createdAt": "2025-07-18T02:37:28.170Z",
       "id": "Za1YQUqDKWnwNOuD",
       "name": "🤖 IA al mando"
     }
