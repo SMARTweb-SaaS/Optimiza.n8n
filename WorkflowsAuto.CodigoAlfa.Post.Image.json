@@ -1,5 +1,608 @@
 {
   "active": true,
+  "activeVersion": {
+    "updatedAt": "2025-11-28T11:37:52.577Z",
+    "createdAt": "2025-11-28T11:37:52.577Z",
+    "versionId": "918bc907-9b3a-4926-8799-e99f383e71b1",
+    "workflowId": "eEjfYtRZfqtCDMed",
+    "nodes": [
+      {
+        "parameters": {
+          "assignments": {
+            "assignments": [
+              {
+                "id": "7d245a17-b640-41ab-ac37-6c1cf9c7e7d1",
+                "name": "styles",
+                "value": "=[\"casual\", \"sensual\", \"intimate\"]",
+                "type": "string"
+              },
+              {
+                "id": "f666428d-9b4d-462c-a08b-b1d392b21d0d",
+                "name": "poses_by_style",
+                "value": "={\"casual\": [ \"standing confidently facing the camera\", \"sitting on a lounge chair\", \"walking away, glancing back\", \"standing with one leg slightly raised, back facing the camera\" ],\n  \"sensual\": [ \"standing with back turned, head looking over shoulder\", \"bending slightly forward, from behind, looking back\", \"arching back while standing, facing away\", \"walking away with hips swaying, glancing back\" ],\n  \"intimate\": [ \"lying on her stomach on a bed\", \"sitting on the floor with legs bent, back facing the camera\" ] }",
+                "type": "string"
+              },
+              {
+                "id": "bfa40629-f740-47d5-9c74-876648fc603f",
+                "name": "outfits",
+                "value": "[   \"a very small and tight bikini\",   \"a tight white tank top and micro shorts\",   \"a crop top and a miniskirt\",   \"a revealing lingerie set\",   \"skin-tight yoga leggings and sports bra\",   \"an open button-up shirt with no bra\",   \"a short dress with cleavage\" ]",
+                "type": "string"
+              },
+              {
+                "id": "b5cad4bc-cc4e-4c49-967c-2d89e5caad06",
+                "name": "locations",
+                "value": "[   \"swimming pool\",   \"beach at sunset\",   \"modern bedroom\",   \"stylish office\",   \"classroom\",   \"gym with mirrors\",   \"rooftop terrace\" ]",
+                "type": "string"
+              },
+              {
+                "id": "70882f3f-2c1d-4dd1-8c51-5ff47341e4d9",
+                "name": "expressions",
+                "value": "[   \"innocent expression\",   \"seductive smile\",   \"playful look\",   \"serious face\",   \"shy smile\" ]",
+                "type": "string"
+              },
+              {
+                "id": "3cd8e0e5-66b4-4b54-b176-4143c9117488",
+                "name": "accessories",
+                "value": "[   \"wearing sunglasses\",   \"holding a smartphone\",   \"with a towel\",   \"holding a drink\",   \"wearing a sun hat\",   \"with a book in hand\" ]",
+                "type": "string"
+              }
+            ]
+          },
+          "options": {}
+        },
+        "type": "n8n-nodes-base.set",
+        "typeVersion": 3.4,
+        "position": [
+          224,
+          0
+        ],
+        "id": "bacd4d27-862d-4633-8e7b-8ec35203de96",
+        "name": "Set.Variables"
+      },
+      {
+        "parameters": {
+          "jsCode": "function pickRandom(arr) {\n  return arr[Math.floor(Math.random() * arr.length)];\n}\n\nconst styles = JSON.parse($json[\"styles\"]);\nconst posesByStyle = JSON.parse($json[\"poses_by_style\"]);\nconst outfits = JSON.parse($json[\"outfits\"]);\nconst locations = JSON.parse($json[\"locations\"]);\nconst expressions = JSON.parse($json[\"expressions\"]);\nconst accessories = JSON.parse($json[\"accessories\"]);\n\nconst style = pickRandom(styles);\nconst pose = pickRandom(posesByStyle[style]);\nconst outfit = pickRandom(outfits);\nconst location = pickRandom(locations);\nconst expression = pickRandom(expressions);\nconst accessory = pickRandom(accessories);\n\nreturn [\n  {\n    json: {\n      style,\n      pose,\n      outfit,\n      location,\n      expression,\n      accessory\n    }\n  }\n];"
+        },
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          432,
+          0
+        ],
+        "id": "91ba323c-46b7-48fa-a4ab-47e4cb04a04e",
+        "name": "Pick.Random.Elements"
+      },
+      {
+        "parameters": {
+          "assignments": {
+            "assignments": [
+              {
+                "id": "16e4cfcc-4a22-41b4-a26a-8c63ef6305b2",
+                "name": "prompt",
+                "value": "=a realistic full-body photo of a voluptuous caucasian teenage woman (18+), long brunette hair, blue eyes, huge breasts, large butt, wearing {{$json[\"outfit\"]}}, {{$json[\"pose\"]}}, in a {{$json[\"location\"]}}, {{$json[\"expression\"]}}, {{$json[\"accessory\"]}}, soft natural lighting, wet or glowing skin, highly detailed skin, skin pores, realistic skin texture, subsurface scattering, delicate imperfections, human skin, DSLR photo quality, photorealistic",
+                "type": "string"
+              },
+              {
+                "id": "cb4fb9c6-f162-4258-8c74-f172a894d512",
+                "name": "negative_prompt",
+                "value": "blurry, cartoon, anime, illustration, painting, plastic skin, waxy skin, doll-like, over-smoothed, airbrushed, unrealistic, extra fingers, distorted face, bad anatomy, watermark, logo, text",
+                "type": "string"
+              }
+            ]
+          },
+          "options": {}
+        },
+        "type": "n8n-nodes-base.set",
+        "typeVersion": 3.4,
+        "position": [
+          624,
+          0
+        ],
+        "id": "5b1bcca6-26c4-4de0-b2a8-3ed234b39340",
+        "name": "Build.Prompt"
+      },
+      {
+        "parameters": {
+          "assignments": {
+            "assignments": [
+              {
+                "id": "ddf1cc93-c17e-4b6b-928a-7af10763034f",
+                "name": "gemini_prompt",
+                "value": "=Prompt: {{$json[\"prompt\"]}}. Avoid: {{$json[\"negative_prompt\"]}}",
+                "type": "string"
+              }
+            ]
+          },
+          "options": {}
+        },
+        "type": "n8n-nodes-base.set",
+        "typeVersion": 3.4,
+        "position": [
+          832,
+          0
+        ],
+        "id": "e9c2037d-d042-4327-aecc-2059b3acfe71",
+        "name": "Build.IA.Prompt"
+      },
+      {
+        "parameters": {
+          "httpRequestMethod": "POST",
+          "graphApiVersion": "v22.0",
+          "node": "me",
+          "edge": "photos",
+          "options": {
+            "queryParameters": {
+              "parameter": [
+                {
+                  "name": "url",
+                  "value": "={{ $('Replicate.minimax').item.json.output[0] }}"
+                }
+              ]
+            }
+          }
+        },
+        "type": "n8n-nodes-base.facebookGraphApi",
+        "typeVersion": 1,
+        "position": [
+          320,
+          208
+        ],
+        "id": "e6931551-0fac-4323-b6ca-6e29f9aa5040",
+        "name": "Post.CodigoAlfa",
+        "credentials": {
+          "facebookGraphApi": {
+            "id": "hOMT44BIxjiDsVdw",
+            "name": "Facebook.CodigoAlfa"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "method": "POST",
+          "url": "https://api.replicate.com/v1/models/minimax/image-01/predictions",
+          "authentication": "genericCredentialType",
+          "genericAuthType": "httpHeaderAuth",
+          "sendHeaders": true,
+          "headerParameters": {
+            "parameters": [
+              {
+                "name": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "name": "Prefer",
+                "value": "wait"
+              }
+            ]
+          },
+          "sendBody": true,
+          "specifyBody": "json",
+          "jsonBody": "={\n  \"input\": {\n    \"prompt\": \"{{ $json.gemini_prompt }}\",\n    \"aspect_ratio\": \"1:1\"\n  }\n}",
+          "options": {}
+        },
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.2,
+        "position": [
+          64,
+          208
+        ],
+        "id": "f3375a66-fa28-4345-861c-fae2168de6b7",
+        "name": "Replicate.minimax",
+        "credentials": {
+          "httpHeaderAuth": {
+            "id": "L9yQttThWndrdNn3",
+            "name": "Replicate.msn"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "rule": {
+            "interval": [
+              {
+                "triggerAtHour": 13
+              }
+            ]
+          }
+        },
+        "type": "n8n-nodes-base.scheduleTrigger",
+        "typeVersion": 1.2,
+        "position": [
+          32,
+          0
+        ],
+        "id": "38c1f0b2-347d-4f56-876e-5e5696da71a1",
+        "name": "Schedule Trigger"
+      },
+      {
+        "parameters": {
+          "operation": "sendPhoto",
+          "chatId": "=1704819492",
+          "file": "={{ $('Replicate.minimax').item.json.output[0] }}",
+          "additionalFields": {
+            "caption": "={{ $('Build.IA.Prompt').item.json.gemini_prompt }}"
+          }
+        },
+        "type": "n8n-nodes-base.telegram",
+        "typeVersion": 1.2,
+        "position": [
+          576,
+          208
+        ],
+        "id": "e5626139-4c27-4461-9d8c-d3fecc9f5ed3",
+        "name": "Foto",
+        "webhookId": "834b2a54-20a4-4982-a705-2ccdbffcda1b",
+        "credentials": {
+          "telegramApi": {
+            "id": "zxkALNj2uZW1uxoX",
+            "name": "Telegram.jomBusiness"
+          }
+        }
+      },
+      {
+        "parameters": {},
+        "type": "n8n-nodes-base.manualTrigger",
+        "typeVersion": 1,
+        "position": [
+          32,
+          -160
+        ],
+        "id": "c3550b75-a645-4d4c-af6c-d9baf28c0416",
+        "name": "When clicking ‘Execute workflow’"
+      },
+      {
+        "parameters": {
+          "content": "## Consultar\n[Facebook - CodigoAlfa](https://www.facebook.com/CodigoAlfa.On)\n\n**Costo minimax**: $ 0.01",
+          "height": 112,
+          "width": 232,
+          "color": 4
+        },
+        "type": "n8n-nodes-base.stickyNote",
+        "typeVersion": 1,
+        "position": [
+          240,
+          -160
+        ],
+        "id": "7c88ff4d-7ac2-47c4-9987-ae3e25ca40c9",
+        "name": "Sticky Note4"
+      },
+      {
+        "parameters": {
+          "content": "## Renovar Token: Facebook \n- Ingresar a [developers.facebook](https://developers.facebook.com/tools/explorer/)\n- Copiar: Token de acceso\n- [Depurador de token de acceso\n](https://developers.facebook.com/tools/debug/accesstoken/)\n- Regresar a [developers.facebook](https://developers.facebook.com/tools/explorer/)\n- Usar: me?fields=id,accounts\n- Copiar: access_token\n- Volver a conectar: Graph API ",
+          "height": 224,
+          "width": 400,
+          "color": 3
+        },
+        "type": "n8n-nodes-base.stickyNote",
+        "position": [
+          528,
+          -240
+        ],
+        "typeVersion": 1,
+        "id": "cb7ee68a-d0a6-4dda-9fac-a11590835be4",
+        "name": "Sticky Note"
+      },
+      {
+        "parameters": {
+          "url": "={{ $json.output[0] }}",
+          "options": {
+            "response": {
+              "response": {
+                "responseFormat": "file",
+                "outputPropertyName": "image"
+              }
+            }
+          }
+        },
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.2,
+        "position": [
+          320,
+          448
+        ],
+        "id": "44e30bb0-f5f9-4975-b0b6-909cfbb821c8",
+        "name": "Replicate.Get.Image",
+        "alwaysOutputData": false,
+        "disabled": true
+      },
+      {
+        "parameters": {
+          "operation": "update",
+          "databaseId": 324695,
+          "tableId": 747259,
+          "rowId": "={{ $('Get many rows').item.json.id }}",
+          "fieldsUi": {
+            "fieldValues": [
+              {
+                "fieldId": 6301132,
+                "fieldValue": "={{ $('Historia').item.json.output.titulo_principal }}"
+              },
+              {
+                "fieldId": 6301133,
+                "fieldValue": "={{ $('Historia').item.json.output.subtitulo }}"
+              },
+              {
+                "fieldId": 6301134,
+                "fieldValue": "={{ $('Historia').item.json.output.resena }}"
+              },
+              {
+                "fieldId": 6301135,
+                "fieldValue": "={{ $('Historia').item.json.output.microcuento[0].contenido }}\\n\\n{{ $('Historia').item.json.output.microcuento[1].contenido }}\\n\\n{{ $('Historia').item.json.output.microcuento[2].contenido }}\\n\\n{{ $('Historia').item.json.output.microcuento[3].contenido }}\\n\\n{{ $('Historia').item.json.output.microcuento[4].contenido }}\\n\\n{{ $('Historia').item.json.output.microcuento[5].contenido }}\\n\\n\\n{{ $('Historia').item.json.output.analisis_del_giro }}\\n\\n\\n\\n{{ $('Poderes').item.json.output[0].characterName }}\\n{{ $('Poderes').item.json.output[0].miniCardMarkdown }}\\n\\n\\n\\n{{ $('Poderes').item.json.output[1].characterName }}\\n{{ $('Poderes').item.json.output[1].miniCardMarkdown }}"
+              },
+              {
+                "fieldId": 6301136,
+                "fieldValue": "={{ $('Historia').item.json.output.call_to_action }}"
+              },
+              {
+                "fieldId": 6301138,
+                "fieldValue": "={{ $('Historia').item.json.output.prompt_imagen }}"
+              },
+              {
+                "fieldId": 6301140,
+                "fieldValue": "={{ $('Historia').item.json.output.prompt_video }}"
+              },
+              {
+                "fieldId": 6301137,
+                "fieldValue": "={{ $('Historia').item.json.output.hashtags.toString() }}"
+              },
+              {
+                "fieldId": 6301139,
+                "fieldValue": "={{ $json.name }}"
+              },
+              {
+                "fieldId": 6301142,
+                "fieldValue": "Borrador"
+              }
+            ]
+          }
+        },
+        "type": "n8n-nodes-base.baserow",
+        "typeVersion": 1,
+        "position": [
+          752,
+          448
+        ],
+        "id": "2800e6fc-6c75-4ce4-83a8-02708763ad13",
+        "name": "Update a row",
+        "credentials": {
+          "baserowApi": {
+            "id": "SNrllAn2sJZ5Lm7r",
+            "name": "Baserow.msn"
+          }
+        },
+        "disabled": true
+      },
+      {
+        "parameters": {
+          "method": "POST",
+          "url": "https://api.baserow.io/api/user-files/upload-file/",
+          "sendHeaders": true,
+          "headerParameters": {
+            "parameters": [
+              {
+                "name": "Authorization",
+                "value": "Token F4fPvCH2bpOf73h6bkQ2SjRGJLr22SBk"
+              }
+            ]
+          },
+          "sendBody": true,
+          "contentType": "multipart-form-data",
+          "bodyParameters": {
+            "parameters": [
+              {
+                "parameterType": "formBinaryData",
+                "name": "file",
+                "inputDataFieldName": "=image"
+              }
+            ]
+          },
+          "options": {}
+        },
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.2,
+        "position": [
+          544,
+          448
+        ],
+        "id": "73a9e112-b3a4-4a5d-9e56-8d985658d3a5",
+        "name": "UploadFile.Baserow",
+        "disabled": true
+      },
+      {
+        "parameters": {
+          "method": "POST",
+          "url": "https://api.replicate.com/v1/models/minimax/image-01/predictions",
+          "authentication": "genericCredentialType",
+          "genericAuthType": "httpHeaderAuth",
+          "sendHeaders": true,
+          "headerParameters": {
+            "parameters": [
+              {
+                "name": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "name": "Prefer",
+                "value": "wait"
+              }
+            ]
+          },
+          "sendBody": true,
+          "specifyBody": "json",
+          "jsonBody": "={\n  \"input\": {\n    \"prompt\": \"{{ $('Historia').item.json.output.prompt_imagen }}\",\n    \"aspect_ratio\": \"3:4\"\n  }\n}",
+          "options": {}
+        },
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.2,
+        "position": [
+          80,
+          448
+        ],
+        "id": "f75c1e73-8406-46e0-8f1d-6742d03cc7b7",
+        "name": "Replicate.minimax1",
+        "credentials": {
+          "httpHeaderAuth": {
+            "id": "L9yQttThWndrdNn3",
+            "name": "Replicate.msn"
+          }
+        },
+        "disabled": true
+      },
+      {
+        "parameters": {
+          "content": "## Guardar imagen en BaseRow\n",
+          "height": 256,
+          "width": 960
+        },
+        "type": "n8n-nodes-base.stickyNote",
+        "position": [
+          16,
+          384
+        ],
+        "typeVersion": 1,
+        "id": "4bb77303-3b34-49c9-8670-eccb76ef91fa",
+        "name": "Sticky Note1"
+      }
+    ],
+    "connections": {
+      "Set.Variables": {
+        "main": [
+          [
+            {
+              "node": "Pick.Random.Elements",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Pick.Random.Elements": {
+        "main": [
+          [
+            {
+              "node": "Build.Prompt",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Build.Prompt": {
+        "main": [
+          [
+            {
+              "node": "Build.IA.Prompt",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Build.IA.Prompt": {
+        "main": [
+          [
+            {
+              "node": "Replicate.minimax",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Replicate.minimax": {
+        "main": [
+          [
+            {
+              "node": "Post.CodigoAlfa",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Schedule Trigger": {
+        "main": [
+          [
+            {
+              "node": "Set.Variables",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Foto": {
+        "main": [
+          []
+        ]
+      },
+      "Post.CodigoAlfa": {
+        "main": [
+          [
+            {
+              "node": "Foto",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "When clicking ‘Execute workflow’": {
+        "main": [
+          [
+            {
+              "node": "Set.Variables",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Replicate.Get.Image": {
+        "main": [
+          [
+            {
+              "node": "UploadFile.Baserow",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Update a row": {
+        "main": [
+          []
+        ]
+      },
+      "UploadFile.Baserow": {
+        "main": [
+          [
+            {
+              "node": "Update a row",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Replicate.minimax1": {
+        "main": [
+          [
+            {
+              "node": "Replicate.Get.Image",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      }
+    },
+    "authors": "system migration",
+    "name": null,
+    "description": null,
+    "autosaved": false
+  },
+  "activeVersionId": "918bc907-9b3a-4926-8799-e99f383e71b1",
   "connections": {
     "Set.Variables": {
       "main": [
@@ -93,6 +696,44 @@
           }
         ]
       ]
+    },
+    "Replicate.Get.Image": {
+      "main": [
+        [
+          {
+            "node": "UploadFile.Baserow",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update a row": {
+      "main": [
+        []
+      ]
+    },
+    "UploadFile.Baserow": {
+      "main": [
+        [
+          {
+            "node": "Update a row",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Replicate.minimax1": {
+      "main": [
+        [
+          {
+            "node": "Replicate.Get.Image",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "createdAt": "2025-07-24T15:54:27.220Z",
@@ -108,13 +749,13 @@
             {
               "id": "7d245a17-b640-41ab-ac37-6c1cf9c7e7d1",
               "name": "styles",
-              "value": "=[\"casual\", \"sensual\", \"playful\", \"intimate\"]",
+              "value": "=[\"casual\", \"sensual\", \"intimate\"]",
               "type": "string"
             },
             {
               "id": "f666428d-9b4d-462c-a08b-b1d392b21d0d",
               "name": "poses_by_style",
-              "value": "={\n  \"casual\": [\n    \"standing confidently facing the camera\",\n    \"sitting on a lounge chair\",\n    \"walking away, glancing back\",\n    \"standing with one leg slightly raised, back facing the camera\"\n  ],\n  \"sensual\": [\n    \"standing with back turned, head looking over shoulder\",\n    \"bending slightly forward, from behind, looking back\",\n    \"arching back while standing, facing away\",\n    \"walking away with hips swaying, glancing back\"\n  ],\n  \"playful\": [\n    \"squatting playfully\",\n    \"squatting with knees apart, looking at the camera\"\n  ],\n  \"intimate\": [\n    \"lying on her stomach on a bed\",\n    \"sitting on the floor with legs bent, back facing the camera\"\n  ]\n}",
+              "value": "={\"casual\": [ \"standing confidently facing the camera\", \"sitting on a lounge chair\", \"walking away, glancing back\", \"standing with one leg slightly raised, back facing the camera\" ],\n  \"sensual\": [ \"standing with back turned, head looking over shoulder\", \"bending slightly forward, from behind, looking back\", \"arching back while standing, facing away\", \"walking away with hips swaying, glancing back\" ],\n  \"intimate\": [ \"lying on her stomach on a bed\", \"sitting on the floor with legs bent, back facing the camera\" ] }",
               "type": "string"
             },
             {
@@ -161,7 +802,7 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        416,
+        432,
         0
       ],
       "id": "91ba323c-46b7-48fa-a4ab-47e4cb04a04e",
@@ -239,7 +880,7 @@
       "type": "n8n-nodes-base.facebookGraphApi",
       "typeVersion": 1,
       "position": [
-        336,
+        320,
         208
       ],
       "id": "e6931551-0fac-4323-b6ca-6e29f9aa5040",
@@ -314,12 +955,14 @@
         "operation": "sendPhoto",
         "chatId": "=1704819492",
         "file": "={{ $('Replicate.minimax').item.json.output[0] }}",
-        "additionalFields": {}
+        "additionalFields": {
+          "caption": "={{ $('Build.IA.Prompt').item.json.gemini_prompt }}"
+        }
       },
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        624,
+        576,
         208
       ],
       "id": "e5626139-4c27-4461-9d8c-d3fecc9f5ed3",
@@ -342,15 +985,342 @@
       ],
       "id": "c3550b75-a645-4d4c-af6c-d9baf28c0416",
       "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "content": "## Consultar\n[Facebook - CodigoAlfa](https://www.facebook.com/CodigoAlfa.On)\n\n**Costo minimax**: $ 0.01",
+        "height": 112,
+        "width": 232,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        240,
+        -160
+      ],
+      "id": "7c88ff4d-7ac2-47c4-9987-ae3e25ca40c9",
+      "name": "Sticky Note4"
+    },
+    {
+      "parameters": {
+        "content": "## Renovar Token: Facebook \n- Ingresar a [developers.facebook](https://developers.facebook.com/tools/explorer/)\n- Copiar: Token de acceso\n- [Depurador de token de acceso\n](https://developers.facebook.com/tools/debug/accesstoken/)\n- Regresar a [developers.facebook](https://developers.facebook.com/tools/explorer/)\n- Usar: me?fields=id,accounts\n- Copiar: access_token\n- Volver a conectar: Graph API ",
+        "height": 224,
+        "width": 400,
+        "color": 3
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        528,
+        -240
+      ],
+      "typeVersion": 1,
+      "id": "cb7ee68a-d0a6-4dda-9fac-a11590835be4",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.output[0] }}",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "file",
+              "outputPropertyName": "image"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        320,
+        448
+      ],
+      "id": "44e30bb0-f5f9-4975-b0b6-909cfbb821c8",
+      "name": "Replicate.Get.Image",
+      "alwaysOutputData": false,
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "databaseId": 324695,
+        "tableId": 747259,
+        "rowId": "={{ $('Get many rows').item.json.id }}",
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": 6301132,
+              "fieldValue": "={{ $('Historia').item.json.output.titulo_principal }}"
+            },
+            {
+              "fieldId": 6301133,
+              "fieldValue": "={{ $('Historia').item.json.output.subtitulo }}"
+            },
+            {
+              "fieldId": 6301134,
+              "fieldValue": "={{ $('Historia').item.json.output.resena }}"
+            },
+            {
+              "fieldId": 6301135,
+              "fieldValue": "={{ $('Historia').item.json.output.microcuento[0].contenido }}\\n\\n{{ $('Historia').item.json.output.microcuento[1].contenido }}\\n\\n{{ $('Historia').item.json.output.microcuento[2].contenido }}\\n\\n{{ $('Historia').item.json.output.microcuento[3].contenido }}\\n\\n{{ $('Historia').item.json.output.microcuento[4].contenido }}\\n\\n{{ $('Historia').item.json.output.microcuento[5].contenido }}\\n\\n\\n{{ $('Historia').item.json.output.analisis_del_giro }}\\n\\n\\n\\n{{ $('Poderes').item.json.output[0].characterName }}\\n{{ $('Poderes').item.json.output[0].miniCardMarkdown }}\\n\\n\\n\\n{{ $('Poderes').item.json.output[1].characterName }}\\n{{ $('Poderes').item.json.output[1].miniCardMarkdown }}"
+            },
+            {
+              "fieldId": 6301136,
+              "fieldValue": "={{ $('Historia').item.json.output.call_to_action }}"
+            },
+            {
+              "fieldId": 6301138,
+              "fieldValue": "={{ $('Historia').item.json.output.prompt_imagen }}"
+            },
+            {
+              "fieldId": 6301140,
+              "fieldValue": "={{ $('Historia').item.json.output.prompt_video }}"
+            },
+            {
+              "fieldId": 6301137,
+              "fieldValue": "={{ $('Historia').item.json.output.hashtags.toString() }}"
+            },
+            {
+              "fieldId": 6301139,
+              "fieldValue": "={{ $json.name }}"
+            },
+            {
+              "fieldId": 6301142,
+              "fieldValue": "Borrador"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.baserow",
+      "typeVersion": 1,
+      "position": [
+        752,
+        448
+      ],
+      "id": "2800e6fc-6c75-4ce4-83a8-02708763ad13",
+      "name": "Update a row",
+      "credentials": {
+        "baserowApi": {
+          "id": "SNrllAn2sJZ5Lm7r",
+          "name": "Baserow.msn"
+        }
+      },
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.baserow.io/api/user-files/upload-file/",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Token F4fPvCH2bpOf73h6bkQ2SjRGJLr22SBk"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "multipart-form-data",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "parameterType": "formBinaryData",
+              "name": "file",
+              "inputDataFieldName": "=image"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        544,
+        448
+      ],
+      "id": "73a9e112-b3a4-4a5d-9e56-8d985658d3a5",
+      "name": "UploadFile.Baserow",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.replicate.com/v1/models/minimax/image-01/predictions",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "name": "Prefer",
+              "value": "wait"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"input\": {\n    \"prompt\": \"{{ $('Historia').item.json.output.prompt_imagen }}\",\n    \"aspect_ratio\": \"3:4\"\n  }\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        80,
+        448
+      ],
+      "id": "f75c1e73-8406-46e0-8f1d-6742d03cc7b7",
+      "name": "Replicate.minimax1",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "L9yQttThWndrdNn3",
+          "name": "Replicate.msn"
+        }
+      },
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "content": "## Guardar imagen en BaseRow\n",
+        "height": 256,
+        "width": 960
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        16,
+        384
+      ],
+      "typeVersion": 1,
+      "id": "4bb77303-3b34-49c9-8670-eccb76ef91fa",
+      "name": "Sticky Note1"
     }
   ],
-  "pinData": {},
+  "pinData": {
+    "Replicate.Get.Image": [
+      {
+        "json": {
+          "id": "7fywj61k0hrm80ctr8mrc54f3c",
+          "model": "minimax/image-01",
+          "version": "hidden",
+          "input": {
+            "aspect_ratio": "3:4",
+            "prompt": "Hyperrealistic, highly detailed ancient dark fantasy scene: Zeus, the king of gods, wielding a colossal thunderbolt made of crackling blue-white lightning, his muscular body draped in storm clouds, golden armor glowing with divine energy, standing atop a shattered mountain peak. Opposite him, Hades, the god of the underworld, emerges from a swirling vortex of ghostly green flames and skeletal hands, his bony fingers clutching a blade of black obsidian, his tattered royal robes fluttering in an unnatural wind. The battlefield is a ruined landscape where the sky bleeds into the earth, with cracks revealing glowing magma and swarms of translucent souls caught between both gods. The atmosphere is thick with cosmic tension, as if reality itself is about to tear apart. Ultra HD, cinematic lighting, dramatic shadows, ancient Greek mythology aesthetic, dark fantasy palette dominated by stormy blues, sickly greens, and volcanic oranges."
+          },
+          "logs": "Warning: Moderation check failed: Error code: 401 - {'error': {'message': 'The OpenAI account associated with this API key has been deactivated. If you are the developer for this OpenAI app, please check your email for more information. If you are seeing this error while using another app or site, please reach out to them for more help.', 'type': 'invalid_request_error', 'param': None, 'code': 'account_deactivated'}}\nGenerated 1 image\nImages generated in 27.23 seconds\n",
+          "output": [
+            "https://replicate.delivery/xezq/tskNRUxgQVp9NVe5JL4ait5vyTeOYi9HEjW3K3dltbnykStVA/tmpwk9i6ijo.jpg"
+          ],
+          "data_removed": false,
+          "error": null,
+          "source": "api",
+          "status": "succeeded",
+          "created_at": "2025-11-26T21:54:31.3Z",
+          "started_at": "2025-11-26T21:54:31.3280035Z",
+          "completed_at": "2025-11-26T21:54:58.668460342Z",
+          "urls": {
+            "cancel": "https://api.replicate.com/v1/predictions/7fywj61k0hrm80ctr8mrc54f3c/cancel",
+            "get": "https://api.replicate.com/v1/predictions/7fywj61k0hrm80ctr8mrc54f3c",
+            "stream": "https://stream.replicate.com/v1/files/bcwr-ncbj4c7laydzs4l2bmzfpson52r6oq6okvdq3yyp4hzhptqcc5yq",
+            "web": "https://replicate.com/p/7fywj61k0hrm80ctr8mrc54f3c"
+          },
+          "metrics": {
+            "image_count": 1,
+            "predict_time": 27.340456839,
+            "total_time": 27.368460342
+          }
+        }
+      }
+    ],
+    "UploadFile.Baserow": [
+      {
+        "json": {
+          "size": 409448,
+          "mime_type": "image/jpeg",
+          "is_image": true,
+          "image_width": 864,
+          "image_height": 1152,
+          "uploaded_at": "2025-11-26T21:55:04.985714Z",
+          "url": "https://baserow-backend-production20240528124524339000000001.s3.amazonaws.com/user_files/t5bVG9aF5ss8eahTB5ofcDDAuDCTRE2T_e1b885e95005a41f1a505d274112c415fd8f353c7f5428b4b9995684bde74565.jpg",
+          "thumbnails": {
+            "tiny": {
+              "url": "https://baserow-backend-production20240528124524339000000001.s3.amazonaws.com/thumbnails/tiny/t5bVG9aF5ss8eahTB5ofcDDAuDCTRE2T_e1b885e95005a41f1a505d274112c415fd8f353c7f5428b4b9995684bde74565.jpg",
+              "width": null,
+              "height": 21
+            },
+            "small": {
+              "url": "https://baserow-backend-production20240528124524339000000001.s3.amazonaws.com/thumbnails/small/t5bVG9aF5ss8eahTB5ofcDDAuDCTRE2T_e1b885e95005a41f1a505d274112c415fd8f353c7f5428b4b9995684bde74565.jpg",
+              "width": 48,
+              "height": 48
+            },
+            "card_cover": {
+              "url": "https://baserow-backend-production20240528124524339000000001.s3.amazonaws.com/thumbnails/card_cover/t5bVG9aF5ss8eahTB5ofcDDAuDCTRE2T_e1b885e95005a41f1a505d274112c415fd8f353c7f5428b4b9995684bde74565.jpg",
+              "width": 300,
+              "height": 160
+            }
+          },
+          "name": "t5bVG9aF5ss8eahTB5ofcDDAuDCTRE2T_e1b885e95005a41f1a505d274112c415fd8f353c7f5428b4b9995684bde74565.jpg",
+          "original_name": "tmpwk9i6ijo.jpg"
+        }
+      }
+    ],
+    "Replicate.minimax1": [
+      {
+        "json": {
+          "id": "7fywj61k0hrm80ctr8mrc54f3c",
+          "model": "minimax/image-01",
+          "version": "hidden",
+          "input": {
+            "aspect_ratio": "3:4",
+            "prompt": "Hyperrealistic, highly detailed ancient dark fantasy scene: Zeus, the king of gods, wielding a colossal thunderbolt made of crackling blue-white lightning, his muscular body draped in storm clouds, golden armor glowing with divine energy, standing atop a shattered mountain peak. Opposite him, Hades, the god of the underworld, emerges from a swirling vortex of ghostly green flames and skeletal hands, his bony fingers clutching a blade of black obsidian, his tattered royal robes fluttering in an unnatural wind. The battlefield is a ruined landscape where the sky bleeds into the earth, with cracks revealing glowing magma and swarms of translucent souls caught between both gods. The atmosphere is thick with cosmic tension, as if reality itself is about to tear apart. Ultra HD, cinematic lighting, dramatic shadows, ancient Greek mythology aesthetic, dark fantasy palette dominated by stormy blues, sickly greens, and volcanic oranges."
+          },
+          "logs": "Warning: Moderation check failed: Error code: 401 - {'error': {'message': 'The OpenAI account associated with this API key has been deactivated. If you are the developer for this OpenAI app, please check your email for more information. If you are seeing this error while using another app or site, please reach out to them for more help.', 'type': 'invalid_request_error', 'param': None, 'code': 'account_deactivated'}}\nGenerated 1 image\nImages generated in 27.23 seconds\n",
+          "output": [
+            "https://replicate.delivery/xezq/tskNRUxgQVp9NVe5JL4ait5vyTeOYi9HEjW3K3dltbnykStVA/tmpwk9i6ijo.jpg"
+          ],
+          "data_removed": false,
+          "error": null,
+          "source": "api",
+          "status": "succeeded",
+          "created_at": "2025-11-26T21:54:31.3Z",
+          "started_at": "2025-11-26T21:54:31.3280035Z",
+          "completed_at": "2025-11-26T21:54:58.668460342Z",
+          "urls": {
+            "cancel": "https://api.replicate.com/v1/predictions/7fywj61k0hrm80ctr8mrc54f3c/cancel",
+            "get": "https://api.replicate.com/v1/predictions/7fywj61k0hrm80ctr8mrc54f3c",
+            "stream": "https://stream.replicate.com/v1/files/bcwr-ncbj4c7laydzs4l2bmzfpson52r6oq6okvdq3yyp4hzhptqcc5yq",
+            "web": "https://replicate.com/p/7fywj61k0hrm80ctr8mrc54f3c"
+          },
+          "metrics": {
+            "image_count": 1,
+            "predict_time": 27.340456839,
+            "total_time": 27.368460342
+          }
+        }
+      }
+    ]
+  },
   "settings": {
     "executionOrder": "v1",
     "timezone": "America/Lima",
     "callerPolicy": "workflowsFromSameOwner",
-    "errorWorkflow": "iNdV46Bame2vCTJz"
+    "errorWorkflow": "iNdV46Bame2vCTJz",
+    "timeSavedPerExecution": 10,
+    "availableInMCP": false
   },
+  "shared": [
+    {
+      "updatedAt": "2025-07-24T15:54:27.227Z",
+      "createdAt": "2025-07-24T15:54:27.227Z",
+      "role": "workflow:owner",
+      "workflowId": "eEjfYtRZfqtCDMed",
+      "projectId": "uBzdLipflPbb1Tbz"
+    }
+  ],
   "staticData": {
     "node:Schedule Trigger": {
       "recurrenceRules": []
@@ -358,19 +1328,19 @@
   },
   "tags": [
     {
-      "createdAt": "2025-07-18T02:37:28.170Z",
       "updatedAt": "2025-07-18T02:37:28.170Z",
+      "createdAt": "2025-07-18T02:37:28.170Z",
       "id": "Za1YQUqDKWnwNOuD",
       "name": "🤖 IA al mando"
     },
     {
-      "createdAt": "2025-07-28T23:05:51.332Z",
       "updatedAt": "2025-07-28T23:05:51.332Z",
+      "createdAt": "2025-07-28T23:05:51.332Z",
       "id": "zSAshwfFPUXVrLqy",
       "name": "🦊 Codigo.Alfa"
     }
   ],
   "triggerCount": 1,
-  "updatedAt": "2025-07-29T06:41:34.000Z",
-  "versionId": "e6862d4d-7a13-45be-909e-85d7fe16a529"
+  "updatedAt": "2025-11-26T23:41:45.000Z",
+  "versionId": "918bc907-9b3a-4926-8799-e99f383e71b1"
 }
