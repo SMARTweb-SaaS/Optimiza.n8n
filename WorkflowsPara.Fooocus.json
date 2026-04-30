@@ -1,5 +1,7 @@
 {
   "active": false,
+  "activeVersion": null,
+  "activeVersionId": null,
   "connections": {
     "When clicking ‘Execute workflow’": {
       "main": [
@@ -107,9 +109,18 @@
   "settings": {
     "executionOrder": "v1"
   },
+  "shared": [
+    {
+      "updatedAt": "2025-07-14T01:21:34.602Z",
+      "createdAt": "2025-07-14T01:21:34.602Z",
+      "role": "workflow:owner",
+      "workflowId": "opbc8rZ51pmPy1WP",
+      "projectId": "uBzdLipflPbb1Tbz"
+    }
+  ],
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2025-07-14T03:08:36.000Z",
-  "versionId": "b455aa1c-a029-4889-a1fa-532012b091ad"
+  "updatedAt": "2025-10-20T01:09:48.000Z",
+  "versionId": "eb5f7ffa-57ac-4b65-9909-66e1173d2648"
 }
