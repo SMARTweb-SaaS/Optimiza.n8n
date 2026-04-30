@@ -1,5 +1,7 @@
 {
   "active": false,
+  "activeVersion": null,
+  "activeVersionId": null,
   "connections": {
     "When clicking ‘Execute workflow’": {
       "main": [
@@ -38,14 +40,25 @@
       "main": [
         [
           {
-            "node": "Update.Estado.Creado",
+            "node": "HTTP Request",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "Update.Estado.Creado": {
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Update.Estado.Generado",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update.Estado.Generado": {
       "main": [
         [
           {
@@ -129,8 +142,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        -352,
-        224
+        -32,
+        240
       ],
       "id": "17d2522a-3ca7-466d-a870-df07ea6d470a",
       "name": "Send a photo message",
@@ -148,8 +161,8 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        -96,
-        240
+        -352,
+        -192
       ],
       "typeVersion": 1,
       "id": "3b85622a-3604-434b-922e-436ac9a50004",
@@ -176,6 +189,20 @@
     },
     {
       "parameters": {
+        "url": "={{ $json.data.url }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -496,
+        240
+      ],
+      "id": "73ab6f15-99f4-4340-8141-00fc71c9e1a4",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
         "operation": "update",
         "databaseId": 254927,
         "tableId": 602543,
@@ -188,7 +215,7 @@
             },
             {
               "fieldId": 4883403,
-              "fieldValue": "Creado"
+              "fieldValue": "Generado"
             }
           ]
         }
@@ -196,11 +223,11 @@
       "type": "n8n-nodes-base.baserow",
       "typeVersion": 1,
       "position": [
-        -560,
-        224
+        -272,
+        240
       ],
       "id": "1783a813-95e1-4fb8-bb0b-506b1ac30301",
-      "name": "Update.Estado.Creado",
+      "name": "Update.Estado.Generado",
       "credentials": {
         "baserowApi": {
           "id": "SNrllAn2sJZ5Lm7r",
@@ -209,22 +236,46 @@
       }
     }
   ],
-  "pinData": {},
+  "pinData": {
+    "Mallabe.GenerarQr": [
+      {
+        "json": {
+          "success": true,
+          "data": {
+            "type": "qrcode",
+            "message": "https://poolinmobiliaria.pe",
+            "fullFileName": "4640281b-9d1b-448f-8a80-838538099310.png",
+            "size": "large",
+            "url": "https://d2u7wtg03zvmhj.cloudfront.net/barcodes.generate/generate/b/9/8/b98b9dd7-3f63-4ea0-9fd0-4f801c3fe320.png"
+          }
+        }
+      }
+    ]
+  },
   "settings": {
     "executionOrder": "v1",
     "callerPolicy": "workflowsFromSameOwner",
     "errorWorkflow": "iNdV46Bame2vCTJz"
   },
+  "shared": [
+    {
+      "updatedAt": "2025-07-10T14:00:01.406Z",
+      "createdAt": "2025-07-10T14:00:01.406Z",
+      "role": "workflow:owner",
+      "workflowId": "jcgqIiNnBCLFtGji",
+      "projectId": "uBzdLipflPbb1Tbz"
+    }
+  ],
   "staticData": null,
   "tags": [
     {
-      "createdAt": "2025-07-28T23:16:55.585Z",
       "updatedAt": "2025-07-28T23:16:55.585Z",
+      "createdAt": "2025-07-28T23:16:55.585Z",
       "id": "B0zvrFLy0yNSEhVJ",
       "name": "💡SmartWeb"
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2025-07-28T23:18:31.000Z",
-  "versionId": "16da9cda-2650-4ad4-b9a4-d5b21d7d1693"
+  "updatedAt": "2026-01-20T22:37:53.000Z",
+  "versionId": "c4392447-5138-4813-aabe-a6c7415728bd"
 }
