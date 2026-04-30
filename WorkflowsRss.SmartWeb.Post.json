@@ -1,61 +1,14 @@
 {
   "active": false,
+  "activeVersion": null,
+  "activeVersionId": null,
   "connections": {
-    "When clicking ‘Execute workflow’": {
-      "main": [
-        [
-          {
-            "node": "Rss.Read.EsWired",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Upload.Image": {
       "main": [
         [
           {
-            "node": "Create Tweet",
+            "node": "Code in JavaScript",
             "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Select.Rss": {
-      "main": [
-        []
-      ]
-    },
-    "Rss.Read.EsWired": {
-      "main": [
-        [
-          {
-            "node": "Filter",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Structured Output Parser": {
-      "ai_outputParser": [
-        [
-          {
-            "node": "Analiza.Rss",
-            "type": "ai_outputParser",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Structured Output Parser1": {
-      "ai_outputParser": [
-        [
-          {
-            "node": "Crea.Contenido",
-            "type": "ai_outputParser",
             "index": 0
           }
         ]
@@ -175,11 +128,6 @@
       "main": [
         [
           {
-            "node": "Wait.50",
-            "type": "main",
-            "index": 0
-          },
-          {
             "node": "Post.SmartWeb",
             "type": "main",
             "index": 0
@@ -188,15 +136,14 @@
             "node": "Create a post",
             "type": "main",
             "index": 0
-          }
-        ]
-      ]
-    },
-    "Filter": {
-      "main": [
-        [
+          },
           {
-            "node": "Select.Rss",
+            "node": "Send a text message",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Upload.Image",
             "type": "main",
             "index": 0
           }
@@ -214,13 +161,121 @@
         ]
       ]
     },
-    "Wait.50": {
+    "analiza.json": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "Analiza.Rss",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "crea.json": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "Crea.Contenido",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        []
+      ]
+    },
+    "When clicking ‘Execute workflow’": {
       "main": [
         [
           {
-            "node": "Upload.Image",
+            "node": "IA.en.Español",
             "type": "main",
             "index": 0
+          },
+          {
+            "node": "Es.Wired",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Marketing.4.ecommerce",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "Filtro",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filtro": {
+      "main": [
+        [
+          {
+            "node": "Mostrar.Campos",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Mostrar.Campos": {
+      "main": [
+        [
+          {
+            "node": "Select.Rss",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Select.Rss": {
+      "main": [
+        []
+      ]
+    },
+    "IA.en.Español": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Es.Wired": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Marketing.4.ecommerce": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 2
           }
         ]
       ]
@@ -235,17 +290,6 @@
   "name": "Rss.SmartWeb.Post",
   "nodes": [
     {
-      "parameters": {},
-      "type": "n8n-nodes-base.manualTrigger",
-      "typeVersion": 1,
-      "position": [
-        -896,
-        -128
-      ],
-      "id": "2fc4088e-18a2-4aeb-b4a8-2e9b7370ed79",
-      "name": "When clicking ‘Execute workflow’"
-    },
-    {
       "parameters": {
         "content": "## Publicar en Facebook\n**Double click** to edit me. [YouTube](https://www.youtube.com/watch?v=YN0990rg-PY&ab_channel=HackeandoLaRutina)\n\nhttps://developers.facebook.com/apps/?show_reminder=true",
         "height": 140,
@@ -254,7 +298,7 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        464,
+        432,
         384
       ],
       "id": "a374dc71-990a-4e6d-a09e-e4c0faccaf80",
@@ -269,7 +313,7 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        464,
+        432,
         560
       ],
       "id": "038e3a78-4c61-44f8-a3b4-086d1d631764",
@@ -308,8 +352,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        64,
-        784
+        -160,
+        832
       ],
       "id": "f0636f58-8828-4795-9778-b98bd33c88a2",
       "name": "Upload.Image",
@@ -319,18 +363,19 @@
           "id": "I7x1FgnFz8uz9obw",
           "name": "X.jomBusiness"
         }
-      }
+      },
+      "disabled": true
     },
     {
       "parameters": {
-        "content": "## Publicar en Twitter\n**Double click** to edit me. [YouTube](https://www.youtube.com/watch?v=5lYXqXvnyqM&ab_channel=SouthbayJay)\n\nhttps://community.n8n.io/t/post-media-to-x-twitter-via-api-new/90997",
+        "content": "## Publicar en Twitter\n**Double click** to edit me. [YouTube](https://www.youtube.com/watch?v=5lYXqXvnyqM&ab_channel=SouthbayJay)\n\nAl final agregar: +media.write",
         "height": 140,
         "width": 300
       },
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        464,
+        432,
         736
       ],
       "id": "e3ac71de-a287-4b7f-8b5b-2d544170d526",
@@ -338,72 +383,18 @@
     },
     {
       "parameters": {
-        "jsCode": "// Obtén todos los elementos que vienen del nodo anterior (RSS Read)\nconst rssArray = $input.all();\n\n// --- Elige tu lógica de selección ---\nconst indice = 2 // 0: Primer elemento\nconst selectedElement = rssArray[indice];\n\n// Envía el elemento seleccionado como salida\nif (selectedElement) {\n  return [{ json: selectedElement }]; // Asegúrate de devolverlo dentro de un objeto con la propiedad 'json'\n} else {\n  // Manejo si no se encuentra ningún elemento o si el array está vacío\n  return [];\n}"
-      },
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [
-        -208,
-        -128
-      ],
-      "id": "a67120c9-b62a-4654-a19b-25e252fd8adb",
-      "name": "Select.Rss"
-    },
-    {
-      "parameters": {
-        "url": "https://es.wired.com/feed/rss",
-        "options": {
-          "ignoreSSL": false
-        }
-      },
-      "type": "n8n-nodes-base.rssFeedRead",
-      "typeVersion": 1.2,
-      "position": [
-        -688,
-        -128
-      ],
-      "id": "b936275e-0b51-4831-987c-4eff8b54a057",
-      "name": "Rss.Read.EsWired"
-    },
-    {
-      "parameters": {
         "content": "## Antes de guardar\n**Siempre debe de estar DESCONECTADO el flujo**",
-        "width": 300
+        "width": 300,
+        "color": 4
       },
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        -144,
-        -304
+        400,
+        -128
       ],
       "id": "e8edf29d-8e02-4ee8-b61b-6075c229d17b",
       "name": "Sticky Note3"
-    },
-    {
-      "parameters": {
-        "jsonSchemaExample": "{\n  \"resumen_objetivo\": \"Resumen claro del hecho\",\n  \"puntos_clave\": [\n    \"Punto 1 con dato verificable\",\n    \"Punto 2 con dato verificable\",\n    \"Punto 3 con dato verificable\"\n  ],\n  \"antecedentes\": \"Contexto histórico o previo esencial\",\n  \"implicaciones\": \"Posibles consecuencias o escenarios derivados del hecho\",\n  \"terminos_tecnicos\": [\n    {\n      \"termino\": \"Término técnico 1\",\n      \"definicion\": \"Definición en contexto profesional\"\n    },\n    {\n      \"termino\": \"Término técnico 2\",\n      \"definicion\": \"Definición en contexto profesional\"\n    }\n  ]\n}"
-      },
-      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
-      "typeVersion": 1.3,
-      "position": [
-        112,
-        0
-      ],
-      "id": "8286cbc4-e32b-40ad-91e9-df0e19fe8f34",
-      "name": "Structured Output Parser"
-    },
-    {
-      "parameters": {
-        "jsonSchemaExample": "{\n  \"instagram\": {\n    \"caption\": \"string\",\n    \"hashtags\": [\"string\"]\n  },\n  \"linkedin\": {\n    \"content\": \"string\",\n    \"hashtags\": [\"string\"]\n  },\n  \"blog\": {\n    \"title\": \"string\",\n    \"content\": \"string\",\n    \"tags\": [\"string\"],\n    \"meta_description\": \"string\"\n  },\n  \"facebook\": {\n    \"content\": \"string\",\n    \"hashtags\": [\"string\"]\n  },\n  \"twitter\": {\n    \"tweet\": \"string\",\n    \"hashtags\": [\"string\"]\n  }\n}"
-      },
-      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
-      "typeVersion": 1.3,
-      "position": [
-        -320,
-        496
-      ],
-      "id": "d60f7ba9-9aad-4de2-9d6a-6b144b372bdd",
-      "name": "Structured Output Parser1"
     },
     {
       "parameters": {
@@ -416,8 +407,8 @@
       "type": "n8n-nodes-base.linkedIn",
       "typeVersion": 1,
       "position": [
-        240,
-        528
+        192,
+        688
       ],
       "id": "c7661989-668a-45e8-a945-2c24d92e63e3",
       "name": "Create a post",
@@ -438,17 +429,19 @@
       "type": "n8n-nodes-base.twitter",
       "typeVersion": 2,
       "position": [
-        240,
-        784
+        288,
+        832
       ],
       "id": "17083f10-3aa5-427a-98ec-333c5d86d8e5",
       "name": "Create Tweet",
+      "retryOnFail": false,
       "credentials": {
         "twitterOAuth2Api": {
           "id": "I7x1FgnFz8uz9obw",
           "name": "X.jomBusiness"
         }
-      }
+      },
+      "disabled": true
     },
     {
       "parameters": {
@@ -458,7 +451,7 @@
       "typeVersion": 2,
       "position": [
         -784,
-        384
+        368
       ],
       "id": "dfeafbcf-f255-473c-b210-898316eb1756",
       "name": "Crear.Post"
@@ -547,8 +540,8 @@
       "type": "@n8n/n8n-nodes-langchain.chainLlm",
       "typeVersion": 1.7,
       "position": [
-        -592,
-        384
+        -560,
+        368
       ],
       "id": "ebdbbf1c-0d8b-4f16-93c8-2410943922c6",
       "name": "Crea.Contenido"
@@ -561,8 +554,8 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        352,
-        -288
+        384,
+        80
       ],
       "id": "634a3287-5766-4bdb-b9e6-075d3ebfc52a",
       "name": "Sticky Note4"
@@ -639,8 +632,8 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
       "typeVersion": 1,
       "position": [
-        -688,
-        496
+        -608,
+        544
       ],
       "id": "e3da7440-0e6d-4f57-85d6-acf8cc90d187",
       "name": "gpt-4o-mini.Contenido",
@@ -705,8 +698,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        -192,
-        384
+        -160,
+        368
       ],
       "id": "72a72a4d-b90f-43cf-824e-b91b8b5ec184",
       "name": "Replicate.Get.Image",
@@ -719,8 +712,8 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        448,
-        128
+        -976,
+        720
       ],
       "typeVersion": 1,
       "id": "354ba859-1a3d-4d49-9017-0479212bc02c",
@@ -730,7 +723,7 @@
       "parameters": {
         "httpRequestMethod": "POST",
         "graphApiVersion": "v22.0",
-        "node": "me",
+        "node": "157152044640637",
         "edge": "photos",
         "sendBinaryData": true,
         "binaryPropertyName": "image",
@@ -748,8 +741,8 @@
       "type": "n8n-nodes-base.facebookGraphApi",
       "typeVersion": 1,
       "position": [
-        240,
-        384
+        192,
+        544
       ],
       "id": "07464ae4-b8f9-4dc0-8916-6632c21bbf9f",
       "name": "Post.SmartWeb",
@@ -759,6 +752,135 @@
           "name": "Facebook.SmartWeb"
         }
       }
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        192,
+        128
+      ],
+      "id": "f2c405c6-940b-4471-9207-fb160660603c",
+      "name": "Wait.5",
+      "webhookId": "5dbfa580-58e8-44cb-8ec7-ada44805b8e1"
+    },
+    {
+      "parameters": {
+        "chatId": "1704819492",
+        "text": "={{ $('Crea.Contenido').item.json.output.twitter.tweet }}\n{{ $('Crea.Contenido').item.json.output.twitter.hashtags }}\n\nMás información: {{ $('Select.Rss').item.json.json.link }}",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        192,
+        368
+      ],
+      "id": "7e5c28b8-8d05-4e33-abfa-f1e16afd355c",
+      "name": "Send a text message",
+      "webhookId": "31514eaf-9832-4517-92bb-84fa223359a9",
+      "credentials": {
+        "telegramApi": {
+          "id": "zxkALNj2uZW1uxoX",
+          "name": "Telegram.jomBusiness"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## Renovar Token: Facebook \n- Ingresar a [developers.facebook](https://developers.facebook.com/tools/explorer/)\n- Copiar: Token de acceso\n- [Depurador de token de acceso\n](https://developers.facebook.com/tools/debug/accesstoken/)\n- Regresar a [developers.facebook](https://developers.facebook.com/tools/explorer/)\n- Usar: me?fields=id,accounts\n- Copiar: access_token\n- Volver a conectar: Graph API ",
+        "height": 224,
+        "width": 400,
+        "color": 3
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -704,
+        672
+      ],
+      "typeVersion": 1,
+      "id": "79b64faa-53d3-45bb-85d9-1317f450c839",
+      "name": "Sticky Note6"
+    },
+    {
+      "parameters": {
+        "jsonSchemaExample": "{\n  \"resumen_objetivo\": \"Resumen claro del hecho\",\n  \"puntos_clave\": [\n    \"Punto 1 con dato verificable\",\n    \"Punto 2 con dato verificable\",\n    \"Punto 3 con dato verificable\"\n  ],\n  \"antecedentes\": \"Contexto histórico o previo esencial\",\n  \"implicaciones\": \"Posibles consecuencias o escenarios derivados del hecho\",\n  \"terminos_tecnicos\": [\n    {\n      \"termino\": \"Término técnico 1\",\n      \"definicion\": \"Definición en contexto profesional\"\n    },\n    {\n      \"termino\": \"Término técnico 2\",\n      \"definicion\": \"Definición en contexto profesional\"\n    }\n  ]\n}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.3,
+      "position": [
+        112,
+        0
+      ],
+      "id": "8286cbc4-e32b-40ad-91e9-df0e19fe8f34",
+      "name": "analiza.json"
+    },
+    {
+      "parameters": {
+        "jsonSchemaExample": "{\n  \"instagram\": {\n    \"caption\": \"string\",\n    \"hashtags\": [\"string\"]\n  },\n  \"linkedin\": {\n    \"content\": \"string\",\n    \"hashtags\": [\"string\"]\n  },\n  \"blog\": {\n    \"title\": \"string\",\n    \"content\": \"string\",\n    \"tags\": [\"string\"],\n    \"meta_description\": \"string\"\n  },\n  \"facebook\": {\n    \"content\": \"string\",\n    \"hashtags\": [\"string\"]\n  },\n  \"twitter\": {\n    \"tweet\": \"string\",\n    \"hashtags\": [\"string\"]\n  }\n}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.3,
+      "position": [
+        -448,
+        544
+      ],
+      "id": "d60f7ba9-9aad-4de2-9d6a-6b144b372bdd",
+      "name": "crea.json"
+    },
+    {
+      "parameters": {
+        "jsCode": "// ── CONFIGURACIÓN ──────────────────────────────────────────\nconst API_KEY            = 'fYj8QIdhiaRkgwt9mona9HPJT';\nconst API_SECRET         = 'YySH3PSOZwMhEGDNx75HfRAK87vta96iY13bAX2Q17aO9augKw';\nconst ACCESS_TOKEN       = '40005087-DpKnpN2F6CTeRHaDR9cseN1Sri0272oEGIMeEgZ8J';\nconst ACCESS_TOKEN_SECRET = '1Xfmxl4uLf124YoiR6NtFH9djMdfiv2p1f2tjkejQEPjn';\n\n// ── DATOS DEL TWEET ─────────────────────────────────────────\nconst tweetText = $('Crea.Contenido').item.json.output.twitter.tweet\n  + '\\n'\n  + $('Crea.Contenido').item.json.output.twitter.hashtags;\n\nconst mediaId = $('Upload.Image').item.json.body.data.id;\n\n// ── HMAC-SHA1 PURO EN JS ─────────────────────────────────────\nfunction sha1(msg) {\n  function rotl(n, s) { return (n << s) | (n >>> (32 - s)); }\n  function tohex(n) { return ('0000000' + n.toString(16)).slice(-8); }\n  let H = [0x67452301,0xEFCDAB89,0x98BADCFE,0x10325476,0xC3D2E1F0];\n  let bytes = [];\n  for (let i = 0; i < msg.length; i++) {\n    let c = msg.charCodeAt(i);\n    if (c < 128) bytes.push(c);\n    else if (c < 2048) { bytes.push((c>>6)|192); bytes.push((c&63)|128); }\n    else { bytes.push((c>>12)|224); bytes.push(((c>>6)&63)|128); bytes.push((c&63)|128); }\n  }\n  let bitLen = bytes.length * 8;\n  bytes.push(0x80);\n  while (bytes.length % 64 !== 56) bytes.push(0);\n  bytes.push(0,0,0,0);\n  for (let i = 3; i >= 0; i--) bytes.push((bitLen >> (i*8)) & 0xFF);\n  for (let i = 0; i < bytes.length; i += 64) {\n    let W = [];\n    for (let j = 0; j < 16; j++)\n      W[j] = (bytes[i+j*4]<<24)|(bytes[i+j*4+1]<<16)|(bytes[i+j*4+2]<<8)|bytes[i+j*4+3];\n    for (let j = 16; j < 80; j++)\n      W[j] = rotl(W[j-3]^W[j-8]^W[j-14]^W[j-16], 1);\n    let [a,b,c,d,e] = H;\n    for (let j = 0; j < 80; j++) {\n      let f, k;\n      if      (j < 20) { f=(b&c)|((~b)&d); k=0x5A827999; }\n      else if (j < 40) { f=b^c^d;           k=0x6ED9EBA1; }\n      else if (j < 60) { f=(b&c)|(b&d)|(c&d);k=0x8F1BBCDC;}\n      else              { f=b^c^d;           k=0xCA62C1D6; }\n      let temp = (rotl(a,5) + f + e + k + W[j]) >>> 0;\n      e=d; d=c; c=rotl(b,30); b=a; a=temp;\n    }\n    H[0]=(H[0]+a)>>>0; H[1]=(H[1]+b)>>>0;\n    H[2]=(H[2]+c)>>>0; H[3]=(H[3]+d)>>>0; H[4]=(H[4]+e)>>>0;\n  }\n  return H.map(tohex).join('');\n}\n\nfunction hmacSHA1base64(key, message) {\n  const BLOCK = 64;\n  let k = [];\n  if (key.length > BLOCK) {\n    let h = sha1(key);\n    for (let i = 0; i < h.length; i += 2) k.push(parseInt(h.slice(i,i+2),16));\n  } else {\n    for (let i = 0; i < key.length; i++) k.push(key.charCodeAt(i));\n  }\n  while (k.length < BLOCK) k.push(0);\n  const iPad = k.map(b => b ^ 0x36);\n  const oPad = k.map(b => b ^ 0x5C);\n  const inner = sha1(String.fromCharCode(...iPad) + message);\n  let innerBytes = [];\n  for (let i = 0; i < inner.length; i += 2) innerBytes.push(parseInt(inner.slice(i,i+2),16));\n  const raw = sha1(String.fromCharCode(...oPad) + String.fromCharCode(...innerBytes));\n  let bytes = [];\n  for (let i = 0; i < raw.length; i += 2) bytes.push(parseInt(raw.slice(i,i+2),16));\n  return btoa(String.fromCharCode(...bytes));\n}\n\n// ── OAUTH 1.0a ───────────────────────────────────────────────\nfunction percentEncode(str) {\n  return encodeURIComponent(str)\n    .replace(/!/g,'%21').replace(/'/g,'%27')\n    .replace(/\\(/g,'%28').replace(/\\)/g,'%29')\n    .replace(/\\*/g,'%2A');\n}\n\nconst method    = 'POST';\nconst url       = 'https://api.twitter.com/2/tweets';\nconst nonce     = Math.random().toString(36).slice(2) + Date.now();\nconst timestamp = Math.floor(Date.now() / 1000).toString();\n\nconst oauthParams = {\n  oauth_consumer_key:     API_KEY,\n  oauth_nonce:            nonce,\n  oauth_signature_method: 'HMAC-SHA1',\n  oauth_timestamp:        timestamp,\n  oauth_token:            ACCESS_TOKEN,\n  oauth_version:          '1.0',\n};\n\nconst sortedParams = Object.keys(oauthParams).sort()\n  .map(k => `${percentEncode(k)}=${percentEncode(oauthParams[k])}`)\n  .join('&');\n\nconst baseString = [method, percentEncode(url), percentEncode(sortedParams)].join('&');\nconst signingKey = `${percentEncode(API_SECRET)}&${percentEncode(ACCESS_TOKEN_SECRET)}`;\nconst signature  = hmacSHA1base64(signingKey, baseString);\n\noauthParams.oauth_signature = signature;\n\nconst authHeader = 'OAuth ' + Object.keys(oauthParams).sort()\n  .map(k => `${percentEncode(k)}=\"${percentEncode(oauthParams[k])}\"`)\n  .join(', ');\n\n// ── REQUEST via $helpers ─────────────────────────────────────\nconst response = await $helpers.httpRequest({\n  method: 'POST',\n  url: 'https://api.twitter.com/2/tweets',\n  headers: {\n    'Authorization': authHeader,\n    'Content-Type': 'application/json',\n  },\n  body: JSON.stringify({\n    text: tweetText,\n    media: { media_ids: [mediaId] }\n  }),\n});\n\nreturn [{ json: response }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        96,
+        832
+      ],
+      "id": "f6e7dd15-cc37-47ba-b504-5500d7ba54f7",
+      "name": "Code in JavaScript",
+      "disabled": true
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -1232,
+        -128
+      ],
+      "id": "b7ad47d5-215a-4aa6-89a3-b2da6ffa4cce",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Obtén todos los elementos que vienen del nodo anterior (RSS Read)\nconst rssArray = $input.all();\n\n// --- Elige tu lógica de selección ---\nconst indice = 15// 0: Primer elemento\nconst selectedElement = rssArray[indice];\n\n// Envía el elemento seleccionado como salida\nif (selectedElement) {\n  return [{ json: selectedElement }]; // Asegúrate de devolverlo dentro de un objeto con la propiedad 'json'\n} else {\n  // Manejo si no se encuentra ningún elemento o si el array está vacío\n  return [];\n}"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -208,
+        -128
+      ],
+      "id": "63e9295c-9d1f-47c9-8c14-e04e9aa225be",
+      "name": "Select.Rss"
+    },
+    {
+      "parameters": {
+        "numberInputs": 3
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        -784,
+        -144
+      ],
+      "id": "da3b873e-5513-4ccf-a1c2-b8784e691a97",
+      "name": "Merge"
     },
     {
       "parameters": {
@@ -791,10 +913,79 @@
             {
               "id": "29503942-2c6b-445e-8ef1-6520a6bf48ba",
               "leftValue": "={{ $json.title }}",
-              "rightValue": "software",
+              "rightValue": "OpenAI",
               "operator": {
                 "type": "string",
                 "operation": "contains"
+              }
+            },
+            {
+              "id": "b6798105-bae7-4e4f-a078-d7b84e5bfdfb",
+              "leftValue": "={{ $json.title }}",
+              "rightValue": "Claude",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            },
+            {
+              "id": "1ba2cb88-9c89-4e6e-9136-7129e140bc1e",
+              "leftValue": "={{ $json.title }}",
+              "rightValue": "dinero",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            },
+            {
+              "id": "19661ee1-ea95-4ea6-94bb-31a15ae88250",
+              "leftValue": "={{ $json.title }}",
+              "rightValue": "AI",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            },
+            {
+              "id": "46518885-a95d-475f-a89b-94214fc15554",
+              "leftValue": "={{ $json.title }}",
+              "rightValue": "ChatGPT",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            },
+            {
+              "id": "d1138a1f-9675-441b-987f-3cc6a297087c",
+              "leftValue": "={{ $json.title }}",
+              "rightValue": "Instagram",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            },
+            {
+              "id": "c561f0b6-880c-4be6-9ccf-3f3970cd4133",
+              "leftValue": "={{ $json.title }}",
+              "rightValue": "Facebook",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            },
+            {
+              "id": "8ea8dc47-1969-48ae-9160-49da4e409ca3",
+              "leftValue": "={{ $json.title }}",
+              "rightValue": "YouTube",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
               }
             }
           ],
@@ -805,55 +996,133 @@
       "type": "n8n-nodes-base.filter",
       "typeVersion": 2.2,
       "position": [
-        -464,
+        -592,
         -128
       ],
-      "id": "b6e18156-cc11-4225-a7bf-52edf127b1fe",
-      "name": "Filter"
-    },
-    {
-      "parameters": {},
-      "type": "n8n-nodes-base.wait",
-      "typeVersion": 1.1,
-      "position": [
-        192,
-        128
-      ],
-      "id": "f2c405c6-940b-4471-9207-fb160660603c",
-      "name": "Wait.5",
-      "webhookId": "5dbfa580-58e8-44cb-8ec7-ada44805b8e1"
+      "id": "80d48e6b-7524-4a2a-be43-3e41d13c4503",
+      "name": "Filtro"
     },
     {
       "parameters": {
-        "amount": 50
+        "assignments": {
+          "assignments": [
+            {
+              "id": "ad7b0a27-e2f4-43ef-a980-8032b0827cf4",
+              "name": "=index",
+              "value": "={{ $itemIndex }}",
+              "type": "number"
+            },
+            {
+              "id": "94d3989d-b3bd-47c1-9867-539e5670bc1f",
+              "name": "=creator",
+              "value": "={{ $json.creator }}",
+              "type": "string"
+            },
+            {
+              "id": "81250a65-7a30-43a9-83a0-f01a3961ccaf",
+              "name": "=title",
+              "value": "={{ $json.title }}",
+              "type": "string"
+            },
+            {
+              "id": "856fd9c0-61e1-4b3a-bbb4-ae1498c462ae",
+              "name": "=link",
+              "value": "={{ $json.link }}",
+              "type": "string"
+            },
+            {
+              "id": "7abb6e02-9128-4af8-9d33-00cccc283251",
+              "name": "=pubDate",
+              "value": "={{ $json.pubDate }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {
+          "ignoreConversionErrors": true,
+          "dotNotation": true
+        }
       },
-      "type": "n8n-nodes-base.wait",
-      "typeVersion": 1.1,
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
       "position": [
-        32,
-        560
+        -400,
+        -128
       ],
-      "id": "a6f555ac-ff1e-405b-997c-f871306ef0e9",
-      "name": "Wait.50",
-      "webhookId": "1339756b-50e8-4e75-baf1-bf91b39d0b7b"
+      "id": "bf75f996-f2f9-4dd6-b609-8df32b605a9b",
+      "name": "Mostrar.Campos"
+    },
+    {
+      "parameters": {
+        "url": "https://iaenespanol.substack.com/feed",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.rssFeedRead",
+      "typeVersion": 1.2,
+      "position": [
+        -992,
+        -272
+      ],
+      "id": "26f8eb2e-7a02-4bf5-be19-189d2b6f5ad1",
+      "name": "IA.en.Español"
+    },
+    {
+      "parameters": {
+        "url": "https://es.wired.com/feed/rss",
+        "options": {
+          "ignoreSSL": false
+        }
+      },
+      "type": "n8n-nodes-base.rssFeedRead",
+      "typeVersion": 1.2,
+      "position": [
+        -992,
+        -128
+      ],
+      "id": "1d582c57-31e6-4fed-aa49-3efd5bdcb7c9",
+      "name": "Es.Wired"
+    },
+    {
+      "parameters": {
+        "url": "https://marketing4ecommerce.net/feed/",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.rssFeedRead",
+      "typeVersion": 1.2,
+      "position": [
+        -992,
+        32
+      ],
+      "id": "cfb24bd1-df5f-4cf4-acf0-dc34651a1f8f",
+      "name": "Marketing.4.ecommerce"
     }
   ],
   "pinData": {},
   "settings": {
     "executionOrder": "v1",
     "callerPolicy": "workflowsFromSameOwner",
-    "errorWorkflow": "iNdV46Bame2vCTJz"
+    "errorWorkflow": "iNdV46Bame2vCTJz",
+    "binaryMode": "separate"
   },
+  "shared": [
+    {
+      "updatedAt": "2025-07-08T13:38:47.951Z",
+      "createdAt": "2025-07-08T13:38:47.951Z",
+      "role": "workflow:owner",
+      "workflowId": "nhxLUOcsOHLUN6AW",
+      "projectId": "uBzdLipflPbb1Tbz"
+    }
+  ],
   "staticData": null,
   "tags": [
     {
-      "createdAt": "2025-07-28T23:16:55.585Z",
       "updatedAt": "2025-07-28T23:16:55.585Z",
+      "createdAt": "2025-07-28T23:16:55.585Z",
       "id": "B0zvrFLy0yNSEhVJ",
       "name": "💡SmartWeb"
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2025-08-06T16:20:36.000Z",
-  "versionId": "93e7afaa-fa46-4c5f-97c5-e183e9201e1b"
+  "updatedAt": "2026-04-30T15:12:42.227Z",
+  "versionId": "aa181ebc-9e24-4492-bd2a-85310c9bfe65"
 }
