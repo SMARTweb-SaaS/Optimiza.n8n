@@ -792,7 +792,8 @@
           "id": "oLZIg5vzU0boYptJ",
           "name": "GitHub.msn"
         }
-      }
+      },
+      "disabled": true
     },
     {
       "parameters": {
@@ -961,7 +962,10 @@
     "executionOrder": "v1",
     "callerPolicy": "workflowsFromSameOwner",
     "errorWorkflow": "iNdV46Bame2vCTJz",
-    "timeSavedPerExecution": 30
+    "timeSavedPerExecution": 30,
+    "binaryMode": "separate",
+    "timeSavedMode": "fixed",
+    "availableInMCP": false
   },
   "shared": [
     {
@@ -988,6 +992,6 @@
     }
   ],
   "triggerCount": 1,
-  "updatedAt": "2025-09-26T20:24:49.000Z",
-  "versionId": "e171e5e8-6280-419a-aaef-e360def562c9"
+  "updatedAt": "2026-04-30T16:45:06.349Z",
+  "versionId": "24128193-f691-47b7-b991-f6b1c244fd49"
 }
