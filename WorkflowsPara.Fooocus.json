@@ -37,8 +37,8 @@
       ]
     }
   },
-  "createdAt": "2025-07-14T01:21:34.595Z",
-  "id": "opbc8rZ51pmPy1WP",
+  "createdAt": "2026-04-30T23:12:35.655Z",
+  "id": "LZlCzNnEnnOuqadB",
   "isArchived": false,
   "meta": null,
   "name": "Para.Fooocus",
@@ -48,10 +48,10 @@
       "type": "n8n-nodes-base.manualTrigger",
       "typeVersion": 1,
       "position": [
-        -320,
-        -112
+        384,
+        -240
       ],
-      "id": "204c2128-c6a7-4f49-b11f-b4b3c33d0171",
+      "id": "fb859089-a0f6-4ffc-ad12-be1363bcfafb",
       "name": "When clicking ‘Execute workflow’"
     },
     {
@@ -61,10 +61,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -112,
-        -112
+        592,
+        -240
       ],
-      "id": "35560cca-3ecf-400c-aba4-4703e826502d",
+      "id": "7a6e9118-a38d-4a4e-ae68-f85e4184a8c3",
       "name": "Code"
     },
     {
@@ -75,10 +75,10 @@
       "type": "n8n-nodes-base.convertToFile",
       "typeVersion": 1.1,
       "position": [
-        352,
-        -112
+        1056,
+        -240
       ],
-      "id": "91caa2bf-30ac-4d8f-8e76-4c8fee966b3c",
+      "id": "4e8c8bb5-da56-4403-9b04-5b1f2fdb2e06",
       "name": "Convert to File"
     },
     {
@@ -98,29 +98,30 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        112,
-        -112
+        816,
+        -240
       ],
-      "id": "4f127436-f175-4a72-9dbb-5d4a707f35a0",
+      "id": "14f16e15-82db-4ef3-8d67-a0bdf6381841",
       "name": "Edit Fields"
     }
   ],
   "pinData": {},
   "settings": {
-    "executionOrder": "v1"
+    "executionOrder": "v1",
+    "binaryMode": "separate"
   },
   "shared": [
     {
-      "updatedAt": "2025-07-14T01:21:34.602Z",
-      "createdAt": "2025-07-14T01:21:34.602Z",
+      "updatedAt": "2026-04-30T23:12:35.655Z",
+      "createdAt": "2026-04-30T23:12:35.655Z",
       "role": "workflow:owner",
-      "workflowId": "opbc8rZ51pmPy1WP",
-      "projectId": "uBzdLipflPbb1Tbz"
+      "workflowId": "LZlCzNnEnnOuqadB",
+      "projectId": "eyOyKz68GM9OloYk"
     }
   ],
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2025-10-20T01:09:48.000Z",
-  "versionId": "eb5f7ffa-57ac-4b65-9909-66e1173d2648"
+  "updatedAt": "2026-04-30T23:12:35.655Z",
+  "versionId": "30a85174-c989-409e-a25a-59a0b4fb19df"
 }
