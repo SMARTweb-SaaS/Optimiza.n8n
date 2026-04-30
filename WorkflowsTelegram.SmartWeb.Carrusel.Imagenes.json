@@ -1,5 +1,7 @@
 {
   "active": false,
+  "activeVersion": null,
+  "activeVersionId": null,
   "connections": {
     "Telegram": {
       "main": [
@@ -1022,11 +1024,20 @@
     "callerPolicy": "workflowsFromSameOwner",
     "errorWorkflow": "iNdV46Bame2vCTJz"
   },
+  "shared": [
+    {
+      "updatedAt": "2025-07-08T14:31:12.254Z",
+      "createdAt": "2025-07-08T14:31:12.254Z",
+      "role": "workflow:owner",
+      "workflowId": "a0gzFYj8aDZSpQ0c",
+      "projectId": "uBzdLipflPbb1Tbz"
+    }
+  ],
   "staticData": null,
   "tags": [
     {
-      "createdAt": "2025-07-28T23:16:55.585Z",
       "updatedAt": "2025-07-28T23:16:55.585Z",
+      "createdAt": "2025-07-28T23:16:55.585Z",
       "id": "B0zvrFLy0yNSEhVJ",
       "name": "💡SmartWeb"
     }
