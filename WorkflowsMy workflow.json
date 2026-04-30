@@ -3,51 +3,71 @@
   "activeVersion": null,
   "activeVersionId": null,
   "connections": {
-    "Get many rows": {
+    "When clicking ‘Execute workflow’": {
       "main": [
         [
           {
-            "node": "Loop Over Items",
+            "node": "RSS Read",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Rss.Read.EsWired",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "On form submission": {
+    "Rss.Read.EsWired": {
       "main": [
         [
           {
-            "node": "Get many rows",
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Filter": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "Loop Over Items": {
+    "RSS Read": {
       "main": [
         [
           {
-            "node": "Aggregate",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "Loop Over Items",
+            "node": "Merge",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "Aggregate": {
+    "Merge": {
       "main": [
         [
           {
-            "node": "Send a text message",
+            "node": "Filter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Select.Rss",
             "type": "main",
             "index": 0
           }
@@ -55,288 +75,207 @@
       ]
     }
   },
-  "createdAt": "2025-11-27T16:01:52.717Z",
-  "id": "3D5mHrAKGxrYHrSX",
+  "createdAt": "2026-04-20T14:16:18.722Z",
+  "id": "Y5yZBopNUa4fVQzt",
   "isArchived": false,
-  "meta": null,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
   "name": "My workflow",
   "nodes": [
     {
-      "parameters": {
-        "databaseId": 324695,
-        "tableId": 747259,
-        "limit": "={{ $json.Limite }}",
-        "additionalOptions": {
-          "filters": {
-            "fields": [
-              {
-                "field": 6301142,
-                "operator": "single_select_equal",
-                "value": "Proyecto"
-              },
-              {
-                "field": 6301129,
-                "value": "={{ $json['Mitología'] }}"
-              }
-            ]
-          }
-        }
-      },
-      "type": "n8n-nodes-base.baserow",
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
       "typeVersion": 1,
       "position": [
-        -80,
-        -112
+        -464,
+        0
       ],
-      "id": "01ed6a1e-716d-4cfb-9e00-b444026e2d2e",
-      "name": "Get many rows",
-      "credentials": {
-        "baserowApi": {
-          "id": "SNrllAn2sJZ5Lm7r",
-          "name": "Baserow.msn"
-        }
-      }
+      "id": "e65d762b-381d-4c4e-8408-f753909286ff",
+      "name": "When clicking ‘Execute workflow’"
     },
     {
       "parameters": {
-        "formTitle": "Generar MicroCuentos",
-        "formDescription": "Batallas mitológicas entre Dioses",
-        "formFields": {
-          "values": [
-            {
-              "fieldLabel": "Mitología",
-              "fieldType": "dropdown",
-              "fieldOptions": {
-                "values": [
-                  {
-                    "option": "Griega"
-                  },
-                  {
-                    "option": "Nórdica"
-                  },
-                  {
-                    "option": "Egipcia"
-                  },
-                  {
-                    "option": "Crossover"
-                  }
-                ]
-              },
-              "requiredField": true
-            },
-            {
-              "fieldLabel": "Limite",
-              "fieldType": "number",
-              "placeholder": "10",
-              "requiredField": true
-            }
-          ]
-        },
+        "url": "https://iaenespanol.substack.com/feed",
         "options": {}
       },
-      "type": "n8n-nodes-base.formTrigger",
-      "typeVersion": 2.3,
-      "position": [
-        -288,
-        -112
-      ],
-      "id": "0456e42c-c3a3-43ee-b568-4224cc10efec",
-      "name": "On form submission",
-      "webhookId": "09957d30-2c06-4a60-bc8a-be0c373d94b4"
-    },
-    {
-      "parameters": {
-        "options": {}
-      },
-      "type": "n8n-nodes-base.splitInBatches",
-      "typeVersion": 3,
-      "position": [
-        -272,
-        128
-      ],
-      "id": "0afaf0e9-a5da-480e-bc56-b85ccc2d3160",
-      "name": "Loop Over Items",
-      "executeOnce": false
-    },
-    {
-      "parameters": {
-        "chatId": "1704819492",
-        "text": "=Hola...",
-        "additionalFields": {
-          "appendAttribution": false
-        }
-      },
-      "type": "n8n-nodes-base.telegram",
+      "type": "n8n-nodes-base.rssFeedRead",
       "typeVersion": 1.2,
       "position": [
-        208,
-        112
+        -224,
+        -112
       ],
-      "id": "53ea8dbf-283d-4953-9bea-e1d4921cc115",
-      "name": "Send a text message",
-      "webhookId": "47768359-131c-4dcd-9e2b-e3a0a44fb69e",
-      "credentials": {
-        "telegramApi": {
-          "id": "zxkALNj2uZW1uxoX",
-          "name": "Telegram.jomBusiness"
-        }
-      }
+      "id": "0e6dc9ae-3fa1-4da4-bec0-2ba8262a9e0b",
+      "name": "RSS Read"
     },
     {
       "parameters": {
-        "fieldsToAggregate": {
-          "fieldToAggregate": [
+        "jsCode": "// Obtén todos los elementos que vienen del nodo anterior (RSS Read)\nconst rssArray = $input.all();\n\n// --- Elige tu lógica de selección ---\nconst indice = 0// 0: Primer elemento\nconst selectedElement = rssArray[indice];\n\n// Envía el elemento seleccionado como salida\nif (selectedElement) {\n  return [{ json: selectedElement }]; // Asegúrate de devolverlo dentro de un objeto con la propiedad 'json'\n} else {\n  // Manejo si no se encuentra ningún elemento o si el array está vacío\n  return [];\n}"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        688,
+        0
+      ],
+      "id": "87a513d4-d6de-4fa5-aaa8-cf7590e8e529",
+      "name": "Select.Rss"
+    },
+    {
+      "parameters": {
+        "url": "https://es.wired.com/feed/rss",
+        "options": {
+          "ignoreSSL": false
+        }
+      },
+      "type": "n8n-nodes-base.rssFeedRead",
+      "typeVersion": 1.2,
+      "position": [
+        -224,
+        144
+      ],
+      "id": "9ceec7f5-2b7d-4eb3-966f-8e136ce19d4a",
+      "name": "Rss.Read.EsWired"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
             {
-              "fieldToAggregate": "id"
+              "id": "9190e1b7-d3c3-42d6-8f60-102233162cab",
+              "leftValue": "={{ $json.title }}",
+              "rightValue": "IA",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            },
+            {
+              "id": "c1c01e3c-0f94-4dfb-a471-3a6dcf7c62b6",
+              "leftValue": "={{ $json.title }}",
+              "rightValue": "gpt",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            },
+            {
+              "id": "29503942-2c6b-445e-8ef1-6520a6bf48ba",
+              "leftValue": "={{ $json.title }}",
+              "rightValue": "software",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            },
+            {
+              "id": "b6798105-bae7-4e4f-a078-d7b84e5bfdfb",
+              "leftValue": "={{ $json.title }}",
+              "rightValue": "Claude",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
             }
-          ]
+          ],
+          "combinator": "or"
         },
         "options": {}
       },
-      "type": "n8n-nodes-base.aggregate",
-      "typeVersion": 1,
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.2,
       "position": [
-        -16,
-        112
+        272,
+        0
       ],
-      "id": "f2726f99-1230-45f8-9d4c-2fabc052b8a3",
-      "name": "Aggregate"
+      "id": "8276b4d9-00e3-4e4d-9b7f-cd3d60d9d193",
+      "name": "Filter"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        64,
+        0
+      ],
+      "id": "546e3fa8-e6f3-464c-9fb5-6b5e8b2046b5",
+      "name": "Merge"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "ad7b0a27-e2f4-43ef-a980-8032b0827cf4",
+              "name": "=index",
+              "value": "={{ $itemIndex }}",
+              "type": "number"
+            },
+            {
+              "id": "94d3989d-b3bd-47c1-9867-539e5670bc1f",
+              "name": "=creator",
+              "value": "={{ $json.creator }}",
+              "type": "string"
+            },
+            {
+              "id": "81250a65-7a30-43a9-83a0-f01a3961ccaf",
+              "name": "=title",
+              "value": "={{ $json.title }}",
+              "type": "string"
+            },
+            {
+              "id": "856fd9c0-61e1-4b3a-bbb4-ae1498c462ae",
+              "name": "=link",
+              "value": "={{ $json.link }}",
+              "type": "string"
+            },
+            {
+              "id": "7abb6e02-9128-4af8-9d33-00cccc283251",
+              "name": "=pubDate",
+              "value": "={{ $json.pubDate }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {
+          "ignoreConversionErrors": true,
+          "dotNotation": true
+        }
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        496,
+        0
+      ],
+      "id": "9eb34aff-cd55-4f7a-a453-c231fcb25c6c",
+      "name": "Edit Fields"
     }
   ],
-  "pinData": {
-    "On form submission": [
-      {
-        "json": {
-          "Mitología": "Griega",
-          "Limite": 3,
-          "submittedAt": "2025-11-27T12:19:02.077-05:00",
-          "formMode": "test"
-        }
-      }
-    ],
-    "Get many rows": [
-      {
-        "json": {
-          "id": 2,
-          "order": "2.00000000000000000000",
-          "Volumen": "La PURGA de los DIOSES GRIEGOS: El Final del Olimpo",
-          "Mitologia": "Griega",
-          "DeidadUno": "Zeus (Rayo y el Cielo)",
-          "DeidadDos": "Hades (Inframundo y Muertos)",
-          "Titulo": "El Cielo y el Abismo: Cuando los Dioses Rompieron el Mundo",
-          "SubTitulo": "La batalla que partió el firmamento y desató el caos eterno entre Zeus y Hades",
-          "Sinopsis": "Un duelo de proporciones cósmicas donde el rayo desafía a la oscuridad, y el destino de los vivos y los muertos pende de un hilo. García Márquez encontraría en este microcuento el eco de su realismo mágico: **deidades que sangran, montañas que se arrodillan y un silencio que lo cambia todo**. ¿Qué ocurre cuando el cielo y el inframundo chocan sin testigos mortales que los detengan?",
-          "Relato": "Desde el **Olimpo resquebrajado**, Zeus observaba cómo **Hades emergía de las fisuras del mundo**, arrastrando consigo el aliento helado de mil almas olvidadas. *‘El inframundo ya no es tuyo, hermano’*, susurró el dios del cielo mientras el **relámpago eterno** temblaba en su puño. Hades, envuelto en su capa de **sombras que devoraban la luz**, sonrió con la crueldad de quien sabe que **la muerte no negocia**: *‘Viniste a reclamar lo que nunca fue tuyo’*. Entre ellos, el **abismo se abrió como una herida viva**, y el aire olió a azufre y tormentas por nacer.\\n\\nZeus **alzó el Martillo de los Cielos**, forjado en el yunque de los titanes, y el primer golpe **partió el horizonte en dos**. Los **picos del Pelión se postraron**, y los ríos fluyeron al revés, arrastrando peces de plata hacia las nubes. *‘¡Que el firmamento recuerde mi nombre!’*, rugió, mientras **mil rayos serpenteaban** desde sus ojos, reduciendo a cenizas los árboles que osaron mirarlo. Hasta los **cuervos de Hades** huyeron, sus alas convertidas en brasas.\\n\\nPero Hades **no se arrodilló**. Con un gesto, **las grietas del inframundo vomitaron espectros**, y sus **manos esqueléticas** atraparon los rayos como si fueran hilos de seda. *‘Tu luz es solo un suspiro en mi reino’*, murmuró, mientras **la tierra bajo Zeus se pudría**, brotando flores negras que **ahogaban el trueno en su fragancia**. El choque de sus poderes **hizo temblar el eje del mundo**: los **volcanes escupieron lágrimas de obsidiana**, y el **sol palideció**, avergonzado.\\n\\nEl dios del inframundo **desplegó su Guadaña de Ébano**, tallada en los huesos de los dioses primigenios, y su hoja **cortó el viento en silenciosos aullidos**. Zeus, herido en el hombro por un **filamento de oscuridad**, respondió **invocando el Escudo del Éter**, tejido con las tormentas del caos. *‘¡Ningún muerto gobernará a los vivos!’*, gritó, pero su voz se perdió cuando **Hades liberó el Lamento de las Sombras**: un coro de almas que **congeló la sangre en las venas del Olimpo**. Los **pájaros cayeron del cielo, convertidos en estatuas de sal**.\\n\\nDe pronto, **el tiempo se detuvo**. Zeus, con el pecho ardiente y la barba chamuscada por el **veneno de la noche eterna**, **clavó su tridente en el corazón de Hades**... pero la hoja **atravesó solo sombra**. Hades, a su vez, **cerró sus puños sobre el pecho de Zeus**, y por un instante, **el dios del cielo sintió el peso de todas las tumbas del mundo**. Entonces, **algo imposible sucedió**: los dos dioses **se miraron**, y en ese silencio, **el universo contuvo el aliento**.\\n\\nNo hubo vencedor. **El rayo y la oscuridad se fundieron en un abrazo letal**, y donde sus cuerpos se tocaron, **nació el primer eclipse absoluto**. Los mortales, al alzaron los ojos, vieron un **cielo rasgado en dos**: mitad día eterno, mitad noche sin estrellas. *‘Hermano...’*, susurró Zeus, pero Hades ya se desvanecía, arrastrando consigo **la mitad de la luz del mundo**. Desde entonces, **los días son más cortos**, y en el crepúsculo, si escuchas con atención, **aún se oye el eco de su risa compartida**—la de dos dioses que aprendieron, demasiado tarde, que **el poder no llena el vacío de un hermano perdido**.\\n\\n\\nEl clímax revela que el verdadero conflicto no era el dominio, sino **la soledad divina**: su abrazo crea un equilibrio forzado, donde la victoria se convierte en **pérdida eterna compartida**.\\n\\n\\n\\nZeus\\n### Zeus | Dios del Rayo\n> *\"El trueno es mi voz, el rayo mi fuerza.\"*\n\n* **Arma:** Rayo Divino\n* **Poder:** Control del Tiempo (Invocación de tormentas)\n* **Estadísticas:**\n    * ⚔️ Fuerza: 10 ██████████\n    * 🌀 Caos: 8 ████████░░\n\\n\\n\\n\\nHades\\n### Hades | Señor del Inframundo\n> *\"No temas la muerte, es solo un nuevo comienzo.\"*\n\n* **Arma:** Cosechador de Almas\n* **Poder:** Dominio sobre los Muertos (Resurrección temporal)\n* **Estadísticas:**\n    * ⚔️ Fuerza: 7 ███████░░░\n    * 🌀 Caos: 9 █████████░░",
-          "CTA": "¿Qué harías si el cielo y el inframundo se disputaran tu alma? **Comparte este duelo cósmico y descubre qué lado llevas dentro**. 🌩️⚰️ #EligeTuDestino",
-          "Hashtag": "#ZeusVsHades,#BatallaDeDioses,#MitologíaOscura,#RealismoMágicoÉpico,#ElAbismoYElCielo,#MicrocuentoTrágico,#LeyendasOlvidadas,#ElPesoDeLaEternidad",
-          "PromptImagen": "A hyperrealistic, highly detailed ancient dark fantasy illustration in A4 vertical format (21 cm × 29.7 cm), depicting the epic battle between Zeus and Hades. Zeus stands on the left, wielding a crackling thunderbolt hammer, his golden beard singed by blackened frost, lightning veins pulsing across his bare chest, and the Olympus mountains crumbling behind him. Hades, on the right, emerges from a chasm of skeletal hands and swirling shadows, his obsidian scythe glowing with eerie green runes, his tattered cloak made of screaming faces, while dead trees sprout from his footsteps. Between them, the sky is split: half blinding storm, half abyssal void with floating spectral chains. The ground is fractured, revealing rivers of molten gold and black blood. Style inspired by Zdzisław Beksiński’s nightmares and Luis Royo’s dark grandeur, ultra HD, cinematic lighting, with a focus on the divine despair in their eyes.",
-          "Imagen": [],
-          "PromptVideo": "A 5-second hyperrealistic dark fantasy animation teaser in A4 vertical ratio, slow-motion scene: Zeus raises his thunderbolt hammer as jagged lightning splits the sky, while Hades lunges forward, his scythe dragging chains of lost souls. The camera zooms out slightly as their weapons clash, creating a shockwave that shatters nearby pillars of stone into spectral dust. The background shows a storm merging with swirling shadows, and the ground cracks to reveal glowing embers. Subtle details: Zeus’ eyes flicker with golden fire, Hades’ cloak writhes like smoke, and the wind carries whispers of the dead. Moody, cinematic, with a color palette of stormy blues, obsidian blacks, and veins of sickly green. Inspired by the scale of Shadow of the Colossus and the aesthetic of Dark Souls, ultra HD, 120fps, depth of field.",
-          "Video": [],
-          "Estado": {
-            "id": 4540063,
-            "value": "Borrador",
-            "color": "darker-yellow"
-          },
-          "Facebook": false,
-          "Instagram": false,
-          "YouTube": false,
-          "TikTok": false,
-          "Gumroad": false,
-          "Amazon": false,
-          "FechaCreacion": "2025-11-20T20:43:21.240722Z",
-          "FechaActualizacion": "2025-11-27T16:44:47.708135Z",
-          "PromptCardDeidadUno": "A striking digital art composition divided vertically. The left side features a powerful and majestic depiction of Zeus, the God of Thunder, standing atop a stormy mountain peak. He wields the glowing Divine Lightning Bolt in his right hand, with crackling energy and dynamic lightning storm clouds swirling dramatically around him. His expression is fierce and commanding, embodying the essence of a god. The background shows dark thunderclouds and flashes of lightning illuminating the night sky. The right side is a clean, decorative text panel with an ornate border of stylized lightning bolts and thunder motifs. The panel clearly displays the following text, which must be extremely legible and printed in a BOLD, modern font: 'Zeus | Dios del Rayo\n\"El trueno es mi voz, el rayo mi fuerza.\"\n**ARMA:** Rayo Divino\n**PODER:** Control del Tiempo (Invocación de tormentas)\n**ESTADÍSTICAS:**\n**FUERZA:** 10/10\n**CAOS:** 8/10'.",
-          "PromptCardDeidadDos": "A striking digital art composition divided vertically. The left side features a powerful and majestic depiction of Zeus, the God of Thunder, standing atop a stormy mountain peak. He wields the glowing Divine Lightning Bolt in his right hand, with crackling energy and dynamic lightning storm clouds swirling dramatically around him. His expression is fierce and commanding, embodying the essence of a god. The background shows dark thunderclouds and flashes of lightning illuminating the night sky. The right side is a clean, decorative text panel with an ornate border of stylized lightning bolts and thunder motifs. The panel clearly displays the following text, which must be extremely legible and printed in a BOLD, modern font: 'Zeus | Dios del Rayo\n\"El trueno es mi voz, el rayo mi fuerza.\"\n**ARMA:** Rayo Divino\n**PODER:** Control del Tiempo (Invocación de tormentas)\n**ESTADÍSTICAS:**\n**FUERZA:** 10/10\n**CAOS:** 8/10'."
-        }
-      },
-      {
-        "json": {
-          "id": 3,
-          "order": "3.00000000000000000000",
-          "Volumen": "La PURGA de los DIOSES GRIEGOS: El Final del Olimpo",
-          "Mitologia": "Griega",
-          "DeidadUno": "Poseidón (Océanos y Terremotos)",
-          "DeidadDos": "Atenea (Estrategia y Sabiduría)",
-          "Titulo": "El Cielo y el Abismo: Cuando los Dioses Rompieron el Mundo",
-          "SubTitulo": "La batalla que partió el firmamento y desató el caos eterno entre Zeus y Hades",
-          "Sinopsis": "Un duelo de proporciones cósmicas donde el rayo desafía a la oscuridad, y el destino de los vivos y los muertos pende de un hilo. García Márquez encontraría en este microcuento el eco de su realismo mágico: **deidades que sangran, montañas que se arrodillan y un silencio que lo cambia todo**. ¿Qué ocurre cuando el cielo y el inframundo chocan sin testigos mortales que los detengan?",
-          "Relato": "Desde el **Olimpo resquebrajado**, Zeus observaba cómo **Hades emergía de las fisuras del mundo**, arrastrando consigo el aliento helado de mil almas olvidadas. *‘El inframundo ya no es tuyo, hermano’*, susurró el dios del cielo mientras el **relámpago eterno** temblaba en su puño. Hades, envuelto en su capa de **sombras que devoraban la luz**, sonrió con la crueldad de quien sabe que **la muerte no negocia**: *‘Viniste a reclamar lo que nunca fue tuyo’*. Entre ellos, el **abismo se abrió como una herida viva**, y el aire olió a azufre y tormentas por nacer.\\n\\nZeus **alzó el Martillo de los Cielos**, forjado en el yunque de los titanes, y el primer golpe **partió el horizonte en dos**. Los **picos del Pelión se postraron**, y los ríos fluyeron al revés, arrastrando peces de plata hacia las nubes. *‘¡Que el firmamento recuerde mi nombre!’*, rugió, mientras **mil rayos serpenteaban** desde sus ojos, reduciendo a cenizas los árboles que osaron mirarlo. Hasta los **cuervos de Hades** huyeron, sus alas convertidas en brasas.\\n\\nPero Hades **no se arrodilló**. Con un gesto, **las grietas del inframundo vomitaron espectros**, y sus **manos esqueléticas** atraparon los rayos como si fueran hilos de seda. *‘Tu luz es solo un suspiro en mi reino’*, murmuró, mientras **la tierra bajo Zeus se pudría**, brotando flores negras que **ahogaban el trueno en su fragancia**. El choque de sus poderes **hizo temblar el eje del mundo**: los **volcanes escupieron lágrimas de obsidiana**, y el **sol palideció**, avergonzado.\\n\\nEl dios del inframundo **desplegó su Guadaña de Ébano**, tallada en los huesos de los dioses primigenios, y su hoja **cortó el viento en silenciosos aullidos**. Zeus, herido en el hombro por un **filamento de oscuridad**, respondió **invocando el Escudo del Éter**, tejido con las tormentas del caos. *‘¡Ningún muerto gobernará a los vivos!’*, gritó, pero su voz se perdió cuando **Hades liberó el Lamento de las Sombras**: un coro de almas que **congeló la sangre en las venas del Olimpo**. Los **pájaros cayeron del cielo, convertidos en estatuas de sal**.\\n\\nDe pronto, **el tiempo se detuvo**. Zeus, con el pecho ardiente y la barba chamuscada por el **veneno de la noche eterna**, **clavó su tridente en el corazón de Hades**... pero la hoja **atravesó solo sombra**. Hades, a su vez, **cerró sus puños sobre el pecho de Zeus**, y por un instante, **el dios del cielo sintió el peso de todas las tumbas del mundo**. Entonces, **algo imposible sucedió**: los dos dioses **se miraron**, y en ese silencio, **el universo contuvo el aliento**.\\n\\nNo hubo vencedor. **El rayo y la oscuridad se fundieron en un abrazo letal**, y donde sus cuerpos se tocaron, **nació el primer eclipse absoluto**. Los mortales, al alzaron los ojos, vieron un **cielo rasgado en dos**: mitad día eterno, mitad noche sin estrellas. *‘Hermano...’*, susurró Zeus, pero Hades ya se desvanecía, arrastrando consigo **la mitad de la luz del mundo**. Desde entonces, **los días son más cortos**, y en el crepúsculo, si escuchas con atención, **aún se oye el eco de su risa compartida**—la de dos dioses que aprendieron, demasiado tarde, que **el poder no llena el vacío de un hermano perdido**.\\n\\n\\nEl clímax revela que el verdadero conflicto no era el dominio, sino **la soledad divina**: su abrazo crea un equilibrio forzado, donde la victoria se convierte en **pérdida eterna compartida**.\\n\\n\\n\\nZeus\\n### Zeus | Dios del Rayo\n> *\"El trueno es mi voz, el rayo mi fuerza.\"*\n\n* **Arma:** Rayo Divino\n* **Poder:** Control del Tiempo (Invocación de tormentas)\n* **Estadísticas:**\n    * ⚔️ Fuerza: 10 ██████████\n    * 🌀 Caos: 8 ████████░░\n\\n\\n\\n\\nHades\\n### Hades | Señor del Inframundo\n> *\"No temas la muerte, es solo un nuevo comienzo.\"*\n\n* **Arma:** Cosechador de Almas\n* **Poder:** Dominio sobre los Muertos (Resurrección temporal)\n* **Estadísticas:**\n    * ⚔️ Fuerza: 7 ███████░░░\n    * 🌀 Caos: 9 █████████░░",
-          "CTA": "¿Qué harías si el cielo y el inframundo se disputaran tu alma? **Comparte este duelo cósmico y descubre qué lado llevas dentro**. 🌩️⚰️ #EligeTuDestino",
-          "Hashtag": "#ZeusVsHades,#BatallaDeDioses,#MitologíaOscura,#RealismoMágicoÉpico,#ElAbismoYElCielo,#MicrocuentoTrágico,#LeyendasOlvidadas,#ElPesoDeLaEternidad",
-          "PromptImagen": "A hyperrealistic, highly detailed ancient dark fantasy illustration in A4 vertical format (21 cm × 29.7 cm), depicting the epic battle between Zeus and Hades. Zeus stands on the left, wielding a crackling thunderbolt hammer, his golden beard singed by blackened frost, lightning veins pulsing across his bare chest, and the Olympus mountains crumbling behind him. Hades, on the right, emerges from a chasm of skeletal hands and swirling shadows, his obsidian scythe glowing with eerie green runes, his tattered cloak made of screaming faces, while dead trees sprout from his footsteps. Between them, the sky is split: half blinding storm, half abyssal void with floating spectral chains. The ground is fractured, revealing rivers of molten gold and black blood. Style inspired by Zdzisław Beksiński’s nightmares and Luis Royo’s dark grandeur, ultra HD, cinematic lighting, with a focus on the divine despair in their eyes.",
-          "Imagen": [],
-          "PromptVideo": "A 5-second hyperrealistic dark fantasy animation teaser in A4 vertical ratio, slow-motion scene: Zeus raises his thunderbolt hammer as jagged lightning splits the sky, while Hades lunges forward, his scythe dragging chains of lost souls. The camera zooms out slightly as their weapons clash, creating a shockwave that shatters nearby pillars of stone into spectral dust. The background shows a storm merging with swirling shadows, and the ground cracks to reveal glowing embers. Subtle details: Zeus’ eyes flicker with golden fire, Hades’ cloak writhes like smoke, and the wind carries whispers of the dead. Moody, cinematic, with a color palette of stormy blues, obsidian blacks, and veins of sickly green. Inspired by the scale of Shadow of the Colossus and the aesthetic of Dark Souls, ultra HD, 120fps, depth of field.",
-          "Video": [],
-          "Estado": {
-            "id": 4540062,
-            "value": "Proyecto",
-            "color": "darker-red"
-          },
-          "Facebook": false,
-          "Instagram": false,
-          "YouTube": false,
-          "TikTok": false,
-          "Gumroad": false,
-          "Amazon": false,
-          "FechaCreacion": "2025-11-20T20:43:21.240791Z",
-          "FechaActualizacion": "2025-11-27T16:53:32.473145Z",
-          "PromptCardDeidadUno": "A striking digital art composition divided vertically. The left side features a powerful and majestic depiction of Zeus, the God of Thunder, standing atop a stormy mountain peak. He wields the glowing Divine Lightning Bolt in his right hand, with crackling energy and dynamic lightning storm clouds swirling dramatically around him. His expression is fierce and commanding, embodying the essence of a god. The background shows dark thunderclouds and flashes of lightning illuminating the night sky. The right side is a clean, decorative text panel with an ornate border of stylized lightning bolts and thunder motifs. The panel clearly displays the following text, which must be extremely legible and printed in a BOLD, modern font: 'Zeus | Dios del Rayo\n\"El trueno es mi voz, el rayo mi fuerza.\"\n**ARMA:** Rayo Divino\n**PODER:** Control del Tiempo (Invocación de tormentas)\n**ESTADÍSTICAS:**\n**FUERZA:** 10/10\n**CAOS:** 8/10'.",
-          "PromptCardDeidadDos": "A striking digital art composition divided vertically. The left side features a powerful and majestic depiction of Zeus, the God of Thunder, standing atop a stormy mountain peak. He wields the glowing Divine Lightning Bolt in his right hand, with crackling energy and dynamic lightning storm clouds swirling dramatically around him. His expression is fierce and commanding, embodying the essence of a god. The background shows dark thunderclouds and flashes of lightning illuminating the night sky. The right side is a clean, decorative text panel with an ornate border of stylized lightning bolts and thunder motifs. The panel clearly displays the following text, which must be extremely legible and printed in a BOLD, modern font: 'Zeus | Dios del Rayo\n\"El trueno es mi voz, el rayo mi fuerza.\"\n**ARMA:** Rayo Divino\n**PODER:** Control del Tiempo (Invocación de tormentas)\n**ESTADÍSTICAS:**\n**FUERZA:** 10/10\n**CAOS:** 8/10'."
-        }
-      },
-      {
-        "json": {
-          "id": 4,
-          "order": "4.00000000000000000000",
-          "Volumen": "La PURGA de los DIOSES GRIEGOS: El Final del Olimpo",
-          "Mitologia": "Griega",
-          "DeidadUno": "Hera (Matrimonio y Venganza)",
-          "DeidadDos": "Afrodita (Amor y Lujuria)",
-          "Titulo": "",
-          "SubTitulo": "",
-          "Sinopsis": "",
-          "Relato": "",
-          "CTA": "",
-          "Hashtag": "",
-          "PromptImagen": "",
-          "Imagen": [],
-          "PromptVideo": "",
-          "Video": [],
-          "Estado": {
-            "id": 4540062,
-            "value": "Proyecto",
-            "color": "darker-red"
-          },
-          "Facebook": false,
-          "Instagram": false,
-          "YouTube": false,
-          "TikTok": false,
-          "Gumroad": false,
-          "Amazon": false,
-          "FechaCreacion": "2025-11-20T20:43:21.240825Z",
-          "FechaActualizacion": "2025-11-20T20:43:21.240825Z",
-          "PromptCardDeidadUno": null,
-          "PromptCardDeidadDos": null
-        }
-      }
-    ]
-  },
+  "pinData": {},
   "settings": {
-    "executionOrder": "v1"
+    "executionOrder": "v1",
+    "binaryMode": "separate"
   },
   "shared": [
     {
-      "updatedAt": "2025-11-27T16:01:52.730Z",
-      "createdAt": "2025-11-27T16:01:52.730Z",
+      "updatedAt": "2026-04-20T14:16:18.747Z",
+      "createdAt": "2026-04-20T14:16:18.747Z",
       "role": "workflow:owner",
-      "workflowId": "3D5mHrAKGxrYHrSX",
+      "workflowId": "Y5yZBopNUa4fVQzt",
       "projectId": "uBzdLipflPbb1Tbz"
     }
   ],
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2025-11-27T17:20:26.000Z",
-  "versionId": "4d72c7a8-d5cc-4ced-96c0-f0ece1b4212a"
+  "updatedAt": "2026-04-27T00:02:16.430Z",
+  "versionId": "326fe389-324c-447b-9de1-1d7e0cee42a7"
 }
