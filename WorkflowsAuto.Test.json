@@ -1,10 +1,10 @@
 {
   "active": true,
   "activeVersion": {
-    "updatedAt": "2026-04-08T17:36:31.200Z",
-    "createdAt": "2026-04-08T17:36:31.200Z",
-    "versionId": "e44b016a-bb93-400d-b108-5de7e2f4e94f",
-    "workflowId": "OcUacIKzdZ8BOrG8",
+    "updatedAt": "2026-05-01T15:57:06.003Z",
+    "createdAt": "2026-05-01T15:56:03.606Z",
+    "versionId": "5ada5aea-7c26-49c8-8d69-3ef9c8801069",
+    "workflowId": "KhuB3AdKN65YfnVW",
     "nodes": [
       {
         "parameters": {
@@ -16,15 +16,15 @@
         "type": "n8n-nodes-base.httpRequest",
         "typeVersion": 4.2,
         "position": [
-          272,
-          -16
+          736,
+          32
         ],
-        "id": "1c5471c9-f9e8-4f71-8ac8-caca0cabe742",
+        "id": "ee74ec60-70ca-4ae9-87c0-414aa56fa42f",
         "name": "ObtenerSlides",
         "credentials": {
           "googleOAuth2Api": {
-            "id": "vkWvvbQeke2SGX0V",
-            "name": "Google.jomBusiness"
+            "id": "YqSYIxI25n1uZgWB",
+            "name": "Google.api"
           }
         }
       },
@@ -51,10 +51,10 @@
         "type": "n8n-nodes-base.set",
         "typeVersion": 3.4,
         "position": [
-          -992,
-          352
+          -528,
+          400
         ],
-        "id": "82348df4-46ad-4023-8259-387cc0e46dfd",
+        "id": "861863a0-8b8b-4817-bf59-2914636fad40",
         "name": "Edit Fields"
       },
       {
@@ -68,15 +68,15 @@
         "type": "n8n-nodes-base.httpRequest",
         "typeVersion": 4.2,
         "position": [
-          448,
-          -16
+          912,
+          32
         ],
-        "id": "364249dc-cdbf-45aa-b78d-465c53693b57",
+        "id": "680b321a-49a6-4ef1-990d-83cafc95529c",
         "name": "BorrarSlide",
         "credentials": {
           "googleOAuth2Api": {
-            "id": "vkWvvbQeke2SGX0V",
-            "name": "Google.jomBusiness"
+            "id": "YqSYIxI25n1uZgWB",
+            "name": "Google.api"
           }
         }
       },
@@ -89,15 +89,38 @@
         "type": "n8n-nodes-base.facebookGraphApi",
         "typeVersion": 1,
         "position": [
-          -560,
-          736
+          -96,
+          784
         ],
-        "id": "aa9db21a-9083-40e6-b724-09161ce12ab5",
+        "id": "2fad7e66-bfb9-4655-8155-0ad585293f32",
         "name": "Instagram.Optimiza",
         "credentials": {
           "facebookGraphApi": {
-            "id": "q07PnzaLdq09L9OE",
-            "name": "Instagram.Optimiza"
+            "id": "eTz9nRIExeQqbsq9",
+            "name": "Facebook.CodigoAlfa"
+          }
+        },
+        "disabled": true,
+        "onError": "continueRegularOutput"
+      },
+      {
+        "parameters": {
+          "graphApiVersion": "v23.0",
+          "node": "625574693983199",
+          "options": {}
+        },
+        "type": "n8n-nodes-base.facebookGraphApi",
+        "typeVersion": 1,
+        "position": [
+          -96,
+          208
+        ],
+        "id": "c68e704a-2e7b-4a85-9e8e-fe7cddb1a1c8",
+        "name": "Facebook.CodigoAlfa",
+        "credentials": {
+          "facebookGraphApi": {
+            "id": "eTz9nRIExeQqbsq9",
+            "name": "Facebook.CodigoAlfa"
           }
         },
         "onError": "continueRegularOutput"
@@ -105,20 +128,20 @@
       {
         "parameters": {
           "graphApiVersion": "v23.0",
-          "node": "/me?fields=id,name",
+          "node": "157152044640637",
           "options": {}
         },
         "type": "n8n-nodes-base.facebookGraphApi",
         "typeVersion": 1,
         "position": [
-          -560,
-          160
+          -96,
+          400
         ],
-        "id": "6bc1f2b5-285a-4172-ba97-cfcdc2e4670f",
-        "name": "Facebook.CodigoAlfa",
+        "id": "dbd30410-f7f8-4583-bc83-031fd1a009cb",
+        "name": "Facebook.Smartweb",
         "credentials": {
           "facebookGraphApi": {
-            "id": "hOMT44BIxjiDsVdw",
+            "id": "eTz9nRIExeQqbsq9",
             "name": "Facebook.CodigoAlfa"
           }
         },
@@ -133,39 +156,18 @@
         "type": "n8n-nodes-base.facebookGraphApi",
         "typeVersion": 1,
         "position": [
-          -560,
-          352
+          -96,
+          592
         ],
-        "id": "9eb78023-6239-4405-8fac-8458d0953c9b",
-        "name": "Facebook.Smartweb",
-        "credentials": {
-          "facebookGraphApi": {
-            "id": "IdpHq8Mtl5spHnnr",
-            "name": "Facebook.SmartWeb"
-          }
-        },
-        "onError": "continueRegularOutput"
-      },
-      {
-        "parameters": {
-          "graphApiVersion": "v23.0",
-          "node": "/me?fields=id,name",
-          "options": {}
-        },
-        "type": "n8n-nodes-base.facebookGraphApi",
-        "typeVersion": 1,
-        "position": [
-          -560,
-          544
-        ],
-        "id": "5e5c7cf0-d9f8-4c91-9559-1c6ce6b7ce00",
+        "id": "695bb5d1-9c02-45fd-a6a7-b79015297a4b",
         "name": "Facebook.Optimiza",
         "credentials": {
           "facebookGraphApi": {
-            "id": "ym2xOYOdM5h5E89o",
-            "name": "Facebook.Optimiza"
+            "id": "eTz9nRIExeQqbsq9",
+            "name": "Facebook.CodigoAlfa"
           }
         },
+        "disabled": true,
         "onError": "continueRegularOutput"
       },
       {
@@ -177,22 +179,23 @@
         },
         "type": "n8n-nodes-base.stickyNote",
         "position": [
-          80,
-          736
+          544,
+          784
         ],
         "typeVersion": 1,
-        "id": "d8986fad-37c6-4633-b34e-5a01cb1b1d38",
-        "name": "Sticky Note1"
+        "id": "8c63687d-cc18-438a-8c23-8294cf66666d",
+        "name": "Sticky Note1",
+        "disabled": true
       },
       {
         "parameters": {},
         "type": "n8n-nodes-base.manualTrigger",
         "typeVersion": 1,
         "position": [
-          -1216,
-          448
+          -752,
+          496
         ],
-        "id": "add01914-be49-4b09-93ce-3ff720ae820b",
+        "id": "496882ae-2209-44d1-a5f7-19155d5cf117",
         "name": "When clicking ‘Execute workflow’"
       },
       {
@@ -209,10 +212,10 @@
         "type": "n8n-nodes-base.scheduleTrigger",
         "typeVersion": 1.2,
         "position": [
-          -1216,
-          256
+          -752,
+          304
         ],
-        "id": "dc0e191c-1d49-4f92-b541-abcb73b408ea",
+        "id": "516127fd-9f3c-4f3f-a7a8-1de067729dae",
         "name": "Schedule Trigger"
       },
       {
@@ -222,10 +225,10 @@
         "type": "n8n-nodes-base.code",
         "typeVersion": 2,
         "position": [
-          -352,
-          160
+          112,
+          208
         ],
-        "id": "2a941e77-5860-4083-b4af-a4936c0ca17b",
+        "id": "4877e121-b83a-435f-9f39-baba77b944db",
         "name": "Validar.CodigoAlfa"
       },
       {
@@ -235,10 +238,10 @@
         "type": "n8n-nodes-base.code",
         "typeVersion": 2,
         "position": [
-          -352,
-          352
+          112,
+          400
         ],
-        "id": "3095424c-28ef-40b2-bbbc-092579b06503",
+        "id": "2cb5b283-a8d9-44ba-802f-0c3b5c4eebd9",
         "name": "Validar.SmartWeb"
       },
       {
@@ -248,13 +251,14 @@
         "type": "n8n-nodes-base.code",
         "typeVersion": 2,
         "position": [
-          -352,
-          544
+          112,
+          592
         ],
-        "id": "f35990b1-cb0f-4ed7-a955-5a189045f8bb",
+        "id": "ce178452-434d-41fd-b37e-9f0b5ce1ee7f",
         "name": "Validar.Facebook.Optimiza",
         "executeOnce": false,
-        "retryOnFail": false
+        "retryOnFail": false,
+        "disabled": true
       },
       {
         "parameters": {
@@ -263,11 +267,12 @@
         "type": "n8n-nodes-base.code",
         "typeVersion": 2,
         "position": [
-          -352,
-          736
+          112,
+          784
         ],
-        "id": "4e30ae8b-13a7-49e0-8bbc-0e99f4932d51",
-        "name": "Validar.Instagram.Optimiza"
+        "id": "b5219962-f2d1-4e19-a853-916030a2e873",
+        "name": "Validar.Instagram.Optimiza",
+        "disabled": true
       },
       {
         "parameters": {
@@ -297,10 +302,10 @@
         "type": "n8n-nodes-base.if",
         "typeVersion": 2.2,
         "position": [
-          160,
-          352
+          624,
+          400
         ],
-        "id": "a01341ce-5e1a-44c1-aef4-c76c687d1813",
+        "id": "0c9679c1-1afe-4ec4-a217-32666d3aeb26",
         "name": "If"
       },
       {
@@ -314,16 +319,16 @@
         "type": "n8n-nodes-base.telegram",
         "typeVersion": 1.2,
         "position": [
-          384,
-          320
+          848,
+          368
         ],
-        "id": "870a73e5-557b-4f47-9dd8-493bf67477f8",
+        "id": "765ae484-2b23-4848-914e-968c95f2d0a3",
         "name": "Send a text message",
         "webhookId": "47768359-131c-4dcd-9e2b-e3a0a44fb69e",
         "credentials": {
           "telegramApi": {
-            "id": "zxkALNj2uZW1uxoX",
-            "name": "Telegram.jomBusiness"
+            "id": "Kz6I7RAZL2mii6bK",
+            "name": "Telegram.api"
           }
         }
       },
@@ -340,16 +345,16 @@
         "type": "n8n-nodes-base.emailSend",
         "typeVersion": 2.1,
         "position": [
-          384,
-          160
+          848,
+          208
         ],
-        "id": "15e03f40-c582-4586-b254-bf3061425d9e",
+        "id": "f3a35cc3-b6f4-4146-9768-250765588dd8",
         "name": "Send.Lead",
         "webhookId": "f4c94d16-2482-4d18-b3c3-41ae05868902",
         "credentials": {
           "smtp": {
-            "id": "g9Le19jvw1BGykSt",
-            "name": "SMTP.optimiza"
+            "id": "HUZKWIFzTUTleZeZ",
+            "name": "SMTP account"
           }
         }
       },
@@ -358,10 +363,10 @@
         "type": "n8n-nodes-base.noOp",
         "typeVersion": 1,
         "position": [
-          400,
-          512
+          864,
+          560
         ],
-        "id": "e2f27cfa-c6f7-43be-87b5-99bf8cad05e3",
+        "id": "88dc7ce7-2199-483d-b040-7c4f6e5ddb40",
         "name": "No Operation, do nothing"
       },
       {
@@ -376,16 +381,16 @@
         "type": "n8n-nodes-base.gmail",
         "typeVersion": 2.1,
         "position": [
-          -560,
-          928
+          -96,
+          976
         ],
-        "id": "85726068-973d-4fe0-b762-30c2f046c2d6",
+        "id": "06cee038-4ec4-41ad-a6e8-8c08e5f0ddd9",
         "name": "Gmail",
         "webhookId": "4e4499dc-4fa7-4228-9f17-453e18b78e6e",
         "credentials": {
           "gmailOAuth2": {
-            "id": "klbYdrcdLX4W0ONj",
-            "name": "Gmail.jomBusiness"
+            "id": "qGZijaDVUOO8FgpZ",
+            "name": "Gmail.api"
           }
         },
         "onError": "continueRegularOutput"
@@ -397,10 +402,10 @@
         "type": "n8n-nodes-base.code",
         "typeVersion": 2,
         "position": [
-          -352,
-          928
+          112,
+          976
         ],
-        "id": "9c32397e-3e6a-4b15-baf6-cec4674c4906",
+        "id": "f1aba86d-2055-47d3-9184-140b43ccb5fd",
         "name": "Validar.Gmail"
       },
       {
@@ -420,24 +425,16 @@
         "type": "n8n-nodes-base.httpRequest",
         "typeVersion": 4.2,
         "position": [
-          -544,
-          -32
+          -80,
+          16
         ],
-        "id": "3a10ced7-1b21-4ab8-862b-00d76640cfc0",
+        "id": "fbc4d4be-47c0-48d1-a41f-acd05712d3e1",
         "name": "CopiarPlantilla.Slides",
         "notesInFlow": false,
         "credentials": {
-          "googleSheetsOAuth2Api": {
-            "id": "9itbsHqDyr3Vwspb",
-            "name": "Sheets.jomBusiness"
-          },
-          "googleSlidesOAuth2Api": {
-            "id": "r33mZaNsUtZk4fVS",
-            "name": "Slides.jomBusiness"
-          },
           "googleOAuth2Api": {
-            "id": "vkWvvbQeke2SGX0V",
-            "name": "Google.jomBusiness"
+            "id": "YqSYIxI25n1uZgWB",
+            "name": "Google.api"
           }
         },
         "onError": "continueRegularOutput"
@@ -449,10 +446,10 @@
         "type": "n8n-nodes-base.code",
         "typeVersion": 2,
         "position": [
-          -352,
-          -32
+          112,
+          16
         ],
-        "id": "2c223457-4115-4d5d-8b74-ff94d2d80359",
+        "id": "0ed7805b-dbac-47fc-828b-229dbc668d5e",
         "name": "Validar.Slides"
       },
       {
@@ -469,19 +466,15 @@
         "type": "n8n-nodes-base.httpRequest",
         "typeVersion": 4.2,
         "position": [
-          80,
-          -16
+          544,
+          32
         ],
-        "id": "3a5bb75d-4a23-4520-92a1-de2edcac7d50",
+        "id": "e10ac379-b0fb-445d-b295-48538c1256a7",
         "name": "ReemplazarTexto.Slides",
         "credentials": {
-          "googleSlidesOAuth2Api": {
-            "id": "r33mZaNsUtZk4fVS",
-            "name": "Slides.jomBusiness"
-          },
           "googleOAuth2Api": {
-            "id": "vkWvvbQeke2SGX0V",
-            "name": "Google.jomBusiness"
+            "id": "YqSYIxI25n1uZgWB",
+            "name": "Google.api"
           }
         }
       },
@@ -490,7 +483,7 @@
           "method": "POST",
           "url": "=https://www.googleapis.com/drive/v3/files/1EfTpOlNkJh81FMt6XVX9tjW22iaQcj3UKRUt7KCYmz0/copy",
           "authentication": "predefinedCredentialType",
-          "nodeCredentialType": "googleDriveOAuth2Api",
+          "nodeCredentialType": "googleOAuth2Api",
           "sendBody": true,
           "specifyBody": "json",
           "jsonBody": "={\n  \"name\": \"Documento_{{ $json.Nombre }}\"\n}",
@@ -499,27 +492,15 @@
         "type": "n8n-nodes-base.httpRequest",
         "typeVersion": 4.2,
         "position": [
-          -544,
-          -224
+          -80,
+          -176
         ],
-        "id": "c45e4bca-1f67-405f-b9f3-d1e3b537f507",
+        "id": "13caef90-1b35-4e90-bfe9-0467db820e34",
         "name": "CopiarPlantilla.Docs",
         "credentials": {
-          "googleSheetsOAuth2Api": {
-            "id": "9itbsHqDyr3Vwspb",
-            "name": "Sheets.jomBusiness"
-          },
-          "googleSlidesOAuth2Api": {
-            "id": "r33mZaNsUtZk4fVS",
-            "name": "Slides.jomBusiness"
-          },
           "googleOAuth2Api": {
-            "id": "vkWvvbQeke2SGX0V",
-            "name": "Google.jomBusiness"
-          },
-          "googleDriveOAuth2Api": {
-            "id": "oXon4EKi27kb1xiA",
-            "name": "Google.jomBusiness"
+            "id": "YqSYIxI25n1uZgWB",
+            "name": "Google.api"
           }
         },
         "onError": "continueRegularOutput"
@@ -531,10 +512,10 @@
         "type": "n8n-nodes-base.code",
         "typeVersion": 2,
         "position": [
-          -352,
-          -224
+          112,
+          -176
         ],
-        "id": "d9e515da-aef8-4711-afa2-2b78ea02c3cc",
+        "id": "63a88311-e180-4670-b524-fd10df5cd80a",
         "name": "Validar.Docs"
       },
       {
@@ -551,20 +532,16 @@
         "type": "n8n-nodes-base.httpRequest",
         "typeVersion": 4.2,
         "position": [
-          80,
-          -208
+          544,
+          -160
         ],
-        "id": "4539b045-a185-44f8-bca5-d41754d18a20",
+        "id": "c9574cd7-c480-4ea3-b076-34e14e821163",
         "name": "ReemplazarTexto.Docs",
         "alwaysOutputData": false,
         "credentials": {
-          "googleSlidesOAuth2Api": {
-            "id": "r33mZaNsUtZk4fVS",
-            "name": "Slides.jomBusiness"
-          },
           "googleOAuth2Api": {
-            "id": "vkWvvbQeke2SGX0V",
-            "name": "Google.jomBusiness"
+            "id": "YqSYIxI25n1uZgWB",
+            "name": "Google.api"
           }
         }
       },
@@ -579,15 +556,15 @@
         "type": "n8n-nodes-base.httpRequest",
         "typeVersion": 4.2,
         "position": [
-          272,
-          -208
+          736,
+          -160
         ],
-        "id": "7e3e95e5-0b73-4406-b5d3-8171f96797a7",
+        "id": "6c201ec2-5447-4555-ade2-84c5fef6877f",
         "name": "BorrarDoc",
         "credentials": {
           "googleOAuth2Api": {
-            "id": "vkWvvbQeke2SGX0V",
-            "name": "Google.jomBusiness"
+            "id": "YqSYIxI25n1uZgWB",
+            "name": "Google.api"
           }
         }
       },
@@ -619,10 +596,10 @@
         "type": "n8n-nodes-base.if",
         "typeVersion": 2.2,
         "position": [
-          -144,
-          -224
+          320,
+          -176
         ],
-        "id": "b1ad4427-6ad5-49bd-90d8-ed59759bcc64",
+        "id": "730b3234-e2e6-479f-9ca0-530045a480c4",
         "name": "If1"
       },
       {
@@ -637,12 +614,12 @@
             "conditions": [
               {
                 "id": "cbac2d80-b82c-4c0b-9266-f5644c82fc89",
-                "leftValue": "",
+                "leftValue": "={{ $json.notify }}",
                 "rightValue": "",
                 "operator": {
-                  "type": "string",
-                  "operation": "equals",
-                  "name": "filter.operator.equals"
+                  "type": "boolean",
+                  "operation": "true",
+                  "singleValue": true
                 }
               }
             ],
@@ -653,10 +630,10 @@
         "type": "n8n-nodes-base.if",
         "typeVersion": 2.2,
         "position": [
-          -144,
-          -32
+          320,
+          16
         ],
-        "id": "21c75f71-835a-4223-8db3-903fc39293d9",
+        "id": "e68682a2-683a-4f87-902e-9c7a949eb24a",
         "name": "If2"
       }
     ],
@@ -972,11 +949,11 @@
       }
     },
     "authors": "John Ordóñez Monroy",
-    "name": null,
-    "description": null,
-    "autosaved": false
+    "name": "Version 5ada5aea",
+    "description": "",
+    "autosaved": true
   },
-  "activeVersionId": "e44b016a-bb93-400d-b108-5de7e2f4e94f",
+  "activeVersionId": "5ada5aea-7c26-49c8-8d69-3ef9c8801069",
   "connections": {
     "ObtenerSlides": {
       "main": [
@@ -1288,8 +1265,8 @@
       ]
     }
   },
-  "createdAt": "2025-09-25T16:10:13.322Z",
-  "id": "OcUacIKzdZ8BOrG8",
+  "createdAt": "2026-05-01T14:05:50.594Z",
+  "id": "KhuB3AdKN65YfnVW",
   "isArchived": false,
   "meta": {
     "templateCredsSetupCompleted": true
@@ -1306,15 +1283,15 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        272,
-        -16
+        720,
+        32
       ],
-      "id": "1c5471c9-f9e8-4f71-8ac8-caca0cabe742",
+      "id": "ee74ec60-70ca-4ae9-87c0-414aa56fa42f",
       "name": "ObtenerSlides",
       "credentials": {
         "googleOAuth2Api": {
-          "id": "vkWvvbQeke2SGX0V",
-          "name": "Google.jomBusiness"
+          "id": "YqSYIxI25n1uZgWB",
+          "name": "Google.api"
         }
       }
     },
@@ -1341,10 +1318,10 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        -992,
-        352
+        -528,
+        400
       ],
-      "id": "82348df4-46ad-4023-8259-387cc0e46dfd",
+      "id": "861863a0-8b8b-4817-bf59-2914636fad40",
       "name": "Edit Fields"
     },
     {
@@ -1358,15 +1335,15 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        448,
-        -16
+        896,
+        32
       ],
-      "id": "364249dc-cdbf-45aa-b78d-465c53693b57",
+      "id": "680b321a-49a6-4ef1-990d-83cafc95529c",
       "name": "BorrarSlide",
       "credentials": {
         "googleOAuth2Api": {
-          "id": "vkWvvbQeke2SGX0V",
-          "name": "Google.jomBusiness"
+          "id": "YqSYIxI25n1uZgWB",
+          "name": "Google.api"
         }
       }
     },
@@ -1379,17 +1356,18 @@
       "type": "n8n-nodes-base.facebookGraphApi",
       "typeVersion": 1,
       "position": [
-        -560,
-        736
+        -96,
+        784
       ],
-      "id": "aa9db21a-9083-40e6-b724-09161ce12ab5",
+      "id": "2fad7e66-bfb9-4655-8155-0ad585293f32",
       "name": "Instagram.Optimiza",
       "credentials": {
         "facebookGraphApi": {
-          "id": "q07PnzaLdq09L9OE",
-          "name": "Instagram.Optimiza"
+          "id": "eTz9nRIExeQqbsq9",
+          "name": "Facebook.CodigoAlfa"
         }
       },
+      "disabled": true,
       "onError": "continueRegularOutput"
     },
     {
@@ -1401,14 +1379,14 @@
       "type": "n8n-nodes-base.facebookGraphApi",
       "typeVersion": 1,
       "position": [
-        -560,
-        160
+        -96,
+        208
       ],
-      "id": "6bc1f2b5-285a-4172-ba97-cfcdc2e4670f",
+      "id": "c68e704a-2e7b-4a85-9e8e-fe7cddb1a1c8",
       "name": "Facebook.CodigoAlfa",
       "credentials": {
         "facebookGraphApi": {
-          "id": "hOMT44BIxjiDsVdw",
+          "id": "eTz9nRIExeQqbsq9",
           "name": "Facebook.CodigoAlfa"
         }
       },
@@ -1423,15 +1401,15 @@
       "type": "n8n-nodes-base.facebookGraphApi",
       "typeVersion": 1,
       "position": [
-        -560,
-        352
+        -96,
+        400
       ],
-      "id": "9eb78023-6239-4405-8fac-8458d0953c9b",
+      "id": "dbd30410-f7f8-4583-bc83-031fd1a009cb",
       "name": "Facebook.Smartweb",
       "credentials": {
         "facebookGraphApi": {
-          "id": "IdpHq8Mtl5spHnnr",
-          "name": "Facebook.SmartWeb"
+          "id": "eTz9nRIExeQqbsq9",
+          "name": "Facebook.CodigoAlfa"
         }
       },
       "onError": "continueRegularOutput"
@@ -1445,15 +1423,15 @@
       "type": "n8n-nodes-base.facebookGraphApi",
       "typeVersion": 1,
       "position": [
-        -560,
-        544
+        -96,
+        592
       ],
-      "id": "5e5c7cf0-d9f8-4c91-9559-1c6ce6b7ce00",
+      "id": "695bb5d1-9c02-45fd-a6a7-b79015297a4b",
       "name": "Facebook.Optimiza",
       "credentials": {
         "facebookGraphApi": {
-          "id": "ym2xOYOdM5h5E89o",
-          "name": "Facebook.Optimiza"
+          "id": "eTz9nRIExeQqbsq9",
+          "name": "Facebook.CodigoAlfa"
         }
       },
       "disabled": true,
@@ -1468,22 +1446,23 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        80,
-        736
+        544,
+        784
       ],
       "typeVersion": 1,
-      "id": "d8986fad-37c6-4633-b34e-5a01cb1b1d38",
-      "name": "Sticky Note1"
+      "id": "8c63687d-cc18-438a-8c23-8294cf66666d",
+      "name": "Sticky Note1",
+      "disabled": true
     },
     {
       "parameters": {},
       "type": "n8n-nodes-base.manualTrigger",
       "typeVersion": 1,
       "position": [
-        -1216,
-        448
+        -752,
+        496
       ],
-      "id": "add01914-be49-4b09-93ce-3ff720ae820b",
+      "id": "496882ae-2209-44d1-a5f7-19155d5cf117",
       "name": "When clicking ‘Execute workflow’"
     },
     {
@@ -1500,10 +1479,10 @@
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.2,
       "position": [
-        -1216,
-        256
+        -752,
+        304
       ],
-      "id": "dc0e191c-1d49-4f92-b541-abcb73b408ea",
+      "id": "516127fd-9f3c-4f3f-a7a8-1de067729dae",
       "name": "Schedule Trigger"
     },
     {
@@ -1513,10 +1492,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -352,
-        160
+        112,
+        208
       ],
-      "id": "2a941e77-5860-4083-b4af-a4936c0ca17b",
+      "id": "4877e121-b83a-435f-9f39-baba77b944db",
       "name": "Validar.CodigoAlfa"
     },
     {
@@ -1526,10 +1505,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -352,
-        352
+        112,
+        400
       ],
-      "id": "3095424c-28ef-40b2-bbbc-092579b06503",
+      "id": "2cb5b283-a8d9-44ba-802f-0c3b5c4eebd9",
       "name": "Validar.SmartWeb"
     },
     {
@@ -1539,10 +1518,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -352,
-        544
+        112,
+        592
       ],
-      "id": "f35990b1-cb0f-4ed7-a955-5a189045f8bb",
+      "id": "ce178452-434d-41fd-b37e-9f0b5ce1ee7f",
       "name": "Validar.Facebook.Optimiza",
       "executeOnce": false,
       "retryOnFail": false,
@@ -1555,11 +1534,12 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -352,
-        736
+        112,
+        784
       ],
-      "id": "4e30ae8b-13a7-49e0-8bbc-0e99f4932d51",
-      "name": "Validar.Instagram.Optimiza"
+      "id": "b5219962-f2d1-4e19-a853-916030a2e873",
+      "name": "Validar.Instagram.Optimiza",
+      "disabled": true
     },
     {
       "parameters": {
@@ -1589,10 +1569,10 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        160,
-        352
+        624,
+        400
       ],
-      "id": "a01341ce-5e1a-44c1-aef4-c76c687d1813",
+      "id": "0c9679c1-1afe-4ec4-a217-32666d3aeb26",
       "name": "If"
     },
     {
@@ -1606,16 +1586,16 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        384,
-        320
+        848,
+        368
       ],
-      "id": "870a73e5-557b-4f47-9dd8-493bf67477f8",
+      "id": "765ae484-2b23-4848-914e-968c95f2d0a3",
       "name": "Send a text message",
       "webhookId": "47768359-131c-4dcd-9e2b-e3a0a44fb69e",
       "credentials": {
         "telegramApi": {
-          "id": "zxkALNj2uZW1uxoX",
-          "name": "Telegram.jomBusiness"
+          "id": "Kz6I7RAZL2mii6bK",
+          "name": "Telegram.api"
         }
       }
     },
@@ -1632,16 +1612,16 @@
       "type": "n8n-nodes-base.emailSend",
       "typeVersion": 2.1,
       "position": [
-        384,
-        160
+        848,
+        208
       ],
-      "id": "15e03f40-c582-4586-b254-bf3061425d9e",
+      "id": "f3a35cc3-b6f4-4146-9768-250765588dd8",
       "name": "Send.Lead",
       "webhookId": "f4c94d16-2482-4d18-b3c3-41ae05868902",
       "credentials": {
         "smtp": {
-          "id": "g9Le19jvw1BGykSt",
-          "name": "SMTP.optimiza"
+          "id": "HUZKWIFzTUTleZeZ",
+          "name": "SMTP account"
         }
       }
     },
@@ -1650,10 +1630,10 @@
       "type": "n8n-nodes-base.noOp",
       "typeVersion": 1,
       "position": [
-        400,
-        512
+        864,
+        560
       ],
-      "id": "e2f27cfa-c6f7-43be-87b5-99bf8cad05e3",
+      "id": "88dc7ce7-2199-483d-b040-7c4f6e5ddb40",
       "name": "No Operation, do nothing"
     },
     {
@@ -1668,16 +1648,16 @@
       "type": "n8n-nodes-base.gmail",
       "typeVersion": 2.1,
       "position": [
-        -560,
-        928
+        -96,
+        976
       ],
-      "id": "85726068-973d-4fe0-b762-30c2f046c2d6",
+      "id": "06cee038-4ec4-41ad-a6e8-8c08e5f0ddd9",
       "name": "Gmail",
       "webhookId": "4e4499dc-4fa7-4228-9f17-453e18b78e6e",
       "credentials": {
         "gmailOAuth2": {
-          "id": "klbYdrcdLX4W0ONj",
-          "name": "Gmail.jomBusiness"
+          "id": "qGZijaDVUOO8FgpZ",
+          "name": "Gmail.api"
         }
       },
       "onError": "continueRegularOutput"
@@ -1689,10 +1669,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -352,
-        928
+        112,
+        976
       ],
-      "id": "9c32397e-3e6a-4b15-baf6-cec4674c4906",
+      "id": "f1aba86d-2055-47d3-9184-140b43ccb5fd",
       "name": "Validar.Gmail"
     },
     {
@@ -1712,24 +1692,16 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        -544,
-        -32
+        -96,
+        16
       ],
-      "id": "3a10ced7-1b21-4ab8-862b-00d76640cfc0",
+      "id": "fbc4d4be-47c0-48d1-a41f-acd05712d3e1",
       "name": "CopiarPlantilla.Slides",
       "notesInFlow": false,
       "credentials": {
-        "googleSheetsOAuth2Api": {
-          "id": "9itbsHqDyr3Vwspb",
-          "name": "Sheets.jomBusiness"
-        },
-        "googleSlidesOAuth2Api": {
-          "id": "r33mZaNsUtZk4fVS",
-          "name": "Slides.jomBusiness"
-        },
         "googleOAuth2Api": {
-          "id": "vkWvvbQeke2SGX0V",
-          "name": "Google.jomBusiness"
+          "id": "YqSYIxI25n1uZgWB",
+          "name": "Google.api"
         }
       },
       "onError": "continueRegularOutput"
@@ -1741,10 +1713,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -352,
-        -32
+        96,
+        16
       ],
-      "id": "2c223457-4115-4d5d-8b74-ff94d2d80359",
+      "id": "0ed7805b-dbac-47fc-828b-229dbc668d5e",
       "name": "Validar.Slides"
     },
     {
@@ -1761,19 +1733,15 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        80,
-        -16
+        528,
+        32
       ],
-      "id": "3a5bb75d-4a23-4520-92a1-de2edcac7d50",
+      "id": "e10ac379-b0fb-445d-b295-48538c1256a7",
       "name": "ReemplazarTexto.Slides",
       "credentials": {
-        "googleSlidesOAuth2Api": {
-          "id": "r33mZaNsUtZk4fVS",
-          "name": "Slides.jomBusiness"
-        },
         "googleOAuth2Api": {
-          "id": "vkWvvbQeke2SGX0V",
-          "name": "Google.jomBusiness"
+          "id": "YqSYIxI25n1uZgWB",
+          "name": "Google.api"
         }
       }
     },
@@ -1782,7 +1750,7 @@
         "method": "POST",
         "url": "=https://www.googleapis.com/drive/v3/files/1EfTpOlNkJh81FMt6XVX9tjW22iaQcj3UKRUt7KCYmz0/copy",
         "authentication": "predefinedCredentialType",
-        "nodeCredentialType": "googleDriveOAuth2Api",
+        "nodeCredentialType": "googleOAuth2Api",
         "sendBody": true,
         "specifyBody": "json",
         "jsonBody": "={\n  \"name\": \"Documento_{{ $json.Nombre }}\"\n}",
@@ -1791,27 +1759,15 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        -544,
-        -224
+        -96,
+        -176
       ],
-      "id": "c45e4bca-1f67-405f-b9f3-d1e3b537f507",
+      "id": "13caef90-1b35-4e90-bfe9-0467db820e34",
       "name": "CopiarPlantilla.Docs",
       "credentials": {
-        "googleSheetsOAuth2Api": {
-          "id": "9itbsHqDyr3Vwspb",
-          "name": "Sheets.jomBusiness"
-        },
-        "googleSlidesOAuth2Api": {
-          "id": "r33mZaNsUtZk4fVS",
-          "name": "Slides.jomBusiness"
-        },
         "googleOAuth2Api": {
-          "id": "vkWvvbQeke2SGX0V",
-          "name": "Google.jomBusiness"
-        },
-        "googleDriveOAuth2Api": {
-          "id": "oXon4EKi27kb1xiA",
-          "name": "Google.jomBusiness"
+          "id": "YqSYIxI25n1uZgWB",
+          "name": "Google.api"
         }
       },
       "onError": "continueRegularOutput"
@@ -1823,10 +1779,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -352,
-        -224
+        96,
+        -176
       ],
-      "id": "d9e515da-aef8-4711-afa2-2b78ea02c3cc",
+      "id": "63a88311-e180-4670-b524-fd10df5cd80a",
       "name": "Validar.Docs"
     },
     {
@@ -1843,20 +1799,16 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        80,
-        -208
+        528,
+        -160
       ],
-      "id": "4539b045-a185-44f8-bca5-d41754d18a20",
+      "id": "c9574cd7-c480-4ea3-b076-34e14e821163",
       "name": "ReemplazarTexto.Docs",
       "alwaysOutputData": false,
       "credentials": {
-        "googleSlidesOAuth2Api": {
-          "id": "r33mZaNsUtZk4fVS",
-          "name": "Slides.jomBusiness"
-        },
         "googleOAuth2Api": {
-          "id": "vkWvvbQeke2SGX0V",
-          "name": "Google.jomBusiness"
+          "id": "YqSYIxI25n1uZgWB",
+          "name": "Google.api"
         }
       }
     },
@@ -1871,15 +1823,15 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        272,
-        -208
+        720,
+        -160
       ],
-      "id": "7e3e95e5-0b73-4406-b5d3-8171f96797a7",
+      "id": "6c201ec2-5447-4555-ade2-84c5fef6877f",
       "name": "BorrarDoc",
       "credentials": {
         "googleOAuth2Api": {
-          "id": "vkWvvbQeke2SGX0V",
-          "name": "Google.jomBusiness"
+          "id": "YqSYIxI25n1uZgWB",
+          "name": "Google.api"
         }
       }
     },
@@ -1911,10 +1863,10 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        -144,
-        -224
+        304,
+        -176
       ],
-      "id": "b1ad4427-6ad5-49bd-90d8-ed59759bcc64",
+      "id": "730b3234-e2e6-479f-9ca0-530045a480c4",
       "name": "If1"
     },
     {
@@ -1945,32 +1897,25 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        -144,
-        -32
+        304,
+        16
       ],
-      "id": "21c75f71-835a-4223-8db3-903fc39293d9",
+      "id": "e68682a2-683a-4f87-902e-9c7a949eb24a",
       "name": "If2"
     }
   ],
   "pinData": {},
   "settings": {
     "executionOrder": "v1",
-    "timezone": "America/Lima",
-    "callerPolicy": "workflowsFromSameOwner",
-    "errorWorkflow": "iNdV46Bame2vCTJz",
-    "timeSavedPerExecution": 10,
-    "binaryMode": "separate",
-    "timeSavedMode": "fixed",
-    "availableInMCP": false,
-    "executionTimeout": 600
+    "binaryMode": "separate"
   },
   "shared": [
     {
-      "updatedAt": "2025-09-25T16:10:13.394Z",
-      "createdAt": "2025-09-25T16:10:13.394Z",
+      "updatedAt": "2026-05-01T14:05:50.594Z",
+      "createdAt": "2026-05-01T14:05:50.594Z",
       "role": "workflow:owner",
-      "workflowId": "OcUacIKzdZ8BOrG8",
-      "projectId": "uBzdLipflPbb1Tbz"
+      "workflowId": "KhuB3AdKN65YfnVW",
+      "projectId": "eyOyKz68GM9OloYk"
     }
   ],
   "staticData": {
@@ -1980,25 +1925,25 @@
   },
   "tags": [
     {
-      "updatedAt": "2025-07-28T23:16:55.585Z",
-      "createdAt": "2025-07-28T23:16:55.585Z",
-      "id": "B0zvrFLy0yNSEhVJ",
+      "updatedAt": "2026-05-01T14:05:45.832Z",
+      "createdAt": "2026-05-01T14:05:45.832Z",
+      "id": "8wlQKtpUxQ9ElXHE",
       "name": "💡SmartWeb"
     },
     {
-      "updatedAt": "2025-07-28T23:13:44.849Z",
-      "createdAt": "2025-07-28T23:13:44.849Z",
-      "id": "E7azoCbE6H7Fjix1",
-      "name": "✨ Optimiza.ia.pro"
+      "updatedAt": "2026-04-30T23:13:50.360Z",
+      "createdAt": "2026-04-30T23:13:50.360Z",
+      "id": "c03xSxyTfQ6QC8qX",
+      "name": "🤖 IA al mando"
     },
     {
-      "updatedAt": "2025-07-18T02:37:28.170Z",
-      "createdAt": "2025-07-18T02:37:28.170Z",
-      "id": "Za1YQUqDKWnwNOuD",
-      "name": "🤖 IA al mando"
+      "updatedAt": "2026-04-30T23:13:50.319Z",
+      "createdAt": "2026-04-30T23:13:50.319Z",
+      "id": "WkzLO7ASOwlX9Xby",
+      "name": "✨ Optimiza.ia.pro"
     }
   ],
   "triggerCount": 1,
-  "updatedAt": "2026-04-17T22:57:56.749Z",
-  "versionId": "541a4372-19ec-4a29-8b21-bde5a40a340d"
+  "updatedAt": "2026-05-01T15:57:34.320Z",
+  "versionId": "83de5e26-44df-4966-817f-e7bbed0e9c86"
 }
