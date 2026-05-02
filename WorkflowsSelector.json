@@ -1,0 +1,2548 @@
+{
+  "active": false,
+  "activeVersion": null,
+  "activeVersionId": null,
+  "connections": {
+    "Schedule.Trigger": {
+      "main": [
+        [
+          {
+            "node": "Detectar.Turno",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "RSS.IA",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "RSS.Wired",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "RSS.Marketing",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Detectar.Turno": {
+      "main": [
+        [
+          {
+            "node": "Ctx.Manana",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "IF.Es.Tarde",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ctx.Manana": {
+      "main": [
+        [
+          {
+            "node": "Merge.Contexto",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IF.Es.Tarde": {
+      "main": [
+        [
+          {
+            "node": "Baserow.Publicadas.Hoy",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Baserow.Publicadas.Hoy": {
+      "main": [
+        [
+          {
+            "node": "Extraer.Publicadas",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extraer.Publicadas": {
+      "main": [
+        [
+          {
+            "node": "Merge.Contexto",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "RSS.IA": {
+      "main": [
+        [
+          {
+            "node": "Merge.RSS",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "RSS.Wired": {
+      "main": [
+        [
+          {
+            "node": "Merge.RSS",
+            "type": "main",
+            "index": 4
+          }
+        ]
+      ]
+    },
+    "Merge.RSS": {
+      "main": [
+        [
+          {
+            "node": "Filtro.Keywords",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filtro.Keywords": {
+      "main": [
+        [
+          {
+            "node": "Normalizar.Campos",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Normalizar.Campos": {
+      "main": [
+        [
+          {
+            "node": "Viral.Score",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Viral.Score": {
+      "main": [
+        [
+          {
+            "node": "Enrich.Score",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Enrich.Score": {
+      "main": [
+        [
+          {
+            "node": "Filtro.Score.Min",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filtro.Score.Min": {
+      "main": [
+        [
+          {
+            "node": "Seleccionar.TopN",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge.Contexto": {
+      "main": [
+        [
+          {
+            "node": "Seleccionar.TopN",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Seleccionar.TopN": {
+      "main": [
+        [
+          {
+            "node": "Preparar.Mensajes",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Create a row",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Preparar.Mensajes": {
+      "main": [
+        [
+          {
+            "node": "Telegram.Intro",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Split.Noticias",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split.Noticias": {
+      "main": [
+        [
+          {
+            "node": "Telegram.Noticia.Boton",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "RSS.Marketing": {
+      "main": [
+        [
+          {
+            "node": "Merge.RSS",
+            "type": "main",
+            "index": 2
+          }
+        ]
+      ]
+    },
+    "gpt4o.Viral": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Viral.Score",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2026-05-02T15:03:01.903Z",
+  "id": "lFziY7jyTxKAeNSg",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Selector",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## 🕐 SCHEDULE\n**10:30 AM** → TOP 5 noticias\n**04:30 PM** → TOP 4 (excluye la publicada en la mañana)\n\nEl mismo workflow detecta el horario automáticamente y ajusta la lógica.",
+        "width": 340,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        352,
+        -544
+      ],
+      "id": "d04935b3-440e-4e2a-8ec4-2bf3fb07de57",
+      "name": "Note.Schedule"
+    },
+    {
+      "parameters": {
+        "content": "## 🗄️ Baserow — Tabla: rss_sessions\nColumnas requeridas:\n- `session_id` (Text)\n- `noticias_json` (Long text)\n- `estado` (Text): pending / published\n- `elegida_index` (Number)\n- `elegida_title` (Text)\n- `turno` (Text): manana / tarde\n- `fecha` (Text): YYYY-MM-DD\n\n⚠️ Reemplazar REEMPLAZAR_ID_BASEROW y REEMPLAZAR_ID_TABLA",
+        "width": 340,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        720,
+        -544
+      ],
+      "id": "cf7c6645-b3ab-47b7-9a38-c058b15153d1",
+      "name": "Note.Baserow"
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "30 10 * * *"
+            },
+            {
+              "field": "cronExpression",
+              "expression": "30 16 * * *"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -592,
+        -320
+      ],
+      "id": "b546e453-3eee-44fb-919f-0566ec286b56",
+      "name": "Schedule.Trigger"
+    },
+    {
+      "parameters": {
+        "jsCode": "\nconst now = new Date();\n// Hora en Lima (UTC-5)\nconst limaOffset = -5 * 60;\nconst limaTime = new Date(now.getTime() + (limaOffset + now.getTimezoneOffset()) * 60000);\nconst hour = limaTime.getHours();\nconst turno = hour < 13 ? 'manana' : 'tarde';\nconst fecha = limaTime.toISOString().split('T')[0];\nconst session_id = `sess_${fecha}_${turno}_${Math.random().toString(36).substr(2,5)}`;\n\nreturn [{ json: { turno, fecha, hora_lima: hour, session_id } }];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -320,
+        -16
+      ],
+      "id": "a6abe255-667c-4a4f-874a-d12e6f64127d",
+      "name": "Detectar.Turno"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "12e3c5fa-74ac-43a8-80b5-62e854a039d3",
+              "leftValue": "={{ $json.turno }}",
+              "rightValue": "tarde",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.2,
+      "position": [
+        -80,
+        48
+      ],
+      "id": "9cf46e64-2716-4fbe-94c9-328908a1f8ba",
+      "name": "IF.Es.Tarde"
+    },
+    {
+      "parameters": {
+        "authentication": "databaseToken",
+        "tableId": 956257,
+        "returnAll": true,
+        "additionalOptions": {}
+      },
+      "type": "n8n-nodes-base.baserow",
+      "typeVersion": 1,
+      "position": [
+        112,
+        48
+      ],
+      "id": "2a251bbf-9bd8-49ad-8cf7-e1d64d4da246",
+      "name": "Baserow.Publicadas.Hoy",
+      "credentials": {
+        "baserowTokenApi": {
+          "id": "hTWnIZ4BPHanwIRP",
+          "name": "Baserow.api"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "\nconst rows = $input.all();\nconst titulos_publicados = rows\n  .map(r => (r.json.elegida_title || '').toLowerCase().trim())\n  .filter(t => t.length > 0);\n\n// Pasar al contexto global via output\nconst turno_data = $('Detectar.Turno').first().json;\nreturn [{\n  json: {\n    turno: turno_data.turno,\n    fecha: turno_data.fecha,\n    session_id: turno_data.session_id,\n    titulos_publicados,\n    max_opciones: 4  // tarde siempre muestra 4\n  }\n}];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        304,
+        48
+      ],
+      "id": "68fa1c9f-f674-468b-bcf1-368f3e51594c",
+      "name": "Extraer.Publicadas"
+    },
+    {
+      "parameters": {
+        "jsCode": "\n// Unificar contexto de turno mañana y tarde en un solo item\nconst turno_data = $('Detectar.Turno').first().json;\n// Si llegamos aquí desde mañana, no hay publicadas\nreturn [{\n  json: {\n    turno: turno_data.turno,\n    fecha: turno_data.fecha,\n    session_id: turno_data.session_id,\n    titulos_publicados: [],\n    max_opciones: 5  // mañana muestra 5\n  }\n}];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -80,
+        -80
+      ],
+      "id": "22b4cdf6-af6e-4be3-ae60-fcea8459dc64",
+      "name": "Ctx.Manana"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3,
+      "position": [
+        496,
+        -64
+      ],
+      "id": "156b8465-5dfd-4607-8e73-10f9ca804ea3",
+      "name": "Merge.Contexto"
+    },
+    {
+      "parameters": {
+        "url": "https://iaenespanol.substack.com/feed",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.rssFeedRead",
+      "typeVersion": 1.1,
+      "position": [
+        -320,
+        -448
+      ],
+      "id": "5dab8637-2717-447b-b510-10d6561822d0",
+      "name": "RSS.IA"
+    },
+    {
+      "parameters": {
+        "url": "https://es.wired.com/feed/rss",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.rssFeedRead",
+      "typeVersion": 1.1,
+      "position": [
+        -320,
+        -176
+      ],
+      "id": "8a44c4bf-1417-4e05-9c4a-9095cbb5bd22",
+      "name": "RSS.Wired"
+    },
+    {
+      "parameters": {
+        "url": "https://marketing4ecommerce.net/feed/",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.rssFeedRead",
+      "typeVersion": 1.1,
+      "position": [
+        -320,
+        -320
+      ],
+      "id": "da25dc87-7c10-442e-9674-b22e7fc6d782",
+      "name": "RSS.Marketing"
+    },
+    {
+      "parameters": {
+        "numberInputs": 5
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3,
+      "position": [
+        144,
+        -384
+      ],
+      "id": "dc6af7c4-a39c-4337-aa54-a5c6d8391510",
+      "name": "Merge.RSS"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "63459994-5b6e-49f4-b3fb-0e591aff890e",
+              "leftValue": "={{ $json.title }}",
+              "rightValue": "IA",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            },
+            {
+              "id": "05f903d2-8666-4144-a25b-0aff9962eac6",
+              "leftValue": "={{ $json.title }}",
+              "rightValue": "ia",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            },
+            {
+              "id": "f74515c3-6c68-44a2-81c5-d4a460353aa1",
+              "leftValue": "={{ $json.title }}",
+              "rightValue": "gpt",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            },
+            {
+              "id": "68cb6643-723c-4f67-ad5c-808233dacf8f",
+              "leftValue": "={{ $json.title }}",
+              "rightValue": "GPT",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            },
+            {
+              "id": "67677947-618d-4547-8617-03b4860b606a",
+              "leftValue": "={{ $json.title }}",
+              "rightValue": "OpenAI",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            },
+            {
+              "id": "a50056f3-5892-467b-bd86-49aedaebb3a4",
+              "leftValue": "={{ $json.title }}",
+              "rightValue": "Claude",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            },
+            {
+              "id": "25f1d3e9-dfff-4b7a-a8e1-0315b547fd38",
+              "leftValue": "={{ $json.title }}",
+              "rightValue": "claude",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            },
+            {
+              "id": "6e22772c-07b9-4b7d-b658-ee5d08b64770",
+              "leftValue": "={{ $json.title }}",
+              "rightValue": "ChatGPT",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            },
+            {
+              "id": "b1c3a5e0-be3a-43a3-bdd8-eb291b6a1348",
+              "leftValue": "={{ $json.title }}",
+              "rightValue": "chatgpt",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            },
+            {
+              "id": "f67c4216-62aa-49b3-84ee-90b1f1eb197c",
+              "leftValue": "={{ $json.title }}",
+              "rightValue": "AI",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            },
+            {
+              "id": "89e7c853-9b51-4448-86bc-94e743300ed6",
+              "leftValue": "={{ $json.title }}",
+              "rightValue": "dinero",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            },
+            {
+              "id": "b46cdbbc-ae13-4509-9ddd-97e668815273",
+              "leftValue": "={{ $json.title }}",
+              "rightValue": "influencer",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            },
+            {
+              "id": "758de6ee-e71a-4424-a3bc-ca6d9971bd33",
+              "leftValue": "={{ $json.title }}",
+              "rightValue": "viral",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            },
+            {
+              "id": "a53c7a16-087b-435d-a75e-d5d289d88fb1",
+              "leftValue": "={{ $json.title }}",
+              "rightValue": "polémica",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            },
+            {
+              "id": "fc4e49ca-7446-4b55-aac1-42d7596957e8",
+              "leftValue": "={{ $json.title }}",
+              "rightValue": "polemica",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            },
+            {
+              "id": "2a293760-026d-446c-94d2-eed0b42e3c8f",
+              "leftValue": "={{ $json.title }}",
+              "rightValue": "millones",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            },
+            {
+              "id": "913b64d1-e343-469e-af4c-13afe5aec79b",
+              "leftValue": "={{ $json.title }}",
+              "rightValue": "TikTok",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            },
+            {
+              "id": "a6cf469e-1f44-45b0-9b07-65f71357bfac",
+              "leftValue": "={{ $json.title }}",
+              "rightValue": "tiktok",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            },
+            {
+              "id": "2c582813-3b59-458f-bfb4-a7146f4e4ff0",
+              "leftValue": "={{ $json.title }}",
+              "rightValue": "Instagram",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            },
+            {
+              "id": "e2c3debc-64f8-4229-b903-1505830ee52a",
+              "leftValue": "={{ $json.title }}",
+              "rightValue": "Facebook",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            },
+            {
+              "id": "77d4c95c-db91-4e22-8bf4-a5d4cb2daf05",
+              "leftValue": "={{ $json.title }}",
+              "rightValue": "YouTube",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            },
+            {
+              "id": "f846670e-eb28-4893-9cd5-d55be2d7e76f",
+              "leftValue": "={{ $json.title }}",
+              "rightValue": "youtube",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            },
+            {
+              "id": "ea14c799-451f-481a-8343-b4ca8719f0a6",
+              "leftValue": "={{ $json.title }}",
+              "rightValue": "robot",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            },
+            {
+              "id": "c1e8ca7c-b296-49db-9448-3cebe9671a01",
+              "leftValue": "={{ $json.title }}",
+              "rightValue": "automatización",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            },
+            {
+              "id": "298c587e-cfda-4c1e-95b7-dcd14f9b55b6",
+              "leftValue": "={{ $json.title }}",
+              "rightValue": "automatizacion",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            },
+            {
+              "id": "74f8a3b9-eca4-4ee6-b215-bd3051251720",
+              "leftValue": "={{ $json.title }}",
+              "rightValue": "startup",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            },
+            {
+              "id": "540aec7c-6830-4893-8eb0-9fc319871c0b",
+              "leftValue": "={{ $json.title }}",
+              "rightValue": "ecommerce",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            },
+            {
+              "id": "f0e3b381-dcdc-4571-999e-eca20187fd3c",
+              "leftValue": "={{ $json.title }}",
+              "rightValue": "tecnología",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            },
+            {
+              "id": "41d83c7f-be1e-49d4-b6b0-9374d767de7d",
+              "leftValue": "={{ $json.title }}",
+              "rightValue": "tecnologia",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            },
+            {
+              "id": "5cd5c7c3-3580-421f-8890-adf4db104018",
+              "leftValue": "={{ $json.title }}",
+              "rightValue": "negocio",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            },
+            {
+              "id": "117c6af5-648a-4033-ae1e-bb16b9fd5461",
+              "leftValue": "={{ $json.title }}",
+              "rightValue": "emprendimiento",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            },
+            {
+              "id": "7a3c552c-09d8-485d-8334-f20cb40059bf",
+              "leftValue": "={{ $json.title }}",
+              "rightValue": "inteligencia artificial",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            }
+          ],
+          "combinator": "or"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.2,
+      "position": [
+        320,
+        -336
+      ],
+      "id": "03921d0b-2366-4ced-b17d-20851ba8f4cd",
+      "name": "Filtro.Keywords"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "64b7775f-eb85-4647-9532-226f6f75edd7",
+              "name": "title",
+              "value": "={{ $json.title || '' }}",
+              "type": "string"
+            },
+            {
+              "id": "388bbbe3-02ae-479d-ae5b-491e06c10315",
+              "name": "link",
+              "value": "={{ $json.link || '' }}",
+              "type": "string"
+            },
+            {
+              "id": "c94fbc1c-48bb-4c42-8916-490ffc958824",
+              "name": "snippet",
+              "value": "={{ $json.contentSnippet || $json.summary || '' }}",
+              "type": "string"
+            },
+            {
+              "id": "8f44dc08-955a-4616-9ae4-f57bdb8959f1",
+              "name": "pubDate",
+              "value": "={{ $json.pubDate || $json.isoDate || '' }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        528,
+        -336
+      ],
+      "id": "93c3fb4d-e4f8-4bb2-92f1-ea7d708975d9",
+      "name": "Normalizar.Campos"
+    },
+    {
+      "parameters": {
+        "model": "openai/gpt-4o-mini",
+        "options": {
+          "responseFormat": "json_object"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [
+        512,
+        -176
+      ],
+      "id": "53036ff0-51e2-4455-894f-67ba9fe2b518",
+      "name": "gpt4o.Viral",
+      "credentials": {
+        "openRouterApi": {
+          "id": "aq9Mu0k1n9JBuo3F",
+          "name": "OpenRouter.msn"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ 'Título: ' + $json.title + '\\nContenido: ' + $json.snippet }}",
+        "messages": {
+          "messageValues": [
+            {
+              "message": "Eres un experto en marketing viral y tendencias digitales.\nAnaliza esta noticia y evalúa su potencial viral para LinkedIn y Facebook en audiencia hispanohablante de negocios, tecnología e influencers.\n\nNOTICIA:\nTítulo: {title}\nContenido: {content}\n\nResponde ÚNICAMENTE con este JSON (sin texto extra, sin markdown):\n{\n  \"score\": 0-100,\n  \"nivel\": \"bajo|medio|alto|viral\",\n  \"razon\": \"Explicación de 1-2 líneas del score\",\n  \"angulo_viral\": \"El ángulo específico que haría viral esta noticia\",\n  \"emoji_clave\": \"1-2 emojis que representan el tema\",\n  \"categoria\": \"tecnologia|negocios|influencer|ia|ecommerce|otro\"\n}\n\nCriterios (pesos):\n- Controversia/Sorpresa: 30 pts\n- Tendencia actual en redes hispanohablantes: 30 pts\n- Impacto económico/laboral: 20 pts\n- Reconocimiento de personaje o marca: 20 pts"
+            }
+          ]
+        },
+        "batching": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.7,
+      "position": [
+        736,
+        -336
+      ],
+      "id": "25a37469-863f-4dd6-8891-e82445cf5ef9",
+      "name": "Viral.Score"
+    },
+    {
+      "parameters": {
+        "jsCode": "\nconst items = $input.all();\nreturn items.map(item => {\n  let out = {};\n  try { out = item.json.output || {}; } catch(e) {}\n  return { json: {\n    title:      item.json.title,\n    link:       item.json.link,\n    snippet:    item.json.snippet,\n    pubDate:    item.json.pubDate,\n    score:      out.score  || 0,\n    nivel:      out.nivel  || 'bajo',\n    razon:      out.razon  || '',\n    angulo:     out.angulo_viral || '',\n    emoji:      out.emoji_clave || '📰',\n    categoria:  out.categoria || 'otro',\n  }};\n});\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1024,
+        -336
+      ],
+      "id": "8d916e64-9104-42f1-ad87-000eaa51741d",
+      "name": "Enrich.Score"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "da9f121b-a3c8-4676-9b37-0703fda49dfa",
+              "leftValue": "={{ $json.score }}",
+              "rightValue": 45,
+              "operator": {
+                "type": "number",
+                "operation": "gte"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.2,
+      "position": [
+        1184,
+        -336
+      ],
+      "id": "093bbc82-16ab-4ec2-904d-e5362be1e360",
+      "name": "Filtro.Score.Min"
+    },
+    {
+      "parameters": {
+        "jsCode": "\nconst items = $input.all();\n// Leer contexto de turno desde Merge.Contexto\nconst ctx = $('Merge.Contexto').first().json;\nconst titulos_publicados = ctx.titulos_publicados || [];\nconst max_opciones = ctx.max_opciones || 5;\nconst session_id   = ctx.session_id;\nconst turno        = ctx.turno;\nconst fecha        = ctx.fecha;\n\n// Ordenar por score\nconst sorted = [...items].sort((a, b) => b.json.score - a.json.score);\n\n// Excluir noticias ya publicadas hoy\nconst disponibles = sorted.filter(item => {\n  const titulo = (item.json.title || '').toLowerCase().trim();\n  return !titulos_publicados.some(pub => {\n    // Comparación flexible: si comparten más del 60% del título\n    if (!pub || !titulo) return false;\n    const wordsA = titulo.split(' ');\n    const wordsB = pub.split(' ');\n    const matches = wordsA.filter(w => w.length > 4 && wordsB.includes(w)).length;\n    return matches >= 2;\n  });\n});\n\nconst top = disponibles.slice(0, max_opciones);\n\nif (!top.length) throw new Error('No hay noticias disponibles con score suficiente.');\n\nconst noticias = top.map((item, i) => ({\n  index:    i + 1,\n  title:    item.json.title,\n  link:     item.json.link,\n  snippet:  item.json.snippet,\n  score:    item.json.score,\n  nivel:    item.json.nivel,\n  razon:    item.json.razon,\n  angulo:   item.json.angulo,\n  emoji:    item.json.emoji,\n  categoria: item.json.categoria,\n}));\n\nreturn [{ json: { session_id, turno, fecha, noticias, total: noticias.length } }];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        720,
+        -64
+      ],
+      "id": "13b3e912-9b83-430e-9c46-79f4a26763a3",
+      "name": "Seleccionar.TopN"
+    },
+    {
+      "parameters": {
+        "operation": "create",
+        "tableId": "REEMPLAZAR_ID_TABLA",
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": "session_id",
+              "fieldValue": "={{ $json.session_id }}"
+            },
+            {
+              "fieldId": "noticias_json",
+              "fieldValue": "={{ JSON.stringify($json.noticias) }}"
+            },
+            {
+              "fieldId": "estado",
+              "fieldValue": "pending"
+            },
+            {
+              "fieldId": "elegida_index",
+              "fieldValue": "0"
+            },
+            {
+              "fieldId": "elegida_title"
+            },
+            {
+              "fieldId": "turno",
+              "fieldValue": "={{ $json.turno }}"
+            },
+            {
+              "fieldId": "fecha",
+              "fieldValue": "={{ $json.fecha }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.baserow",
+      "typeVersion": 1,
+      "position": [
+        688,
+        240
+      ],
+      "id": "bc54f67f-c0d8-4372-860d-a083491e18e2",
+      "name": "Baserow.Guardar",
+      "credentials": {
+        "baserowApi": {
+          "id": "TbMAq3WMawKC3gAt",
+          "name": "Baserow account"
+        }
+      },
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "jsCode": "\nconst data     = $('Seleccionar.TopN').first().json;\nconst session_id = data.session_id;\nconst noticias   = data.noticias;\nconst turno      = data.turno;\nconst turno_label = turno === 'manana' ? '🌅 MAÑANA' : '🌆 TARDE';\nconst top_label   = turno === 'manana' ? 'TOP 5' : 'TOP 4';\n\nconst escape = t => (t||'').replace(/[_*[\\]()~`>#+=|{}.!-]/g, '\\\\$&');\n\nconst messages = noticias.map((n) => {\n  const stars  = '⭐'.repeat(Math.min(5, Math.floor(n.score / 20)));\n  const cb_raw = JSON.stringify({ session_id, index: n.index, action: 'elegir' });\n  // Telegram limita callback_data a 64 bytes → usamos ID corto\n  const cb_short = JSON.stringify({ s: session_id.split('_').pop(), i: n.index, a: 'e' });\n\n  return { json: {\n    chatId: '1704819492',\n    text: `${n.emoji} *Opción ${n.index} — Score ${n.score}/100 ${stars}*\n` +\n          `*${escape(n.title)}*\n\n` +\n          `💡 ${n.razon}\n` +\n          `🎯 ${n.angulo}\n` +\n          `🔗 ${n.link}`,\n    session_id, noticia_index: n.index, es_intro: false,\n    inline_keyboard: JSON.stringify({ inline_keyboard: [[\n      { text: `✅ Elegir opción ${n.index}`, callback_data: cb_short.substring(0,64) }\n    ]]})\n  }};\n});\n\nconst intro = { json: {\n  chatId: '1704819492',\n  text: `🗞️ *${turno_label} — ${top_label} NOTICIAS*\n_Elige la que quieres publicar:_\n\n📌 Session: \\`${session_id}\\``,\n  es_intro: true, session_id, inline_keyboard: null\n}};\n\nreturn [intro, ...messages];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1120,
+        -64
+      ],
+      "id": "1fc4b2da-4b49-44e9-bb56-52255e114d2e",
+      "name": "Preparar.Mensajes"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $json.chatId }}",
+        "text": "={{ $json.text }}",
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "Markdown"
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1456,
+        -320
+      ],
+      "id": "08413610-c481-4448-b9c3-17f368bb136e",
+      "name": "Telegram.Intro",
+      "webhookId": "32b3c2fe-4525-4e93-b84a-3646c102b606",
+      "credentials": {
+        "telegramApi": {
+          "id": "Kz6I7RAZL2mii6bK",
+          "name": "Telegram.api"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        1328,
+        -64
+      ],
+      "id": "aa018ddc-eac6-4fb9-b556-a989aed10986",
+      "name": "Split.Noticias"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://api.telegram.org/bot{{$credentials.telegramApi.accessToken}}/sendMessage",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({\n  chat_id: $json.chatId,\n  text: $json.text,\n  parse_mode: 'Markdown',\n  reply_markup: $json.inline_keyboard,\n  disable_web_page_preview: true\n}) }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1520,
+        -64
+      ],
+      "id": "226a22ae-cc0c-4020-97ea-a06015edb94c",
+      "name": "Telegram.Noticia.Boton"
+    },
+    {
+      "parameters": {
+        "authentication": "databaseToken",
+        "operation": "create",
+        "tableId": 956257,
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": 8337951,
+              "fieldValue": "={{ $json.session_id }}"
+            },
+            {
+              "fieldId": 8337952,
+              "fieldValue": "={{ JSON.stringify($json.noticias) }}"
+            },
+            {
+              "fieldId": 8337953,
+              "fieldValue": "pending"
+            },
+            {
+              "fieldId": 8337956,
+              "fieldValue": "0"
+            },
+            {
+              "fieldId": 8337956
+            },
+            {
+              "fieldId": 8338005,
+              "fieldValue": "={{ $json.turno }}"
+            },
+            {
+              "fieldId": 8338006,
+              "fieldValue": "={{ $json.fecha }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.baserow",
+      "typeVersion": 1.1,
+      "position": [
+        912,
+        80
+      ],
+      "id": "2e6bb95e-cff3-4450-a27b-bcc626ee863d",
+      "name": "Create a row",
+      "credentials": {
+        "baserowTokenApi": {
+          "id": "hTWnIZ4BPHanwIRP",
+          "name": "Baserow.api"
+        }
+      }
+    }
+  ],
+  "pinData": {
+    "Viral.Score": [
+      {
+        "json": {
+          "score": 85,
+          "nivel": "alto",
+          "razon": "La noticia aborda la competencia feroz en el ámbito de la IA, un tema caliente en la actualidad, lo que genera interés significativo en la comunidad de negocios y tecnología.",
+          "angulo_viral": "El enfoque en las inversiones y disputas entre gigantes tecnológicos podría atraer tanto a empresarios como a entusiastas de la tecnología, impulsando discusiones sobre el futuro de la inteligencia artificial.",
+          "emoji_clave": "🤖💰",
+          "categoria": "ia"
+        },
+        "pairedItem": {
+          "item": 0
+        }
+      },
+      {
+        "json": {
+          "score": 55,
+          "nivel": "medio",
+          "razon": "La noticia aborda un tema de alta relevancia actual (IA), pero no presenta un ángulo controvertido o sorprendente que la haga destacar.",
+          "angulo_viral": "Resaltar cómo la IA está impactando en la vida laboral y los negocios, generando debates entre líderes de opinión.",
+          "emoji_clave": "🤖📊",
+          "categoria": "ia"
+        },
+        "pairedItem": {
+          "item": 1
+        }
+      },
+      {
+        "json": {
+          "score": 85,
+          "nivel": "alto",
+          "razon": "La noticia aborda la intersección de la IA y el poder militar, generando controversia y relevancia en un contexto actual. Tiene un fuerte impacto económico y laboral, lo que la hace atractiva para la audiencia empresarial.",
+          "angulo_viral": "La relación entre tecnología militar y ética, con un llamado a la discusión sobre la responsabilidad en el uso de la IA en conflictos.",
+          "emoji_clave": "🤖⚔️",
+          "categoria": "tecnologia"
+        },
+        "pairedItem": {
+          "item": 2
+        }
+      },
+      {
+        "json": {
+          "score": 85,
+          "nivel": "alto",
+          "razon": "La noticia presenta un avance significativo en IA, generando sorpresa y potencial controversia sobre el futuro del trabajo y la interacción humano-máquina.",
+          "angulo_viral": "El impacto que esta tecnología tendrá en diversas industrias y en el futuro del trabajo, planteando preguntas sobre la delegación de tareas a la IA.",
+          "emoji_clave": "🤖🚀",
+          "categoria": "ia"
+        },
+        "pairedItem": {
+          "item": 3
+        }
+      },
+      {
+        "json": {
+          "score": 85,
+          "nivel": "alto",
+          "razon": "La combinación de un ciberataque y la inteligencia artificial genera controversia y sorpresa, atrayendo la atención sobre un tema crítico y actual en el ámbito tecnológico.",
+          "angulo_viral": "El impacto de la IA en la ciberseguridad y la necesidad de una nueva era de protección digital, lo cual es relevante para empresas e influencers en tecnología.",
+          "emoji_clave": "🔐🤖",
+          "categoria": "tecnologia"
+        },
+        "pairedItem": {
+          "item": 4
+        }
+      },
+      {
+        "json": {
+          "score": 85,
+          "nivel": "alto",
+          "razon": "La combinación de IA con creatividad y la posibilidad de desinformación genera un debate candente y relevante, atrayendo atención en ambos frentes.",
+          "angulo_viral": "Explorar cómo esta tecnología puede alterar la percepción de la realidad y crear contenido engañoso, fomentando un diálogo necesario sobre ética y veracidad.",
+          "emoji_clave": "🧠🎨",
+          "categoria": "ia"
+        },
+        "pairedItem": {
+          "item": 5
+        }
+      },
+      {
+        "json": {
+          "score": 55,
+          "nivel": "medio",
+          "razon": "El contenido es relevante para la audiencia interesada en tecnología, aunque el formato de resumen semanal puede no ser lo suficientemente impactante o controvertido para atraer una atención masiva.",
+          "angulo_viral": "Resaltar un descubrimiento o tendencia sorprendente en inteligencia artificial que se menciona en el podcast.",
+          "emoji_clave": "🤖📊",
+          "categoria": "ia"
+        },
+        "pairedItem": {
+          "item": 6
+        }
+      },
+      {
+        "json": {
+          "score": 85,
+          "nivel": "alto",
+          "razon": "La noticia presenta un cambio disruptivo en la industria del software creativo con una propuesta innovadora, lo que genera controversia y gran interés en el sector.",
+          "angulo_viral": "El impacto que tendrá esta tecnología en los procesos creativos y en el futuro del trabajo en diseño y desarrollo de software.",
+          "emoji_clave": "🖥️🤖",
+          "categoria": "tecnologia"
+        },
+        "pairedItem": {
+          "item": 7
+        }
+      },
+      {
+        "json": {
+          "score": 75,
+          "nivel": "alto",
+          "razon": "La noticia aborda la creciente preocupación por la autenticidad en el espacio digital, lo que genera controversia y tiene un impacto relevante en el ámbito laboral y económico.",
+          "angulo_viral": "El dilema de la autenticidad en la era digital y las implicaciones del control sobre la identidad en línea.",
+          "emoji_clave": "👁️🤖",
+          "categoria": "tecnologia"
+        },
+        "pairedItem": {
+          "item": 8
+        }
+      },
+      {
+        "json": {
+          "score": 85,
+          "nivel": "alto",
+          "razon": "La noticia presenta un giro inesperado sobre el impacto de la inteligencia artificial en el comercio minorista, lo que genera controversia y sorpresa entre la audiencia.",
+          "angulo_viral": "El dilema de los minoristas que deben adaptarse rápidamente o enfrentar la obsolescencia, resaltando la urgencia de la transformación digital.",
+          "emoji_clave": "🤖📉",
+          "categoria": "ia"
+        },
+        "pairedItem": {
+          "item": 9
+        }
+      },
+      {
+        "json": {
+          "score": 85,
+          "nivel": "alto",
+          "razon": "La noticia aborda una controversia sobre la IA que afecta a diversas clases sociales, generando un interés significativo en el contexto actual de transformación digital.",
+          "angulo_viral": "El debate entre la promesa de prosperidad de la IA y el temor a la automatización de empleos, invitando a la audiencia a compartir sus experiencias y pensamientos.",
+          "emoji_clave": "🤖😟",
+          "categoria": "tecnologia"
+        },
+        "pairedItem": {
+          "item": 10
+        }
+      },
+      {
+        "json": {
+          "score": 45,
+          "nivel": "medio",
+          "razon": "Aunque las noticias sobre inteligencia artificial son un tema relevante, el formato del podcast puede no generar suficiente controversia o sorpresa para captar la atención viral.",
+          "angulo_viral": "Incluir opiniones inesperadas o predicciones sobre el futuro de la IA que sorprendan a los oyentes.",
+          "emoji_clave": "🤖📈",
+          "categoria": "ia"
+        },
+        "pairedItem": {
+          "item": 11
+        }
+      },
+      {
+        "json": {
+          "score": 85,
+          "nivel": "alto",
+          "razon": "La noticia aborda el futuro de las IA con un enfoque en precios, lo que genera interés y controversia dada la creciente adopción de estas tecnologías en el mundo empresarial.",
+          "angulo_viral": "Comparaciones de precios y recomendaciones sobre suscripciones a IA podrían promover debates acalorados entre profesionales del sector.",
+          "emoji_clave": "🤖💰",
+          "categoria": "ia"
+        },
+        "pairedItem": {
+          "item": 12
+        }
+      },
+      {
+        "json": {
+          "score": 75,
+          "nivel": "alto",
+          "razon": "La noticia aborda una temática actual de desconfianza hacia la IA que resuena con la Generación Z, lo que genera controversia y un fuerte interés en la comunidad.",
+          "angulo_viral": "Reflexionar sobre cómo la misma tecnología que desarrollamos puede volverse en nuestra contra, invitando a debates y discusiones.",
+          "emoji_clave": "🤖💭",
+          "categoria": "ia"
+        },
+        "pairedItem": {
+          "item": 13
+        }
+      },
+      {
+        "json": {
+          "score": 65,
+          "nivel": "medio",
+          "razon": "La noticia presenta un lanzamiento relevante en el ámbito del coworking, lo cual puede atraer la atención de profesionales y empresas en busca de soluciones eficientes, pero la falta de un elemento polémico o sorpresivo limita su impacto.",
+          "angulo_viral": "Explorar cómo Claude Cowork puede transformar el espacio laboral y la productividad empresarial, invitando a empresas a compartir sus primeras experiencias.",
+          "emoji_clave": "🏢💼",
+          "categoria": "negocios"
+        },
+        "pairedItem": {
+          "item": 14
+        }
+      },
+      {
+        "json": {
+          "score": 85,
+          "nivel": "alto",
+          "razon": "La noticia presenta una mezcla de sorpresa y preocupación sobre la seguridad de la IA, lo que puede generar un gran debate y compartir en plataformas como LinkedIn y Facebook.",
+          "angulo_viral": "La narrativa de la IA peligrosa y los dilemas éticos que plantea puede atraer a profesionales de tecnología y negocios, así como a influencers en el ámbito tecnológico.",
+          "emoji_clave": "🤖⚠️",
+          "categoria": "ia"
+        },
+        "pairedItem": {
+          "item": 15
+        }
+      },
+      {
+        "json": {
+          "score": 85,
+          "nivel": "alto",
+          "razon": "La noticia aborda un tema controvertido y relevante sobre la IA y el futuro del trabajo, lo que genera interés y discusión en el ámbito laboral y tecnológico.",
+          "angulo_viral": "Enfocar la discusión en cómo las empresas pueden adaptarse a la automatización y el futuro laboral.",
+          "emoji_clave": "🤖💼",
+          "categoria": "tecnologia"
+        },
+        "pairedItem": {
+          "item": 16
+        }
+      },
+      {
+        "json": {
+          "score": 85,
+          "nivel": "alto",
+          "razon": "La noticia presenta un avance sorprendente en IA que puede tener un gran impacto en la comunidad científica y empresarial, captando el interés de profesionales del sector.",
+          "angulo_viral": "La evolución de la IA hacia la autonomía en descubrimientos científicos plantea preguntas sobre el futuro del trabajo y la colaboración humano-máquina.",
+          "emoji_clave": "🤖🔬",
+          "categoria": "ia"
+        },
+        "pairedItem": {
+          "item": 17
+        }
+      },
+      {
+        "json": {
+          "score": 45,
+          "nivel": "medio",
+          "razon": "Aunque el tema de la IA es relevante y contenedor de interés, el resumen semanal carece de un elemento sorpresivo o controvertido que lo haga destacar dentro de la saturada conversación sobre IA.",
+          "angulo_viral": "Enfatizar un descubrimiento impactante o una tendencia emergente en la IA de esa semana que pueda cambiar las reglas del juego.",
+          "emoji_clave": "🤖📊",
+          "categoria": "ia"
+        },
+        "pairedItem": {
+          "item": 18
+        }
+      },
+      {
+        "json": {
+          "score": 75,
+          "nivel": "alto",
+          "razon": "La noticia revela un crecimiento significativo de los ingresos en el área de cloud de Google, lo que genera interés en el ecosistema empresarial y tecnológico actual, además de ser relevante para profesionales del sector.",
+          "angulo_viral": "El potencial de crecimiento y la transformación digital que representa el negocio de cloud computing para las empresas hispanohablantes.",
+          "emoji_clave": "☁️📈",
+          "categoria": "tecnologia"
+        },
+        "pairedItem": {
+          "item": 19
+        }
+      },
+      {
+        "json": {
+          "score": 75,
+          "nivel": "alto",
+          "razon": "La pérdida de usuarios de Meta es sorprendente y relevante para muchos profesionales y empresas, lo que puede generar debate en las redes.",
+          "angulo_viral": "Impacto en el futuro de la publicidad en redes sociales y el sentido de pertenencia de las plataformas.",
+          "emoji_clave": "📉📱",
+          "categoria": "tecnologia"
+        },
+        "pairedItem": {
+          "item": 20
+        }
+      },
+      {
+        "json": {
+          "score": 75,
+          "nivel": "alto",
+          "razon": "La declaración de Zuckerberg sobre la IA genera controversia y puede atraer la atención debido al aumento de ingresos de Meta, lo que resuena en la actualidad del sector tecnológico.",
+          "angulo_viral": "La perspectiva única de Zuckerberg sobre la IA frente a otros líderes de la industria, en un contexto de crecimiento económico notable.",
+          "emoji_clave": "💡📈",
+          "categoria": "tecnologia"
+        },
+        "pairedItem": {
+          "item": 21
+        }
+      },
+      {
+        "json": {
+          "score": 65,
+          "nivel": "medio",
+          "razon": "La noticia presenta información valiosa sobre el sector de Data Science/IA y menciona líderes reconocidos, lo que puede generar interés. Sin embargo, la falta de controversia o sorpresa limita su potencial viral.",
+          "angulo_viral": "El ranking y la autoridad de expertos en el sector puede atraer debate y discusión sobre la calidad y relevancia de estas agencias.",
+          "emoji_clave": "📊🤖",
+          "categoria": "tecnologia"
+        },
+        "pairedItem": {
+          "item": 22
+        }
+      },
+      {
+        "json": {
+          "score": 85,
+          "nivel": "alto",
+          "razon": "La colaboración de OpenAI y AWS genera interés por su impacto en tecnología y negocios, siendo tema de actualidad respecto a IA y Cloud.",
+          "angulo_viral": "El potencial que esta colaboración tiene para revolucionar el acceso a la inteligencia artificial en empresas podrían motivar a los profesionales a compartir y discutir.",
+          "emoji_clave": "🤖☁️",
+          "categoria": "tecnologia"
+        },
+        "pairedItem": {
+          "item": 23
+        }
+      },
+      {
+        "json": {
+          "score": 75,
+          "nivel": "alto",
+          "razon": "La noticia aborda un tema controversal relacionado con la seguridad infantil en redes sociales, algo que genera amplio debate y preocupación en la sociedad actual, especialmente en el ámbito de negocios y tecnología.",
+          "angulo_viral": "El debate sobre la responsabilidad de las plataformas de redes sociales en la protección de los menores, lo que puede generar un gran interés y compartir entre profesionales de la tecnología y del marketing.",
+          "emoji_clave": "🚸⚖️",
+          "categoria": "tecnologia"
+        },
+        "pairedItem": {
+          "item": 24
+        }
+      },
+      {
+        "json": {
+          "score": 75,
+          "nivel": "alto",
+          "razon": "La noticia presenta una controversia relevante sobre la lucha en el mercado de las IA, sugiriendo que Google no está logrando captar usuarios a pesar de su crecimiento en cuota de mercado, lo que genera interés y debate entre los profesionales del sector.",
+          "angulo_viral": "Comparar el éxito de Google con ChatGPT en la percepción del usuario puede generar un fuerte debate y compartir insights valiosos.",
+          "emoji_clave": "🤖📉",
+          "categoria": "ia"
+        },
+        "pairedItem": {
+          "item": 25
+        }
+      },
+      {
+        "json": {
+          "score": 75,
+          "nivel": "alto",
+          "razon": "La noticia aborda un cambio significativo en la logística que impactará a marcas internacionales, generando interés en una tendencia actual en ecommerce.",
+          "angulo_viral": "Cómo las nuevas políticas afectan el ecommerce y qué estrategias están adoptando las empresas para adaptarse.",
+          "emoji_clave": "📦🌍",
+          "categoria": "ecommerce"
+        },
+        "pairedItem": {
+          "item": 26
+        }
+      },
+      {
+        "json": {
+          "score": 70,
+          "nivel": "alto",
+          "razon": "La noticia aborda la evolución del ecommerce B2B, un tema relevante y de actualidad dentro de los negocios, generando interés por su impacto en las ventas y las oportunidades comerciales.",
+          "angulo_viral": "Cómo la automatización y el enfoque B2B2C pueden transformar el panorama de negocios en América Latina.",
+          "emoji_clave": "🛒📈",
+          "categoria": "ecommerce"
+        },
+        "pairedItem": {
+          "item": 27
+        }
+      },
+      {
+        "json": {
+          "score": 75,
+          "nivel": "alto",
+          "razon": "La integración de AI en plataformas populares como YouTube genera un gran interés, especialmente entre los profesionales de tecnología y marketing. La aplicación de esta tecnología puede cambiar la dinámica de búsqueda y consumo de contenido.",
+          "angulo_viral": "Las implicaciones de la AI en la forma en que interactuamos con plataformas conocidas, destacando cómo esto puede mejorar o complicar la experiencia del usuario.",
+          "emoji_clave": "🤖📹",
+          "categoria": "tecnologia"
+        },
+        "pairedItem": {
+          "item": 28
+        }
+      },
+      {
+        "json": {
+          "score": 75,
+          "nivel": "alto",
+          "razon": "El rebranding de Freepik a Magnific es una noticia sorprendente que toca temas de tendencia como IA, lo que puede generar interés en la comunidad empresarial y tecnológica.",
+          "angulo_viral": "El potencial de la IA y cómo este cambio en la identidad de marca refleja una evolución necesaria en el mundo digital.",
+          "emoji_clave": "🚀🎨",
+          "categoria": "tecnologia"
+        },
+        "pairedItem": {
+          "item": 29
+        }
+      },
+      {
+        "json": {
+          "score": 75,
+          "nivel": "alto",
+          "razon": "El crecimiento de la inversión en publicidad digital es un tema relevante y sorprendente, lo que puede generar interés y discusión entre profesionales del sector.",
+          "angulo_viral": "El impacto del crecimiento en publicidad digital y su influencia en estrategias de marketing para empresas y emprendedores.",
+          "emoji_clave": "📈💻",
+          "categoria": "negocios"
+        },
+        "pairedItem": {
+          "item": 30
+        }
+      },
+      {
+        "json": {
+          "score": 85,
+          "nivel": "alto",
+          "razon": "La noticia toca un tema controversial sobre la interferencia de China en operaciones de grandes empresas tecnológicas, genera sorpresa y tiene un gran impacto potencial en el mercado laboral y económico.",
+          "angulo_viral": "El enfrentamiento entre China y Meta, y sus implicaciones en el mundo tecnológico y de negocios, puede atraer a una amplia audiencia interesada en el futuro de la inteligencia artificial.",
+          "emoji_clave": "🤖📉",
+          "categoria": "tecnologia"
+        },
+        "pairedItem": {
+          "item": 31
+        }
+      },
+      {
+        "json": {
+          "score": 75,
+          "nivel": "alto",
+          "razon": "La combinación de SEO y herramientas de IA genera interés en un público empresarial ávido de novedades; además, el posicionamiento estratégico ante chatbots es un tema emergente y relevante.",
+          "angulo_viral": "Cómo convertir la formación en estrategias de SEO para IA en una ventaja competitiva para negocios.",
+          "emoji_clave": "🚀📈",
+          "categoria": "tecnologia"
+        },
+        "pairedItem": {
+          "item": 32
+        }
+      },
+      {
+        "json": {
+          "score": 65,
+          "nivel": "alto",
+          "razon": "La combinación de una figura emprendedora como Jaume Betrián y la estrategia innovadora de Plesh atrae el interés empresarial, además de su relevancia en tendencias actuales.",
+          "angulo_viral": "El éxito y los aprendizajes de Betrián pueden inspirar a otros emprendedores a considerar estrategias similares en la distribución de sus productos.",
+          "emoji_clave": "🚀📈",
+          "categoria": "negocios"
+        },
+        "pairedItem": {
+          "item": 33
+        }
+      },
+      {
+        "json": {
+          "score": 65,
+          "nivel": "medio",
+          "razon": "El listado responde a una necesidad de información en el sector eCommerce, aunque no presenta una gran controversia o sorpresa.",
+          "angulo_viral": "Destacar la competencia y los logros de las agencias podría fomentar el debate y el intercambio de opiniones en la comunidad profesional.",
+          "emoji_clave": "🏆💻",
+          "categoria": "ecommerce"
+        },
+        "pairedItem": {
+          "item": 34
+        }
+      },
+      {
+        "json": {
+          "score": 85,
+          "nivel": "alto",
+          "razon": "La alianza con Amazon genera sorpresa y aporta una solución innovadora a un problema común, lo que potencia su atractivo viral.",
+          "angulo_viral": "La disrupción en la logística residencial que simplificará la entrega de paquetes y evitará molestias entre vecinos.",
+          "emoji_clave": "📦🤝",
+          "categoria": "tecnologia"
+        },
+        "pairedItem": {
+          "item": 35
+        }
+      },
+      {
+        "json": {
+          "score": 75,
+          "nivel": "alto",
+          "razon": "La actualización en las métricas de Instagram es relevante para creadores de contenido y empresas, generando interés en la comunidad.",
+          "angulo_viral": "La importancia de estas nuevas métricas para maximizar el rendimiento en redes sociales y estrategias de marketing.",
+          "emoji_clave": "📈📊",
+          "categoria": "tecnologia"
+        },
+        "pairedItem": {
+          "item": 36
+        }
+      },
+      {
+        "json": {
+          "score": 65,
+          "nivel": "medio",
+          "razon": "La noticia aborda un tema de tendencia en comercio electrónico y tecnología, aunque carece de controversia fuerte que impulse su viralidad.",
+          "angulo_viral": "La necesidad urgente de adaptar infraestructuras de confianza en un entorno de comercio electrónico que está en constante evolución.",
+          "emoji_clave": "🔒🛒",
+          "categoria": "ecommerce"
+        },
+        "pairedItem": {
+          "item": 37
+        }
+      },
+      {
+        "json": {
+          "score": 75,
+          "nivel": "alto",
+          "razon": "La noticia aborda un cambio significativo en las agencias de marketing, lo que genera controversia y es relevante en la actualidad para profesionales del sector.",
+          "angulo_viral": "La transformación del rol de las agencias puede generar debate sobre la innovación en el marketing y atraer la atención de líderes de pensamiento en el área.",
+          "emoji_clave": "📈💡",
+          "categoria": "negocios"
+        },
+        "pairedItem": {
+          "item": 38
+        }
+      },
+      {
+        "json": {
+          "score": 75,
+          "nivel": "alto",
+          "razon": "La noticia aborda una tendencia creciente en la digitalización del comercio que impacta significativamente en negocios y tecnología, lo que genera interés entre los profesionales del sector.",
+          "angulo_viral": "La promesa de simplificar la creación de eCommerce mediante IA sin necesidad de desarrollo atraerá a muchos empresarios y emprendedores, generando curiosidad y debate.",
+          "emoji_clave": "🛒🤖",
+          "categoria": "ecommerce"
+        },
+        "pairedItem": {
+          "item": 39
+        }
+      },
+      {
+        "json": {
+          "score": 65,
+          "nivel": "medio",
+          "razon": "La noticia aborda tendencias actuales en IA y visibilidad, pero carece de un elemento altamente controvertido que capte la atención viral.",
+          "angulo_viral": "La conversación sobre cómo la IA está transformando el marketing y la visibilidad de las empresas podría atraer a profesionales interesados en adaptar sus estrategias.",
+          "emoji_clave": "🤖📈",
+          "categoria": "tecnologia"
+        },
+        "pairedItem": {
+          "item": 40
+        }
+      },
+      {
+        "json": {
+          "score": 85,
+          "nivel": "alto",
+          "razon": "La noticia presenta avances significativos en inteligencia artificial que generan interés y debate en la comunidad tecnológica y empresarial, lo que potencia su alcance.",
+          "angulo_viral": "La revolución que significa GPT-5.5 en el trabajo del día a día y su capacidad para cambiar dinámicas laborales.",
+          "emoji_clave": "🤖🚀",
+          "categoria": "ia"
+        },
+        "pairedItem": {
+          "item": 41
+        }
+      },
+      {
+        "json": {
+          "score": 65,
+          "nivel": "medio",
+          "razon": "La noticia aborda una tendencia clave en el mundo del ecommerce y la moda, lo que puede generar interés, pero carece de un elemento altamente controversial.",
+          "angulo_viral": "La efectividad y el futuro de las estrategias de ecommerce en comparación con redes sociales y marketplaces",
+          "emoji_clave": "👗🛒",
+          "categoria": "ecommerce"
+        },
+        "pairedItem": {
+          "item": 42
+        }
+      },
+      {
+        "json": {
+          "score": 75,
+          "nivel": "alto",
+          "razon": "La funcionalidad nueva de Instagram genera sorpresa y curiosidad, justo en la tendencia de contenido efímero, lo cual es popular entre usuarios de redes sociales.",
+          "angulo_viral": "La posibilidad de que los empresarios y marketers vean en esta herramienta una nueva forma de conectar con su audiencia de manera creativa y efímera.",
+          "emoji_clave": "📸⏳",
+          "categoria": "tecnologia"
+        },
+        "pairedItem": {
+          "item": 43
+        }
+      },
+      {
+        "json": {
+          "score": 60,
+          "nivel": "medio",
+          "razon": "La noticia presenta un ranking relevante en un sector en crecimiento, pero carece de elementos de gran controversia o impacto inmediato.",
+          "angulo_viral": "Comparativa entre agencias y curiosidades sobre sus éxitos que inviten a la interacción y discusión.",
+          "emoji_clave": "📈🏆",
+          "categoria": "negocios"
+        },
+        "pairedItem": {
+          "item": 44
+        }
+      },
+      {
+        "json": {
+          "score": 70,
+          "nivel": "alto",
+          "razon": "La noticia destaca la innovación de OpenAI en un área de alto interés para profesionales de tecnología y negocios, con un enfoque en la automatización, que es tendencia y tiene implicaciones laborales.",
+          "angulo_viral": "Enfoque en cómo esta herramienta puede transformar la productividad en equipos, generando discusión sobre el futuro del trabajo y la automatización.",
+          "emoji_clave": "🤖✨",
+          "categoria": "tecnologia"
+        },
+        "pairedItem": {
+          "item": 45
+        }
+      },
+      {
+        "json": {
+          "score": 70,
+          "nivel": "alto",
+          "razon": "La noticia aborda un tema de sostenibilidad y tecnología que es relevante y provoca interés en el contexto actual, especialmente en el ámbito de los negocios y la logística.",
+          "angulo_viral": "La transición hacia cero emisiones es un tema candente; destacar cómo la tecnología y la logística circular pueden impactar positivamente en el medio ambiente podría resonar en redes.",
+          "emoji_clave": "🌱🚀",
+          "categoria": "tecnologia|negocios"
+        },
+        "pairedItem": {
+          "item": 46
+        }
+      },
+      {
+        "json": {
+          "score": 80,
+          "nivel": "alto",
+          "razon": "La integración de IA en herramientas cotidianas como Gmail genera sorpresa y es de interés para profesionales que buscan optimizar su productividad.",
+          "angulo_viral": "La mejora en eficiencia y productividad laboral gracias a la inteligencia artificial en correo electrónico, especialmente en un contexto donde la gestión del tiempo es clave.",
+          "emoji_clave": "🤖📧",
+          "categoria": "ia"
+        },
+        "pairedItem": {
+          "item": 47
+        }
+      },
+      {
+        "json": {
+          "score": 75,
+          "nivel": "alto",
+          "razon": "La noticia presenta un tema relevante sobre la evolución del SEO con IA, que genera interés en un público especializado, especialmente en la comunidad de marketing y tecnología.",
+          "angulo_viral": "El impacto de la IA en el SEO es un tema caliente que puede atraer a profesionales del marketing y generar debates sobre estrategias.",
+          "emoji_clave": "🔍🤖",
+          "categoria": "tecnologia"
+        },
+        "pairedItem": {
+          "item": 48
+        }
+      },
+      {
+        "json": {
+          "score": 75,
+          "nivel": "alto",
+          "razon": "La noticia aborda una tendencia actual relevante sobre la importancia de la autoridad en las estrategias de PR y su relación con la IA, lo que genera interés en la comunidad de negocios y tecnología.",
+          "angulo_viral": "Se puede enfocar en la transformación que representa para las marcas, con ejemplos de éxito de empresas que han implementado estas estrategias.",
+          "emoji_clave": "🤖📈",
+          "categoria": "tecnologia"
+        },
+        "pairedItem": {
+          "item": 49
+        }
+      },
+      {
+        "json": {
+          "score": 60,
+          "nivel": "medio",
+          "razon": "La noticia de la actualización de ChatGPT puede atraer atención por su impacto en tecnología y negocios, aunque no es tan sorpresiva en un campo en constante evolución.",
+          "angulo_viral": "Resaltar cómo esta actualización afectará a empresas y profesionales, generando debate sobre el futuro del trabajo con IA.",
+          "emoji_clave": "🤖✨",
+          "categoria": "ia"
+        },
+        "pairedItem": {
+          "item": 50
+        }
+      },
+      {
+        "json": {
+          "score": 85,
+          "nivel": "alto",
+          "razon": "La noticia tiene un alto potencial viral ya que la IA es un tema de gran actualidad y controversia en el ámbito tecnológico, especialmente con nuevos lanzamientos que mejoran herramientas existentes.",
+          "angulo_viral": "Enfocarse en cómo este avance podría impactar a creativos y marcas en sus estrategias de contenido visual.",
+          "emoji_clave": "🖼️🤖",
+          "categoria": "tecnologia"
+        },
+        "pairedItem": {
+          "item": 51
+        }
+      },
+      {
+        "json": {
+          "score": 75,
+          "nivel": "alto",
+          "razon": "La noticia presenta un enfoque innovador y relevante sobre la IA en el entorno empresarial, generando interés en un momento en que la tecnología es trending topic.",
+          "angulo_viral": "El potencial de cambiar la productividad empresarial mediante herramientas accesibles de IA y cómo esto puede revolucionar industrias.",
+          "emoji_clave": "🤖💼",
+          "categoria": "tecnologia"
+        },
+        "pairedItem": {
+          "item": 52
+        }
+      },
+      {
+        "json": {
+          "score": 65,
+          "nivel": "medio",
+          "razon": "El lanzamiento de un curso de Amazon Ads puede atraer a profesionales del marketing digital y comercio electrónico, pero la falta de elementos controversiales o sorpresivos limita su viralidad.",
+          "angulo_viral": "Resaltar cómo este curso puede cambiar la forma en que los profesionales manejan campañas publicitarias, aprovechando el auge de Amazon como plataforma de ventas.",
+          "emoji_clave": "📈🎓",
+          "categoria": "tecnologia"
+        },
+        "pairedItem": {
+          "item": 53
+        }
+      },
+      {
+        "json": {
+          "score": 75,
+          "nivel": "alto",
+          "razon": "La noticia toca un tema de interés actual sobre la publicidad en plataformas emergentes y su evolución en los costes, generando sorpresa y controversia en la comunidad de marketing.",
+          "angulo_viral": "Analizar cómo la transición a CPC puede cambiar la forma en que las empresas publicitan y optimizan su inversión en publicidad digital.",
+          "emoji_clave": "💰📊",
+          "categoria": "negocios"
+        },
+        "pairedItem": {
+          "item": 54
+        }
+      },
+      {
+        "json": {
+          "score": 75,
+          "nivel": "alto",
+          "razon": "La noticia aborda un avance significativo en la tecnología de IA, lo que genera interés y debate entre profesionales del sector. Además, la relevancia del SEO la hace especialmente atractiva para el público objetivo.",
+          "angulo_viral": "El cambio en la manera en que las IA gestionan la información podría transformar las estrategias de marketing digital, generando debates sobre el futuro del SEO y la confianza en la automatización.",
+          "emoji_clave": "🤖🌐",
+          "categoria": "ia"
+        },
+        "pairedItem": {
+          "item": 55
+        }
+      },
+      {
+        "json": {
+          "score": 65,
+          "nivel": "medio",
+          "razon": "La noticia lista agencias reconocidas, lo que puede generar interés, pero no tiene un elemento sorprendente o controvertido que impulse su viralidad.",
+          "angulo_viral": "Comparaciones y reseñas sobre las agencias B2B, fomentando discusiones entre profesionales del sector sobre qué agencia es la mejor.",
+          "emoji_clave": "🏢📈",
+          "categoria": "negocios"
+        },
+        "pairedItem": {
+          "item": 56
+        }
+      },
+      {
+        "json": {
+          "score": 70,
+          "nivel": "alto",
+          "razon": "La noticia genera controversia en torno a los costos de personalización de una aplicación tan popular como WhatsApp, lo que puede provocar discusiones acaloradas y engagement.",
+          "angulo_viral": "La discusión sobre si las funciones estéticas valen la pena pagar, lo que puede generar opiniones divididas entre usuarios y expertos en tecnología.",
+          "emoji_clave": "💬💰",
+          "categoria": "tecnologia"
+        },
+        "pairedItem": {
+          "item": 57
+        }
+      },
+      {
+        "json": {
+          "score": 85,
+          "nivel": "alto",
+          "razon": "La noticia combina el lanzamiento de una herramienta innovadora de Google, que genera gran interés en el sector de negocios y tecnología, además de ser relevante para pequeñas y medianas empresas.",
+          "angulo_viral": "El potencial de Pomelli para transformar el marketing digital y cómo puede ser un recurso esencial para las pymes en su crecimiento en redes sociales.",
+          "emoji_clave": "🚀🤖",
+          "categoria": "tecnologia"
+        },
+        "pairedItem": {
+          "item": 58
+        }
+      },
+      {
+        "json": {
+          "score": 65,
+          "nivel": "medio",
+          "razon": "La noticia presenta un caso de éxito en Google Ads que puede atraer a audiencias interesadas en marketing digital, pero carece de un elemento sorprendente o polémico que la haga destacar más.",
+          "angulo_viral": "El enfoque en un nicho específico como las piscinas podría inspirar a otras empresas a considerar marketing agresivo en sectores menos saturados.",
+          "emoji_clave": "🚀🏊‍♂️",
+          "categoria": "ecommerce"
+        },
+        "pairedItem": {
+          "item": 59
+        }
+      },
+      {
+        "json": {
+          "score": 65,
+          "nivel": "medio",
+          "razon": "Las novedades de Instagram generan interés debido a la creciente necesidad de contenido de calidad, pero no representan una sorpresa contundente.",
+          "angulo_viral": "Enfocar en cómo estas herramientas pueden cambiar la forma en que los creadores de contenido y marcas producen videos, promoviendo la creatividad.",
+          "emoji_clave": "🎥✨",
+          "categoria": "influencer"
+        },
+        "pairedItem": {
+          "item": 60
+        }
+      },
+      {
+        "json": {
+          "score": 65,
+          "nivel": "medio",
+          "razon": "La selección de las mejores agencias genera interés en un sector en crecimiento y puede atraer a profesionales de marketing, aunque la fecha futura puede limitar la urgencia.",
+          "angulo_viral": "El ranking podría suscitar debate sobre qué define la excelencia en marketing automation y fomentar la discusión sobre cómo las agencias están innovando.",
+          "emoji_clave": "📈🏆",
+          "categoria": "negocios"
+        },
+        "pairedItem": {
+          "item": 61
+        }
+      },
+      {
+        "json": {
+          "score": 75,
+          "nivel": "alto",
+          "razon": "La temática de las caídas de ChatGPT genera controversia y sorpresa, además de ser un tema de actualidad que afecta a un gran número de usuarios, creando interés inmediato.",
+          "angulo_viral": "Hablar sobre cómo las caídas de herramientas populares como ChatGPT afectan la productividad y qué alternativas usar, resaltando la importancia de la inteligencia artificial en el trabajo diario.",
+          "emoji_clave": "💻🚫",
+          "categoria": "ia"
+        },
+        "pairedItem": {
+          "item": 62
+        }
+      },
+      {
+        "json": {
+          "score": 75,
+          "nivel": "alto",
+          "razon": "La mejora en la IA de Google para viajes genera interés debido a su impacto en la industria y porque toca una temática de innovación tecnológica, además de ser relevante para el turismo en la actualidad.",
+          "angulo_viral": "La transformación de Google de un buscador a un asistente de viajes podría provocar debates sobre la evolución de la tecnología en la planificación del turismo.",
+          "emoji_clave": "✈️🤖",
+          "categoria": "tecnologia"
+        },
+        "pairedItem": {
+          "item": 63
+        }
+      },
+      {
+        "json": {
+          "score": 60,
+          "nivel": "medio",
+          "razon": "La información sobre planes y precios de ChatGPT es relevante y útil, pero le falta un elemento de controversia o sorpresa que la haga destacar.",
+          "angulo_viral": "Comparación de costos frente a beneficios de diferentes planes de ChatGPT, resaltando casos de éxito y testimonios.",
+          "emoji_clave": "💡💰",
+          "categoria": "ia"
+        },
+        "pairedItem": {
+          "item": 64
+        }
+      },
+      {
+        "json": {
+          "score": 75,
+          "nivel": "alto",
+          "razon": "La discusión sobre la IA y su impacto en la productividad genera interés y es relevante para el público actual, especialmente en un momento de gran transformación digital.",
+          "angulo_viral": "La oportunidad de debatir sobre mitos y realidades de la IA en el ámbito laboral, especialmente con voces reconocidas.",
+          "emoji_clave": "🤖📈",
+          "categoria": "tecnologia"
+        },
+        "pairedItem": {
+          "item": 65
+        }
+      },
+      {
+        "json": {
+          "score": 75,
+          "nivel": "alto",
+          "razon": "La actualización de Codex tiene un gran potencial debido a su relevancia en la actualidad sobre IA y desarrollo de software, además de su capacidad de generar imágenes y personalizar la experiencia del usuario.",
+          "angulo_viral": "El impacto que esta actualización tendrá en la forma en que los desarrolladores trabajan y sugiere una nueva era en la creación de software.",
+          "emoji_clave": "🤖💻",
+          "categoria": "tecnologia"
+        },
+        "pairedItem": {
+          "item": 66
+        }
+      },
+      {
+        "json": {
+          "score": 75,
+          "nivel": "alto",
+          "razon": "La noticia presenta una mejora relevante en una herramienta muy utilizada, lo que genera sorpresa e interés en su implementación y su impacto en la experiencia del usuario.",
+          "angulo_viral": "El impacto de las nuevas herramientas de IA en la productividad y la mejora en la experiencia del eCommerce.",
+          "emoji_clave": "🛒🤖",
+          "categoria": "tecnologia"
+        },
+        "pairedItem": {
+          "item": 67
+        }
+      },
+      {
+        "json": {
+          "score": 60,
+          "nivel": "medio",
+          "razon": "La lista de agencias tiene algún potencial de viralidad en los sectores de eCommerce y tecnología, pero carece de un elemento sorprendente o controvertido que pudiera captar más atención.",
+          "angulo_viral": "Resaltar cómo estas agencias están revolucionando el comercio electrónico y el impacto que tienen en el futuro de los negocios.",
+          "emoji_clave": "🛒💼",
+          "categoria": "ecommerce"
+        },
+        "pairedItem": {
+          "item": 68
+        }
+      },
+      {
+        "json": {
+          "score": 75,
+          "nivel": "alto",
+          "razon": "La noticia destaca un evento relevante con un enfoque en eCommerce y social commerce, temas de interés creciente en el ámbito hispanohablante de negocios.",
+          "angulo_viral": "Resaltar el crecimiento de Málaga como hub de innovación en eCommerce, atrayendo atención a las oportunidades para negocios locales y emprendedores.",
+          "emoji_clave": "🛒📈",
+          "categoria": "ecommerce"
+        },
+        "pairedItem": {
+          "item": 69
+        }
+      },
+      {
+        "json": {
+          "score": 85,
+          "nivel": "alto",
+          "razon": "La integración de IA en una herramienta popular como Canva atraerá mucho interés, especialmente por su potencial de mejorar la productividad y creatividad en negocios.",
+          "angulo_viral": "El impacto que tendrá esta herramienta en el marketing y diseño digital en la comunidad empresarial.",
+          "emoji_clave": "💡🤖",
+          "categoria": "tecnologia"
+        },
+        "pairedItem": {
+          "item": 70
+        }
+      },
+      {
+        "json": {
+          "score": 75,
+          "nivel": "alto",
+          "razon": "La noticia genera interés por la relevancia de ChatGPT en el sector publicitario, además de ser un tema en tendencia. Su potencial impacto en el marketing atrae a profesionales del área.",
+          "angulo_viral": "El impacto que tendrá este nuevo Ad Manager en la forma en que las empresas gestionan sus campañas publicitarias, promoviendo un cambio en el marketing digital.",
+          "emoji_clave": "💻📈",
+          "categoria": "tecnologia"
+        },
+        "pairedItem": {
+          "item": 71
+        }
+      },
+      {
+        "json": {
+          "score": 75,
+          "nivel": "alto",
+          "razon": "El impacto de la IA en el eCommerce es un tema candente que genera interés y debate, lo que le confiere un potencial viral alto entre profesionales del sector.",
+          "angulo_viral": "Enfocar en cómo los líderes del debate están transformando el comercio electrónico mediante la IA y las lecciones que otros pueden aprender.",
+          "emoji_clave": "🤖💼",
+          "categoria": "ecommerce"
+        },
+        "pairedItem": {
+          "item": 72
+        }
+      },
+      {
+        "json": {
+          "score": 75,
+          "nivel": "alto",
+          "razon": "La noticia genera sorpresa por el cambio de estrategia de ChatGPT Pro y aborda un tema de alta relevancia en tecnología. El impacto potencial en negocios y la curiosidad sobre el rendimiento del nuevo plan la hacen atractiva.",
+          "angulo_viral": "Aprovechar el interés por la inteligencia artificial y cómo este nuevo plan de ChatGPT Pro puede transformar la productividad en los negocios.",
+          "emoji_clave": "🤖💼",
+          "categoria": "ia"
+        },
+        "pairedItem": {
+          "item": 73
+        }
+      },
+      {
+        "json": {
+          "score": 75,
+          "nivel": "alto",
+          "razon": "La noticia presenta un giro inesperado en la jugabilidad de YouTube que puede generar debate entre creadores y consumidores, lo cual podría captar la atención del público.",
+          "angulo_viral": "El impacto de esta nueva función en la productividad y hábitos de consumo de contenido en plataformas digitales.",
+          "emoji_clave": "📹🚫",
+          "categoria": "tecnologia"
+        },
+        "pairedItem": {
+          "item": 74
+        }
+      },
+      {
+        "json": {
+          "score": 65,
+          "nivel": "medio",
+          "razon": "La selección de las mejores agencias puede generar interés entre emprendedores y negocios, pero carece de un elemento de sorpresa o controversia fuerte.",
+          "angulo_viral": "Presentar casos de éxito de las agencias ganadoras podría atraer más atención y debate entre los profesionales del sector.",
+          "emoji_clave": "🚀🏆",
+          "categoria": "negocios"
+        },
+        "pairedItem": {
+          "item": 75
+        }
+      },
+      {
+        "json": {
+          "score": 65,
+          "nivel": "medio",
+          "razon": "El crecimiento en instalaciones de apps para iOS es sorprendente y relevante, pero carece de un elemento profundamente controvertido que maximice su viralidad.",
+          "angulo_viral": "La relación entre la saturación del mercado y el aprovechamiento de este crecimiento por parte de las empresas podría generar debate e interés.",
+          "emoji_clave": "📱📈",
+          "categoria": "tecnologia"
+        },
+        "pairedItem": {
+          "item": 76
+        }
+      },
+      {
+        "json": {
+          "score": 65,
+          "nivel": "medio",
+          "razon": "La noticia aborda un evento relevante para profesionales del eCommerce, pero carece de elementos altamente controversiales que aumenten su viralidad.",
+          "angulo_viral": "El valor de las experiencias reales en marketing y cómo optimizar presupuestos puede resonar con muchos en el sector, impulsando la conversación sobre estrategias exitosas.",
+          "emoji_clave": "💰📈",
+          "categoria": "ecommerce"
+        },
+        "pairedItem": {
+          "item": 77
+        }
+      },
+      {
+        "json": {
+          "score": 65,
+          "nivel": "medio",
+          "razon": "El tema de escalar un negocio freelance es relevante y atractivo, aunque no extremadamente polémico. La idea de vender hosting y dominios puede captar el interés de un público enfocado en tecnología y negocios.",
+          "angulo_viral": "Historias de éxito de freelancers que se convirtieron en proveedores, mostrando el potencial de crecimiento y rentabilidad.",
+          "emoji_clave": "💼🌐",
+          "categoria": "negocios"
+        },
+        "pairedItem": {
+          "item": 78
+        }
+      },
+      {
+        "json": {
+          "score": 65,
+          "nivel": "medio",
+          "razon": "La noticia destaca empresas reconocidas, lo que genera interés, pero puede no ser lo suficientemente controvertida para captar atención masiva.",
+          "angulo_viral": "Enfocar en la importancia de un buen ambiente laboral y cómo esto impacta en la productividad y retención del talento en el contexto actual.",
+          "emoji_clave": "🏢🌟",
+          "categoria": "negocios"
+        },
+        "pairedItem": {
+          "item": 79
+        }
+      },
+      {
+        "json": {
+          "score": 55,
+          "nivel": "medio",
+          "razon": "La noticia presenta un nuevo producto en una categoría popular, tecnología de relojes, pero carece de controversia y no genera un impacto significativo en el ámbito económico o laboral.",
+          "angulo_viral": "La innovación en tecnología de relojes y su conexión con la cultura de la Fórmula 1 puede atraer a entusiastas de ambos mundos.",
+          "emoji_clave": "⌚️🏎️",
+          "categoria": "tecnologia"
+        },
+        "pairedItem": {
+          "item": 80
+        }
+      },
+      {
+        "json": {
+          "score": 85,
+          "nivel": "alto",
+          "razon": "La noticia trata sobre un avance tecnológico significativo en IA que plantea riesgos cibernéticos, lo que genera controversia y es relevante para el debate actual sobre la seguridad digital.",
+          "angulo_viral": "El impacto de la nueva IA en la seguridad cibernética puede generar conversaciones intensas y debates entre profesionales de tecnología y negocios.",
+          "emoji_clave": "⚠️🤖",
+          "categoria": "ia"
+        },
+        "pairedItem": {
+          "item": 81
+        }
+      },
+      {
+        "json": {
+          "score": 85,
+          "nivel": "alto",
+          "razon": "La noticia toca temas sensibles como la guerra y la manipulación laboral, generando mucha controversia e interés en la audiencia hispanohablante.",
+          "angulo_viral": "El enfoque en las implicaciones éticas y humanitarias del reclutamiento de latinoamericanos podría generar un debate intenso en redes sociales, además de la preocupación sobre la migración y la explotación laboral.",
+          "emoji_clave": "⚔️🌍",
+          "categoria": "negocios"
+        },
+        "pairedItem": {
+          "item": 82
+        }
+      },
+      {
+        "json": {
+          "score": 85,
+          "nivel": "alto",
+          "razon": "La noticia aborda un tema controvertido relacionado con la privacidad y el uso de tecnología, lo que genera interés y debate en la audiencia. Además, toca el tema de las tecnologías emergentes, especialmente en un contexto en el que el deepfake es un tema en auge.",
+          "angulo_viral": "Exponer las implicaciones éticas y legales de usar la IA para crear deepfakes, especialmente el impacto en la vida de las mujeres, podría resonar fuertemente en plataformas como LinkedIn y Facebook.",
+          "emoji_clave": "🤖⚖️",
+          "categoria": "tecnologia"
+        },
+        "pairedItem": {
+          "item": 83
+        }
+      },
+      {
+        "json": {
+          "score": 85,
+          "nivel": "alto",
+          "razon": "La noticia presenta un choque geopolítico entre EE.UU. y China en el campo de la IA, lo que genera controversia y sorpresa entre la audiencia. Además, el enfoque en tecnología emergente resulta atractivo.",
+          "angulo_viral": "El desarrollo de una IA que piensa en imágenes podría revolucionar la manera en que interactuamos con la tecnología, planteando preguntas sobre el futuro de la IA y la competitividad global.",
+          "emoji_clave": "🤖🌎",
+          "categoria": "ia"
+        },
+        "pairedItem": {
+          "item": 84
+        }
+      },
+      {
+        "json": {
+          "score": 85,
+          "nivel": "alto",
+          "razon": "La disputa entre Musk y Altman genera controversia y es relevante en el ámbito tecnológico actual, aumentando su atractivo para la audiencia de negocios e influencers.",
+          "angulo_viral": "El conflicto entre dos figuras prominentes en tecnología despierta opiniones fuertes y podría generar debates virales sobre el futuro de la inteligencia artificial.",
+          "emoji_clave": "🤖⚖️",
+          "categoria": "tecnologia"
+        },
+        "pairedItem": {
+          "item": 85
+        }
+      },
+      {
+        "json": {
+          "score": 85,
+          "nivel": "alto",
+          "razon": "La noticia es impactante y aborda la creciente preocupación sobre los deepfakes, un tema de alta relevancia en la actualidad, especialmente en plataformas de redes sociales.",
+          "angulo_viral": "La noticia puede ser viral al resaltar la importancia de proteger la identidad digital en un mundo lleno de desinformación y estafas basadas en IA.",
+          "emoji_clave": "🎤🛡️",
+          "categoria": "tecnologia"
+        },
+        "pairedItem": {
+          "item": 86
+        }
+      },
+      {
+        "json": {
+          "score": 85,
+          "nivel": "alto",
+          "razon": "La noticia presenta un conflicto relevante entre una gran marca tecnológica y organismos regulatorios, lo que genera sorpresa y debate sobre la seguridad infantil en redes sociales.",
+          "angulo_viral": "El escándalo en torno a la seguridad de los niños en redes sociales, que conecta con preocupaciones actuales de padres y responsables de educación en entornos digitales.",
+          "emoji_clave": "⚖️👶",
+          "categoria": "tecnologia"
+        },
+        "pairedItem": {
+          "item": 87
+        }
+      },
+      {
+        "json": {
+          "score": 75,
+          "nivel": "alto",
+          "razon": "La noticia presenta un robot innovador en tareas cotidianas, lo que genera sorpresa y curiosidad, además de involucrar la inteligencia artificial en el mundo físico.",
+          "angulo_viral": "Comparar la evolución de la robótica con la del software, destacando cómo estos avances pueden transformar industrias enteras.",
+          "emoji_clave": "🤖✨",
+          "categoria": "tecnologia"
+        },
+        "pairedItem": {
+          "item": 88
+        }
+      },
+      {
+        "json": {
+          "score": 75,
+          "nivel": "alto",
+          "razon": "La noticia presenta una combinación de innovación en IA y un problema crítico de salud pública, lo que genera interés y relevancia en temas actuales.",
+          "angulo_viral": "La conexión entre IA y la salud pública genera discusiones y comparte la necesidad de innovación en el sector sanitario.",
+          "emoji_clave": "💡🦠",
+          "categoria": "tecnologia"
+        },
+        "pairedItem": {
+          "item": 89
+        }
+      },
+      {
+        "json": {
+          "score": 75,
+          "nivel": "alto",
+          "razon": "La noticia destaca una directriz curiosa y sorprendente sobre una IA popular, lo que puede generar debate y risas en la comunidad.",
+          "angulo_viral": "El contraste entre la seriedad del desarrollo de IA y el tema humorístico de las criaturas fantásticas añade un elemento de sorpresa que puede atraer la atención.",
+          "emoji_clave": "🤖🧚",
+          "categoria": "ia"
+        },
+        "pairedItem": {
+          "item": 90
+        }
+      },
+      {
+        "json": {
+          "score": 85,
+          "nivel": "alto",
+          "razon": "La noticia toca temas de despidos en el sector tecnológico, generando controversia y relevancia en un momento donde la IA está en auge, lo que atraerá atención en redes de negocios y tecnología.",
+          "angulo_viral": "La ironía de ser reemplazados por la propia tecnología que ayudaron a desarrollar, resaltando el dilema ético y laboral que esto representa.",
+          "emoji_clave": "🤖💼",
+          "categoria": "tecnologia"
+        },
+        "pairedItem": {
+          "item": 91
+        }
+      },
+      {
+        "json": {
+          "score": 85,
+          "nivel": "alto",
+          "razon": "La controversia entre Musk y Altman genera un debate sobre el futuro de la IA y su regulación, lo cual es de gran interés actual.",
+          "angulo_viral": "La posibilidad de que líderes de la tecnología se enfrenten públicamente puede atraer tanto a profesionales del sector como a preocupaciones sobre el futuro de la IA.",
+          "emoji_clave": "🤖⚖️",
+          "categoria": "ia|tecnologia|negocios"
+        },
+        "pairedItem": {
+          "item": 92
+        }
+      },
+      {
+        "json": {
+          "score": 85,
+          "nivel": "alto",
+          "razon": "La noticia genera controversia y sorpresa por la supresión del estudio, además de su relevancia en el ámbito científico y de salud, lo que atraerá la atención de usuarios en redes sociales. ",
+          "angulo_viral": "La polémica sobre la censura de un avance científico significativo podría involucrar debates sobre la investigación médica y la administración pública.",
+          "emoji_clave": "🧪⚖️",
+          "categoria": "tecnologia"
+        },
+        "pairedItem": {
+          "item": 93
+        }
+      },
+      {
+        "json": {
+          "score": 75,
+          "nivel": "alto",
+          "razon": "La noticia presenta un evento deportivo importante con un avance tecnológico destacado en el calzado, lo que genera interés tanto en tecnología como en deportes de alto rendimiento.",
+          "angulo_viral": "Resaltar cómo la tecnología en el calzado puede redefinir los límites del rendimiento humano en deportes, creando contenido inspirador y motivacional.",
+          "emoji_clave": "🏃‍♂️👟",
+          "categoria": "tecnologia"
+        },
+        "pairedItem": {
+          "item": 94
+        }
+      },
+      {
+        "json": {
+          "score": 85,
+          "nivel": "alto",
+          "razon": "La noticia aborda un tema controvertido de colaboración entre una empresa tecnológica y el gobierno militar, lo que genera preocupación e interés en la comunidad. Además, la utilización de IA en el ámbito militar es una tendencia en crecimiento que despierta debates éticos.",
+          "angulo_viral": "La discusión sobre los límites éticos del uso de IA en el ámbito militar y cómo afecta a las empresas tecnológicas",
+          "emoji_clave": "🤖⚔️",
+          "categoria": "tecnologia"
+        },
+        "pairedItem": {
+          "item": 95
+        }
+      },
+      {
+        "json": {
+          "score": 75,
+          "nivel": "alto",
+          "razon": "La noticia aborda una tendencia visual y creativa que está ganando popularidad entre los jóvenes. Esto puede llevar a un alto interés en redes sociales, especialmente en plataformas como TikTok.",
+          "angulo_viral": "Resaltar historias de jóvenes innovadores que construyen sus propios cyberdecks y cómo esto puede inspirar el DIY en tecnología.",
+          "emoji_clave": "💻🎒",
+          "categoria": "tecnologia"
+        },
+        "pairedItem": {
+          "item": 96
+        }
+      },
+      {
+        "json": {
+          "score": 85,
+          "nivel": "alto",
+          "razon": "La noticia destaca una colaboración entre empresas reconocidas y presenta un enfoque innovador y seguro para compras online, que es un tema de gran interés actual.",
+          "angulo_viral": "El debate sobre la seguridad y ética del uso de IA en las finanzas personales, junto con la implicación de grandes marcas.",
+          "emoji_clave": "🛒🤖",
+          "categoria": "tecnologia"
+        },
+        "pairedItem": {
+          "item": 97
+        }
+      },
+      {
+        "json": {
+          "score": 80,
+          "nivel": "alto",
+          "razon": "La noticia sobre OpenAI crea sorpresa por su enfoque innovador en dispositivos y está alineada con la creciente tendencia hacia la IA, lo que podría aumentar su viralidad.",
+          "angulo_viral": "La posibilidad de transformar la forma en que interactuamos con la tecnología cotidiana a través de un dispositivo innovador basado en IA.",
+          "emoji_clave": "🤖🚀",
+          "categoria": "tecnologia"
+        },
+        "pairedItem": {
+          "item": 98
+        }
+      },
+      {
+        "json": {
+          "score": 75,
+          "nivel": "alto",
+          "razon": "La combinación de belleza y tecnología es actual y genera interés, especialmente con la IA y la realidad aumentada, que son temas en tendencia. Además, el evento cuenta con la participación de una marca reconocida.",
+          "angulo_viral": "Explorar el impacto de la tecnología en el cuidado personal, destacando testimonios de influencers y expertos durante el evento.",
+          "emoji_clave": "💄🤖",
+          "categoria": "tecnologia"
+        },
+        "pairedItem": {
+          "item": 99
+        }
+      },
+      {
+        "json": {
+          "score": 85,
+          "nivel": "alto",
+          "razon": "La controversia sobre el uso de IA en procesos de contratación y sus sesgos genera un alto interés y debate entre profesionales de recursos humanos y tecnología.",
+          "angulo_viral": "Las posibles soluciones para mitigar el sesgo en la contratación mediante IA, invitando a la audiencia a discutir y compartir mejoras.",
+          "emoji_clave": "🤖⚖️",
+          "categoria": "tecnologia|negocios"
+        },
+        "pairedItem": {
+          "item": 100
+        }
+      },
+      {
+        "json": {
+          "score": 85,
+          "nivel": "alto",
+          "razon": "La noticia tiene un fuerte impacto en el ecosistema tecnológico y empresarial, generando interés por el cambio en la exclusividad de OpenAI que podría afectar a la competencia y la innovación.",
+          "angulo_viral": "El debate sobre cómo esta ruptura de exclusividad podría transformar la dinámica en el sector tecnológico y las oportunidades que se abrirán para otras empresas.",
+          "emoji_clave": "🤖💼",
+          "categoria": "tecnologia"
+        },
+        "pairedItem": {
+          "item": 101
+        }
+      },
+      {
+        "json": {
+          "score": 85,
+          "nivel": "alto",
+          "razon": "La noticia aborda un tema de gran importancia global, con potencial de generar preocupación sobre la infraestructura de internet, lo que puede resonar en negocios y tecnologías.",
+          "angulo_viral": "El impacto de un posible conflicto en internet y cómo afecta a empresas y tecnología en la región y el mundo.",
+          "emoji_clave": "🌐⚠️",
+          "categoria": "tecnologia"
+        },
+        "pairedItem": {
+          "item": 102
+        }
+      },
+      {
+        "json": {
+          "score": 75,
+          "nivel": "alto",
+          "razon": "La noticia presenta un enfoque innovador y sorprendente sobre la exploración espacial, lo que genera interés y debate entre los profesionales de la tecnología y los negocios.",
+          "angulo_viral": "La conexión entre la exploración espacial y la innovación tecnológica que podría influir en desarrollos futuros en el sector.",
+          "emoji_clave": "🚀🪐",
+          "categoria": "tecnologia"
+        },
+        "pairedItem": {
+          "item": 103
+        }
+      },
+      {
+        "json": {
+          "score": 75,
+          "nivel": "alto",
+          "razon": "La combinación de energía solar espacial con la IA genera sorpresa y controversia, además de ser relevante en un contexto de sostenibilidad y presión energética.",
+          "angulo_viral": "El impacto de esta innovación en la sostenibilidad y la carrera por la energía de las empresas tecnológicas.",
+          "emoji_clave": "☀️🚀",
+          "categoria": "tecnologia"
+        },
+        "pairedItem": {
+          "item": 104
+        }
+      },
+      {
+        "json": {
+          "score": 85,
+          "nivel": "alto",
+          "razon": "La controversia sobre el futuro de la IA generará un amplio debate entre profesionales del sector, especialmente por el peso que tiene David Silver en la industria.",
+          "angulo_viral": "El dilema sobre si la IA está avanzando en la dirección correcta, planteado por un desarrollador reconocido, puede captar la atención de negocios e influencers.",
+          "emoji_clave": "🤖💰",
+          "categoria": "ia"
+        },
+        "pairedItem": {
+          "item": 105
+        }
+      },
+      {
+        "json": {
+          "score": 65,
+          "nivel": "medio",
+          "razon": "El tema de la caída del pelo es relevante y genera preocupación en muchas personas, lo que puede atraer atención. Sin embargo, la falta de un enfoque más innovador o atractivo reduce su potencial viral.",
+          "angulo_viral": "Enfoque en testimonios personales de éxito o fallos en tratamientos populares para captar la atención de la audiencia y fomentar el debate.",
+          "emoji_clave": "💇‍♂️🧴",
+          "categoria": "otro"
+        },
+        "pairedItem": {
+          "item": 106
+        }
+      },
+      {
+        "json": {
+          "score": 85,
+          "nivel": "alto",
+          "razon": "La aprobación de una terapia génica para una enfermedad rara genera tanto sorpresa como un impacto significativo en la salud y la vida de muchas personas, lo que puede atraer la atención de profesionales de la salud y tecnología.",
+          "angulo_viral": "La intersección entre tecnología médica y la restauración de capacidades humanas, resaltando historias de pacientes que pueden beneficiarse.",
+          "emoji_clave": "👂💉",
+          "categoria": "tecnologia"
+        },
+        "pairedItem": {
+          "item": 107
+        }
+      },
+      {
+        "json": {
+          "score": 70,
+          "nivel": "alto",
+          "razon": "La noticia aborda un tema relevante para la salud pública y combina la importancia de hábitos saludables con el impacto en la salud mental, lo que genera interés y potencial de discusión.",
+          "angulo_viral": "La conexión entre el estilo de vida y la prevención de enfermedades como la demencia, lo que puede resonar con profesionales de la salud y el bienestar.",
+          "emoji_clave": "🛌🏃‍♂️",
+          "categoria": "salud|tecnologia|negocios"
+        },
+        "pairedItem": {
+          "item": 108
+        }
+      }
+    ]
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "shared": [
+    {
+      "updatedAt": "2026-05-02T15:03:01.903Z",
+      "createdAt": "2026-05-02T15:03:01.903Z",
+      "role": "workflow:owner",
+      "workflowId": "lFziY7jyTxKAeNSg",
+      "projectId": "eyOyKz68GM9OloYk"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2026-05-02T15:41:28.496Z",
+  "versionId": "6a608f6d-849b-4efe-8737-b3779d1c72ea"
+}
