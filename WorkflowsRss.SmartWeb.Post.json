@@ -161,17 +161,6 @@
         ]
       ]
     },
-    "analiza.json": {
-      "ai_outputParser": [
-        [
-          {
-            "node": "Analiza.Rss",
-            "type": "ai_outputParser",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "crea.json": {
       "ai_outputParser": [
         [
@@ -181,11 +170,6 @@
             "index": 0
           }
         ]
-      ]
-    },
-    "Code in JavaScript": {
-      "main": [
-        []
       ]
     },
     "When clicking ‘Execute workflow’": {
@@ -279,14 +263,23 @@
           }
         ]
       ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "Create Tweet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
-  "createdAt": "2025-07-08T13:38:47.944Z",
-  "id": "nhxLUOcsOHLUN6AW",
+  "createdAt": "2026-05-01T16:43:48.347Z",
+  "id": "fTot4aFI5RFKATAL",
   "isArchived": false,
-  "meta": {
-    "templateCredsSetupCompleted": true
-  },
+  "meta": null,
   "name": "Rss.SmartWeb.Post",
   "nodes": [
     {
@@ -298,10 +291,10 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        432,
-        384
+        2032,
+        336
       ],
-      "id": "a374dc71-990a-4e6d-a09e-e4c0faccaf80",
+      "id": "7f32eba0-313d-4bc5-9f66-41a4ca31a6a4",
       "name": "Sticky Note"
     },
     {
@@ -313,10 +306,10 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        432,
-        560
+        2032,
+        512
       ],
-      "id": "038e3a78-4c61-44f8-a3b4-086d1d631764",
+      "id": "bde8e9be-1b2b-4358-9123-84911a25d703",
       "name": "Sticky Note1"
     },
     {
@@ -352,18 +345,12 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        -160,
-        832
+        1408,
+        784
       ],
-      "id": "f0636f58-8828-4795-9778-b98bd33c88a2",
+      "id": "d23e7509-f75b-43bf-9fad-77a40f84dd2e",
       "name": "Upload.Image",
       "retryOnFail": false,
-      "credentials": {
-        "twitterOAuth2Api": {
-          "id": "I7x1FgnFz8uz9obw",
-          "name": "X.jomBusiness"
-        }
-      },
       "disabled": true
     },
     {
@@ -375,10 +362,10 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        432,
-        736
+        2032,
+        688
       ],
-      "id": "e3ac71de-a287-4b7f-8b5b-2d544170d526",
+      "id": "de3bc1b2-1b13-4699-a5c9-1c873f6300d6",
       "name": "Sticky Note2"
     },
     {
@@ -390,10 +377,10 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        400,
-        -128
+        2000,
+        -176
       ],
-      "id": "e8edf29d-8e02-4ee8-b61b-6075c229d17b",
+      "id": "e206d61c-8ed3-44ca-903b-7e077f11ffc5",
       "name": "Sticky Note3"
     },
     {
@@ -407,14 +394,14 @@
       "type": "n8n-nodes-base.linkedIn",
       "typeVersion": 1,
       "position": [
-        192,
-        688
+        1792,
+        640
       ],
-      "id": "c7661989-668a-45e8-a945-2c24d92e63e3",
+      "id": "67a45603-fce3-45e1-8a19-53baab28dc8a",
       "name": "Create a post",
       "credentials": {
         "linkedInOAuth2Api": {
-          "id": "Hkf899gGadMUsWDz",
+          "id": "evRB6Q1i1PKx1lKs",
           "name": "LinkedIn.jomBusiness"
         }
       }
@@ -429,18 +416,12 @@
       "type": "n8n-nodes-base.twitter",
       "typeVersion": 2,
       "position": [
-        288,
-        832
+        1792,
+        784
       ],
-      "id": "17083f10-3aa5-427a-98ec-333c5d86d8e5",
+      "id": "4717caef-d5ee-42db-8961-bd6d618b4d4d",
       "name": "Create Tweet",
       "retryOnFail": false,
-      "credentials": {
-        "twitterOAuth2Api": {
-          "id": "I7x1FgnFz8uz9obw",
-          "name": "X.jomBusiness"
-        }
-      },
       "disabled": true
     },
     {
@@ -450,10 +431,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -784,
-        368
+        816,
+        320
       ],
-      "id": "dfeafbcf-f255-473c-b210-898316eb1756",
+      "id": "acdba2e8-13cd-4c86-a592-976b550b353f",
       "name": "Crear.Post"
     },
     {
@@ -473,10 +454,10 @@
       "type": "@n8n/n8n-nodes-langchain.chainLlm",
       "typeVersion": 1.7,
       "position": [
-        16,
-        -128
+        1616,
+        -176
       ],
-      "id": "3def3827-f789-44ca-ad37-f8b1a74f0924",
+      "id": "25b9dc49-203f-4129-a0c8-47aab3664cfa",
       "name": "Analiza.Rss"
     },
     {
@@ -495,10 +476,10 @@
       "type": "@n8n/n8n-nodes-langchain.chainLlm",
       "typeVersion": 1.7,
       "position": [
-        -768,
-        128
+        832,
+        80
       ],
-      "id": "4fb04db3-798a-4441-bbed-40eee49588ab",
+      "id": "42233f4d-2725-4ab5-8ffe-db9166fac4b4",
       "name": "Crea.Titulo"
     },
     {
@@ -517,10 +498,10 @@
       "type": "@n8n/n8n-nodes-langchain.chainLlm",
       "typeVersion": 1.7,
       "position": [
-        -416,
-        128
+        1184,
+        80
       ],
-      "id": "cf696ff9-a787-4024-8200-7255d05c9f96",
+      "id": "dd4c6390-7eba-41de-b36b-fd5dd13039e9",
       "name": "Prompt.Imagen"
     },
     {
@@ -540,10 +521,10 @@
       "type": "@n8n/n8n-nodes-langchain.chainLlm",
       "typeVersion": 1.7,
       "position": [
-        -560,
-        368
+        1040,
+        320
       ],
-      "id": "ebdbbf1c-0d8b-4f16-93c8-2410943922c6",
+      "id": "ca6d82db-fd18-4900-bf36-ffd3d7410b1f",
       "name": "Crea.Contenido"
     },
     {
@@ -554,10 +535,10 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        384,
-        80
+        1984,
+        32
       ],
-      "id": "634a3287-5766-4bdb-b9e6-075d3ebfc52a",
+      "id": "00c6d868-7be1-4ab9-8a6d-5cc159662977",
       "name": "Sticky Note4"
     },
     {
@@ -570,14 +551,14 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
       "typeVersion": 1,
       "position": [
-        -928,
-        240
+        640,
+        192
       ],
-      "id": "0d8ec1b5-954f-4116-9210-0c9de29eb1af",
+      "id": "a2337c81-254f-4f09-ac17-15756de6191c",
       "name": "gpt-4o-mini.Titulo",
       "credentials": {
         "openRouterApi": {
-          "id": "fx7pdURTekgTilKM",
+          "id": "aq9Mu0k1n9JBuo3F",
           "name": "OpenRouter.msn"
         }
       }
@@ -592,14 +573,14 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
       "typeVersion": 1,
       "position": [
-        -96,
-        -16
+        1504,
+        -64
       ],
-      "id": "c1852aa8-e564-4e82-9005-6110862576f8",
+      "id": "3901163a-d454-43bc-92cc-836ca10050cf",
       "name": "gpt-4o-mini.Analiza",
       "credentials": {
         "openRouterApi": {
-          "id": "fx7pdURTekgTilKM",
+          "id": "aq9Mu0k1n9JBuo3F",
           "name": "OpenRouter.msn"
         }
       }
@@ -612,14 +593,14 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
       "typeVersion": 1,
       "position": [
-        -496,
-        240
+        1072,
+        192
       ],
-      "id": "27acbd97-032f-459f-a893-90596e344f2b",
+      "id": "2b8ae762-73b5-453e-8c71-1dcff0c4b167",
       "name": "gpt-4o-mini.Imagen",
       "credentials": {
         "openRouterApi": {
-          "id": "fx7pdURTekgTilKM",
+          "id": "aq9Mu0k1n9JBuo3F",
           "name": "OpenRouter.msn"
         }
       }
@@ -632,14 +613,14 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
       "typeVersion": 1,
       "position": [
-        -608,
-        544
+        992,
+        496
       ],
-      "id": "e3da7440-0e6d-4f57-85d6-acf8cc90d187",
+      "id": "7894174c-ffea-4654-aba9-a066a4a7c8c3",
       "name": "gpt-4o-mini.Contenido",
       "credentials": {
         "openRouterApi": {
-          "id": "fx7pdURTekgTilKM",
+          "id": "aq9Mu0k1n9JBuo3F",
           "name": "OpenRouter.msn"
         }
       }
@@ -671,14 +652,14 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        -32,
-        128
+        1568,
+        80
       ],
-      "id": "422ad394-bb85-4a8f-ab76-8d15bfc2a41e",
+      "id": "120ca62d-2e2d-4b31-bae5-4c5f26ec47d7",
       "name": "Replicate.google.imagen-4",
       "credentials": {
         "httpHeaderAuth": {
-          "id": "L9yQttThWndrdNn3",
+          "id": "yKsf30NQFRM3zopJ",
           "name": "Replicate.msn"
         }
       }
@@ -698,10 +679,10 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        -160,
-        368
+        1440,
+        320
       ],
-      "id": "72a72a4d-b90f-43cf-824e-b91b8b5ec184",
+      "id": "15e9058e-d5b8-47f6-b072-32f281005d7d",
       "name": "Replicate.Get.Image",
       "alwaysOutputData": false
     },
@@ -712,11 +693,11 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        -976,
-        720
+        624,
+        704
       ],
       "typeVersion": 1,
-      "id": "354ba859-1a3d-4d49-9017-0479212bc02c",
+      "id": "0f072ef0-037d-405c-bcc0-4d90fd215d47",
       "name": "Sticky Note5"
     },
     {
@@ -741,14 +722,14 @@
       "type": "n8n-nodes-base.facebookGraphApi",
       "typeVersion": 1,
       "position": [
-        192,
-        544
+        1792,
+        496
       ],
-      "id": "07464ae4-b8f9-4dc0-8916-6632c21bbf9f",
+      "id": "5de72e9a-2bda-4df9-bcb2-93ecda434ac8",
       "name": "Post.SmartWeb",
       "credentials": {
         "facebookGraphApi": {
-          "id": "IdpHq8Mtl5spHnnr",
+          "id": "pyh866tlIzHPoNGH",
           "name": "Facebook.SmartWeb"
         }
       }
@@ -758,10 +739,10 @@
       "type": "n8n-nodes-base.wait",
       "typeVersion": 1.1,
       "position": [
-        192,
-        128
+        1792,
+        80
       ],
-      "id": "f2c405c6-940b-4471-9207-fb160660603c",
+      "id": "4a3eca95-6a54-4521-8c7b-a5f138586680",
       "name": "Wait.5",
       "webhookId": "5dbfa580-58e8-44cb-8ec7-ada44805b8e1"
     },
@@ -776,16 +757,16 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        192,
-        368
+        1792,
+        320
       ],
-      "id": "7e5c28b8-8d05-4e33-abfa-f1e16afd355c",
+      "id": "73fa8a0b-6d52-488d-9cb2-615d643f083b",
       "name": "Send a text message",
       "webhookId": "31514eaf-9832-4517-92bb-84fa223359a9",
       "credentials": {
         "telegramApi": {
-          "id": "zxkALNj2uZW1uxoX",
-          "name": "Telegram.jomBusiness"
+          "id": "Kz6I7RAZL2mii6bK",
+          "name": "Telegram.api"
         }
       }
     },
@@ -798,25 +779,12 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        -704,
-        672
+        896,
+        656
       ],
       "typeVersion": 1,
-      "id": "79b64faa-53d3-45bb-85d9-1317f450c839",
+      "id": "24032e4c-ac1c-4a2d-92c4-3f89f2454124",
       "name": "Sticky Note6"
-    },
-    {
-      "parameters": {
-        "jsonSchemaExample": "{\n  \"resumen_objetivo\": \"Resumen claro del hecho\",\n  \"puntos_clave\": [\n    \"Punto 1 con dato verificable\",\n    \"Punto 2 con dato verificable\",\n    \"Punto 3 con dato verificable\"\n  ],\n  \"antecedentes\": \"Contexto histórico o previo esencial\",\n  \"implicaciones\": \"Posibles consecuencias o escenarios derivados del hecho\",\n  \"terminos_tecnicos\": [\n    {\n      \"termino\": \"Término técnico 1\",\n      \"definicion\": \"Definición en contexto profesional\"\n    },\n    {\n      \"termino\": \"Término técnico 2\",\n      \"definicion\": \"Definición en contexto profesional\"\n    }\n  ]\n}"
-      },
-      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
-      "typeVersion": 1.3,
-      "position": [
-        112,
-        0
-      ],
-      "id": "8286cbc4-e32b-40ad-91e9-df0e19fe8f34",
-      "name": "analiza.json"
     },
     {
       "parameters": {
@@ -825,10 +793,10 @@
       "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
       "typeVersion": 1.3,
       "position": [
-        -448,
-        544
+        1152,
+        496
       ],
-      "id": "d60f7ba9-9aad-4de2-9d6a-6b144b372bdd",
+      "id": "ef8f5aed-9a56-4530-84ef-4ec52ff67199",
       "name": "crea.json"
     },
     {
@@ -838,10 +806,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        96,
-        832
+        1600,
+        784
       ],
-      "id": "f6e7dd15-cc37-47ba-b504-5500d7ba54f7",
+      "id": "44676099-50ac-4c2d-81b6-99bd28a07ba1",
       "name": "Code in JavaScript",
       "disabled": true
     },
@@ -850,23 +818,23 @@
       "type": "n8n-nodes-base.manualTrigger",
       "typeVersion": 1,
       "position": [
-        -1232,
-        -128
+        368,
+        -176
       ],
-      "id": "b7ad47d5-215a-4aa6-89a3-b2da6ffa4cce",
+      "id": "967b1113-bf33-4c67-83c4-f23a283b96cb",
       "name": "When clicking ‘Execute workflow’"
     },
     {
       "parameters": {
-        "jsCode": "// Obtén todos los elementos que vienen del nodo anterior (RSS Read)\nconst rssArray = $input.all();\n\n// --- Elige tu lógica de selección ---\nconst indice = 15// 0: Primer elemento\nconst selectedElement = rssArray[indice];\n\n// Envía el elemento seleccionado como salida\nif (selectedElement) {\n  return [{ json: selectedElement }]; // Asegúrate de devolverlo dentro de un objeto con la propiedad 'json'\n} else {\n  // Manejo si no se encuentra ningún elemento o si el array está vacío\n  return [];\n}"
+        "jsCode": "// Obtén todos los elementos que vienen del nodo anterior (RSS Read)\nconst rssArray = $input.all();\n\n// --- Elige tu lógica de selección ---\nconst indice = 18// 0: Primer elemento\nconst selectedElement = rssArray[indice];\n\n// Envía el elemento seleccionado como salida\nif (selectedElement) {\n  return [{ json: selectedElement }]; // Asegúrate de devolverlo dentro de un objeto con la propiedad 'json'\n} else {\n  // Manejo si no se encuentra ningún elemento o si el array está vacío\n  return [];\n}"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -208,
-        -128
+        1392,
+        -176
       ],
-      "id": "63e9295c-9d1f-47c9-8c14-e04e9aa225be",
+      "id": "e2f82c9b-d3b1-44c1-af56-eddd553d91ef",
       "name": "Select.Rss"
     },
     {
@@ -876,10 +844,10 @@
       "type": "n8n-nodes-base.merge",
       "typeVersion": 3.2,
       "position": [
-        -784,
-        -144
+        816,
+        -192
       ],
-      "id": "da3b873e-5513-4ccf-a1c2-b8784e691a97",
+      "id": "0519321c-c658-49d7-bf8a-4fc25a3c3a2a",
       "name": "Merge"
     },
     {
@@ -996,10 +964,10 @@
       "type": "n8n-nodes-base.filter",
       "typeVersion": 2.2,
       "position": [
-        -592,
-        -128
+        1008,
+        -176
       ],
-      "id": "80d48e6b-7524-4a2a-be43-3e41d13c4503",
+      "id": "ee019937-d87c-4d79-8b9b-4869533c0b62",
       "name": "Filtro"
     },
     {
@@ -1046,10 +1014,10 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        -400,
-        -128
+        1200,
+        -176
       ],
-      "id": "bf75f996-f2f9-4dd6-b609-8df32b605a9b",
+      "id": "2ec947da-eb3d-43e6-a360-353c7b0c978f",
       "name": "Mostrar.Campos"
     },
     {
@@ -1060,10 +1028,10 @@
       "type": "n8n-nodes-base.rssFeedRead",
       "typeVersion": 1.2,
       "position": [
-        -992,
-        -272
+        608,
+        -320
       ],
-      "id": "26f8eb2e-7a02-4bf5-be19-189d2b6f5ad1",
+      "id": "af620fd1-9892-4f26-888a-c9082b3585c9",
       "name": "IA.en.Español"
     },
     {
@@ -1076,10 +1044,10 @@
       "type": "n8n-nodes-base.rssFeedRead",
       "typeVersion": 1.2,
       "position": [
-        -992,
-        -128
+        608,
+        -176
       ],
-      "id": "1d582c57-31e6-4fed-aa49-3efd5bdcb7c9",
+      "id": "90bcea56-cf2f-416b-b96d-68cd39f6481e",
       "name": "Es.Wired"
     },
     {
@@ -1090,39 +1058,37 @@
       "type": "n8n-nodes-base.rssFeedRead",
       "typeVersion": 1.2,
       "position": [
-        -992,
-        32
+        608,
+        -16
       ],
-      "id": "cfb24bd1-df5f-4cf4-acf0-dc34651a1f8f",
+      "id": "b6b4ed50-ff86-4fc1-9ef4-dabca7c81e0c",
       "name": "Marketing.4.ecommerce"
     }
   ],
   "pinData": {},
   "settings": {
     "executionOrder": "v1",
-    "callerPolicy": "workflowsFromSameOwner",
-    "errorWorkflow": "iNdV46Bame2vCTJz",
     "binaryMode": "separate"
   },
   "shared": [
     {
-      "updatedAt": "2025-07-08T13:38:47.951Z",
-      "createdAt": "2025-07-08T13:38:47.951Z",
+      "updatedAt": "2026-05-01T16:43:48.347Z",
+      "createdAt": "2026-05-01T16:43:48.347Z",
       "role": "workflow:owner",
-      "workflowId": "nhxLUOcsOHLUN6AW",
-      "projectId": "uBzdLipflPbb1Tbz"
+      "workflowId": "fTot4aFI5RFKATAL",
+      "projectId": "eyOyKz68GM9OloYk"
     }
   ],
   "staticData": null,
   "tags": [
     {
-      "updatedAt": "2025-07-28T23:16:55.585Z",
-      "createdAt": "2025-07-28T23:16:55.585Z",
-      "id": "B0zvrFLy0yNSEhVJ",
+      "updatedAt": "2026-05-01T14:05:45.832Z",
+      "createdAt": "2026-05-01T14:05:45.832Z",
+      "id": "8wlQKtpUxQ9ElXHE",
       "name": "💡SmartWeb"
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2026-04-30T15:12:42.227Z",
-  "versionId": "aa181ebc-9e24-4492-bd2a-85310c9bfe65"
+  "updatedAt": "2026-05-01T17:04:23.957Z",
+  "versionId": "b216763a-46c9-49e6-b4c1-c598f061052f"
 }
