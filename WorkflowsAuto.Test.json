@@ -1408,8 +1408,8 @@
       "name": "Facebook.Smartweb",
       "credentials": {
         "facebookGraphApi": {
-          "id": "eTz9nRIExeQqbsq9",
-          "name": "Facebook.CodigoAlfa"
+          "id": "pyh866tlIzHPoNGH",
+          "name": "Facebook.SmartWeb"
         }
       },
       "onError": "continueRegularOutput"
@@ -1925,10 +1925,10 @@
   },
   "tags": [
     {
-      "updatedAt": "2026-04-30T23:13:50.319Z",
-      "createdAt": "2026-04-30T23:13:50.319Z",
-      "id": "WkzLO7ASOwlX9Xby",
-      "name": "✨ Optimiza.ia.pro"
+      "updatedAt": "2026-05-01T14:05:45.832Z",
+      "createdAt": "2026-05-01T14:05:45.832Z",
+      "id": "8wlQKtpUxQ9ElXHE",
+      "name": "💡SmartWeb"
     },
     {
       "updatedAt": "2026-04-30T23:13:50.360Z",
@@ -1937,13 +1937,13 @@
       "name": "🤖 IA al mando"
     },
     {
-      "updatedAt": "2026-05-01T14:05:45.832Z",
-      "createdAt": "2026-05-01T14:05:45.832Z",
-      "id": "8wlQKtpUxQ9ElXHE",
-      "name": "💡SmartWeb"
+      "updatedAt": "2026-04-30T23:13:50.319Z",
+      "createdAt": "2026-04-30T23:13:50.319Z",
+      "id": "WkzLO7ASOwlX9Xby",
+      "name": "✨ Optimiza.ia.pro"
     }
   ],
   "triggerCount": 1,
-  "updatedAt": "2026-05-01T15:57:34.320Z",
-  "versionId": "83de5e26-44df-4966-817f-e7bbed0e9c86"
+  "updatedAt": "2026-05-02T14:10:23.674Z",
+  "versionId": "ade69bfa-ef31-49c4-9284-23e5d81055ed"
 }
