@@ -1,0 +1,326 @@
+{
+  "active": false,
+  "activeVersion": null,
+  "activeVersionId": null,
+  "connections": {
+    "Cron every 3 min": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request - Get events",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request - Get events": {
+      "main": [
+        [
+          {
+            "node": "Function - Normalize",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Function - Normalize": {
+      "main": [
+        [
+          {
+            "node": "Function - GroupByMatch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Function - GroupByMatch": {
+      "main": [
+        [
+          {
+            "node": "Function - BestOddsPerOutcome",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Function - BestOddsPerOutcome": {
+      "main": [
+        [
+          {
+            "node": "Function - SurebetCalc",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Function - SurebetCalc": {
+      "main": [
+        []
+      ]
+    },
+    "LLM - Probabilities": {
+      "main": [
+        [
+          {
+            "node": "Function - ValueCalc",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Function - ValueCalc": {
+      "main": [
+        [
+          {
+            "node": "Function - RoundingAndCurrency",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Function - RoundingAndCurrency": {
+      "main": [
+        [
+          {
+            "node": "IF - Alert?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IF - Alert?": {
+      "main": [
+        [
+          {
+            "node": "Telegram - Send Alert",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Google Sheets - Log",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2026-05-20T15:56:57.614Z",
+  "id": "KIlkA71uce5IkYhD",
+  "isArchived": false,
+  "meta": null,
+  "name": "Surebet ValueBet Detector - LLM integrado - Telegram",
+  "nodes": [
+    {
+      "parameters": {
+        "triggerTimes": {
+          "item": [
+            {
+              "hour": "*",
+              "minute": "*/3"
+            }
+          ]
+        }
+      },
+      "name": "Cron every 3 min",
+      "type": "n8n-nodes-base.cron",
+      "typeVersion": 1,
+      "position": [
+        48,
+        -144
+      ],
+      "id": "c53bedc9-1399-4d68-9b17-9acd98a251d9"
+    },
+    {
+      "parameters": {
+        "url": "http://192.168.196.129/NightBet/data/data.json",
+        "options": {}
+      },
+      "name": "HTTP Request - Get events",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1,
+      "position": [
+        272,
+        -144
+      ],
+      "id": "f334069c-786f-4f90-a2b3-b5db67ae5460"
+    },
+    {
+      "parameters": {
+        "functionCode": "// Normalize incoming JSON to uniform offers array\nconst raw = items[0].json;\nconst events = raw.events || [];\nconst normalized = events.flatMap(e => {\n  const match = `${e.homeTeam} vs ${e.awayTeam}`;\n  const bookmakers = e.canonical?.bookmakers || {};\n  return Object.keys(bookmakers).flatMap(bk => {\n    const odds = bookmakers[bk].odds || {};\n    const oneXtwo = odds[\"1X2\"] || odds[\"1x2\"] || null;\n    if (!oneXtwo) return [];\n    const currency = bookmakers[bk].currency || \"USD\";\n    return [{\n      match,\n      timestamp: e.timestamp,\n      bookmaker: bk,\n      market: \"1X2\",\n      odds: { home: oneXtwo[0], draw: oneXtwo[1], away: oneXtwo[2] },\n      url: bookmakers[bk].url || null,\n      currency\n    }];\n  });\n});\nreturn normalized.map(r => ({ json: r }));"
+      },
+      "name": "Function - Normalize",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        496,
+        -144
+      ],
+      "id": "2d433d74-5966-4b51-8101-b5d1f711b86c"
+    },
+    {
+      "parameters": {
+        "functionCode": "// Group offers by match\nconst arr = items.map(i => i.json);\nconst grouped = {};\narr.forEach(r => { if (!grouped[r.match]) grouped[r.match] = []; grouped[r.match].push(r); });\nreturn Object.keys(grouped).map(m => ({ json: { match: m, offers: grouped[m] } }));"
+      },
+      "name": "Function - GroupByMatch",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        720,
+        -144
+      ],
+      "id": "7302db2f-8465-4c0c-b577-b645fbc36056"
+    },
+    {
+      "parameters": {
+        "functionCode": "// Select best odds per outcome\nconst match = items[0].json;\nconst offers = match.offers;\nconst best = { home: null, draw: null, away: null };\noffers.forEach(o => {\n  const { bookmaker, odds, currency, url } = o;\n  if (!best.home || odds.home > best.home.odds) best.home = { bookmaker, odds: odds.home, currency, url };\n  if (!best.draw || odds.draw > best.draw.odds) best.draw = { bookmaker, odds: odds.draw, currency, url };\n  if (!best.away || odds.away > best.away.odds) best.away = { bookmaker, odds: odds.away, currency, url };\n});\nreturn [{ json: { match: match.match, best } }];"
+      },
+      "name": "Function - BestOddsPerOutcome",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        944,
+        -144
+      ],
+      "id": "9f8ddc1b-babf-4812-be8c-3e70278da427"
+    },
+    {
+      "parameters": {
+        "functionCode": "// Surebet calculation and stakes\nconst { best } = items[0].json;\nconst cuotaHome = best.home.odds;\nconst cuotaDraw = best.draw.odds;\nconst cuotaAway = best.away.odds;\nconst margen = (1/cuotaHome) + (1/cuotaDraw) + (1/cuotaAway);\nconst surebet = margen < 1;\nconst beneficioPct = surebet ? (1 - margen) * 100 : 0;\nconst CAPITAL_TOTAL = 100; // parametrizar en variables de workflow\nconst denom = (1/cuotaHome) + (1/cuotaDraw) + (1/cuotaAway);\nconst stakeHome = (CAPITAL_TOTAL / cuotaHome) / denom;\nconst stakeDraw = (CAPITAL_TOTAL / cuotaDraw) / denom;\nconst stakeAway = (CAPITAL_TOTAL / cuotaAway) / denom;\nreturn [{ json: { match: items[0].json.match, best, margen, surebet, beneficioPct, stakes: { home: stakeHome, draw: stakeDraw, away: stakeAway }, capitalTotal: CAPITAL_TOTAL } }];"
+      },
+      "name": "Function - SurebetCalc",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        1168,
+        -144
+      ],
+      "id": "c55c8507-6f41-4700-b2c1-d4d081be5f4d"
+    },
+    {
+      "parameters": {
+        "operation": "call",
+        "requestOptions": {}
+      },
+      "name": "LLM - Probabilities",
+      "type": "n8n-nodes-base.openAi",
+      "typeVersion": 1,
+      "position": [
+        1392,
+        -144
+      ],
+      "id": "88a4ad05-0ead-44d1-a744-01b46e477f1f"
+    },
+    {
+      "parameters": {
+        "functionCode": "// Value calculation using LLM probabilities\n// LLM node returns text in items[0].json. Adapt if your LLM node returns differently.\nlet llmText = items[0].json.choices ? items[0].json.choices[0].message.content : items[0].json;\ntry { llmText = typeof llmText === 'string' ? llmText.trim() : JSON.stringify(llmText); } catch(e){}\nlet prob = { local:0.33, empate:0.33, visitante:0.34 };\ntry { const parsed = JSON.parse(llmText); if (parsed.local !== undefined) prob = { local: parsed.local, empate: parsed.empate, visitante: parsed.visitante }; } catch(e){}\nconst best = items[1].json.best || items[0].json.best;\nconst valHome = prob.local * best.home.odds;\nconst valDraw = prob.empate * best.draw.odds;\nconst valAway = prob.visitante * best.away.odds;\nconst valueBets = [];\nif (valHome > 1.05) valueBets.push({ outcome: \"home\", valor: valHome, bookmaker: best.home.bookmaker, cuota: best.home.odds });\nif (valDraw > 1.05) valueBets.push({ outcome: \"draw\", valor: valDraw, bookmaker: best.draw.bookmaker, cuota: best.draw.odds });\nif (valAway > 1.05) valueBets.push({ outcome: \"away\", valor: valAway, bookmaker: best.away.bookmaker, cuota: best.away.odds });\nreturn [{ json: { match: items[1].json.match || items[0].json.match, prob, valueBets, best: items[1].json.best, stakes: items[1].json.stakes, beneficioPct: items[1].json.beneficioPct } }];"
+      },
+      "name": "Function - ValueCalc",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        1616,
+        -144
+      ],
+      "id": "18456f37-69d7-49c3-a09d-d1494c01dcd8"
+    },
+    {
+      "parameters": {
+        "functionCode": "// Convert & round stakes, avoid mixing currencies rule\nconst tipoCambio = 3.75; // parametrizar\nfunction convert(amountUSD, currency) { if (currency === 'PEN') return Math.round(amountUSD * tipoCambio); return Math.round(amountUSD); }\nfunction ajustar(monto) { let red = Math.round(monto / 5) * 5; const variacion = red * (Math.random() * 0.06 - 0.03); return Math.max(1, Math.round(red + variacion)); }\nconst source = items[0].json;\nconst stakes = source.stakes || { home:0, draw:0, away:0 };\nconst best = source.best;\nconst currencies = [best.home.currency, best.draw.currency, best.away.currency];\nconst mixedCurrencies = new Set(currencies).size > 1;\nconst sHome = ajustar(convert(stakes.home, best.home.currency));\nconst sDraw = ajustar(convert(stakes.draw, best.draw.currency));\nconst sAway = ajustar(convert(stakes.away, best.away.currency));\nreturn [{ json: { match: source.match, mixedCurrencies, stakesRounded: { home: sHome, draw: sDraw, away: sAway }, currencies: { home: best.home.currency, draw: best.draw.currency, away: best.away.currency }, best, beneficioPct: source.beneficioPct || 0, valueBets: source.valueBets || [] } }];"
+      },
+      "name": "Function - RoundingAndCurrency",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        1840,
+        -144
+      ],
+      "id": "a4796728-05b6-4c97-9c35-1db69cbf1e2f"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "boolean": [
+            {
+              "value1": "={{ $json[\"best\"] !== undefined && $json[\"beneficioPct\"] >= 2 && $json[\"mixedCurrencies\"] === false }}",
+              "operation": "isTrue"
+            },
+            {
+              "value1": "={{ $json[\"valueBets\"] !== undefined && $json[\"valueBets\"].length > 0 }}",
+              "operation": "isTrue"
+            }
+          ]
+        }
+      },
+      "name": "IF - Alert?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        2064,
+        -144
+      ],
+      "id": "11cca2f6-7f9e-4451-a193-3c8f137e568c"
+    },
+    {
+      "parameters": {
+        "chatId": "YOUR_TELEGRAM_CHAT_ID",
+        "text": "🎯 Oportunidad detectada\n\nPartido: {{$json[\"match\"]}}\nTipo: {{ $json[\"valueBets\"] && $json[\"valueBets\"].length>0 ? 'Value bet' : 'Surebet' }} {{ $json[\"beneficioPct\"] ? ( $json[\"beneficioPct\"].toFixed(2) + '%' ) : '' }}\n\n📌 Casas y cuotas:\n- {{$json[\"best\"].home.bookmaker}} → Local gana ({{$json[\"best\"].home.odds}}) [{{$json[\"best\"].home.currency}}]\n- {{$json[\"best\"].draw.bookmaker}} → Empate ({{$json[\"best\"].draw.odds}}) [{{$json[\"best\"].draw.currency}}]\n- {{$json[\"best\"].away.bookmaker}} → Visitante gana ({{$json[\"best\"].away.odds}}) [{{$json[\"best\"].away.currency}}]\n\n💰 Montos sugeridos:\n- Local: {{$json[\"stakesRounded\"].home}} {{$json[\"currencies\"].home}} en {{$json[\"best\"].home.bookmaker}}\n- Empate: {{$json[\"stakesRounded\"].draw}} {{$json[\"currencies\"].draw}} en {{$json[\"best\"].draw.bookmaker}}\n- Visitante: {{$json[\"stakesRounded\"].away}} {{$json[\"currencies\"].away}} en {{$json[\"best\"].away.bookmaker}}\n\n✅ Beneficio esperado: ~{{$json[\"beneficioPct\"].toFixed(2)}}%",
+        "additionalFields": {}
+      },
+      "name": "Telegram - Send Alert",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1,
+      "position": [
+        2288,
+        -240
+      ],
+      "id": "2fbbe196-3e5d-482f-ae5b-dca1ffa17722",
+      "webhookId": "57363a6a-cd45-4333-8b7a-a04133fcf928"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "sheetId": "YOUR_GOOGLE_SHEET_ID",
+        "range": "Sheet1!A1",
+        "options": {}
+      },
+      "name": "Google Sheets - Log",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 1,
+      "position": [
+        2288,
+        -48
+      ],
+      "id": "151ba09d-9d5e-4db6-bda2-b9fcd4d06cf2"
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "shared": [
+    {
+      "updatedAt": "2026-05-20T15:56:57.614Z",
+      "createdAt": "2026-05-20T15:56:57.614Z",
+      "role": "workflow:owner",
+      "workflowId": "KIlkA71uce5IkYhD",
+      "projectId": "eyOyKz68GM9OloYk"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2026-05-20T16:15:10.526Z",
+  "versionId": "701532f9-6ab8-4e67-886d-3469def2e0d7"
+}
