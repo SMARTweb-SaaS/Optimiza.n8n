@@ -1,0 +1,735 @@
+{
+  "active": false,
+  "activeVersion": null,
+  "activeVersionId": null,
+  "connections": {
+    "IF - Alert?": {
+      "main": [
+        [
+          {
+            "node": "Telegram - Send Alert",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Function - RoundingAndCurrency": {
+      "main": [
+        [
+          {
+            "node": "IF - Alert?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Function - ValueCalc": {
+      "main": [
+        [
+          {
+            "node": "Function - RoundingAndCurrency",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Function - GroupByMatch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Function - BestOddsPerOutcome": {
+      "main": [
+        [
+          {
+            "node": "Function - SurebetCalc",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Function - GroupByMatch": {
+      "main": [
+        [
+          {
+            "node": "Function - BestOddsPerOutcome",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Function - Normalize": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request - Get events": {
+      "main": [
+        [
+          {
+            "node": "Function - Normalize",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Function - SurebetCalc": {
+      "main": [
+        [
+          {
+            "node": "Generate Hash",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Basic LLM Chain": {
+      "main": [
+        [
+          {
+            "node": "Function - ValueCalc",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generate Hash": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get many rows": {
+      "main": [
+        [
+          {
+            "node": "Function - AttachLastHash",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Function - AttachLastHash": {
+      "main": [
+        [
+          {
+            "node": "IF Compare Hash",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [],
+        [
+          {
+            "node": "Get many rows",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create a row": {
+      "main": [
+        []
+      ]
+    },
+    "IF Compare Hash": {
+      "main": [
+        [
+          {
+            "node": "IF - LastHash?",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Basic LLM Chain",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update a row": {
+      "main": [
+        []
+      ]
+    },
+    "IF - LastHash?": {
+      "main": [
+        [
+          {
+            "node": "Create a row",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Update a row",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "openai/gpt-4o-mini": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Function -  TimeWindow": {
+      "main": [
+        [
+          {
+            "node": "IF - WithinSchedule?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IF - WithinSchedule?": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request - Get events",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Cron every 15 min": {
+      "main": [
+        [
+          {
+            "node": "Function -  TimeWindow",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Telegram - Send Alert": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2026-05-20T15:56:57.614Z",
+  "id": "KIlkA71uce5IkYhD",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Surebet ValueBet Detector - LLM integrado",
+  "nodes": [
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "d5b4a4bb-725e-4b9a-af87-ce762bd52bcf",
+              "leftValue": "={{ $json.country }}",
+              "rightValue": "=South America",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        688,
+        -144
+      ],
+      "id": "7d760f6a-fa9e-49bd-931c-9611c3f3279d",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "chatId": "YOUR_TELEGRAM_CHAT_ID",
+        "text": "🎯 Oportunidad detectada\n\nPartido: {{$json[\"match\"]}}\nTipo: {{ $json[\"valueBets\"] && $json[\"valueBets\"].length>0 ? 'Value bet' : 'Surebet' }} {{ $json[\"beneficioPct\"] ? ( $json[\"beneficioPct\"].toFixed(2) + '%' ) : '' }}\n\n📌 Casas y cuotas:\n- {{$json[\"best\"].home.bookmaker}} → Local gana ({{$json[\"best\"].home.odds}}) [{{$json[\"best\"].home.currency}}]\n- {{$json[\"best\"].draw.bookmaker}} → Empate ({{$json[\"best\"].draw.odds}}) [{{$json[\"best\"].draw.currency}}]\n- {{$json[\"best\"].away.bookmaker}} → Visitante gana ({{$json[\"best\"].away.odds}}) [{{$json[\"best\"].away.currency}}]\n\n💰 Montos sugeridos:\n- Local: {{$json[\"stakesRounded\"].home}} {{$json[\"currencies\"].home}} en {{$json[\"best\"].home.bookmaker}}\n- Empate: {{$json[\"stakesRounded\"].draw}} {{$json[\"currencies\"].draw}} en {{$json[\"best\"].draw.bookmaker}}\n- Visitante: {{$json[\"stakesRounded\"].away}} {{$json[\"currencies\"].away}} en {{$json[\"best\"].away.bookmaker}}\n\n✅ Beneficio esperado: ~{{$json[\"beneficioPct\"].toFixed(2)}}%\n",
+        "additionalFields": {}
+      },
+      "name": "Telegram - Send Alert",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1,
+      "position": [
+        1728,
+        432
+      ],
+      "id": "2fbbe196-3e5d-482f-ae5b-dca1ffa17722",
+      "webhookId": "57363a6a-cd45-4333-8b7a-a04133fcf928",
+      "credentials": {
+        "telegramApi": {
+          "id": "Kz6I7RAZL2mii6bK",
+          "name": "Telegram.api"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "boolean": [
+            {
+              "value1": "={{ $json[\"beneficioPct\"] > 0.5 && $json[\"tipo\"] !== \"ninguno\" && $json[\"riesgo\"] !== \"alto\" }}",
+              "value2": "={{ true }}"
+            }
+          ]
+        }
+      },
+      "name": "IF - Alert?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        1408,
+        304
+      ],
+      "id": "11cca2f6-7f9e-4451-a193-3c8f137e568c"
+    },
+    {
+      "parameters": {
+        "functionCode": "// Rounding and Currency formatting\nreturn items.map(item => {\n  const out = { ...item.json };\n\n  // Beneficio en porcentaje con 2 decimales\n  if (out.beneficioPct !== undefined && out.beneficioPct !== null) {\n    out.beneficioPctFmt = `${Number(out.beneficioPct).toFixed(2)}%`;\n  }\n\n  // ROI formateado (si existe array)\n  if (Array.isArray(out.roi)) {\n    out.roiFmt = out.roi.map(r => `${Number(r).toFixed(2)}%`);\n  }\n\n  // Stakes formateados (si existen)\n  if (out.stakes) {\n    out.stakesFmt = {};\n    for (const [key, val] of Object.entries(out.stakes)) {\n      out.stakesFmt[key] = `$${Number(val).toFixed(2)}`;\n    }\n  }\n\n  // Cuotas formateadas\n  if (out.best) {\n    out.bestFmt = {\n      home: `${out.best.home?.odds} (${out.best.home?.bookmaker})`,\n      draw: `${out.best.draw?.odds} (${out.best.draw?.bookmaker})`,\n      away: `${out.best.away?.odds} (${out.best.away?.bookmaker})`\n    };\n  }\n\n  // Comentario IA (si existe)\n  out.comentarioFmt = out.comentario || \"Sin comentario IA\";\n\n  return { json: out };\n});\n"
+      },
+      "name": "Function - RoundingAndCurrency",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        1136,
+        304
+      ],
+      "id": "a4796728-05b6-4c97-9c35-1db69cbf1e2f"
+    },
+    {
+      "parameters": {
+        "functionCode": "// ValueCalc mejorado\nreturn items.map((item, idx) => {\n  let llmText = item.json.choices \n    ? item.json.choices[0].message.content \n    : item.json;\n\n  // Normalizar a string\n  try {\n    llmText = typeof llmText === 'string' ? llmText.trim() : JSON.stringify(llmText);\n  } catch(e){ llmText = \"{}\"; }\n\n  // Probabilidades por defecto\n  let prob = { local: 0.33, empate: 0.33, visitante: 0.34 };\n\n  // Intentar parsear JSON del LLM\n  try {\n    const parsed = JSON.parse(llmText);\n    if (parsed.prob) prob = parsed.prob;\n    else if (parsed.local !== undefined) {\n      prob = { local: Number(parsed.local), empate: Number(parsed.empate), visitante: Number(parsed.visitante) };\n    }\n  } catch(e){}\n\n  // Obtener mejores cuotas\n  const best = item.json.best || {};\n  const valHome = (prob.local || 0) * (best.home?.odds || 0);\n  const valDraw = (prob.empate || 0) * (best.draw?.odds || 0);\n  const valAway = (prob.visitante || 0) * (best.away?.odds || 0);\n\n  // Umbral configurable\n  const threshold = 1.05;\n  const valueBets = [];\n  if (valHome > threshold) valueBets.push({ outcome: \"home\", valor: valHome, bookmaker: best.home?.bookmaker, cuota: best.home?.odds });\n  if (valDraw > threshold) valueBets.push({ outcome: \"draw\", valor: valDraw, bookmaker: best.draw?.bookmaker, cuota: best.draw?.odds });\n  if (valAway > threshold) valueBets.push({ outcome: \"away\", valor: valAway, bookmaker: best.away?.bookmaker, cuota: best.away?.odds });\n\n  return {\n    json: {\n      match: item.json.match,\n      prob,\n      valueBets,\n      best,\n      stakes: item.json.stakes,\n      beneficioPct: item.json.beneficioPct,\n      roi: valueBets.map(v => (v.valor - 1).toFixed(2)), // ROI adicional\n      confianzaIA: item.json.confianza || null // si el LLM devuelve confianza\n    }\n  };\n});"
+      },
+      "name": "Function - ValueCalc",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        864,
+        304
+      ],
+      "id": "18456f37-69d7-49c3-a09d-d1494c01dcd8"
+    },
+    {
+      "parameters": {
+        "functionCode": "// SurebetCalc robusto\nconst parseOdd = (v) => {\n  if (v === null || v === undefined) return NaN;\n  if (typeof v === 'number') return v;\n  let s = String(v).trim();\n\n  // 1) reemplazar coma decimal\n  s = s.replace(',', '.');\n\n  // 2) fraccional \"3/2\" -> 1 + 3/2 = 2.5 (decimal odds)\n  if (/^\\d+\\/\\d+$/.test(s)) {\n    const [a,b] = s.split('/').map(Number);\n    if (b === 0) return NaN;\n    return 1 + (a / b);\n  }\n\n  // 3) americana \"+150\" / \"-200\"\n  if (/^[+-]\\d+$/.test(s)) {\n    const n = Number(s);\n    if (n > 0) return 1 + (n / 100);\n    if (n < 0) return 1 + (100 / Math.abs(n));\n  }\n\n  // 4) probabilidad \"0.45\" o \"45%\" -> convertir a decimal odds\n  if (s.endsWith('%')) {\n    const p = parseFloat(s.slice(0, -1));\n    if (!isFinite(p) || p <= 0) return NaN;\n    return 100 / p;\n  }\n  const num = Number(s);\n  if (isFinite(num)) {\n    // si está entre 0 y 1, lo tratamos como probabilidad\n    if (num > 0 && num < 1) return 1 / num;\n    return num;\n  }\n  return NaN;\n};\n\nconst round = (n, d=3) => Math.round(n * Math.pow(10,d)) / Math.pow(10,d);\n\nreturn items.map(item => {\n  const { match, best } = item.json || {};\n  // debug: devolver best crudo si falta\n  if (!best) {\n    return { json: { match, error: 'best missing', raw: item.json } };\n  }\n\n  const cuotaHome = parseOdd(best?.home?.odds ?? best?.home ?? null);\n  const cuotaDraw = parseOdd(best?.draw?.odds ?? best?.draw ?? null);\n  const cuotaAway = parseOdd(best?.away?.odds ?? best?.away ?? null);\n\n  const invalid = [cuotaHome, cuotaDraw, cuotaAway].some(v => !isFinite(v) || v <= 0);\n  if (invalid) {\n    return {\n      json: {\n        match,\n        best,\n        cuotaHome, cuotaDraw, cuotaAway,\n        margen: null,\n        surebet: false,\n        beneficioPct: 0,\n        stakes: null,\n        capitalTotal: null,\n        debug: 'Cuotas inválidas o no convertibles'\n      }\n    };\n  }\n\n  const invHome = 1 / cuotaHome;\n  const invDraw = 1 / cuotaDraw;\n  const invAway = 1 / cuotaAway;\n  const margen = invHome + invDraw + invAway;\n  const surebet = margen < 1;\n  const beneficioPct = surebet ? (1 - margen) * 100 : 0;\n\n  const CAPITAL_TOTAL = 100;\n  const denom = invHome + invDraw + invAway;\n  const stakeHome = (CAPITAL_TOTAL * invHome) / denom;\n  const stakeDraw = (CAPITAL_TOTAL * invDraw) / denom;\n  const stakeAway = (CAPITAL_TOTAL * invAway) / denom;\n\n  return {\n    json: {\n      match,\n      best,\n      cuotaHome: round(cuotaHome,3),\n      cuotaDraw: round(cuotaDraw,3),\n      cuotaAway: round(cuotaAway,3),\n      margen: round(margen,6),\n      surebet,\n      beneficioPct: round(beneficioPct,3),\n      stakes: {\n        home: round(stakeHome,2),\n        draw: round(stakeDraw,2),\n        away: round(stakeAway,2)\n      },\n      capitalTotal: CAPITAL_TOTAL\n    }\n  };\n});\n"
+      },
+      "name": "Function - SurebetCalc",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        1488,
+        -160
+      ],
+      "id": "c55c8507-6f41-4700-b2c1-d4d081be5f4d"
+    },
+    {
+      "parameters": {
+        "functionCode": "return items.map(item => {\n  const match = item.json;\n  const offers = match.offers;\n  const best = { home: null, draw: null, away: null };\n\n  offers.forEach(o => {\n    const { bookmaker, odds, currency, url } = o;\n    if (!best.home || odds.home > best.home.odds) best.home = { bookmaker, odds: odds.home, currency, url };\n    if (!best.draw || odds.draw > best.draw.odds) best.draw = { bookmaker, odds: odds.draw, currency, url };\n    if (!best.away || odds.away > best.away.odds) best.away = { bookmaker, odds: odds.away, currency, url };\n  });\n\n  return { json: { match: match.match, best } };\n});\n"
+      },
+      "name": "Function - BestOddsPerOutcome",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        1232,
+        -160
+      ],
+      "id": "9f8ddc1b-babf-4812-be8c-3e70278da427"
+    },
+    {
+      "parameters": {
+        "functionCode": "const arr = items.map(i => i.json);\nconst grouped = {};\narr.forEach(r => {\n  if (!grouped[r.match]) grouped[r.match] = [];\n  grouped[r.match].push(r);\n});\nreturn Object.keys(grouped).map(m => ({ json: { match: m, offers: grouped[m] } }));\n"
+      },
+      "name": "Function - GroupByMatch",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        976,
+        -160
+      ],
+      "id": "7302db2f-8465-4c0c-b577-b645fbc36056"
+    },
+    {
+      "parameters": {
+        "functionCode": "// items = respuesta del HTTP Request\nconst raw = items[0].json;\nconst events = raw.events || [];\nconst currencyMap = {\n  \"Peru\": \"PEN\",\n  \"Brazil\": \"BRL\",\n  \"Argentina\": \"ARS\",\n  \"Chile\": \"CLP\",\n  \"South America\": \"PEN\" // fallback regional\n};\n\nconst normalized = events.flatMap(e => {\n  const match = `${e.homeTeam} vs ${e.awayTeam}`;\n  const timestamp = e.timestamp;\n  const bookmakers = e.canonical?.bookmakers || {};\n\n  return Object.keys(bookmakers).flatMap(bk => {\n    const odds = bookmakers[bk].odds || {};\n    const oneXtwo = odds[\"1X2\"] || odds[\"1x2\"] || null;\n    if (!oneXtwo) return [];\n\n    const currency = bookmakers[bk].currency \n              || currencyMap[e.country] \n              || \"USD\";\n\n    return [{\n      match,\n      timestamp,\n      league: e.league || null,   // 👈 agregado\n      country: e.country || null, // 👈 agregado\n      bookmaker: bk,\n      market: \"1X2\",\n      odds: { home: oneXtwo[0], draw: oneXtwo[1], away: oneXtwo[2] },\n      url: bookmakers[bk].url || null,\n      currency\n    }];\n  });\n});\n\nreturn normalized.map(r => ({ json: r }));\n"
+      },
+      "name": "Function - Normalize",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        480,
+        -144
+      ],
+      "id": "2d433d74-5966-4b51-8101-b5d1f711b86c"
+    },
+    {
+      "parameters": {
+        "url": "https://unmixed-subgroup-patronize.ngrok-free.dev/NightBet/data/data.json",
+        "options": {}
+      },
+      "name": "HTTP Request - Get events",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1,
+      "position": [
+        1584,
+        -368
+      ],
+      "id": "f334069c-786f-4f90-a2b3-b5db67ae5460"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Analiza el siguiente partido y devuelve SIEMPRE un objeto JSON con esta estructura:\n\n{\n  \"partido\": \"nombre del partido\",\n  \"liga\": \"nombre de la liga\",\n  \"pais\": \"país\",\n  \"cuotas\": {\n    \"local\": \"valor\",\n    \"empate\": \"valor\",\n    \"visitante\": \"valor\"\n  },\n  \"tipo\": \"surebet | valuebet | ninguno\",\n  \"beneficioPct\": \"número con dos decimales\",\n  \"stakes\": {\n    \"local\": \"monto sugerido\",\n    \"empate\": \"monto sugerido\",\n    \"visitante\": \"monto sugerido\"\n  },\n  \"comentario\": \"mensaje breve en español para alerta\"\n}\n\nUsa solo los datos recibidos en el JSON de entrada, no inventes información. \nFormato conciso, sin texto fuera del JSON.\n\nDatos: {{ $json }}",
+        "messages": {
+          "messageValues": [
+            {
+              "message": "Eres un analista de apuestas deportivas especializado en detectar oportunidades de surebet y value bet. \nTu tarea es evaluar cambios en cuotas y devolver SIEMPRE un objeto JSON con esta estructura:\n\n{\n  \"tipo\": \"surebet | valuebet | ninguno\",\n  \"riesgo\": \"alto | medio | bajo\",\n  \"confianza\": \"0-100\",\n  \"comentario\": \"texto breve en español\"\n}\n\nReglas:\n- Si no hay oportunidad clara, devuelve \"ninguno\".\n- El campo \"riesgo\" debe basarse en la estabilidad de las cuotas y el beneficio calculado.\n- El campo \"confianza\" es un número entero (0-100) que refleja tu seguridad en el análisis.\n- El campo \"comentario\" debe ser breve y útil para enviar en una alerta.\n- No uses texto fuera del JSON. No expliques tu razonamiento."
+            }
+          ]
+        },
+        "batching": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.9,
+      "position": [
+        496,
+        304
+      ],
+      "id": "12aeb78f-81d3-4fe9-b446-142ec2e4c1ef",
+      "name": "Basic LLM Chain",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "jsCode": "return items.map(item => {\n  const { match, best } = item.json;\n  const hash = `${match}-${best.home.odds}-${best.draw.odds}-${best.away.odds}`;\n  return { json: { ...item.json, hash } };\n});"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1728,
+        -160
+      ],
+      "id": "55871ce1-72be-43a9-9590-e210cfb4f6b5",
+      "name": "Generate Hash"
+    },
+    {
+      "parameters": {
+        "authentication": "databaseToken",
+        "tableId": 987151,
+        "returnAll": true,
+        "additionalOptions": {
+          "filters": {
+            "fields": [
+              {
+                "field": 8639447,
+                "value": "={{$json[\"match\"]}}"
+              }
+            ]
+          }
+        }
+      },
+      "type": "n8n-nodes-base.baserow",
+      "typeVersion": 1.1,
+      "position": [
+        752,
+        80
+      ],
+      "id": "1346d1d5-b398-4507-b776-dc73969e8fe9",
+      "name": "Get many rows",
+      "alwaysOutputData": true,
+      "credentials": {
+        "baserowTokenApi": {
+          "id": "hTWnIZ4BPHanwIRP",
+          "name": "Baserow.api"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// AttachLastHash definitivo: detecta Hash en varias rutas y normaliza\nreturn items.map(it => {\n  const out = { ...it.json };\n\n  // Helper para obtener valor por rutas posibles (soporta nested con '.')\n  const getFirst = (obj, keys) => {\n    for (const k of keys) {\n      if (!k) continue;\n      if (k.includes('.')) {\n        const parts = k.split('.');\n        let cur = obj;\n        let ok = true;\n        for (const p of parts) {\n          if (cur && Object.prototype.hasOwnProperty.call(cur, p)) cur = cur[p];\n          else { ok = false; break; }\n        }\n        if (ok && cur !== undefined) return cur;\n      } else if (Object.prototype.hasOwnProperty.call(obj, k)) {\n        return obj[k];\n      }\n    }\n    return undefined;\n  };\n\n  // Posibles ubicaciones para el hash original y para el hash en Baserow\n  const possibleOriginalHashKeys = ['hash','Hash','originalHash','_hash','fields.hash','fields.Hash'];\n  const possibleBaserowHashKeys = ['lastHash','LastHash','last_hash','Hash','hash','fields.Hash','fields.hash','values.hash'];\n\n  const rawHash = getFirst(out, possibleOriginalHashKeys);\n  const rawLast = getFirst(out, possibleBaserowHashKeys);\n\n  // Normalizar: strings -> trim + lowercase; 'null' o '' -> null\n  const norm = v => {\n    if (v === null || v === undefined) return null;\n    if (typeof v === 'number') return String(v).trim().toLowerCase();\n    if (typeof v === 'string') {\n      const t = v.trim();\n      if (t === '' || t.toLowerCase() === 'null') return null;\n      return t.toLowerCase();\n    }\n    try { return String(v).trim().toLowerCase(); } catch(e) { return null; }\n  };\n\n  out._debug_rawHash = rawHash === undefined ? null : rawHash;\n  out._debug_rawLast = rawLast === undefined ? null : rawLast;\n\n  out.hash = norm(rawHash) || null;\n  out.lastHash = norm(rawLast) || null;\n\n  // Normalizar beneficioPct\n  const bpRaw = out.beneficioPct ?? out.BeneficioPct ?? out.beneficio_pct ?? 0;\n  out.beneficioPct = (bpRaw === null || bpRaw === '' || bpRaw === undefined) ? 0 : Number(bpRaw);\n\n  // Resultado de comparación para debug\n  out._exprResult = (() => {\n    if (out.hash === null) return true;            // no hay hash calculado -> tratar como nuevo\n    if (out.lastHash === null) return true;        // no hay lastHash -> nuevo\n    return out.hash !== out.lastHash;              // distinto -> necesita acción\n  })();\n\n  return { json: out };\n});\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        976,
+        80
+      ],
+      "id": "4ce25f0f-b258-433a-b738-eb49df2cfcd7",
+      "name": "Function - AttachLastHash"
+    },
+    {
+      "parameters": {
+        "options": {
+          "reset": false
+        }
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        480,
+        64
+      ],
+      "id": "f5c525c3-baa0-47fe-9820-8bf1605898e5",
+      "name": "Loop Over Items"
+    },
+    {
+      "parameters": {
+        "authentication": "databaseToken",
+        "operation": "create"
+      },
+      "type": "n8n-nodes-base.baserow",
+      "typeVersion": 1.1,
+      "position": [
+        1728,
+        48
+      ],
+      "id": "7401eb9f-fb89-40e4-a0d1-bf2f8d757f78",
+      "name": "Create a row",
+      "credentials": {
+        "baserowTokenApi": {
+          "id": "hTWnIZ4BPHanwIRP",
+          "name": "Baserow.api"
+        }
+      },
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "boolean": [
+            {
+              "value1": "={{ (() => {\n  const h = $('Loop Over Items').item.json.hash ?? null;\n  const last = $json[\"lastHash\"] ?? null;\n  const lastBP = ($json[\"lastBeneficioPct\"] === undefined) ? null : Number($json[\"lastBeneficioPct\"]);\n  const bp = Number($('Loop Over Items').item.json.beneficioPct ?? 0);\n  if (h === null) return true;\n  if (last === null) return true;\n  if (h != last) return true;\n  if (lastBP === null) return Math.abs(bp - 0) > 0.3;\n  return Math.abs(bp - lastBP) > 0.3;\n})() }}",
+              "value2": "={{ true }}"
+            }
+          ]
+        }
+      },
+      "name": "IF Compare Hash",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        1200,
+        80
+      ],
+      "id": "b6494aed-5f55-4aba-9915-f176d22a2e76"
+    },
+    {
+      "parameters": {
+        "authentication": "databaseToken",
+        "operation": "update",
+        "tableId": 987151
+      },
+      "type": "n8n-nodes-base.baserow",
+      "typeVersion": 1.1,
+      "position": [
+        1728,
+        240
+      ],
+      "id": "92ad1715-1ea4-47fb-9375-42c7147b7bd9",
+      "name": "Update a row",
+      "credentials": {
+        "baserowTokenApi": {
+          "id": "hTWnIZ4BPHanwIRP",
+          "name": "Baserow.api"
+        }
+      },
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "boolean": [
+            {
+              "value1": "={{ (() => {\n  // Insert si no hay lastHash\n  if ($json[\"lastHash\"] === null || $json[\"lastHash\"] === undefined || $json[\"lastHash\"] === \"\") return true;\n  // Si lastHash existe y es igual al hash actual -> NO insertar (retornar false)\n  if ($json[\"hash\"] !== null && $json[\"hash\"] === $json[\"lastHash\"]) return false;\n  // Si lastHash existe pero distinto -> actualizar (retornar true para entrar en la rama que maneja cambios)\n  return true;\n})() }}",
+              "value2": "={{ true }}"
+            }
+          ]
+        }
+      },
+      "name": "IF - LastHash?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        1488,
+        64
+      ],
+      "id": "719c4041-3477-4859-95dc-f99513ac694c"
+    },
+    {
+      "parameters": {
+        "model": "openai/gpt-4o-mini",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [
+        432,
+        480
+      ],
+      "id": "3084ddc9-a251-4710-a954-2c963f6271f8",
+      "name": "openai/gpt-4o-mini",
+      "credentials": {
+        "openRouterApi": {
+          "id": "aq9Mu0k1n9JBuo3F",
+          "name": "OpenRouter.msn"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// IF Time Window (server Europe time)\nconst hour = new Date().getHours();\nreturn [\n  {\n    json: {\n      dentroHorario: (hour >= 15 || hour < 3) // 15:00–23:59 y 00:00–02:59\n    }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1008,
+        -352
+      ],
+      "id": "57005d2e-19db-4b2a-b9f1-5e64ac3605b0",
+      "name": "Function -  TimeWindow"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "1a609578-fd85-43bb-9299-e294f428bdf2",
+              "leftValue": "={{ $json.dentroHorario }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        1312,
+        -352
+      ],
+      "id": "2162f236-9232-49e1-bb6f-0ce53215d350",
+      "name": "IF - WithinSchedule?"
+    },
+    {
+      "parameters": {
+        "triggerTimes": {
+          "item": [
+            {
+              "mode": "everyHour",
+              "minute": 15
+            }
+          ]
+        }
+      },
+      "name": "Cron every 15 min",
+      "type": "n8n-nodes-base.cron",
+      "typeVersion": 1,
+      "position": [
+        736,
+        -352
+      ],
+      "id": "c53bedc9-1399-4d68-9b17-9acd98a251d9"
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "shared": [
+    {
+      "updatedAt": "2026-05-20T15:56:57.614Z",
+      "createdAt": "2026-05-20T15:56:57.614Z",
+      "role": "workflow:owner",
+      "workflowId": "KIlkA71uce5IkYhD",
+      "projectId": "eyOyKz68GM9OloYk"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2026-05-21T03:18:51.513Z",
+  "versionId": "b83ce3ee-ac43-4618-afd3-33b2d575f150"
+}
