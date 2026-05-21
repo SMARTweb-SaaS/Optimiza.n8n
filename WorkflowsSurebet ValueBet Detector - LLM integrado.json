@@ -113,7 +113,7 @@
       "main": [
         [
           {
-            "node": "Function - ValueCalc",
+            "node": "Code in JavaScript",
             "type": "main",
             "index": 0
           }
@@ -149,6 +149,11 @@
             "node": "IF Compare Hash",
             "type": "main",
             "index": 0
+          },
+          {
+            "node": "Function - PayloadString",
+            "type": "main",
+            "index": 0
           }
         ]
       ]
@@ -179,7 +184,7 @@
             "index": 0
           },
           {
-            "node": "Basic LLM Chain",
+            "node": "Function - PayloadString",
             "type": "main",
             "index": 0
           }
@@ -270,6 +275,28 @@
           }
         ]
       ]
+    },
+    "Function - PayloadString": {
+      "main": [
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "Function - ValueCalc",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "createdAt": "2026-05-20T15:56:57.614Z",
@@ -315,7 +342,7 @@
     },
     {
       "parameters": {
-        "chatId": "YOUR_TELEGRAM_CHAT_ID",
+        "chatId": "1704819492",
         "text": "🎯 Oportunidad detectada\n\nPartido: {{$json[\"match\"]}}\nTipo: {{ $json[\"valueBets\"] && $json[\"valueBets\"].length>0 ? 'Value bet' : 'Surebet' }} {{ $json[\"beneficioPct\"] ? ( $json[\"beneficioPct\"].toFixed(2) + '%' ) : '' }}\n\n📌 Casas y cuotas:\n- {{$json[\"best\"].home.bookmaker}} → Local gana ({{$json[\"best\"].home.odds}}) [{{$json[\"best\"].home.currency}}]\n- {{$json[\"best\"].draw.bookmaker}} → Empate ({{$json[\"best\"].draw.odds}}) [{{$json[\"best\"].draw.currency}}]\n- {{$json[\"best\"].away.bookmaker}} → Visitante gana ({{$json[\"best\"].away.odds}}) [{{$json[\"best\"].away.currency}}]\n\n💰 Montos sugeridos:\n- Local: {{$json[\"stakesRounded\"].home}} {{$json[\"currencies\"].home}} en {{$json[\"best\"].home.bookmaker}}\n- Empate: {{$json[\"stakesRounded\"].draw}} {{$json[\"currencies\"].draw}} en {{$json[\"best\"].draw.bookmaker}}\n- Visitante: {{$json[\"stakesRounded\"].away}} {{$json[\"currencies\"].away}} en {{$json[\"best\"].away.bookmaker}}\n\n✅ Beneficio esperado: ~{{$json[\"beneficioPct\"].toFixed(2)}}%\n",
         "additionalFields": {}
       },
@@ -323,7 +350,7 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1,
       "position": [
-        1728,
+        1936,
         432
       ],
       "id": "2fbbe196-3e5d-482f-ae5b-dca1ffa17722",
@@ -350,10 +377,11 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 1,
       "position": [
-        1408,
+        1616,
         304
       ],
-      "id": "11cca2f6-7f9e-4451-a193-3c8f137e568c"
+      "id": "11cca2f6-7f9e-4451-a193-3c8f137e568c",
+      "disabled": true
     },
     {
       "parameters": {
@@ -363,7 +391,7 @@
       "type": "n8n-nodes-base.function",
       "typeVersion": 1,
       "position": [
-        1136,
+        1424,
         304
       ],
       "id": "a4796728-05b6-4c97-9c35-1db69cbf1e2f"
@@ -376,7 +404,7 @@
       "type": "n8n-nodes-base.function",
       "typeVersion": 1,
       "position": [
-        864,
+        1200,
         304
       ],
       "id": "18456f37-69d7-49c3-a09d-d1494c01dcd8"
@@ -450,11 +478,11 @@
     {
       "parameters": {
         "promptType": "define",
-        "text": "=Analiza el siguiente partido y devuelve SIEMPRE un objeto JSON con esta estructura:\n\n{\n  \"partido\": \"nombre del partido\",\n  \"liga\": \"nombre de la liga\",\n  \"pais\": \"país\",\n  \"cuotas\": {\n    \"local\": \"valor\",\n    \"empate\": \"valor\",\n    \"visitante\": \"valor\"\n  },\n  \"tipo\": \"surebet | valuebet | ninguno\",\n  \"beneficioPct\": \"número con dos decimales\",\n  \"stakes\": {\n    \"local\": \"monto sugerido\",\n    \"empate\": \"monto sugerido\",\n    \"visitante\": \"monto sugerido\"\n  },\n  \"comentario\": \"mensaje breve en español para alerta\"\n}\n\nUsa solo los datos recibidos en el JSON de entrada, no inventes información. \nFormato conciso, sin texto fuera del JSON.\n\nDatos: {{ $json }}",
+        "text": "=Datos: {{ $json[\"payloadString\"] }}\n\nAnaliza y devuelve SOLO un JSON con esta estructura:\n\n{ \n  \"tipo\",\n  \"riesgo\",\n  \"confianza\",\n  \"comentario\" \n}\n\nUsa solo los datos recibidos en el JSON de entrada, no inventes información. \nFormato conciso, sin texto fuera del JSON.\nUsa valores por defecto si faltan datos.\n",
         "messages": {
           "messageValues": [
             {
-              "message": "Eres un analista de apuestas deportivas especializado en detectar oportunidades de surebet y value bet. \nTu tarea es evaluar cambios en cuotas y devolver SIEMPRE un objeto JSON con esta estructura:\n\n{\n  \"tipo\": \"surebet | valuebet | ninguno\",\n  \"riesgo\": \"alto | medio | bajo\",\n  \"confianza\": \"0-100\",\n  \"comentario\": \"texto breve en español\"\n}\n\nReglas:\n- Si no hay oportunidad clara, devuelve \"ninguno\".\n- El campo \"riesgo\" debe basarse en la estabilidad de las cuotas y el beneficio calculado.\n- El campo \"confianza\" es un número entero (0-100) que refleja tu seguridad en el análisis.\n- El campo \"comentario\" debe ser breve y útil para enviar en una alerta.\n- No uses texto fuera del JSON. No expliques tu razonamiento."
+              "message": "=Eres un analista de apuestas deportivas especializado en detectar oportunidades de surebet y value bet. \nTu tarea es evaluar cambios en cuotas y devolver SIEMPRE un objeto JSON con esta estructura:\n\n{\n  \"tipo\": \"surebet | valuebet | ninguno\",\n  \"riesgo\": \"alto | medio | bajo\",\n  \"confianza\": \"0-100\",\n  \"comentario\": \"texto breve en español\"\n}\n\nReglas:\n- Si no hay oportunidad clara, devuelve \"ninguno\".\n- El campo \"riesgo\" debe basarse en la estabilidad de las cuotas y el beneficio calculado, debe ser exactamente uno de: alto, medio, bajo.\n- El campo \"confianza\" es un número entero (0-100) que refleja tu seguridad en el análisis.\n- El campo \"comentario\" debe ser breve y útil para enviar en una alerta.\n- No uses texto fuera del JSON. No expliques tu razonamiento.\n- Si faltan datos, devuelve: tipo:\"ninguno\", riesgo:\"medio\", confianza:0, comentario:\"datos insuficientes\".\n- No realices cálculos monetarios complejos; solo clasifica y evalúa riesgo/confianza.\n"
             }
           ]
         },
@@ -463,12 +491,11 @@
       "type": "@n8n/n8n-nodes-langchain.chainLlm",
       "typeVersion": 1.9,
       "position": [
-        496,
+        704,
         304
       ],
       "id": "12aeb78f-81d3-4fe9-b446-142ec2e4c1ef",
-      "name": "Basic LLM Chain",
-      "disabled": true
+      "name": "Basic LLM Chain"
     },
     {
       "parameters": {
@@ -477,7 +504,7 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1728,
+        1776,
         -160
       ],
       "id": "55871ce1-72be-43a9-9590-e210cfb4f6b5",
@@ -546,12 +573,33 @@
     {
       "parameters": {
         "authentication": "databaseToken",
-        "operation": "create"
+        "operation": "create",
+        "tableId": 987151,
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": 8639447,
+              "fieldValue": "={{ $('Loop Over Items').item.json.match }}"
+            },
+            {
+              "fieldId": 8639448,
+              "fieldValue": "={{ $('Loop Over Items').item.json.hash }}"
+            },
+            {
+              "fieldId": 8639449,
+              "fieldValue": "false"
+            },
+            {
+              "fieldId": 8639450,
+              "fieldValue": "={{ $('Loop Over Items').item.json.beneficioPct }}"
+            }
+          ]
+        }
       },
       "type": "n8n-nodes-base.baserow",
       "typeVersion": 1.1,
       "position": [
-        1728,
+        1936,
         48
       ],
       "id": "7401eb9f-fb89-40e4-a0d1-bf2f8d757f78",
@@ -561,8 +609,7 @@
           "id": "hTWnIZ4BPHanwIRP",
           "name": "Baserow.api"
         }
-      },
-      "disabled": true
+      }
     },
     {
       "parameters": {
@@ -588,12 +635,21 @@
       "parameters": {
         "authentication": "databaseToken",
         "operation": "update",
-        "tableId": 987151
+        "tableId": 987151,
+        "rowId": "={{ $json.id }}",
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": 8639450,
+              "fieldValue": "={{ $json.BeneficioPct }}"
+            }
+          ]
+        }
       },
       "type": "n8n-nodes-base.baserow",
       "typeVersion": 1.1,
       "position": [
-        1728,
+        1936,
         240
       ],
       "id": "92ad1715-1ea4-47fb-9375-42c7147b7bd9",
@@ -603,8 +659,7 @@
           "id": "hTWnIZ4BPHanwIRP",
           "name": "Baserow.api"
         }
-      },
-      "disabled": true
+      }
     },
     {
       "parameters": {
@@ -621,7 +676,7 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 1,
       "position": [
-        1488,
+        1696,
         64
       ],
       "id": "719c4041-3477-4859-95dc-f99513ac694c"
@@ -634,7 +689,7 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
       "typeVersion": 1,
       "position": [
-        432,
+        784,
         480
       ],
       "id": "3084ddc9-a251-4710-a954-2c963f6271f8",
@@ -648,7 +703,7 @@
     },
     {
       "parameters": {
-        "jsCode": "// IF Time Window (server Europe time)\nconst hour = new Date().getHours();\nreturn [\n  {\n    json: {\n      dentroHorario: (hour >= 15 || hour < 3) // 15:00–23:59 y 00:00–02:59\n    }\n  }\n];"
+        "jsCode": "const hour = Number(\n  new Date().toLocaleString('en-US', {\n    hour: 'numeric',\n    hour12: false,\n    timeZone: 'America/Lima'\n  })\n);\n\nreturn [\n  {\n    json: {\n      horaPeru: hour,\n      dentroHorario: (hour >= 8 && hour < 20)\n    }\n  }\n];"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -686,7 +741,7 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.3,
       "position": [
-        1312,
+        1264,
         -352
       ],
       "id": "2162f236-9232-49e1-bb6f-0ce53215d350",
@@ -711,9 +766,46 @@
         -352
       ],
       "id": "c53bedc9-1399-4d68-9b17-9acd98a251d9"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Function node: serializa cada item en payloadString\nreturn items.map(item => {\n  item.json.payloadString = JSON.stringify(item.json);\n  return item;\n});"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        496,
+        304
+      ],
+      "id": "a2a722ff-c2f9-47c6-ab6f-8ca6faf725c8",
+      "name": "Function - PayloadString"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Function: parsear salida LLM y normalizar (robusto para múltiples items)\nreturn items.map(item => {\n  // Ajusta según dónde el LLM deje la respuesta\n  const rawCandidate =\n    item.json.choices?.[0]?.message?.content ||\n    item.json.llmText ||\n    item.json.response ||\n    item.json.text ||\n    null;\n\n  let parsed = null;\n  if (rawCandidate) {\n    try {\n      parsed = (typeof rawCandidate === 'string') ? JSON.parse(rawCandidate.trim()) : rawCandidate;\n    } catch (e) {\n      // intentar extraer JSON dentro de texto (por si el LLM añadió texto extra)\n      try {\n        const maybeJson = rawCandidate.match(/\\{[\\s\\S]*\\}$/);\n        parsed = maybeJson ? JSON.parse(maybeJson[0]) : null;\n      } catch (e2) {\n        parsed = null;\n      }\n    }\n  }\n\n  // Valores por defecto si parsed es null o no tiene campos esperados\n  const llm = {\n    tipo: parsed?.tipo || \"ninguno\",\n    riesgo: parsed?.riesgo || \"medio\",\n    confianza: Number(parsed?.confianza ?? 0),\n    comentario: parsed?.comentario || (parsed ? JSON.stringify(parsed).slice(0,120) : \"LLM inválido o no parseable\"),\n    raw: rawCandidate || null\n  };\n\n  // Mantener el origen para los siguientes nodos\n  return { json: { llm, src: item.json } };\n});\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1024,
+        304
+      ],
+      "id": "750b9e56-97c6-4da1-9712-5404cbe66b32",
+      "name": "Code in JavaScript"
     }
   ],
-  "pinData": {},
+  "pinData": {
+    "Basic LLM Chain": [
+      {
+        "json": {
+          "text": "{\n  \"tipo\": \"ninguno\",\n  \"riesgo\": \"medio\",\n  \"confianza\": 0,\n  \"comentario\": \"datos insuficientes\"\n}"
+        },
+        "pairedItem": {
+          "item": 0
+        }
+      }
+    ]
+  },
   "settings": {
     "executionOrder": "v1",
     "binaryMode": "separate"
@@ -730,6 +822,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2026-05-21T03:18:51.513Z",
-  "versionId": "b83ce3ee-ac43-4618-afd3-33b2d575f150"
+  "updatedAt": "2026-05-21T16:40:08.822Z",
+  "versionId": "5a0c77dc-940b-4c19-a983-6a1dc20bf25f"
 }
