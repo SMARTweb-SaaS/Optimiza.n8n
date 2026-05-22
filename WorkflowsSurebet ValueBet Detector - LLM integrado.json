@@ -149,11 +149,6 @@
             "node": "IF Compare Hash",
             "type": "main",
             "index": 0
-          },
-          {
-            "node": "Function - PayloadString",
-            "type": "main",
-            "index": 0
           }
         ]
       ]
@@ -380,8 +375,7 @@
         1616,
         304
       ],
-      "id": "11cca2f6-7f9e-4451-a193-3c8f137e568c",
-      "disabled": true
+      "id": "11cca2f6-7f9e-4451-a193-3c8f137e568c"
     },
     {
       "parameters": {
@@ -404,7 +398,7 @@
       "type": "n8n-nodes-base.function",
       "typeVersion": 1,
       "position": [
-        1200,
+        1216,
         304
       ],
       "id": "18456f37-69d7-49c3-a09d-d1494c01dcd8"
@@ -769,7 +763,7 @@
     },
     {
       "parameters": {
-        "jsCode": "// Function node: serializa cada item en payloadString\nreturn items.map(item => {\n  item.json.payloadString = JSON.stringify(item.json);\n  return item;\n});"
+        "jsCode": "// Normalizar y serializar payload para enviar al LLM\nreturn items.map(item => {\n  const src = item.json || {};\n\n  const getStr = (...keys) => {\n    for (const k of keys) {\n      if (src[k] !== undefined && src[k] !== null) {\n        return String(src[k]);\n      }\n    }\n    return \"\";\n  };\n\n  const getNum = (...keys) => {\n    for (const k of keys) {\n      const v = src[k];\n\n      if (v === undefined || v === null) continue;\n\n      const n = Number(v);\n\n      if (!Number.isNaN(n)) return n;\n    }\n\n    return null;\n  };\n\n  const match = getStr(\"Match\", \"match\");\n  const league = getStr(\"League\", \"league\");\n  const country = getStr(\"Country\", \"country\");\n\n  const timestamp =\n    getStr(\"LastUpdated\", \"timestamp\") ||\n    new Date().toISOString();\n\n  const hash =\n    getStr(\"hash\", \"_debug_rawHash\") || \"\";\n\n  const bestSrc = src.best || src.odds || {};\n\n  const homeOdds =\n    bestSrc?.home?.odds ||\n    getNum(\"homeOdds\", \"home\");\n\n  const drawOdds =\n    bestSrc?.draw?.odds ||\n    getNum(\"drawOdds\", \"draw\");\n\n  const awayOdds =\n    bestSrc?.away?.odds ||\n    getNum(\"awayOdds\", \"away\");\n\n  const normalized = {\n    match,\n    league,\n    country,\n    timestamp,\n    hash,\n    best: {\n      home: {\n        odds: homeOdds || null\n      },\n      draw: {\n        odds: drawOdds || null\n      },\n      away: {\n        odds: awayOdds || null\n      }\n    }\n  };\n\n  const hasOdds =\n    normalized.best.home.odds &&\n    normalized.best.draw.odds &&\n    normalized.best.away.odds;\n\n  item.json.normalized = normalized;\n\n  // Ya no falla\n  item.json.payloadString =\n    JSON.stringify(normalized);\n\n  item.json.skipLLM = !hasOdds;\n\n  return item;\n});"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -794,18 +788,7 @@
       "name": "Code in JavaScript"
     }
   ],
-  "pinData": {
-    "Basic LLM Chain": [
-      {
-        "json": {
-          "text": "{\n  \"tipo\": \"ninguno\",\n  \"riesgo\": \"medio\",\n  \"confianza\": 0,\n  \"comentario\": \"datos insuficientes\"\n}"
-        },
-        "pairedItem": {
-          "item": 0
-        }
-      }
-    ]
-  },
+  "pinData": {},
   "settings": {
     "executionOrder": "v1",
     "binaryMode": "separate"
@@ -822,6 +805,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2026-05-21T16:40:08.822Z",
-  "versionId": "5a0c77dc-940b-4c19-a983-6a1dc20bf25f"
+  "updatedAt": "2026-05-21T18:18:47.609Z",
+  "versionId": "31e24c6e-aa2f-4355-a734-cde901802e28"
 }
