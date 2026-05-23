@@ -247,7 +247,7 @@
       "main": [
         [
           {
-            "node": "Update a row - AlertSent",
+            "node": "Get many rows - By Match",
             "type": "main",
             "index": 0
           }
@@ -359,6 +359,17 @@
           }
         ]
       ]
+    },
+    "Get many rows - By Match": {
+      "main": [
+        [
+          {
+            "node": "Update a row - AlertSent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "createdAt": "2026-05-21T18:07:54.879Z",
@@ -382,10 +393,10 @@
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.2,
       "position": [
-        0,
-        -272
+        -448,
+        -128
       ],
-      "id": "8a4382f1-bb7e-4a29-822b-a1e5b1833c2b"
+      "id": "c151cde4-3b05-4f99-9621-0831f411f253"
     },
     {
       "parameters": {
@@ -394,10 +405,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        624,
-        -272
+        176,
+        -128
       ],
-      "id": "57a23dea-3851-46d5-9280-dd34bbad9739",
+      "id": "9f323ec0-8e28-4c51-8403-bca4bd8181d4",
       "name": "Function - TimeWindow"
     },
     {
@@ -428,10 +439,10 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.3,
       "position": [
-        944,
-        -272
+        496,
+        -128
       ],
-      "id": "972d8038-923a-4b4a-abde-66ebb52f17aa"
+      "id": "bb4bbcd9-fdf3-470e-bd02-d70e55d1981a"
     },
     {
       "parameters": {
@@ -444,10 +455,10 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        1248,
-        -288
+        800,
+        -144
       ],
-      "id": "b14d0a98-1dca-4476-afcf-32868de97532"
+      "id": "a5f51938-e34e-4dfe-b43f-e1978d1f83ad"
     },
     {
       "parameters": {
@@ -457,10 +468,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        224,
-        -48
+        -224,
+        96
       ],
-      "id": "52b1bee6-9cc4-483e-a8be-6571cd6bbde9"
+      "id": "e5d6239a-a5f2-44d7-9ab0-0a8a724aea15"
     },
     {
       "parameters": {
@@ -470,10 +481,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        416,
-        -48
+        -32,
+        96
       ],
-      "id": "f2a9e05d-b44f-47d7-b86b-1d8859ded350"
+      "id": "b7e90e4c-21da-40ca-89e5-6635856a85ed"
     },
     {
       "parameters": {
@@ -483,10 +494,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        608,
-        -48
+        160,
+        96
       ],
-      "id": "5604c730-00e7-45de-b8fc-eb05e8743dde"
+      "id": "43aa663f-92c3-4476-84ab-9f34dc71ba06"
     },
     {
       "parameters": {
@@ -496,10 +507,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1056,
-        -48
+        608,
+        96
       ],
-      "id": "fb688d11-d6d0-4efb-b87b-4d641b9e07ae"
+      "id": "467e4058-6766-40bf-9a55-032994b0dc82"
     },
     {
       "parameters": {
@@ -508,10 +519,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1264,
-        -48
+        816,
+        96
       ],
-      "id": "258120b9-1693-474c-9a44-111b1602a061",
+      "id": "8f52a901-2fbf-44a1-b119-2af279f00e7f",
       "name": "Generate Hash"
     },
     {
@@ -523,10 +534,10 @@
       "type": "n8n-nodes-base.splitInBatches",
       "typeVersion": 3,
       "position": [
-        16,
-        144
+        -432,
+        288
       ],
-      "id": "7f84e23b-2f31-49ad-a00a-ea04900c8155",
+      "id": "dacc85ef-d412-4d96-8bea-163b203fba3d",
       "name": "Loop Over Items"
     },
     {
@@ -548,10 +559,10 @@
       "type": "n8n-nodes-base.baserow",
       "typeVersion": 1.1,
       "position": [
-        336,
-        160
+        -112,
+        304
       ],
-      "id": "eb0c6a86-45f1-4736-aae1-1308dce322ab",
+      "id": "c26a944d-4d2a-405a-b637-d9788ec1e377",
       "name": "Get many rows",
       "alwaysOutputData": true,
       "credentials": {
@@ -568,10 +579,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        608,
-        160
+        160,
+        304
       ],
-      "id": "f569271b-07f9-4fda-8def-d7861b5ca8a2",
+      "id": "55758b7d-7f41-499f-acf4-6785c5c703d8",
       "name": "Function - AttachLastHash"
     },
     {
@@ -602,10 +613,10 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.3,
       "position": [
-        976,
-        160
+        528,
+        304
       ],
-      "id": "e07b0f94-d17b-40fa-8f9d-52e40a0bc137"
+      "id": "c61d792a-e0d4-49fa-81f9-b7d4ec98ef3d"
     },
     {
       "parameters": {
@@ -635,10 +646,10 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.3,
       "position": [
-        1264,
-        144
+        816,
+        288
       ],
-      "id": "f73a694c-14f9-46ae-ba43-b22771618bd3"
+      "id": "8e21ae3a-aa45-4023-9c4a-8cc02e41e4ea"
     },
     {
       "parameters": {
@@ -647,10 +658,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        16,
-        384
+        -432,
+        528
       ],
-      "id": "0dfb610c-a375-452f-9fe5-4798906ac61b",
+      "id": "460dafd6-26b7-490c-a78d-7a7d995516dc",
       "name": "Function - PayloadString"
     },
     {
@@ -669,10 +680,10 @@
       "type": "@n8n/n8n-nodes-langchain.chainLlm",
       "typeVersion": 1.9,
       "position": [
-        208,
-        384
+        -240,
+        528
       ],
-      "id": "760ddc24-3f8e-4e0b-a4e7-79751837df12",
+      "id": "f1501610-15b0-448d-bfa0-2d3e0adcbdf1",
       "name": "Basic LLM Chain"
     },
     {
@@ -683,10 +694,10 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
       "typeVersion": 1,
       "position": [
-        208,
-        560
+        -240,
+        704
       ],
-      "id": "bf2af8fc-459a-4224-b302-16680ac5842f",
+      "id": "0b8f8e03-0210-484e-b321-f3e34df0fd91",
       "name": "openai/gpt-4o-mini",
       "credentials": {
         "openRouterApi": {
@@ -702,10 +713,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        512,
-        384
+        64,
+        528
       ],
-      "id": "fd0c6215-f68d-4519-aa34-9f43899cc534",
+      "id": "d559f56a-541d-4538-92ca-667ebadd303e",
       "name": "Code - ParseLLM & Merge"
     },
     {
@@ -716,10 +727,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        912,
-        384
+        464,
+        528
       ],
-      "id": "815346a4-6813-4e28-b60f-cc4f060a2c17"
+      "id": "44338338-8dd3-4dd4-9f7c-ae7eba444d65"
     },
     {
       "parameters": {
@@ -729,10 +740,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1104,
-        384
+        656,
+        528
       ],
-      "id": "78f354c2-506c-456c-b097-b13736200c61"
+      "id": "33d5b68a-73f5-4df1-b25e-aa66294b52e8"
     },
     {
       "parameters": {
@@ -789,10 +800,10 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.3,
       "position": [
-        1264,
-        384
+        816,
+        528
       ],
-      "id": "50d91ac1-acbe-4a46-b46b-e6b20078beb4"
+      "id": "8b64601c-ac29-40cf-bed8-36caac850ff0"
     },
     {
       "parameters": {
@@ -804,10 +815,10 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1,
       "position": [
-        1504,
-        512
+        1056,
+        656
       ],
-      "id": "3445ea18-c3fd-414a-bef0-90f5c77a5ee7",
+      "id": "19889eb4-2634-497c-8b83-a7a7ac33cd8f",
       "webhookId": "2b8ac5eb-76d0-49fc-9974-52022209ced6",
       "credentials": {
         "telegramApi": {
@@ -819,9 +830,41 @@
     {
       "parameters": {
         "authentication": "databaseToken",
+        "tableId": 987151,
+        "returnAll": true,
+        "additionalOptions": {
+          "filters": {
+            "fields": [
+              {
+                "field": 8639447,
+                "value": "={{ $json.match }}"
+              }
+            ]
+          }
+        }
+      },
+      "type": "n8n-nodes-base.baserow",
+      "typeVersion": 1.1,
+      "position": [
+        1312,
+        656
+      ],
+      "id": "e3bf9826-d39b-4c6c-8143-c183acbb0277",
+      "name": "Get many rows - By Match",
+      "alwaysOutputData": true,
+      "credentials": {
+        "baserowTokenApi": {
+          "id": "hTWnIZ4BPHanwIRP",
+          "name": "Baserow.api"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "databaseToken",
         "operation": "update",
         "tableId": 987151,
-        "rowId": "={{ $('Function - AttachLastHash').item.json.baserowRowId }}",
+        "rowId": "={{ $json.id }}",
         "fieldsUi": {
           "fieldValues": [
             {
@@ -830,7 +873,7 @@
             },
             {
               "fieldId": 8671391,
-              "fieldValue": "={{ $json.tipo }}"
+              "fieldValue": "={{ $('Function - RoundingAndCurrency').item.json.tipo }}"
             }
           ]
         }
@@ -838,11 +881,12 @@
       "type": "n8n-nodes-base.baserow",
       "typeVersion": 1.1,
       "position": [
-        1744,
-        512
+        1536,
+        656
       ],
-      "id": "fbc9e946-fb6d-4d8a-ab4a-c4b657469229",
+      "id": "0dc1e23a-4962-41f5-b7f7-8a896cfb696f",
       "name": "Update a row - AlertSent",
+      "rowId": null,
       "credentials": {
         "baserowTokenApi": {
           "id": "hTWnIZ4BPHanwIRP",
@@ -879,10 +923,10 @@
       "type": "n8n-nodes-base.baserow",
       "typeVersion": 1.1,
       "position": [
-        1504,
-        288
+        1056,
+        432
       ],
-      "id": "bb27fa1b-3657-48bd-8325-dc682669ea90",
+      "id": "366f7c7a-b151-4cdb-9d76-093776212000",
       "name": "Create a row",
       "credentials": {
         "baserowTokenApi": {
@@ -913,10 +957,10 @@
       "type": "n8n-nodes-base.baserow",
       "typeVersion": 1.1,
       "position": [
-        1504,
-        128
+        1056,
+        272
       ],
-      "id": "c4dfda79-698a-4509-a85a-bfa43b64b03f",
+      "id": "23b372d6-0048-433b-9491-1bacc681df58",
       "name": "Update a row",
       "credentials": {
         "baserowTokenApi": {
@@ -997,10 +1041,10 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        288,
-        -272
+        -160,
+        -128
       ],
-      "id": "ba41df35-733c-47f5-ba11-4abac05c58a6"
+      "id": "b0f6f1c3-33f8-4734-9355-71331d6b1e34"
     },
     {
       "parameters": {
@@ -1010,10 +1054,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        832,
-        -48
+        384,
+        96
       ],
-      "id": "6fef0512-e9a0-4099-b889-666374597115"
+      "id": "8c58c78e-e221-4b98-aa50-d674ceb7ec33"
     },
     {
       "parameters": {
@@ -1030,10 +1074,10 @@
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.2,
       "position": [
-        0,
-        -448
+        -448,
+        -304
       ],
-      "id": "78460c89-6e66-4a56-af79-f33a8cf59376"
+      "id": "c4461b7c-dae2-4e77-9115-cb0901d8f868"
     },
     {
       "parameters": {
@@ -1046,10 +1090,10 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        288,
-        -448
+        -160,
+        -304
       ],
-      "id": "c21016c6-8bff-46a8-9315-33c4630215e8"
+      "id": "c7814be0-b604-4222-b37b-8fee87af1158"
     },
     {
       "parameters": {
@@ -1059,10 +1103,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        560,
-        -448
+        112,
+        -304
       ],
-      "id": "33f980c9-43f1-4489-865a-f256b2c75736"
+      "id": "231f44a9-13b1-410b-8565-5862499ca14b"
     },
     {
       "parameters": {
@@ -1074,10 +1118,10 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1,
       "position": [
-        848,
-        -448
+        400,
+        -304
       ],
-      "id": "dbeff95d-f4c6-425c-b7e5-73145efdb65c",
+      "id": "13e4f55d-41e1-4ca4-9988-a39710298696",
       "webhookId": "1f265a43-292b-40db-9ae0-f81b76c5c211",
       "credentials": {
         "telegramApi": {
@@ -1094,10 +1138,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        32,
-        -48
+        -416,
+        96
       ],
-      "id": "1d7a2f7e-d8fc-42df-b296-0d0e24414ca9"
+      "id": "3c030a6e-e8fa-4ee9-8537-3aad406e13e1"
     },
     {
       "parameters": {
@@ -1107,10 +1151,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        720,
-        384
+        272,
+        528
       ],
-      "id": "8db5007b-e8ce-44f9-a438-9f799fdad0cd"
+      "id": "b8f2491f-6b1d-404f-a246-9c1c98cdfec3"
     }
   ],
   "pinData": {},
@@ -1130,6 +1174,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2026-05-22T16:38:39.674Z",
-  "versionId": "3d9a75f5-4a92-489b-a93c-67c6f017470e"
+  "updatedAt": "2026-05-22T17:14:22.396Z",
+  "versionId": "48697286-15b5-435e-a3ee-19208716da30"
 }
