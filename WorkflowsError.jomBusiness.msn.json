@@ -146,7 +146,7 @@
     {
       "parameters": {
         "chatId": "1704819492",
-        "text": "=**URGENTE: Critical Error**\n\n**WorkFlow:** {{ $json.workflow.name }}\n**Error:** {{ $json.execution.error.message }}\n**Last Node Executed:** {{ $json.execution.lastNodeExecuted }}\n\n**Error Details:**\n{{ $json.execution.error.stack }}\n\n**Date $ Time:** {{ $now.format('dd-MM-yyyy HH:mm:ss') }}\n\n",
+        "text": "=**URGENTE: Critical Error**\n\n**WorkFlow:** {{ $json.workflow.name }}\n**Error:** {{ $json.execution.error.message }}\n**Last Node Executed:** {{ $json.execution.lastNodeExecuted }}\n**Date $ Time:** {{ $now.format('dd-MM-yyyy HH:mm:ss') }}\n\n",
         "additionalFields": {
           "appendAttribution": false
         }
@@ -225,6 +225,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2026-05-01T00:10:28.674Z",
-  "versionId": "88ed125c-12ee-46c1-b497-e64329d43ce7"
+  "updatedAt": "2026-05-23T19:25:14.866Z",
+  "versionId": "2342b824-a234-469a-81cf-930495165231"
 }
