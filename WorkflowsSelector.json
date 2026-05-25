@@ -135,13 +135,7 @@
     },
     "Normalizar.Campos": {
       "main": [
-        [
-          {
-            "node": "Viral.Score",
-            "type": "main",
-            "index": 0
-          }
-        ]
+        []
       ]
     },
     "Viral.Score": {
@@ -2543,6 +2537,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2026-05-02T15:41:28.496Z",
-  "versionId": "6a608f6d-849b-4efe-8737-b3779d1c72ea"
+  "updatedAt": "2026-05-25T15:37:34.173Z",
+  "versionId": "aeb1e8c5-85a1-49a5-90ba-abe88d54954a"
 }
