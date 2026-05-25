@@ -275,7 +275,7 @@
       "main": [
         [
           {
-            "node": "Function - PayloadString",
+            "node": "Loop Over Items",
             "type": "main",
             "index": 0
           }
@@ -418,16 +418,16 @@
   "nodes": [
     {
       "parameters": {
-        "jsCode": "return items.map(item => {\n  const d = item.json;\n  const errors   = [];\n  const warnings = [];\n\n  const margen         = d.margen         ?? null;\n  const beneficioPct   = d.beneficioPct   ?? 0;\n  const tipo           = d.tipo           || 'ninguno';\n  const riesgo         = d.riesgo         || 'alto';\n  const confianza      = d.confianza      ?? 0;\n  const best           = d.best           || {};\n  const casasDistintas = d.casasDistintas ?? 0;\n\n  // ── Errores graves ───────────────────────────────────────────\n\n  // 1. LLM dice surebet pero margen >= 1\n  if (tipo === 'surebet' && margen !== null && margen >= 1) {\n    errors.push(`MATH_ERROR: tipo='surebet' pero margen=${margen.toFixed(4)}`);\n  }\n\n  // 2. LLM dice surebet pero casas insuficientes\n  if (tipo === 'surebet' && casasDistintas < 3) {\n    errors.push(`HOUSES_ERROR: tipo='surebet' pero casasDistintas=${casasDistintas} (necesita 3)`);\n  }\n\n  // 3. LLM dice ninguno pero hay surebet matemática real con 3 casas\n  if (tipo === 'ninguno' && margen !== null && margen < 1 && casasDistintas === 3) {\n    errors.push(`MISSED_SUREBET: margen=${margen.toFixed(4)} < 1 con 3 casas pero LLM='ninguno'`);\n  }\n\n  // 4. Confianza 0 con datos completos\n  const hasOdds = best?.home?.odds && best?.draw?.odds && best?.away?.odds;\n  if (confianza === 0 && hasOdds) {\n    errors.push(`FALLBACK_ERROR: confianza=0 con datos completos`);\n  }\n\n  // 5. Riesgo bajo con beneficioPct bajo\n  if (riesgo === 'bajo' && beneficioPct < 0.5) {\n    errors.push(`RISK_ERROR: riesgo='bajo' pero beneficioPct=${beneficioPct.toFixed(3)}%`);\n  }\n\n  // ── Warnings ────────────────────────────────────────────────\n\n  if (tipo === 'surebet' && confianza < 40) {\n    warnings.push(`LOW_CONFIDENCE: surebet real pero confianza=${confianza}`);\n  }\n  if (tipo === 'ninguno' && confianza > 80) {\n    warnings.push(`HIGH_CONFIDENCE_NINGUNO: confianza=${confianza} con tipo='ninguno'`);\n  }\n  if (beneficioPct > 0 && tipo !== 'surebet') {\n    warnings.push(`TYPE_MISMATCH: beneficioPct=${beneficioPct.toFixed(3)}% > 0 pero tipo='${tipo}'`);\n  }\n\n  // ── Auto-corrección ──────────────────────────────────────────\n  const llmValid = errors.length === 0;\n  const llmScore = llmValid ? (warnings.length === 0 ? 'OK' : 'WARNING') : 'ERROR';\n\n  let tipoFinal       = tipo;\n  let riesgoFinal     = riesgo;\n  let confianzaFinal  = confianza;\n  let comentarioFinal = d.comentario || '';\n\n  if (!llmValid) {\n    // Prioridad 1: surebet matemática real — anula cualquier clasificación LLM\n    if (margen !== null && margen < 1) {\n      tipoFinal       = 'surebet';\n      riesgoFinal     = beneficioPct > 2.0 ? 'bajo' : beneficioPct > 0.5 ? 'medio' : 'alto';\n      confianzaFinal  = beneficioPct > 1.5 ? 85 : beneficioPct > 0.5 ? 65 : 45;\n      comentarioFinal = `[Auto-corregido] Surebet real: margen=${margen.toFixed(4)}, beneficio=${beneficioPct.toFixed(2)}%`;\n    } else if (errors.some(e => e.startsWith('HOUSES_ERROR'))) {\n      // Margen < 1 pero casas insuficientes — degradar a ninguno\n      tipoFinal       = 'ninguno';\n      confianzaFinal  = 10;\n      comentarioFinal = `[Auto-corregido] Margen positivo pero solo ${casasDistintas} casa(s) distinta(s)`;\n    } else if (confianza === 0 && hasOdds) {\n      // Prioridad 3: fallback\n      confianzaFinal  = 10;\n      comentarioFinal = `[Auto-corregido] Datos completos, sin oportunidad clara`;\n    }\n  }\n\n  return {\n    json: {\n      ...d,\n      tipo:       tipoFinal,\n      riesgo:     riesgoFinal,\n      confianza:  confianzaFinal,\n      comentario: comentarioFinal,\n      llmValid,\n      llmScore,\n      llmErrors:   errors,\n      llmWarnings: warnings\n    }\n  };\n});"
+        "jsCode": "\nreturn items.map(item => {\n  const d = item.json;\n  const errors=[], warnings=[];\n  const margen         = d.margen         ?? null;\n  const beneficioPct   = d.beneficioPct   ?? 0;\n  const tipo           = d.tipo           || 'ninguno';\n  const riesgo         = d.riesgo         || 'alto';\n  const confianza      = d.confianza      ?? 0;\n  const casasDistintas = d.casasDistintas ?? 0;\n  const market         = d.market         ?? '1X2';\n  const isBinary       = market.startsWith('OU_') || market === 'BTTS';\n  const minC           = isBinary ? 2 : 3;\n\n  if (tipo==='surebet' && margen!==null && margen>=1)\n    errors.push(`MATH_ERROR: margen=${margen.toFixed(4)}`);\n  if (tipo==='surebet' && casasDistintas<minC)\n    errors.push(`HOUSES_ERROR: ${casasDistintas} casas independientes (necesita ${minC})`);\n  if (tipo==='ninguno' && margen!==null && margen<1 && casasDistintas>=minC)\n    errors.push(`MISSED_SUREBET: margen=${margen.toFixed(4)}`);\n  const hasOdds = (d.outcomes||[]).length>=(isBinary?2:3);\n  if (confianza===0 && hasOdds) errors.push(`FALLBACK_ERROR`);\n  if (riesgo==='bajo' && beneficioPct<0.5) errors.push(`RISK_ERROR`);\n\n  if (tipo==='surebet' && confianza<40)  warnings.push(`LOW_CONFIDENCE: ${confianza}`);\n  if (tipo==='ninguno' && confianza>80)  warnings.push(`HIGH_CONFIDENCE_NINGUNO`);\n  if (beneficioPct>0 && tipo!=='surebet') warnings.push(`TYPE_MISMATCH`);\n\n  const llmValid = errors.length===0;\n  const llmScore = llmValid ? (warnings.length===0?'OK':'WARNING') : 'ERROR';\n  let tipoFinal=tipo, riesgoFinal=riesgo, confianzaFinal=confianza, comentarioFinal=d.comentario||'';\n\n  if (!llmValid) {\n    if (margen!==null && margen<1 && casasDistintas>=minC) {\n      tipoFinal      = 'surebet';\n      riesgoFinal    = beneficioPct>2.0?'bajo':beneficioPct>0.5?'medio':'alto';\n      confianzaFinal = beneficioPct>1.5?85:beneficioPct>0.5?65:45;\n      comentarioFinal= `[Auto] Surebet ${market}: margen=${margen.toFixed(4)}, beneficio=${beneficioPct.toFixed(2)}%`;\n    } else if (errors.some(e=>e.startsWith('HOUSES_ERROR'))) {\n      tipoFinal='ninguno'; confianzaFinal=10;\n      comentarioFinal=`[Auto] Margen positivo pero solo ${casasDistintas} casa(s) independiente(s)`;\n    } else if (confianza===0 && hasOdds) {\n      confianzaFinal=10; comentarioFinal=`[Auto] Sin oportunidad clara`;\n    }\n  }\n  return { json: { ...d, tipo:tipoFinal, riesgo:riesgoFinal, confianza:confianzaFinal,\n    comentario:comentarioFinal, llmValid, llmScore, llmErrors:errors, llmWarnings:warnings }};\n});\n"
       },
       "name": "Code - ValidateLLM",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        3104,
-        1664
+        4992,
+        2096
       ],
-      "id": "b7597288-ccd2-4c7f-aa02-05c321da282f"
+      "id": "47a14c32-cbbb-49d8-8ce7-1d3840c4da56"
     },
     {
       "parameters": {
@@ -437,10 +437,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        2416,
-        1232
+        4304,
+        1664
       ],
-      "id": "97d4fa28-e279-4daa-affb-82be9ea1e098"
+      "id": "64798802-0787-4c05-a4f1-4307e7f70add"
     },
     {
       "parameters": {
@@ -449,10 +449,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        3888,
-        992
+        5776,
+        1424
       ],
-      "id": "14e475b0-f222-4caf-b8cf-21db7be219fd",
+      "id": "e2bbf6d8-3a25-46c2-801f-1cc3a88c6b85",
       "name": "Mock - Test Data",
       "disabled": true
     },
@@ -466,10 +466,10 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1,
       "position": [
-        3232,
-        832
+        5120,
+        1264
       ],
-      "id": "b606c889-71d3-464d-b800-0b3a7b555e9c",
+      "id": "279535da-8a95-4a18-aa46-f660d6854ee0",
       "webhookId": "1f265a43-292b-40db-9ae0-f81b76c5c211",
       "credentials": {
         "telegramApi": {
@@ -480,16 +480,16 @@
     },
     {
       "parameters": {
-        "jsCode": "const hoy = new Date().toLocaleDateString('en-CA', { timeZone: 'America/Lima' });\n\n// Extraer fecha de un campo de Baserow con nombre variable\nconst getFecha = (r) => {\n  const posibles = ['LastUpdated', 'last_updated', 'Last Updated',\n                    'updated_at', 'UpdatedAt', 'fecha'];\n  for (const k of posibles) {\n    if (r[k]) {\n      const d = new Date(r[k]);\n      if (!isNaN(d)) return d.toLocaleDateString('en-CA', { timeZone: 'America/Lima' });\n    }\n  }\n  // Fallback: buscar cualquier campo que parezca fecha ISO\n  for (const [k, v] of Object.entries(r)) {\n    if (typeof v === 'string' && /^\\d{4}-\\d{2}-\\d{2}/.test(v)) {\n      const d = new Date(v);\n      if (!isNaN(d)) return d.toLocaleDateString('en-CA', { timeZone: 'America/Lima' });\n    }\n  }\n  return null;\n};\n\nconst registros = items\n  .map(i => i.json)\n  .filter(r => {\n    const fecha = getFecha(r);\n    return fecha === hoy;\n  });\n\nif (registros.length === 0) {\n  return [{ json: {\n    rankingMsg: `🏆 Ranking de Casas — sin datos para hoy (${hoy})\\n` +\n                `⚠️ Verifica que el campo LastUpdated llegue correctamente desde Baserow`,\n    ranking: [],\n    totalRegistros: 0\n  }}];\n}\n\nconst conteo = {};\nconst agregar = (bk) => {\n  if (!bk) return;\n  conteo[bk] = (conteo[bk] || 0) + 1;\n};\n\nregistros.forEach(r => {\n  agregar(r.BookmakerHome);\n  agregar(r.BookmakerDraw);\n  agregar(r.BookmakerAway);\n});\n\nconst totalOportunidades = registros.length * 3;\n\nconst sorted = Object.entries(conteo)\n  .map(([bk, total]) => ({\n    bookmaker: bk,\n    total,\n    pctMejorCuota: ((total / totalOportunidades) * 100).toFixed(1)\n  }))\n  .sort((a, b) => b.total - a.total);\n\nconst top10 = sorted.slice(0, 10);\n\nconst fecha = new Date().toLocaleDateString('es-PE', {\n  timeZone: 'America/Lima',\n  day: '2-digit', month: '2-digit', year: 'numeric'\n});\n\nlet msg = `🏆 Ranking de Casas — ${fecha}\\n`;\nmsg += `📊 ${registros.length} partidos registrados hoy\\n\\n`;\n\ntop10.forEach((c, i) => {\n  const medal = i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : `${i+1}.`;\n  msg += `${medal} ${c.bookmaker} — mejor cuota ${c.pctMejorCuota}% del tiempo\\n`;\n});\n\nmsg += `\\n💡 Abrir cuenta primero en:\\n`;\nmsg += top10.slice(0, 3).map((c, i) => `  ${i+1}. ${c.bookmaker}`).join('\\n');\n\nreturn [{ json: { rankingMsg: msg, ranking: sorted, totalRegistros: registros.length } }];"
+        "jsCode": "\nconst hoy = new Date().toLocaleDateString('en-CA', { timeZone: 'America/Lima' });\n\nconst getFecha = (r) => {\n  for (const k of ['LastUpdated','last_updated','Last Updated','updated_at','UpdatedAt','fecha']) {\n    if (r[k]) { const d=new Date(r[k]); if(!isNaN(d)) return d.toLocaleDateString('en-CA',{timeZone:'America/Lima'}); }\n  }\n  for (const [k,v] of Object.entries(r)) {\n    if (typeof v==='string' && /^\\d{4}-\\d{2}-\\d{2}/.test(v)) {\n      const d=new Date(v); if(!isNaN(d)) return d.toLocaleDateString('en-CA',{timeZone:'America/Lima'});\n    }\n  }\n  return null;\n};\n\nconst registros = items.map(i=>i.json).filter(r => getFecha(r)===hoy);\n\nif (registros.length===0) {\n  return [{ json: { rankingMsg:`🏆 Ranking — sin datos para hoy (${hoy})`, ranking:[], totalRegistros:0 }}];\n}\n\n// Ranking de casas\nconst conteo = {};\nregistros.forEach(r => {\n  [r.BookmakerHome, r.BookmakerDraw, r.BookmakerAway].forEach(bk => {\n    if (bk) conteo[bk] = (conteo[bk]||0)+1;\n  });\n});\nconst totalOps = registros.length * 3;\nconst sorted = Object.entries(conteo)\n  .map(([bk,total]) => ({ bookmaker:bk, total, pct:((total/totalOps)*100).toFixed(1) }))\n  .sort((a,b)=>b.total-a.total);\nconst top10 = sorted.slice(0,10);\n\n// Resumen surebets del día\nconst surebets = registros.filter(r => (r.Tipo||'').toLowerCase()==='surebet');\nconst beneficios = surebets.map(r=>parseFloat(r.BeneficioPct||0)).filter(v=>!isNaN(v));\nconst beneficioPromedio = beneficios.length>0 ? (beneficios.reduce((a,b)=>a+b,0)/beneficios.length).toFixed(2) : '0.00';\nconst beneficioMax = beneficios.length>0 ? Math.max(...beneficios).toFixed(2) : '0.00';\n\nconst fecha = new Date().toLocaleDateString('es-PE',{timeZone:'America/Lima',day:'2-digit',month:'2-digit',year:'numeric'});\n\nlet msg = `🏆 Ranking de Casas — ${fecha}\\n`;\nmsg += `📊 ${registros.length} partidos/mercados analizados hoy\\n\\n`;\n\ntop10.forEach((c,i) => {\n  const medal = i===0?'🥇':i===1?'🥈':i===2?'🥉':`${i+1}.`;\n  msg += `${medal} ${c.bookmaker} — mejor cuota ${c.pct}% de las veces\\n`;\n});\n\nmsg += `\\n💡 Abre cuenta primero en:\\n`;\nmsg += top10.slice(0,3).map((c,i)=>`  ${i+1}. ${c.bookmaker}`).join('\\n');\n\nmsg += `\\n\\n━━━━━━ 📈 RESUMEN DEL DÍA ━━━━━━\\n`;\nif (surebets.length>0) {\n  msg += `✅ Surebets detectadas: ${surebets.length}\\n`;\n  msg += `📊 Beneficio promedio: ${beneficioPromedio}%\\n`;\n  msg += `🏆 Mejor oportunidad: ${beneficioMax}%\\n`;\n  msg += `\\n💰 Si hubieras ejecutado todas con S/500:\\n`;\n  const ganancia = beneficios.reduce((a,b)=>a+(500*(b/100)),0);\n  msg += `   Ganancia acumulada estimada: S/${ganancia.toFixed(2)}`;\n} else {\n  msg += `ℹ️ Hoy no se detectaron surebets confirmadas\\n`;\n  msg += `   (normal — ocurren 0-3 veces por día en promedio)`;\n}\n\nreturn [{ json: { rankingMsg:msg, ranking:sorted, totalRegistros:registros.length, surebetsHoy:surebets.length }}];\n"
       },
       "name": "Code - BookmakerRanking",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        2944,
-        832
+        4832,
+        1264
       ],
-      "id": "1af3a3e8-06fc-44ad-b19d-19e583b541d4"
+      "id": "daaf64ae-0e71-4522-9a52-c076603dd4a5"
     },
     {
       "parameters": {
@@ -501,10 +501,10 @@
       "type": "n8n-nodes-base.baserow",
       "typeVersion": 1.1,
       "position": [
-        2672,
-        832
+        4560,
+        1264
       ],
-      "id": "756ec198-1585-48f7-a7d4-4ec580f6b2ab",
+      "id": "ab7e5c91-1ef1-4e43-b0fc-d15857726a8e",
       "name": "Get all rows - Ranking",
       "alwaysOutputData": true,
       "credentials": {
@@ -529,10 +529,10 @@
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.2,
       "position": [
-        2384,
-        832
+        4272,
+        1264
       ],
-      "id": "33907bb1-d4b4-4999-b7f1-e67e2bae67b4",
+      "id": "9f58dfa8-74d0-42d6-aaa2-8682d7d7255d",
       "disabled": true
     },
     {
@@ -543,10 +543,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        3216,
-        1232
+        5104,
+        1664
       ],
-      "id": "78085db0-68a8-4d60-9c17-d01c844dda46"
+      "id": "17b22f9c-b4ec-423c-a251-83166372ccf6"
     },
     {
       "parameters": {
@@ -626,10 +626,10 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        2672,
-        1008
+        4560,
+        1440
       ],
-      "id": "3aba3270-7b8d-46f5-9ae9-03016dc4657a"
+      "id": "e4de629c-cb1a-4825-b458-df8e90043101"
     },
     {
       "parameters": {
@@ -650,6 +650,14 @@
             {
               "fieldId": 8681222,
               "fieldValue": "={{ (parseInt($('Function - AttachLastHash').item.json.DeteccionesCount) || 0) + 1 }}"
+            },
+            {
+              "fieldId": 8703892,
+              "fieldValue": "={{ $('Loop Over Items').item.json.timestamp ? parseInt($('Loop Over Items').item.json.timestamp) : null }}"
+            },
+            {
+              "fieldId": 8703893,
+              "fieldValue": "={{ $('Function - RoundingAndCurrency').item.json.matchDatetime }}"
             }
           ]
         }
@@ -657,10 +665,10 @@
       "type": "n8n-nodes-base.baserow",
       "typeVersion": 1.1,
       "position": [
-        3904,
-        1312
+        5792,
+        1744
       ],
-      "id": "6788c62e-c0e8-4495-a62c-2066f756f706",
+      "id": "9468f68a-6e25-4c3a-807d-f4073243dc35",
       "name": "Update a row",
       "credentials": {
         "baserowTokenApi": {
@@ -678,7 +686,7 @@
           "fieldValues": [
             {
               "fieldId": 8639447,
-              "fieldValue": "={{ $('Loop Over Items').item.json.match }}"
+              "fieldValue": "={{ $('Loop Over Items').item.json.match + ' | ' + $('Loop Over Items').item.json.market }}"
             },
             {
               "fieldId": 8639448,
@@ -694,19 +702,27 @@
             },
             {
               "fieldId": 8680865,
-              "fieldValue": "={{ $('Loop Over Items').item.json.best.home.bookmaker }}"
+              "fieldValue": "={{ $('Loop Over Items').item.json.outcomes?.[0]?.bookmaker || '' }}"
             },
             {
               "fieldId": 8680901,
-              "fieldValue": "={{ $('Loop Over Items').item.json.best.draw.bookmaker }}"
+              "fieldValue": "={{ $('Loop Over Items').item.json.outcomes?.[1]?.bookmaker || '' }}"
             },
             {
               "fieldId": 8680902,
-              "fieldValue": "={{ $('Loop Over Items').item.json.best.away.bookmaker }}"
+              "fieldValue": "={{ $('Loop Over Items').item.json.outcomes?.[2]?.bookmaker || '' }}"
             },
             {
               "fieldId": 8681222,
               "fieldValue": "1"
+            },
+            {
+              "fieldId": 8703892,
+              "fieldValue": "={{ $('Loop Over Items').item.json.timestamp ? parseInt($('Loop Over Items').item.json.timestamp) : null }}"
+            },
+            {
+              "fieldId": 8703893,
+              "fieldValue": "={{ $('Function - RoundingAndCurrency').item.json.matchDatetime }}"
             }
           ]
         }
@@ -714,10 +730,10 @@
       "type": "n8n-nodes-base.baserow",
       "typeVersion": 1.1,
       "position": [
-        3904,
-        1440
+        5792,
+        1872
       ],
-      "id": "2bf2aff4-3b73-4844-b67b-37eeec100809",
+      "id": "df9dd4a7-a90e-45d6-a51e-fabe9bbc0d38",
       "name": "Create a row",
       "credentials": {
         "baserowTokenApi": {
@@ -748,10 +764,10 @@
       "type": "n8n-nodes-base.baserow",
       "typeVersion": 1.1,
       "position": [
-        4288,
-        1872
+        6176,
+        2304
       ],
-      "id": "26cb137d-ba26-4aa3-8937-1cfa939928ce",
+      "id": "d16bc190-7f1a-4cf5-8ede-a6552f5d1055",
       "name": "Update a row - AlertSent",
       "rowId": null,
       "credentials": {
@@ -780,10 +796,10 @@
       "type": "n8n-nodes-base.baserow",
       "typeVersion": 1.1,
       "position": [
-        4080,
-        1872
+        5968,
+        2304
       ],
-      "id": "c07b0007-38e0-417c-bb47-04352dfb0702",
+      "id": "631ee119-e351-4848-8340-0d79f47d9a83",
       "name": "Get many rows - By Match",
       "alwaysOutputData": true,
       "credentials": {
@@ -796,17 +812,17 @@
     {
       "parameters": {
         "chatId": "={{ $('CONFIG').first().json.CFG_TELEGRAM_CHAT_ID }}",
-        "text": "={{ \n  ($json.oportunidadCerrada\n    ? '❌ OPORTUNIDAD CERRADA\\n' +\n      '⚽ ' + $json.match + '\\n' +\n      '📉 Beneficio cayó de ' + $json.beneficioPrevio.toFixed(2) + '% a ' + $json.beneficioPctFmt + '\\n' +\n      '⚠️ No ejecutes si aún no lo hiciste'\n    :\n      ($json.esSegundaAlerta ? '⚠️ MEJORA EN PARTIDO YA OPERADO\\n' : '') +\n      '🎯 ' + $json.tipoLabel + '\\n' +\n      '📋 ' + ($json.ligaFmt || 'Liga desconocida') + '\\n' +\n      '📅 ' + $json.fechaPartidoFmt + '\\n\\n' +\n      '⚽ Partido: ' + $json.match + '\\n' +\n      '💹 Beneficio: ' + $json.beneficioPctFmt + ' → ' + $json.gananciaEsperadaFmt + ($json.esSegundaAlerta ? ' (antes: ' + $json.beneficioPrevio.toFixed(2) + '%)' : '') + '\\n' +\n      ($json.esSegundaAlerta ? '📈 Mejora: +' + $json.mejora.toFixed(2) + '%\\n' : '') +\n      '🏠 Casas distintas: ' + ($json.casasDistintas || 0) + '/3\\n' +\n      '🤖 Confianza IA: ' + $json.confianza + '/100\\n' +\n      '💬 ' + ($json.comentario || '') + '\\n\\n' +\n      '📌 Mejores cuotas:\\n' +\n      '  Local:     ' + ($json.best?.home?.odds || '-') + ' → ' + ($json.best?.home?.bookmaker || '-') + '\\n' +\n      ($json.best?.home?.url ? '  🔗 ' + $json.best.home.url + '\\n' : '') +\n      '  Empate:    ' + ($json.best?.draw?.odds || '-') + ' → ' + ($json.best?.draw?.bookmaker || '-') + '\\n' +\n      ($json.best?.draw?.url ? '  🔗 ' + $json.best.draw.url + '\\n' : '') +\n      '  Visitante: ' + ($json.best?.away?.odds || '-') + ' → ' + ($json.best?.away?.bookmaker || '-') + '\\n' +\n      ($json.best?.away?.url ? '  🔗 ' + $json.best.away.url + '\\n' : '') +\n      '\\n' +\n      ($json.tipo === 'surebet'\n        ? '💰 Arbitraje — apuesta en 3 casas distintas:\\n' +\n          '  Local:     S/' + ($json.stakesRounded?.home || '0') + ' en ' + ($json.best?.home?.bookmaker || '-') + '\\n' +\n          '  Empate:    S/' + ($json.stakesRounded?.draw || '0') + ' en ' + ($json.best?.draw?.bookmaker || '-') + '\\n' +\n          '  Visitante: S/' + ($json.stakesRounded?.away || '0') + ' en ' + ($json.best?.away?.bookmaker || '-') + '\\n' +\n          '  Capital total: S/' + ($json.capitalApostado || $json.capitalTotal || 500) + '\\n' +\n          '\\n✅ Ganancia garantizada: ' + $json.gananciaEsperadaFmt\n        : '💰 Apuesta simple (value bet):\\n' +\n          ($json.valueBetsFmt ? $json.valueBetsFmt + '\\n' : 'Sin value bets calculados\\n') +\n          '\\n⚠️ No es arbitraje — solo apuesta si confías en el valor'\n      )\n  )\n}}",
+        "text": "={{ \n  ($json.oportunidadCerrada\n    ? '❌ OPORTUNIDAD CERRADA\\n' +\n      '⚽ ' + $json.match + '\\n' +\n      '🏷️ ' + ($json.marketFmt || $json.market) + '\\n' +\n      '📉 Beneficio: ' + $json.beneficioPrevio.toFixed(2) + '% → ' + $json.beneficioPctFmt + '\\n\\n' +\n      ($json.beneficioPrevio > 0\n        ? '⚠️ Si YA apostaste: recibirás menos ganancia de lo esperado\\n' +\n          '⚠️ Si NO apostaste aún: NO lo hagas, ya no es rentable'\n        : '⚠️ La oportunidad se cerró antes de poder ejecutar')\n    :\n      ($json.esSegundaAlerta ? '⚠️ MEJORA DETECTADA — oportunidad ya alertada\\n\\n' : '') +\n      $json.tipoLabel + '\\n' +\n      '🏷️ Mercado: ' + ($json.marketFmt || $json.market) + '\\n' +\n      '📋 ' + ($json.ligaFmt || 'Liga desconocida') + '\\n' +\n      '📅 ' + $json.fechaPartidoFmt + '\\n' +\n      '⏱️ Tiempo al partido: ' + ($json.horasRestantes ?? '?') + 'h\\n\\n' +\n      '⚽ ' + $json.match + '\\n' +\n      '💹 Beneficio: ' + $json.beneficioPctFmt +\n        ($json.tipo === 'surebet' ? ' → Ganancia neta: ' + $json.gananciaEsperadaFmt : '') +\n        ($json.esSegundaAlerta ? ' (antes: ' + $json.beneficioPrevio.toFixed(2) + '%)' : '') + '\\n' +\n      ($json.esSegundaAlerta ? '📈 Mejora: +' + $json.mejora.toFixed(2) + '%\\n' : '') +\n      '🏠 Casas independientes: ' + ($json.casasDistintas || 0) + '\\n' +\n      '🤖 Confianza IA: ' + $json.confianza + '/100\\n' +\n      ($json.hasPinnacle ? '📊 Referencia: Pinnacle ✅\\n' : '') +\n      '💬 ' + ($json.comentario || '') + '\\n\\n' +\n      '📌 Mejores cuotas:\\n' + ($json.cuotasDetalle || 'Sin detalle') + '\\n\\n' +\n      ($json.tipo === 'surebet'\n        ? '━━━━━━ 💰 EJECUTA AHORA ━━━━━━\\n' +\n          'Capital: S/' + ($json.capitalApostado || $json.capitalTotal || 500) + '\\n' +\n          'Distribución:\\n' + ($json.stakesDetalle || 'Sin detalle') + '\\n' +\n          '\\n✅ Ganancia mínima garantizada: ' + $json.gananciaEsperadaFmt\n        : '━━━━━━ 💰 VALUE BET ━━━━━━\\n' +\n          ($json.valueBetsFmt ? $json.valueBetsFmt + '\\n' : 'Sin value bets\\n') +\n          '\\n⚠️ No es arbitraje — hay riesgo de pérdida'\n      ) + '\\n\\n' +\n      ($json.guiaPrincipiante ? $json.guiaPrincipiante : '')\n  )\n}}",
         "additionalFields": {}
       },
       "name": "Telegram - Send Alert",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1,
       "position": [
-        4096,
-        1648
+        5984,
+        2080
       ],
-      "id": "c4d74f7a-71bb-4c7a-8218-945981b49b2a",
+      "id": "fcba7939-6d4c-4c09-818f-29dc989a4632",
       "webhookId": "2b8ac5eb-76d0-49fc-9974-52022209ced6",
       "credentials": {
         "telegramApi": {
@@ -843,10 +859,10 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.3,
       "position": [
-        3872,
-        1664
+        5760,
+        2096
       ],
-      "id": "8fca5aff-1adc-4495-a6cb-0222ff3194f9"
+      "id": "cde46447-b24d-45c7-b177-98c776cac928"
     },
     {
       "parameters": {
@@ -855,49 +871,49 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        3680,
-        1664
+        5568,
+        2096
       ],
-      "id": "bbc28eb9-8fea-4a41-8bb0-5a68e9c3ced7",
+      "id": "83024077-8988-4828-ba59-849d200a0ebb",
       "name": "Code - ShouldAlert"
     },
     {
       "parameters": {
-        "jsCode": "return items.map(item => {\n  const out = { ...item.json };\n\n  // Beneficio formateado\n  out.beneficioPctFmt = out.beneficioPct !== undefined\n    ? `${Number(out.beneficioPct).toFixed(2)}%`\n    : '0.00%';\n\n  // Stakes ya vienen redondeados a múltiplos de 5 desde SurebetCalc\n  if (out.stakes) {\n    out.stakesRounded = {\n      home: out.stakes.home,\n      draw: out.stakes.draw,\n      away: out.stakes.away\n    };\n  } else {\n    out.stakesRounded = { home: 0, draw: 0, away: 0 };\n  }\n\n  // Cuotas formateadas\n  if (out.best) {\n    out.bestFmt = {\n      home: `${out.best.home?.odds ?? '-'} (${out.best.home?.bookmaker ?? '-'})`,\n      draw: `${out.best.draw?.odds ?? '-'} (${out.best.draw?.bookmaker ?? '-'})`,\n      away: `${out.best.away?.odds ?? '-'} (${out.best.away?.bookmaker ?? '-'})`\n    };\n  }\n\n  // Etiqueta tipo\n  out.tipoLabel = out.tipo === 'surebet'   ? '🔒 Surebet'\n    : out.tipo === 'valuebet' ? '📈 Value Bet'\n    : '⚪ Sin oportunidad';\n\n  // Liga y país\n  out.ligaFmt = [out.league, out.country].filter(Boolean).join(' · ') || 'Liga desconocida';\n\n  // Fecha legible del partido (hoy vs mañana vs fecha)\n  if (out.timestamp) {\n    const matchDate = new Date(Number(out.timestamp) * 1000);\n    const ahora     = new Date();\n\n    const horaFmt = matchDate.toLocaleTimeString('es-PE', {\n      timeZone: 'America/Lima',\n      hour: '2-digit', minute: '2-digit'\n    });\n\n    const hoy     = ahora.toLocaleDateString('en-CA', { timeZone: 'America/Lima' });\n    const manana  = new Date(ahora.getTime() + 86400000)\n                      .toLocaleDateString('en-CA', { timeZone: 'America/Lima' });\n    const fechaMatch = matchDate.toLocaleDateString('en-CA', { timeZone: 'America/Lima' });\n\n    if (fechaMatch === hoy) {\n      out.fechaPartidoFmt = `Hoy ${horaFmt}`;\n    } else if (fechaMatch === manana) {\n      out.fechaPartidoFmt = `Mañana ${horaFmt}`;\n    } else {\n      const diaFmt = matchDate.toLocaleDateString('es-PE', {\n        timeZone: 'America/Lima',\n        day: '2-digit', month: '2-digit'\n      });\n      out.fechaPartidoFmt = `${diaFmt} ${horaFmt}`;\n    }\n  } else {\n    out.fechaPartidoFmt = 'Fecha desconocida';\n  }\n\n  // Value bets summary\n  out.valueBetsFmt = (out.valueBets || []).length > 0\n    ? out.valueBets.map(v =>\n        `${v.label}: cuota ${v.cuota} en ${v.bookmaker} (ROI +${v.roi}%)`\n      ).join('\\n')\n    : null;\n\n  // Ganancia esperada en soles\n  const gan = out.gananciaEsperada ?? 0;\n  out.gananciaEsperadaFmt = gan >= 0\n    ? `S/${gan.toFixed(2)}`\n    : `-S/${Math.abs(gan).toFixed(2)}`;\n\n  return { json: out };\n});"
+        "jsCode": "\nreturn items.map(item => {\n  const out   = { ...item.json };\n  const market = out.market || '1X2';\n\n  out.beneficioPctFmt = `${Number(out.beneficioPct??0).toFixed(2)}%`;\n  const gan = out.gananciaEsperada ?? 0;\n  out.gananciaEsperadaFmt = gan>=0 ? `S/${gan.toFixed(2)}` : `-S/${Math.abs(gan).toFixed(2)}`;\n  out.stakesRounded = out.stakes || {};\n\n  const mktLabels = {'1X2':'⚽ Resultado 1X2','DBL':'🔄 Doble Oportunidad','BTTS':'🥅 Ambos Anotan'};\n  out.marketFmt = mktLabels[market] || (market.startsWith('OU_') ? `⬆️ Over/Under ${market.replace('OU_','')}` : market);\n\n  out.tipoLabel = out.tipo==='surebet' ? '🔒 SUREBET (ganancia garantizada)'\n    : out.tipo==='valuebet' ? '📈 VALUE BET (cuota con valor)' : '⚪ Sin oportunidad';\n\n  out.ligaFmt = [out.league, out.country].filter(Boolean).join(' · ') || 'Liga desconocida';\n\n  // Fecha partido\n  if (out.timestamp) {\n    const md    = new Date(Number(out.timestamp)*1000);\n    const ahora = new Date();\n    const hFmt  = md.toLocaleTimeString('es-PE',{timeZone:'America/Lima',hour:'2-digit',minute:'2-digit'});\n    const hoy   = ahora.toLocaleDateString('en-CA',{timeZone:'America/Lima'});\n    const man   = new Date(ahora.getTime()+86400000).toLocaleDateString('en-CA',{timeZone:'America/Lima'});\n    const fM    = md.toLocaleDateString('en-CA',{timeZone:'America/Lima'});\n    out.fechaPartidoFmt = fM===hoy?`Hoy ${hFmt}`:fM===man?`Mañana ${hFmt}`\n      :`${md.toLocaleDateString('es-PE',{timeZone:'America/Lima',day:'2-digit',month:'2-digit'})} ${hFmt}`;\n    // Datetime legible para Baserow\n    out.matchDatetime = `${fM}T${hFmt}:00`;\n  } else {\n    out.fechaPartidoFmt = 'Fecha desconocida';\n    out.matchDatetime   = null;\n  }\n\n  const labelOf = l => l==='home'?'Local':l==='draw'?'Empate':l==='away'?'Visitante'\n    :l==='over'?'Over':l==='under'?'Under':l==='si'?'Sí':l==='no'?'No'\n    :l==='1X'?'1X (Local/Empate)':l==='12'?'12 (Local/Visit.)':l==='X2'?'X2 (Empate/Visit.)':l.toUpperCase();\n\n  const stakes   = out.stakes   || {};\n  const outcomes = out.outcomes || [];\n\n  out.stakesDetalle = outcomes\n    .filter(o=>stakes[o.label])\n    .map(o=>`  ${labelOf(o.label).padEnd(20)}: S/${stakes[o.label]} en ${o.bookmaker}`+(o.url?`\\n  🔗 ${o.url}`:''))\n    .join('\\n');\n\n  out.cuotasDetalle = outcomes\n    .filter(o=>o.odds>1)\n    .map(o=>`  ${labelOf(o.label).padEnd(20)}: ${o.odds} @ ${o.bookmaker}`+(o.url?`\\n  🔗 ${o.url}`:''))\n    .join('\\n');\n\n  out.valueBetsFmt = (out.valueBets||[]).length>0\n    ? out.valueBets.map(v=>`  ${v.label}: cuota ${v.cuota} en ${v.bookmaker} (ROI +${v.roi}%)`+(v.url?`\\n  🔗 ${v.url}`:'')+(out.hasPinnacle?` [ref. Pinnacle]`:'')).join('\\n')\n    : null;\n\n  const horasR   = out.horasRestantes ?? 0;\n  const urgencia = horasR<=2 ? '🔴 URGENTE — menos de 2h para el partido'\n    : horasR<=6 ? '🟡 Actúa pronto — cuotas cambian en las últimas horas'\n    : '🟢 Hay tiempo — verifica cuotas antes de apostar';\n\n  if (out.tipo==='surebet') {\n    out.guiaPrincipiante = [\n      `━━━━━━ 📚 GUÍA PASO A PASO ━━━━━━`,\n      `Ganancia GARANTIZADA. Funciona porque las casas tienen cuotas`,\n      `distintas y la suma de probabilidades implícitas < 1.`,\n      ``,\n      `✅ HAZ ESTO (en orden):`,\n      `1. Abre los links de CADA casa (arriba)`,\n      `2. VERIFICA que las cuotas coincidan exactamente`,\n      `3. Apuesta primero en la cuota MÁS ALTA (cambia más rápido)`,\n      `4. Usa los S/ exactos indicados — no redondees`,\n      `5. Confirma cada apuesta antes de cerrar la página`,\n      ``,\n      `⚠️ RIESGOS REALES:`,\n      `• Cuotas cambian en minutos — actúa rápido`,\n      `• Necesitas saldo en CADA casa simultáneamente`,\n      `• No uses Inkabet + Betsson + Betsafe juntas — son la misma empresa`,\n      `• Verifica que el partido siga en estado \"No iniciado\"`,\n      ``,\n      urgencia\n    ].join('\\n');\n  } else if (out.tipo==='valuebet') {\n    const sugerido = Math.round((out.capitalTotal||500)*0.03);\n    out.guiaPrincipiante = [\n      `━━━━━━ 📚 GUÍA VALUE BET ━━━━━━`,\n      `La cuota ofrecida supera el valor matemático.`,\n      `No garantiza ganancia hoy, pero es rentable a largo plazo.`,\n      out.hasPinnacle ? `📊 Referencia: Pinnacle (la casa más precisa del mundo)` : `📊 Referencia: probabilidad implícita normalizada`,\n      ``,\n      `💰 Monto sugerido: S/${sugerido} (3% del capital)`,\n      `   Solo apuesta si entiendes el mercado: ${out.marketFmt}`,\n      ``,\n      urgencia\n    ].join('\\n');\n  } else {\n    out.guiaPrincipiante = null;\n  }\n\n  return { json: out };\n});\n"
       },
       "name": "Function - RoundingAndCurrency",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        3488,
-        1664
+        5376,
+        2096
       ],
-      "id": "bf063369-eaef-4fc5-b9e4-4dfdb99a4544"
+      "id": "0a7b3a48-3bcf-412d-ac01-49a714e8536e"
     },
     {
       "parameters": {
-        "jsCode": "// ValueCalc — Opción A\n// Probabilidades implícitas derivadas matemáticamente de las cuotas\n// NO se usan probabilidades del LLM\nconst threshold = Number($('CONFIG').first().json.CFG_VALUE_THRESHOLD ?? 1.05);\n\nreturn items.map(item => {\n  const { match, best, stakes, beneficioPct, capitalTotal, currencies, surebet,\n          tipo, riesgo, confianza, comentario, league, country, region,\n          horasRestantes, margen } = item.json;\n\n  // Probabilidades implícitas normalizadas (eliminan el margen de la casa)\n  const oHome = best?.home?.odds || 0;\n  const oDraw = best?.draw?.odds || 0;\n  const oAway = best?.away?.odds || 0;\n\n  const invSum = (oHome > 0 ? 1/oHome : 0)\n               + (oDraw > 0 ? 1/oDraw : 0)\n               + (oAway > 0 ? 1/oAway : 0);\n\n  const prob = invSum > 0 ? {\n    local:     (1/oHome) / invSum,\n    empate:    (1/oDraw) / invSum,\n    visitante: (1/oAway) / invSum\n  } : { local: 0.33, empate: 0.33, visitante: 0.34 };\n\n  // Valor esperado por resultado\n  const valHome = prob.local     * oHome;\n  const valDraw = prob.empate    * oDraw;\n  const valAway = prob.visitante * oAway;\n\n  const valueBets = [];\n  if (valHome > threshold) valueBets.push({\n    outcome: 'home', label: 'Local',\n    valor: valHome,\n    roi: ((valHome - 1) * 100).toFixed(2),\n    bookmaker: best?.home?.bookmaker,\n    cuota: best?.home?.odds\n  });\n  if (valDraw > threshold) valueBets.push({\n    outcome: 'draw', label: 'Empate',\n    valor: valDraw,\n    roi: ((valDraw - 1) * 100).toFixed(2),\n    bookmaker: best?.draw?.bookmaker,\n    cuota: best?.draw?.odds\n  });\n  if (valAway > threshold) valueBets.push({\n    outcome: 'away', label: 'Visitante',\n    valor: valAway,\n    roi: ((valAway - 1) * 100).toFixed(2),\n    bookmaker: best?.away?.bookmaker,\n    cuota: best?.away?.odds\n  });\n\n  return {\n    json: {\n      match, best, league, country, region, horasRestantes, margen,\n      prob, valueBets, surebet,\n      tipo, riesgo, confianza, comentario,\n      stakes, capitalTotal, currencies,\n      beneficioPct,\n      roiPct: valueBets.map(v => v.roi)\n    }\n  };\n});"
+        "jsCode": "\nconst threshold = Number($('CONFIG').first().json.CFG_VALUE_THRESHOLD ?? 1.05);\n\nreturn items.map(item => {\n  const d = item.json;\n  const { match, market, marketLabel, best, bestDynamic, outcomes,\n          stakes, beneficioPct, capitalTotal, capitalApostado, gananciaEsperada,\n          currencies, surebet, tipo, riesgo, confianza, comentario,\n          league, country, region, horasRestantes, margen, casasDistintas,\n          pinnacleRef, pinnacleProb, timestamp } = d;\n\n  const validOutcomes = (outcomes||[]).filter(o=>o.odds>1);\n  if (validOutcomes.length===0) return { json:{...d, prob:{}, valueBets:[], roiPct:[]} };\n\n  // Probabilidades: Pinnacle si disponible, implícitas si no\n  let prob = {};\n  if (pinnacleProb && Object.keys(pinnacleProb).length>0) {\n    prob = pinnacleProb;  // más preciso\n  } else {\n    const sumInv = validOutcomes.reduce((acc,o)=>acc+1/o.odds,0);\n    validOutcomes.forEach(o=>{ prob[o.label]=(1/o.odds)/sumInv; });\n  }\n\n  const hasPinnacle = !!pinnacleProb && Object.keys(pinnacleProb).length>0;\n\n  const labelOf = l => l==='home'?'Local':l==='draw'?'Empate':l==='away'?'Visitante'\n    :l==='over'?'Over':l==='under'?'Under':l==='si'?'Ambos Anotan Sí'\n    :l==='no'?'Ambos Anotan No':l.toUpperCase();\n\n  const valueBets = [];\n  validOutcomes.forEach(o => {\n    const p = prob[o.label] || 0;\n    if (p===0) return;\n    const val = p * o.odds;\n    if (val > threshold) {\n      valueBets.push({\n        outcome: o.label, label: labelOf(o.label),\n        valor: val, roi: ((val-1)*100).toFixed(2),\n        bookmaker: o.bookmaker, cuota: o.odds, url: o.url||null,\n        probabilidad: (p*100).toFixed(1),\n        fuente: hasPinnacle ? 'Pinnacle' : 'implícita'\n      });\n    }\n  });\n\n  return { json: {\n    match, market, marketLabel, best, bestDynamic, outcomes,\n    league, country, region, horasRestantes, margen, casasDistintas,\n    timestamp, pinnacleRef, pinnacleProb, hasPinnacle,\n    prob, valueBets, surebet, tipo, riesgo, confianza, comentario,\n    stakes, capitalTotal, capitalApostado, gananciaEsperada, currencies,\n    beneficioPct, roiPct: valueBets.map(v=>v.roi)\n  }};\n});\n"
       },
       "name": "Function - ValueCalc",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        3296,
-        1664
+        5184,
+        2096
       ],
-      "id": "34d6e63d-d64b-49e4-b1b2-ab8f97eddd81"
+      "id": "84726eeb-9422-42cb-9012-0605e6c8d13e"
     },
     {
       "parameters": {
-        "jsCode": "// ParseLLM & Merge\n// LLM Chain devuelve solo { text: '...' }\n// Datos del partido se recuperan desde Loop Over Items (fuente confiable)\nreturn items.map(item => {\n\n  // ── 1. Parsear respuesta LLM ──────────────────────────────\n  const rawText = item.json?.text || '';\n  let parsed = null;\n\n  if (rawText) {\n    let clean = rawText.trim()\n      .replace(/```json\\s*/gi, '')\n      .replace(/```\\s*/g, '')\n      .trim();\n    try {\n      parsed = JSON.parse(clean);\n    } catch (e) {\n      try {\n        const m = clean.match(/\\{[\\s\\S]*\\}/);\n        parsed = m ? JSON.parse(m[0]) : null;\n      } catch (e2) { parsed = null; }\n    }\n  }\n\n  const llm = {\n    tipo:       parsed?.tipo       || 'ninguno',\n    riesgo:     parsed?.riesgo     || 'alto',\n    confianza:  Number(parsed?.confianza ?? 0),\n    comentario: parsed?.comentario || 'Sin análisis'\n  };\n\n  // ── 2. Datos del partido desde Loop Over Items ─────────────\n  const src = $('Loop Over Items').item.json;\n\n  return {\n    json: {\n      match:          src.match          ?? null,\n      best:           src.best           ?? null,\n      league:         src.league         ?? null,\n      country:        src.country        ?? null,\n      region:         src.region         ?? null,\n      horasRestantes: src.horasRestantes ?? null,\n      surebet:        src.surebet        ?? false,\n      beneficioPct:   src.beneficioPct   ?? 0,\n      margen:         src.margen         ?? null,\n      stakes:         src.stakes         ?? null,\n      capitalTotal:   src.capitalTotal   ?? 100,\n      currencies:     src.currencies     ?? { home: 'PEN', draw: 'PEN', away: 'PEN' },\n      hash:           src.hash           ?? null,\n      tipo:       llm.tipo,\n      riesgo:     llm.riesgo,\n      confianza:  llm.confianza,\n      comentario: llm.comentario\n    }\n  };\n});"
+        "jsCode": "\nreturn items.map(item => {\n  const rawText = item.json?.text || '';\n  let parsed = null;\n  if (rawText) {\n    let clean = rawText.trim().replace(/```json\\s*/gi,'').replace(/```\\s*/g,'').trim();\n    try { parsed = JSON.parse(clean); }\n    catch(e) { try { const m=clean.match(/\\{[\\s\\S]*\\}/); parsed=m?JSON.parse(m[0]):null; } catch(e2){} }\n  }\n  const llm = {\n    tipo:       parsed?.tipo       || 'ninguno',\n    riesgo:     parsed?.riesgo     || 'alto',\n    confianza:  Number(parsed?.confianza ?? 0),\n    comentario: parsed?.comentario || 'Sin análisis'\n  };\n  const src = $('Loop Over Items').item.json;\n  return { json: {\n    match:           src.match           ?? null,\n    market:          src.market          ?? '1X2',\n    marketLabel:     src.marketLabel     ?? '1X2',\n    best:            src.best            ?? null,\n    bestDynamic:     src.bestDynamic     ?? null,\n    outcomes:        src.outcomes        ?? [],\n    league:          src.league          ?? null,\n    country:         src.country         ?? null,\n    region:          src.region          ?? null,\n    horasRestantes:  src.horasRestantes  ?? null,\n    timestamp:       src.timestamp       ?? null,\n    surebet:         src.surebet         ?? false,\n    beneficioPct:    src.beneficioPct    ?? 0,\n    margen:          src.margen          ?? null,\n    stakes:          src.stakes          ?? null,\n    capitalTotal:    src.capitalTotal    ?? 500,\n    capitalApostado: src.capitalApostado ?? 500,\n    gananciaEsperada:src.gananciaEsperada?? 0,\n    casasDistintas:  src.casasDistintas  ?? 0,\n    currencies:      src.currencies      ?? {},\n    pinnacleRef:     src.pinnacleRef     ?? null,\n    pinnacleProb:    src.pinnacleProb    ?? null,\n    hash:            src.hash            ?? null,\n    tipo:       llm.tipo,\n    riesgo:     llm.riesgo,\n    confianza:  llm.confianza,\n    comentario: llm.comentario\n  }};\n});\n"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        2896,
-        1664
+        4784,
+        2096
       ],
-      "id": "646e8be5-3734-4905-b05c-c7d3131bd7c8",
+      "id": "a9b17656-bb0c-48db-ae8e-92ba85743e55",
       "name": "Code - ParseLLM & Merge"
     },
     {
@@ -908,10 +924,10 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
       "typeVersion": 1,
       "position": [
-        2592,
-        1840
+        4480,
+        2272
       ],
-      "id": "fe4647a5-3c5c-4426-9d4a-d3f44aa29570",
+      "id": "69abd603-8282-4577-8fb4-a6ff2ee72176",
       "name": "openai/gpt-4o-mini",
       "credentials": {
         "openRouterApi": {
@@ -923,11 +939,11 @@
     {
       "parameters": {
         "promptType": "define",
-        "text": "Clasifica esta oportunidad:\n\n{{ $json.payloadString }}\n\nDevuelve SOLO el JSON. Sin explicaciones. Sin markdown.",
+        "text": "Clasifica esta oportunidad (mercado: {{ $json.market }}):\n\n{{ $json.payloadString }}\n\nDevuelve SOLO el JSON.",
         "messages": {
           "messageValues": [
             {
-              "message": "Eres un analista de arbitraje deportivo. Tu única tarea es clasificar oportunidades de apuesta basándote EXCLUSIVAMENTE en los datos matemáticos que recibes (margen, beneficioPct, cuotas). NO estimas probabilidades. NO usas conocimiento externo sobre equipos o ligas.\n\nDevuelve SIEMPRE un objeto JSON puro, sin markdown, sin backticks, con exactamente esta estructura:\n\n{\n  \"tipo\": \"surebet | valuebet | ninguno\",\n  \"riesgo\": \"alto | medio | bajo\",\n  \"confianza\": 85,\n  \"comentario\": \"texto breve en español, máximo 100 caracteres\"\n}\n\nReglas de clasificación:\n- tipo='surebet': cuando margen < 1 (beneficioPct > 0). Ganancia matemáticamente garantizada.\n- tipo='valuebet': cuando margen >= 1 pero alguna cuota parece subvalorada por el mercado (ej: cuota muy superior al promedio histórico de esa posición).\n- tipo='ninguno': sin oportunidad clara.\n\nReglas de riesgo (basado en beneficioPct):\n- bajo: beneficioPct > 2.0% — margen amplio, estable\n- medio: beneficioPct entre 0.5% y 2.0% — margen ajustado\n- alto: beneficioPct < 0.5% o cuotas de una sola casa dominan\n\nReglas de confianza (0-100):\n- 80-100: surebet con beneficioPct > 1.5%, mínimo 2 casas distintas\n- 60-79: surebet con beneficioPct 0.5-1.5%\n- 40-59: valuebet o surebet marginal\n- 0-39: datos insuficientes o inconsistentes\n\nEl comentario debe ser útil para decidir si ejecutar la apuesta. Ejemplo: 'Surebet sólida, 3 casas distintas, cuotas estables 6h'\n\nSi faltan datos: tipo:'ninguno', riesgo:'alto', confianza:0, comentario:'datos insuficientes'.\nNUNCA incluyas texto fuera del JSON."
+              "message": "Eres un analista de arbitraje deportivo. Clasifica EXCLUSIVAMENTE con datos matemáticos (margen, beneficioPct, cuotas, mercado). Sin conocimiento externo.\n\nDevuelve JSON puro sin markdown:\n{\n  \"tipo\": \"surebet | valuebet | ninguno\",\n  \"riesgo\": \"alto | medio | bajo\",\n  \"confianza\": 85,\n  \"comentario\": \"máximo 100 caracteres, menciona el mercado\"\n}\n\nMercados: 1X2 (3 casas independientes para surebet), OU_1.5/OU_2.5/OU_3.5 (2 casas), BTTS (2 casas), DBL (informativo).\nTipo: surebet=margen<1 con casas suficientes | valuebet=cuota supera valor implícito | ninguno=sin oportunidad.\nRiesgo: bajo>2% | medio 0.5-2% | alto<0.5%.\nConfianza: 80-100 surebet>1.5% | 60-79 surebet 0.5-1.5% | 40-59 marginal | 0-39 insuficiente.\nNota: Betsafe/Inkabet/Betsson son la MISMA empresa — no cuentan como casas independientes.\nNUNCA texto fuera del JSON."
             }
           ]
         },
@@ -936,23 +952,23 @@
       "type": "@n8n/n8n-nodes-langchain.chainLlm",
       "typeVersion": 1.9,
       "position": [
-        2592,
-        1664
+        4480,
+        2096
       ],
-      "id": "726cc78a-1509-458d-8cf8-433f0151b0f6",
+      "id": "05152fcc-765d-466d-930f-0fc09e4c49b2",
       "name": "Basic LLM Chain"
     },
     {
       "parameters": {
-        "jsCode": "const src = $('Loop Over Items').item.json;\n\nconst match          = src.match          || '';\nconst league         = src.league         || '';\nconst country        = src.country        || '';\nconst margen         = src.margen         ?? null;\nconst beneficioPct   = src.beneficioPct   ?? 0;\nconst surebet        = src.surebet        ?? false;\nconst casasDistintas = src.casasDistintas ?? 0;\nconst best           = src.best           || {};\n\n// Solo datos matemáticos relevantes para el clasificador\nconst normalized = {\n  match, league, country,\n  margen, beneficioPct, surebet, casasDistintas,\n  best: {\n    home: { odds: best?.home?.odds ?? null, bookmaker: best?.home?.bookmaker ?? null },\n    draw: { odds: best?.draw?.odds ?? null, bookmaker: best?.draw?.bookmaker ?? null },\n    away: { odds: best?.away?.odds ?? null, bookmaker: best?.away?.bookmaker ?? null }\n  }\n};\n\nconst hasOdds = normalized.best.home.odds\n  && normalized.best.draw.odds\n  && normalized.best.away.odds;\n\nreturn [{\n  json: {\n    ...src,\n    normalized,\n    payloadString: JSON.stringify(normalized),\n    skipLLM: !hasOdds\n  }\n}];"
+        "jsCode": "\nconst src = $('Loop Over Items').item.json;\nconst normalized = {\n  match:          src.match          || '',\n  league:         src.league         || '',\n  country:        src.country        || '',\n  market:         src.market         || '1X2',\n  marketLabel:    src.marketLabel    || src.market || '1X2',\n  margen:         src.margen         ?? null,\n  beneficioPct:   src.beneficioPct   ?? 0,\n  surebet:        src.surebet        ?? false,\n  casasDistintas: src.casasDistintas ?? 0,\n  outcomes: (src.outcomes || []).map(o => ({ label:o.label, odds:o.odds, bookmaker:o.bookmaker })),\n  hasPinnacle:    !!src.pinnacleProb\n};\nconst hasOdds = normalized.outcomes.length >= 2 && normalized.outcomes.every(o => o.odds > 1);\n// Skip LLM si margen > 1.03 — claramente sin oportunidad, ahorra llamadas API\nconst skipLLM = !hasOdds || (src.margen !== null && src.margen > 1.03 && !src.surebet);\nreturn [{ json: { ...src, normalized, payloadString: JSON.stringify(normalized), skipLLM } }];\n"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        2400,
-        1664
+        4288,
+        2096
       ],
-      "id": "67f1dfdc-8dd3-41af-aa2f-d4ea20a355e3",
+      "id": "781975ad-1c53-4a55-8b17-1a0348a3909a",
       "name": "Function - PayloadString"
     },
     {
@@ -983,10 +999,10 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.3,
       "position": [
-        3648,
-        1424
+        5536,
+        1856
       ],
-      "id": "cd7c5ce6-78b5-4c49-a939-b29c3850d0ae"
+      "id": "c7f6cf08-622f-49ce-a004-37fc1cb43dd5"
     },
     {
       "parameters": {
@@ -1016,10 +1032,10 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.3,
       "position": [
-        3360,
-        1440
+        5248,
+        1872
       ],
-      "id": "fdedc76c-6806-4471-acb9-20f1bea947ed"
+      "id": "154cb1b5-ef29-456a-8017-262b72862532"
     },
     {
       "parameters": {
@@ -1028,10 +1044,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        2992,
-        1440
+        4880,
+        1872
       ],
-      "id": "c80b7f90-ae72-4287-b93d-f21e9bf34114",
+      "id": "5cf3130f-ba61-43ef-845c-27d4cb3dceb9",
       "name": "Function - AttachLastHash"
     },
     {
@@ -1044,7 +1060,7 @@
             "fields": [
               {
                 "field": 8639447,
-                "value": "={{$json['match']}}"
+                "value": "={{$json['match'] + ' | ' + $json['market']}}"
               }
             ]
           }
@@ -1053,10 +1069,10 @@
       "type": "n8n-nodes-base.baserow",
       "typeVersion": 1.1,
       "position": [
-        2720,
-        1440
+        4608,
+        1872
       ],
-      "id": "e3e63c54-54c6-4569-8a4d-a0f25aba70f4",
+      "id": "eff6c9d9-e5b3-4e1b-b732-7f23ea9b42c6",
       "name": "Get many rows",
       "alwaysOutputData": true,
       "credentials": {
@@ -1075,76 +1091,76 @@
       "type": "n8n-nodes-base.splitInBatches",
       "typeVersion": 3,
       "position": [
-        2400,
-        1424
+        4288,
+        1856
       ],
-      "id": "eb2618a8-9089-4792-8221-5b1da232d592",
+      "id": "ad0cdaf5-a22c-400a-b558-f2fe106a9792",
       "name": "Loop Over Items"
     },
     {
       "parameters": {
-        "jsCode": "// Hash robusto con crypto nativo de Node.js\nconst crypto = require('crypto');\n\nreturn items.map(item => {\n  const { match, best } = item.json;\n  const raw = `${match}-${best?.home?.odds}-${best?.draw?.odds}-${best?.away?.odds}`;\n  const hash = crypto.createHash('md5').update(raw).digest('hex');\n  return { json: { ...item.json, hash } };\n});"
+        "jsCode": "\nconst crypto = require('crypto');\nreturn items.map(item => {\n  const { match, market, outcomes } = item.json;\n  const oddsStr = (outcomes||[])\n    .sort((a,b)=>a.label.localeCompare(b.label))\n    .map(o=>`${o.label}:${o.odds}:${o.bookmaker}`)\n    .join('|');\n  const raw  = `${match}||${market}||${oddsStr}`;\n  const hash = crypto.createHash('md5').update(raw).digest('hex');\n  return { json: { ...item.json, hash } };\n});\n"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        3648,
-        1232
+        5536,
+        1664
       ],
-      "id": "5477bd09-34f4-4a12-b304-53a2c75e8acc",
+      "id": "2de8fe64-7dbf-43d9-9a56-04f26ac3bd01",
       "name": "Generate Hash"
     },
     {
       "parameters": {
-        "jsCode": "const parseOdd = (v) => {\n  if (v === null || v === undefined) return NaN;\n  if (typeof v === 'number') return v;\n  let s = String(v).trim().replace(',', '.');\n  if (/^\\d+\\/\\d+$/.test(s)) {\n    const [a, b] = s.split('/').map(Number);\n    if (b === 0) return NaN;\n    return 1 + (a / b);\n  }\n  if (/^[+-]\\d+$/.test(s)) {\n    const n = Number(s);\n    if (n > 0) return 1 + (n / 100);\n    if (n < 0) return 1 + (100 / Math.abs(n));\n  }\n  if (s.endsWith('%')) {\n    const p = parseFloat(s.slice(0, -1));\n    if (!isFinite(p) || p <= 0) return NaN;\n    return 100 / p;\n  }\n  const num = Number(s);\n  if (isFinite(num)) {\n    if (num > 0 && num < 1) return 1 / num;\n    return num;\n  }\n  return NaN;\n};\n\nconst round = (n, d = 3) => Math.round(n * Math.pow(10, d)) / Math.pow(10, d);\n\n// Redondear al entero más cercano (sin decimales, sin riesgo matemático)\nconst roundToInt = (n) => Math.round(n);\n\nconst CAPITAL_TOTAL = Number($('CONFIG').first().json.CFG_CAPITAL ?? 100);\n\nreturn items.map(item => {\n  const { match, best, league, country, region, timestamp } = item.json || {};\n\n  if (!best) {\n    return { json: { match, error: 'best missing', raw: item.json } };\n  }\n\n  const cuotaHome = parseOdd(best?.home?.odds ?? null);\n  const cuotaDraw = parseOdd(best?.draw?.odds ?? null);\n  const cuotaAway = parseOdd(best?.away?.odds ?? null);\n\n  const invalid = [cuotaHome, cuotaDraw, cuotaAway].some(v => !isFinite(v) || v <= 0);\n  if (invalid) {\n    return {\n      json: {\n        match, best, league, country, region, timestamp,\n        cuotaHome, cuotaDraw, cuotaAway,\n        margen: null, surebet: false,\n        beneficioPct: 0, stakes: null,\n        gananciaEsperada: 0,\n        capitalTotal: CAPITAL_TOTAL,\n        casasDistintas: 0,\n        debug: 'Cuotas inválidas o no convertibles'\n      }\n    };\n  }\n\n  // Validar casas distintas — mínimo 2 para arbitraje real\n  const casas = new Set([\n    best?.home?.bookmaker,\n    best?.draw?.bookmaker,\n    best?.away?.bookmaker\n  ].filter(Boolean));\n  const casasDistintas = casas.size;\n\n  const invHome = 1 / cuotaHome;\n  const invDraw = 1 / cuotaDraw;\n  const invAway = 1 / cuotaAway;\n  const margen  = invHome + invDraw + invAway;\n\n  const surebetMatematica = margen < 1;\n  const surebet           = surebetMatematica && casasDistintas === 3;\n  const beneficioPct      = surebet ? (1 - margen) * 100 : 0;\n\n  const denom = invHome + invDraw + invAway;\n  const stakeHomeExacto = (CAPITAL_TOTAL * invHome) / denom;\n  const stakeDrawExacto = (CAPITAL_TOTAL * invDraw) / denom;\n  const stakeAwayExacto = (CAPITAL_TOTAL * invAway) / denom;\n\n  // Redondeo a entero — seguro para cualquier capital\n  const stakeHome = roundToInt(stakeHomeExacto);\n  const stakeDraw = roundToInt(stakeDrawExacto);\n  const stakeAway = roundToInt(stakeAwayExacto);\n\n  // Ganancia esperada en soles con stakes redondeados\n  // = lo que cobras en el outcome ganador - capital total apostado\n  const capitalApostado   = stakeHome + stakeDraw + stakeAway;\n  const retornoHome       = stakeHome * cuotaHome;\n  const retornoDraw       = stakeDraw * cuotaDraw;\n  const retornoAway       = stakeAway * cuotaAway;\n  // Ganancia mínima garantizada (el peor retorno menos lo apostado)\n  const gananciaEsperada  = round(\n    Math.min(retornoHome, retornoDraw, retornoAway) - capitalApostado, 2\n  );\n\n  return {\n    json: {\n      match, best, league, country, region, timestamp,\n      cuotaHome: round(cuotaHome, 3),\n      cuotaDraw: round(cuotaDraw, 3),\n      cuotaAway: round(cuotaAway, 3),\n      margen: round(margen, 6),\n      surebet,\n      surebetMatematica,\n      casasDistintas,\n      beneficioPct:    round(beneficioPct, 3),\n      gananciaEsperada,\n      capitalApostado,\n      stakes: {\n        home: stakeHome,\n        draw: stakeDraw,\n        away: stakeAway\n      },\n      stakesExactos: {\n        home: round(stakeHomeExacto, 2),\n        draw: round(stakeDrawExacto, 2),\n        away: round(stakeAwayExacto, 2)\n      },\n      capitalTotal: CAPITAL_TOTAL,\n      currencies: {\n        home: best.home?.currency || 'PEN',\n        draw: best.draw?.currency || 'PEN',\n        away: best.away?.currency || 'PEN'\n      }\n    }\n  };\n});"
+        "jsCode": "\nconst parseOdd = (v) => {\n  if (v === null || v === undefined) return NaN;\n  if (typeof v === 'number') return v > 1 ? v : NaN;\n  const num = Number(String(v).trim().replace(',','.'));\n  return isFinite(num) && num > 1 ? num : NaN;\n};\nconst round      = (n, d=3) => Math.round(n * Math.pow(10,d)) / Math.pow(10,d);\nconst roundToInt = (n) => Math.round(n);\nconst CAPITAL    = Number($('CONFIG').first().json.CFG_CAPITAL ?? 500);\nconst minCasas   = (market) => (market === '1X2' || market === 'DBL') ? 3 : 2;\n\nreturn items.map(item => {\n  const { match, market, marketLabel, outcomes, best, bestDynamic,\n          league, country, region, timestamp, casasDistintas, pinnacleRef } = item.json || {};\n\n  if (!outcomes || outcomes.length === 0)\n    return { json: { match, market, marketLabel, error:'sin outcomes', league, country, timestamp } };\n\n  const parsed = outcomes\n    .map(o => ({ label:o.label, odds:parseOdd(o.odds), bookmaker:o.bookmaker, url:o.url, currency:o.currency }))\n    .filter(o => isFinite(o.odds) && o.odds > 1);\n\n  if (parsed.length < 2)\n    return { json: { match, market, marketLabel, league, country, region, timestamp,\n      margen:null, surebet:false, beneficioPct:0, stakes:null,\n      gananciaEsperada:0, capitalTotal:CAPITAL, casasDistintas:casasDistintas||0,\n      best, bestDynamic, outcomes, pinnacleRef, debug:'Cuotas insuficientes' }};\n\n  const sumInv         = parsed.reduce((acc,o) => acc + 1/o.odds, 0);\n  const margen         = round(sumInv, 6);\n  const minC           = minCasas(market);\n  const surebet        = margen < 1 && (casasDistintas || 0) >= minC;\n  const beneficioPct   = surebet ? round((1-margen)*100, 3) : 0;\n\n  const stakeMap = {};\n  let capitalApostado = CAPITAL, gananciaEsperada = 0;\n  if (surebet) {\n    parsed.forEach(o => { stakeMap[o.label] = roundToInt((CAPITAL*(1/o.odds))/sumInv); });\n    capitalApostado  = Object.values(stakeMap).reduce((a,b)=>a+b,0);\n    gananciaEsperada = round(Math.min(...parsed.map(o=>stakeMap[o.label]*o.odds))-capitalApostado,2);\n  }\n\n  const bestCompat = {};\n  parsed.forEach(o => { bestCompat[o.label] = { odds:o.odds, bookmaker:o.bookmaker, url:o.url, currency:o.currency }; });\n  const bestLegacy = market==='1X2'\n    ? { home:bestCompat['home']||null, draw:bestCompat['draw']||null, away:bestCompat['away']||null }\n    : bestCompat;\n\n  // ── Value con Pinnacle como referencia ──────────────────\n  // Si Pinnacle está presente, usamos sus cuotas como probabilidad real\n  // Si no, usamos probabilidades implícitas normalizadas\n  let pinnacleProb = null;\n  if (pinnacleRef && Array.isArray(pinnacleRef) && pinnacleRef.length >= parsed.length) {\n    const pinSum = pinnacleRef.slice(0,parsed.length).reduce((a,v)=> v>0 ? a+1/v : a, 0);\n    if (pinSum > 0) {\n      pinnacleProb = {};\n      parsed.forEach((o,i) => {\n        const pv = pinnacleRef[i];\n        if (pv > 0) pinnacleProb[o.label] = (1/pv)/pinSum;\n      });\n    }\n  }\n\n  return { json: {\n    match, market, marketLabel,\n    league, country, region, timestamp,\n    margen, surebet,\n    casasDistintas, beneficioPct, gananciaEsperada, capitalApostado,\n    stakes: stakeMap, capitalTotal: CAPITAL,\n    best: bestLegacy, bestDynamic: bestCompat,\n    outcomes: parsed, pinnacleRef, pinnacleProb,\n    currencies: Object.fromEntries(parsed.map(o=>[o.label, o.currency||'PEN']))\n  }};\n});\n"
       },
       "name": "Function - SurebetCalc",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        3440,
-        1232
+        5328,
+        1664
       ],
-      "id": "3b9c36b3-27b7-4afe-8e6a-0dcbda3e6c92"
+      "id": "5d3b406b-5fe3-48a2-8e7c-b5e6bfb33ab6"
     },
     {
       "parameters": {
-        "jsCode": "return items.map(item => {\n  const { match, offers, league, country, region, timestamp } = item.json || {};\n  const best = { home: null, draw: null, away: null };\n\n  (offers || []).forEach(o => {\n    const { bookmaker, odds, currency, url } = o;\n    if (!best.home || odds.home > best.home.odds)\n      best.home = { bookmaker, odds: odds.home, currency, url };\n    if (!best.draw || odds.draw > best.draw.odds)\n      best.draw = { bookmaker, odds: odds.draw, currency, url };\n    if (!best.away || odds.away > best.away.odds)\n      best.away = { bookmaker, odds: odds.away, currency, url };\n  });\n\n  return { json: { match, best, league, country, region, timestamp } };\n});"
+        "jsCode": "\n// Grupos de clones — misma empresa, NO cuentan como casas distintas\nconst CLONE_FAMILIES = [\n  ['Betsafe','Inkabet','Betsson'],\n  ['1xbet','Megapari'],\n  ['Cosmobet','Mystake'],\n  ['Gangabet','Doradobet','Masterbets365','Atlantic City'],\n];\nconst cloneOf = {};\nCLONE_FAMILIES.forEach(fam => { fam.forEach(m => { cloneOf[m] = fam[0]; }); });\n\nconst countIndependent = (bookmakerSet) => {\n  const seen = new Set();\n  let n = 0;\n  [...bookmakerSet].forEach(bk => {\n    const key = cloneOf[bk] || bk;\n    if (!seen.has(key)) { seen.add(key); n++; }\n  });\n  return n;\n};\n\nreturn items.map(item => {\n  const { match, market, marketLabel, offers, league, country, region, timestamp, pinnacleRef } = item.json || {};\n  const bestMap = {};\n\n  (offers || []).forEach(offer => {\n    const { bookmaker, url, currency, outcomes } = offer;\n    (outcomes || []).forEach(({ label, odds }) => {\n      if (!odds || odds <= 1) return;\n      if (!bestMap[label] || odds > bestMap[label].odds) {\n        bestMap[label] = { bookmaker, odds, url, currency };\n      }\n    });\n  });\n\n  const allBks       = new Set(Object.values(bestMap).map(b => b.bookmaker));\n  const casasDistintas = countIndependent(allBks);\n\n  // Compatibilidad 1X2\n  const bestLegacy = market === '1X2' ? {\n    home: bestMap['home'] || null,\n    draw: bestMap['draw'] || null,\n    away: bestMap['away'] || null\n  } : bestMap;\n\n  const outcomesArray = Object.entries(bestMap).map(([label, data]) => ({ label, ...data }));\n\n  return { json: {\n    match, market, marketLabel,\n    league, country, region, timestamp,\n    best:        bestLegacy,\n    bestDynamic: bestMap,\n    outcomes:    outcomesArray,\n    casasDistintas,           // ya descontando clones\n    pinnacleRef               // referencia de valor\n  }};\n});\n"
       },
       "name": "Function - BestOddsPerOutcome",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        2992,
-        1232
+        4880,
+        1664
       ],
-      "id": "79f7337b-48a5-46c4-aede-d8c2db55d939"
+      "id": "a718142e-1e66-4a75-a182-57e944b88822"
     },
     {
       "parameters": {
-        "jsCode": "const arr = items.map(i => i.json);\nconst grouped = {};\narr.forEach(r => {\n  if (!grouped[r.match]) grouped[r.match] = [];\n  grouped[r.match].push(r);\n});\nreturn Object.keys(grouped).map(m => ({\n  json: {\n    match: m,\n    offers: grouped[m],\n    // Preservar metadata del primer item del grupo\n    league: grouped[m][0]?.league || null,\n    country: grouped[m][0]?.country || null,\n    region: grouped[m][0]?.region || null,\n    timestamp: grouped[m][0]?.timestamp || null\n  }\n}));"
+        "jsCode": "\nconst arr     = items.map(i => i.json);\nconst grouped = {};\narr.forEach(r => {\n  const key = `${r.match}|||${r.market}`;\n  if (!grouped[key]) grouped[key] = [];\n  grouped[key].push(r);\n});\nreturn Object.keys(grouped).map(key => {\n  const [match, market] = key.split('|||');\n  const offers = grouped[key];\n  return { json: {\n    match, market,\n    marketLabel: offers[0]?.marketLabel || market,\n    offers,\n    league:    offers[0]?.league    || null,\n    country:   offers[0]?.country   || null,\n    region:    offers[0]?.region    || null,\n    timestamp: offers[0]?.timestamp || null,\n    pinnacleRef: offers.find(o => o.bookmaker === 'Pinnacle')?.pinnacleRef || null\n  }};\n});\n"
       },
       "name": "Function - GroupByMatch",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        2800,
-        1232
+        4688,
+        1664
       ],
-      "id": "953a3b5b-aa13-45de-a15b-a7bb5712988e"
+      "id": "14fba55d-2eac-4c2f-a9f3-633270b53e81"
     },
     {
       "parameters": {
-        "jsCode": "// Normalizar eventos desde la API\n// Ampliar currencyMap para soportar múltiples regiones\nconst raw = items[0].json;\nconst events = raw.events || [];\n\nconst currencyMap = {\n  // South America\n  'Peru': 'PEN', 'Brazil': 'BRL', 'Argentina': 'ARS',\n  'Chile': 'CLP', 'Colombia': 'COP', 'Uruguay': 'UYU',\n  'South America': 'PEN',\n  // Europe\n  'England': 'GBP', 'Spain': 'EUR', 'Germany': 'EUR',\n  'Italy': 'EUR', 'France': 'EUR', 'Netherlands': 'EUR',\n  'Portugal': 'EUR', 'Europe': 'EUR',\n  // North America\n  'United States': 'USD', 'Mexico': 'MXN', 'Canada': 'CAD',\n  'North America': 'USD',\n  // Asia\n  'Japan': 'JPY', 'China': 'CNY', 'South Korea': 'KRW',\n  // Default\n  'default': 'USD'\n};\n\nconst normalized = events.flatMap(e => {\n  const match = `${e.homeTeam} vs ${e.awayTeam}`;\n  const timestamp = e.timestamp;\n  const bookmakers = e.canonical?.bookmakers || {};\n\n  return Object.keys(bookmakers).flatMap(bk => {\n    const odds = bookmakers[bk].odds || {};\n    const oneXtwo = odds['1X2'] || odds['1x2'] || null;\n    if (!oneXtwo) return [];\n\n    const currency = bookmakers[bk].currency\n      || currencyMap[e.country]\n      || currencyMap['default'];\n\n    return [{\n      match,\n      timestamp,\n      league: e.league || null,\n      country: e.country || null,\n      region: e.region || null,\n      bookmaker: bk,\n      market: '1X2',\n      odds: { home: oneXtwo[0], draw: oneXtwo[1], away: oneXtwo[2] },\n      url: bookmakers[bk].url || null,\n      currency\n    }];\n  });\n});\n\nreturn normalized.map(r => ({ json: r }));"
+        "jsCode": "\nconst raw    = items[0].json;\nconst events = raw.events || [];\n\nconst currencyMap = {\n  'Peru':'PEN','Brazil':'BRL','Argentina':'ARS','Chile':'CLP',\n  'Colombia':'COP','Uruguay':'UYU','South America':'PEN',\n  'England':'GBP','Spain':'EUR','Germany':'EUR','Italy':'EUR',\n  'France':'EUR','Netherlands':'EUR','Portugal':'EUR','Europe':'EUR',\n  'United States':'USD','Mexico':'MXN','Canada':'CAD','North America':'USD',\n  'Japan':'JPY','China':'CNY','South Korea':'KRW','default':'USD'\n};\n\n// OU umbrales permitidos — solo los líquidos\nconst ALLOWED_OU = new Set(['1.5','2.5','3.5']);\n\nconst parseOddValue = (v) => {\n  if (v === null || v === undefined) return null;\n  if (typeof v === 'number')  return v > 1 ? v : null;\n  if (typeof v === 'object' && v.price !== undefined) return v.price > 1 ? v.price : null;\n  const n = parseFloat(String(v));\n  return isFinite(n) && n > 1 ? n : null;\n};\n\n// Clones — excluir al calcular casas independientes (se propagan a BestOdds)\nconst CLONE_FAMILIES = [\n  ['Betsafe','Inkabet','Betsson'],\n  ['1xbet','Megapari'],\n  ['Cosmobet','Mystake'],\n  ['Gangabet','Doradobet','Masterbets365','Atlantic City'],\n];\nconst cloneOf = {};\nCLONE_FAMILIES.forEach(fam => {\n  const canonical = fam[0];\n  fam.forEach(m => { cloneOf[m] = canonical; });\n});\n\nconst normalized = [];\n\nevents.forEach(e => {\n  const match     = `${e.homeTeam} vs ${e.awayTeam}`;\n  const timestamp = e.timestamp;\n  const league    = e.league  || null;\n  const country   = e.country || null;\n  const region    = e.region  || null;\n  const bookmakers = e.canonical?.bookmakers || {};\n\n  // Pinnacle como referencia de valor (si existe)\n  const pinnacleOdds = bookmakers['Pinnacle']?.odds || null;\n\n  Object.keys(bookmakers).forEach(bk => {\n    const bkData   = bookmakers[bk];\n    const allOdds  = bkData.odds || {};\n    const url      = bkData.url  || null;\n    const currency = bkData.currency || currencyMap[country] || currencyMap['default'];\n    // Familia canónica para detectar clones\n    const canonicalFamily = cloneOf[bk] || bk;\n    const base = { match, timestamp, league, country, region, bookmaker: bk, canonicalFamily, url, currency };\n\n    // ── 1X2 + PA + SC ────────────────────────────────────────\n    ['1X2','1x2','PA','SC'].forEach(src => {\n      const arr = allOdds[src];\n      if (!arr || !Array.isArray(arr) || arr.length < 3) return;\n      const h = parseOddValue(arr[0]);\n      const d = parseOddValue(arr[1]);\n      const a = parseOddValue(arr[2]);\n      if (!h || !d || !a) return;\n      normalized.push({\n        ...base, market:'1X2', marketKey: src,\n        outcomes:[{label:'home',odds:h},{label:'draw',odds:d},{label:'away',odds:a}],\n        pinnacleRef: pinnacleOdds?.['1X2'] || null\n      });\n    });\n\n    // ── DBL ──────────────────────────────────────────────────\n    const rawDBL = allOdds['DBL'];\n    if (rawDBL && Array.isArray(rawDBL) && rawDBL.length >= 3) {\n      const d1X = parseOddValue(rawDBL[0]);\n      const d12 = parseOddValue(rawDBL[1]);\n      const dX2 = parseOddValue(rawDBL[2]);\n      if (d1X && d12 && dX2) {\n        normalized.push({\n          ...base, market:'DBL', marketLabel:'Doble Oportunidad',\n          outcomes:[{label:'1X',odds:d1X},{label:'12',odds:d12},{label:'X2',odds:dX2}]\n        });\n      }\n    }\n\n    // ── Over/Under — solo 1.5 / 2.5 / 3.5 ───────────────────\n    Object.keys(allOdds).filter(k => k.startsWith('Over/Under')).forEach(key => {\n      const arr = allOdds[key];\n      if (!arr || !Array.isArray(arr) || arr.length < 2) return;\n      const over  = parseOddValue(arr[0]);\n      const under = parseOddValue(arr[1]);\n      if (!over || !under) return;\n      const m = key.match(/(\\d+\\.?\\d*)/);\n      const line = m ? m[1] : null;\n      if (!line || !ALLOWED_OU.has(line)) return;   // filtro umbrales\n      normalized.push({\n        ...base, market:`OU_${line}`, marketLabel:`Over/Under ${line}`,\n        outcomes:[{label:'over',odds:over},{label:'under',odds:under}],\n        pinnacleRef: pinnacleOdds?.[key] || null\n      });\n    });\n\n    // ── BTTS ─────────────────────────────────────────────────\n    const rawBTTS = allOdds['BTTS'];\n    if (rawBTTS && Array.isArray(rawBTTS) && rawBTTS.length >= 2) {\n      const si = parseOddValue(rawBTTS[0]);\n      const no = parseOddValue(rawBTTS[1]);\n      if (si && no) {\n        normalized.push({\n          ...base, market:'BTTS', marketLabel:'Ambos Anotan',\n          outcomes:[{label:'si',odds:si},{label:'no',odds:no}],\n          pinnacleRef: pinnacleOdds?.['BTTS'] || null\n        });\n      }\n    }\n  });\n});\n\nreturn normalized.map(r => ({ json: r }));\n"
       },
       "name": "Function - Normalize",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        2608,
-        1232
+        4496,
+        1664
       ],
-      "id": "86ae3abc-ba9a-417f-bd8b-fed01461ddad"
+      "id": "8dc0af0e-daba-49a6-a0e8-771d4a1f1f36"
     },
     {
       "parameters": {
@@ -1174,10 +1190,10 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.3,
       "position": [
-        3232,
-        1008
+        5120,
+        1440
       ],
-      "id": "1a8ec9be-1126-425e-a2ea-4defa19326b7"
+      "id": "a58d2562-3b72-4621-90a1-ed85d801d979"
     },
     {
       "parameters": {
@@ -1186,10 +1202,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        2944,
-        1008
+        4832,
+        1440
       ],
-      "id": "aa876c2d-01bc-46b2-8947-ce1bf647298f",
+      "id": "2d2b7188-38db-41d8-83f8-47f6d2496ebe",
       "name": "Function - TimeWindow"
     },
     {
@@ -1207,10 +1223,10 @@
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.2,
       "position": [
-        2384,
-        1008
+        4272,
+        1440
       ],
-      "id": "bd6f66f6-1435-4c10-a462-b1a7caa40606"
+      "id": "d444efc0-c39d-4628-9859-33afb0141222"
     },
     {
       "parameters": {
@@ -1223,10 +1239,10 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        3520,
-        848
+        5408,
+        1280
       ],
-      "id": "a35597e4-231e-44d3-a742-44715a60303a"
+      "id": "9b1516e7-f170-4dc6-b9e1-cbc0a06b63df"
     },
     {
       "parameters": {
@@ -1239,25 +1255,25 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        3520,
-        992
+        5408,
+        1424
       ],
-      "id": "090be782-36b9-4de0-be16-86b217f7f83a"
+      "id": "a095f67c-c5bb-4e31-b97d-e54d0147a307"
     },
     {
       "parameters": {
-        "content": "## Importante \n**Ejecutar siempre antes de Publicar** \nProbar el flujo manualmente",
+        "content": "## NightBet Edge — v4 Multi-Market\n**Última actualización:** Mayo 2026\n\n### Cambios v4:\n- ✅ Filtro clones (Betsafe/Inkabet/Betsson = misma empresa)\n- ✅ OU limitado a 1.5 / 2.5 / 3.5 (líquidos)\n- ✅ Pinnacle como referencia de valor\n- ✅ Skip LLM si margen > 1.03 (ahorra API)\n- ✅ MatchTimestamp + MatchDatetime en Baserow\n- ✅ Resumen diario de surebets en ranking 20:00\n- ✅ Bug fix: Update AlertSent → Loop Over Items\n- ✅ Guía paso a paso en cada alerta Telegram",
         "height": 112,
         "width": 272,
         "color": 4
       },
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        4144,
-        1344
+        6016,
+        1680
       ],
       "typeVersion": 1,
-      "id": "3ae005d9-aaf8-44d7-b18e-f4fccb4e1a5d",
+      "id": "8f1244f3-14c0-4352-a30b-cacc0c691cde",
       "name": "Sticky Note"
     }
   ],
@@ -1290,6 +1306,6 @@
   },
   "tags": [],
   "triggerCount": 2,
-  "updatedAt": "2026-05-24T14:51:06.059Z",
-  "versionId": "344cb379-fa18-421d-a8d1-ad73d1e40dab"
+  "updatedAt": "2026-05-25T14:34:03.592Z",
+  "versionId": "747fffb6-2392-495f-84f8-6ed057fe2098"
 }
