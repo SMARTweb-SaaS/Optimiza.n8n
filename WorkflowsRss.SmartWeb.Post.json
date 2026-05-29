@@ -228,7 +228,13 @@
     },
     "Select.Rss": {
       "main": [
-        []
+        [
+          {
+            "node": "Analiza.Rss",
+            "type": "main",
+            "index": 0
+          }
+        ]
       ]
     },
     "IA.en.Español": {
@@ -426,7 +432,7 @@
     },
     {
       "parameters": {
-        "jsCode": "const data = $('Analiza.Rss').first().json.output;\n\nconst post = `\n**Resumen objetivo:**  \n${data.resumen_objetivo}\n\n**Puntos clave:**\n${data.puntos_clave.map(p => `- ${p}`).join('\\n')}\n\n**Antecedentes esenciales:**  \n${data.antecedentes}\n\n**Posibles implicaciones:**  \n${data.implicaciones}\n\n**Términos técnicos clave:**\n${data.terminos_tecnicos.map(t => `- **${t.termino}**: ${t.definicion}`).join('\\n')}\n`;\n\nreturn [{ post }];"
+        "jsCode": "const data = $('Analiza.Rss').first().json;\n\nconst post = `\n**Resumen objetivo:**  \n${data.resumen_objetivo}\n\n**Puntos clave:**\n${data.puntos_clave.map(p => `- ${p}`).join('\\n')}\n\n**Antecedentes esenciales:**  \n${data.antecedentes}\n\n**Posibles implicaciones:**  \n${data.implicaciones}\n\n**Términos técnicos clave:**\n${data.terminos_tecnicos.map(t => `- **${t.termino}**: ${t.definicion}`).join('\\n')}\n`;\n\nreturn [{ post }];"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -463,7 +469,7 @@
     {
       "parameters": {
         "promptType": "define",
-        "text": "={{ $json.output.resumen_objetivo }}\n\n{{ $json.output.puntos_clave }}\n\n{{ $json.output.implicaciones }}\n",
+        "text": "={{ $json.resumen_objetivo }}\n\n{{ $json.puntos_clave }}\n\n{{ $json.implicaciones }}\n",
         "messages": {
           "messageValues": [
             {
@@ -485,7 +491,7 @@
     {
       "parameters": {
         "promptType": "define",
-        "text": "={{ $('Analiza.Rss').item.json.output.resumen_objetivo }}",
+        "text": "={{ $('Analiza.Rss').item.json.resumen_objetivo }}",
         "messages": {
           "messageValues": [
             {
@@ -826,7 +832,7 @@
     },
     {
       "parameters": {
-        "jsCode": "// Obtén todos los elementos que vienen del nodo anterior (RSS Read)\nconst rssArray = $input.all();\n\n// --- Elige tu lógica de selección ---\nconst indice = 18// 0: Primer elemento\nconst selectedElement = rssArray[indice];\n\n// Envía el elemento seleccionado como salida\nif (selectedElement) {\n  return [{ json: selectedElement }]; // Asegúrate de devolverlo dentro de un objeto con la propiedad 'json'\n} else {\n  // Manejo si no se encuentra ningún elemento o si el array está vacío\n  return [];\n}"
+        "jsCode": "// Obtén todos los elementos que vienen del nodo anterior (RSS Read)\nconst rssArray = $input.all();\n\n// --- Elige tu lógica de selección ---\nconst indice = 33// 0: Primer elemento\nconst selectedElement = rssArray[indice];\n\n// Envía el elemento seleccionado como salida\nif (selectedElement) {\n  return [{ json: selectedElement }]; // Asegúrate de devolverlo dentro de un objeto con la propiedad 'json'\n} else {\n  // Manejo si no se encuentra ningún elemento o si el array está vacío\n  return [];\n}"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -1003,6 +1009,12 @@
               "name": "=pubDate",
               "value": "={{ $json.pubDate }}",
               "type": "string"
+            },
+            {
+              "id": "4bbe4469-7fe6-44bb-ac06-3a8e6722983e",
+              "name": "contentSnippet",
+              "value": "={{ $json.contentSnippet }}",
+              "type": "string"
             }
           ]
         },
@@ -1065,7 +1077,101 @@
       "name": "Marketing.4.ecommerce"
     }
   ],
-  "pinData": {},
+  "pinData": {
+    "Analiza.Rss": [
+      {
+        "json": {
+          "resumen_objetivo": "La evolución del SEO en un contexto donde la inteligencia artificial (IA) está comenzando a responder preguntas y proporcionar información, lo que reduce el tráfico hacia los sitios web, ha creado un nuevo desafío para los creadores de contenido. Este cambio implica que ahora las estrategias de contenido deben adaptarse para hacerse más relevantes no solo para los usuarios, sino también para ser citados por IA.",
+          "puntos_clave": [
+            "El 60% de los clics se otorgaban anteriormente a los primeros cinco resultados de búsqueda, pero este patrón está cambiando en un entorno dominado por la IA.",
+            "Algunas reportes indican que más del 40% de los usuarios prefieren buscar respuestas directas en asistentes virtuales, lo que reduce el tráfico hacia los sitios tradicionales.",
+            "Una buena estrategia de contenido puede aumentar la visibilidad en los resultados de búsqueda, con un 30% de esta visibilidad derivando de contenidos bien estructurados y optimizados para IA."
+          ],
+          "antecedentes": "Con la llegada de la IA y herramientas como los asistentes virtuales y plataformas de búsqueda con capacidades de conversación, el SEO ha tenido que evolucionar, pasando de centrarse únicamente en la cantidad de clics a incluir la calidad y relevancia del contenido para competencias de IA.",
+          "implicaciones": "Las empresas deben reconsiderar su estrategia de contenido, centrándose en crear contenido que no solo atraiga tráfico, sino que también sea relevante y fácil de citar para sistemas de IA. Esto podría significar una re-inversión en SEO y marketing de contenidos, así como en la capacitación del personal sobre estas nuevas herramientas.",
+          "terminos_tecnicos": [
+            {
+              "termino": "SEO (Search Engine Optimization)",
+              "definicion": "Conjunto de técnicas y estrategias utilizadas para optimizar la visibilidad de un sitio web en los motores de búsqueda."
+            },
+            {
+              "termino": "IA (Inteligencia Artificial)",
+              "definicion": "Disciplinas de la informática que buscan desarrollar sistemas capaces de realizar tareas que requieren inteligencia humana, como el procesamiento de lenguaje natural y la búsqueda de información."
+            },
+            {
+              "termino": "CTR (Click Through Rate)",
+              "definicion": "Porcentaje que muestra cuántos clics recibe un enlace en comparación con cuántas veces se muestra, un indicativo de la efectividad de un contenido en atraer visitantes."
+            }
+          ]
+        },
+        "pairedItem": {
+          "item": 0
+        }
+      }
+    ],
+    "Crea.Titulo": [
+      {
+        "json": {
+          "title": "LA EVOLUCIÓN DEL SEO EN ERA DE IA",
+          "subtitle": "ADAPTACIÓN O DESAPARICIÓN",
+          "logo_search_term": "SEO logo png transparente"
+        },
+        "pairedItem": {
+          "item": 0
+        }
+      }
+    ],
+    "Prompt.Imagen": [
+      {
+        "json": {
+          "text": "A conceptual illustration of a digital landscape representing the evolution of SEO, with AI algorithms processing information and content creators adapting strategies, set against a dark and opaque background."
+        },
+        "pairedItem": {
+          "item": 0
+        }
+      }
+    ],
+    "Replicate.google.imagen-4": [
+      {
+        "json": {
+          "id": "yf0m7nsccsrmw0cye0vrc279fr",
+          "model": "google/imagen-4",
+          "version": "hidden",
+          "input": {
+            "aspect_ratio": "1:1",
+            "output_format": "jpg",
+            "prompt": "A conceptual illustration of a digital landscape representing the evolution of SEO, with AI algorithms processing information and content creators adapting strategies, set against a dark and opaque background.",
+            "safety_filter_level": "block_only_high"
+          },
+          "logs": "Sid yf0m7nsccsrmw0cye0vrc279fr\nGenerating image...\nGenerated image in 12.65 seconds\n",
+          "output": "https://replicate.delivery/xezq/Fvs3EczoJ946DRjfRMf03kbqGhSev00sWXjUzldTSXMDdKTtA/tmpx5ux6e35.jpg",
+          "data_removed": false,
+          "error": null,
+          "source": "api",
+          "status": "succeeded",
+          "created_at": "2026-05-28T20:12:04.582Z",
+          "started_at": "2026-05-28T20:12:04.640142727Z",
+          "completed_at": "2026-05-28T20:12:17.309278502Z",
+          "urls": {
+            "cancel": "https://api.replicate.com/v1/predictions/yf0m7nsccsrmw0cye0vrc279fr/cancel",
+            "get": "https://api.replicate.com/v1/predictions/yf0m7nsccsrmw0cye0vrc279fr",
+            "stream": "https://stream.replicate.com/v1/files/jbxs-blnsns2spavscf7caky6jepxoim5kvl7zhbpsizvok4u53p6vmoa",
+            "web": "https://replicate.com/p/yf0m7nsccsrmw0cye0vrc279fr"
+          },
+          "metrics": {
+            "image_count": 1,
+            "image_output_count": 1,
+            "predict_time": 12.669135778,
+            "resolution_target": "1K",
+            "total_time": 12.727278502
+          }
+        },
+        "pairedItem": {
+          "item": 0
+        }
+      }
+    ]
+  },
   "settings": {
     "executionOrder": "v1",
     "binaryMode": "separate"
@@ -1089,6 +1195,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2026-05-01T17:04:23.957Z",
-  "versionId": "b216763a-46c9-49e6-b4c1-c598f061052f"
+  "updatedAt": "2026-05-28T20:18:55.436Z",
+  "versionId": "61b3c06b-e373-4482-8ea5-48980672348c"
 }
