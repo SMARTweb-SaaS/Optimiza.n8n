@@ -1,7 +1,1310 @@
 {
-  "active": false,
-  "activeVersion": null,
-  "activeVersionId": null,
+  "active": true,
+  "activeVersion": {
+    "updatedAt": "2026-05-31T03:31:54.923Z",
+    "createdAt": "2026-05-31T03:28:06.233Z",
+    "versionId": "36538b5f-f3ac-407a-8b17-81de8094b8eb",
+    "workflowId": "ECcE1aUJqB2En9Rj",
+    "nodes": [
+      {
+        "parameters": {
+          "jsCode": "\nreturn items.map(item => {\n  const d = item.json;\n  const errors=[], warnings=[];\n  const margen         = d.margen         ?? null;\n  const beneficioPct   = d.beneficioPct   ?? 0;\n  const tipo           = d.tipo           || 'ninguno';\n  const riesgo         = d.riesgo         || 'alto';\n  const confianza      = d.confianza      ?? 0;\n  const casasDistintas = d.casasDistintas ?? 0;\n  const market         = d.market         ?? '1X2';\n  const isBinary       = market.startsWith('OU_') || market === 'BTTS';\n  const minC           = isBinary ? 2 : 3;\n\n  if (tipo==='surebet' && margen!==null && margen>=1)\n    errors.push(`MATH_ERROR: margen=${margen.toFixed(4)}`);\n  if (tipo==='surebet' && casasDistintas<minC)\n    errors.push(`HOUSES_ERROR: ${casasDistintas} casas independientes (necesita ${minC})`);\n  if (tipo==='ninguno' && margen!==null && margen<1 && casasDistintas>=minC)\n    errors.push(`MISSED_SUREBET: margen=${margen.toFixed(4)}`);\n  const hasOdds = (d.outcomes||[]).length>=(isBinary?2:3);\n  if (confianza===0 && hasOdds) errors.push(`FALLBACK_ERROR`);\n  if (riesgo==='bajo' && beneficioPct<0.5) errors.push(`RISK_ERROR`);\n\n  if (tipo==='surebet' && confianza<40)  warnings.push(`LOW_CONFIDENCE: ${confianza}`);\n  if (tipo==='ninguno' && confianza>80)  warnings.push(`HIGH_CONFIDENCE_NINGUNO`);\n  if (beneficioPct>0 && tipo!=='surebet') warnings.push(`TYPE_MISMATCH`);\n\n  const llmValid = errors.length===0;\n  const llmScore = llmValid ? (warnings.length===0?'OK':'WARNING') : 'ERROR';\n  let tipoFinal=tipo, riesgoFinal=riesgo, confianzaFinal=confianza, comentarioFinal=d.comentario||'';\n\n  if (!llmValid) {\n    if (margen!==null && margen<1 && casasDistintas>=minC) {\n      tipoFinal      = 'surebet';\n      riesgoFinal    = beneficioPct>2.0?'bajo':beneficioPct>0.5?'medio':'alto';\n      confianzaFinal = beneficioPct>1.5?85:beneficioPct>0.5?65:45;\n      comentarioFinal= `[Auto] Surebet ${market}: margen=${margen.toFixed(4)}, beneficio=${beneficioPct.toFixed(2)}%`;\n    } else if (errors.some(e=>e.startsWith('HOUSES_ERROR'))) {\n      tipoFinal='ninguno'; confianzaFinal=10;\n      comentarioFinal=`[Auto] Margen positivo pero solo ${casasDistintas} casa(s) independiente(s)`;\n    } else if (confianza===0 && hasOdds) {\n      confianzaFinal=10; comentarioFinal=`[Auto] Sin oportunidad clara`;\n    }\n  }\n  return { json: { ...d, tipo:tipoFinal, riesgo:riesgoFinal, confianza:confianzaFinal,\n    comentario:comentarioFinal, llmValid, llmScore, llmErrors:errors, llmWarnings:warnings }};\n});\n"
+        },
+        "name": "Code - ValidateLLM",
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          3792,
+          1568
+        ],
+        "id": "4123e4d8-dd1d-4718-ab4c-a1f8cc8a5f24"
+      },
+      {
+        "parameters": {
+          "jsCode": "const cfg = $('CONFIG').first().json;\n\nlet allowedLeagues = [];\ntry {\n  allowedLeagues = JSON.parse(cfg.CFG_LEAGUES || '[]');\n} catch(e) {\n  allowedLeagues = (cfg.CFG_LEAGUES || '')\n    .split(',')\n    .map(l => l.trim())\n    .filter(Boolean);\n}\n\nconst normalize = str => str\n  .toLowerCase()\n  .normalize('NFD')\n  .replace(/[\\u0300-\\u036f]/g, '')\n  .trim();\n\n// Marcadores de competencia femenina — se excluyen siempre\n// independientemente de CFG_LEAGUES\nconst femeninoMarkers = [\n  'women', 'femenino', 'femenina', 'femeni', 'feminine',\n  'ladies', 'mujer', 'mujeres', 'female', '(f)', 'woman',\n  'frauen',       // alemán\n  'femminile',    // italiano\n  'feminino',     // portugués\n  'feminina',     // portugués\n  'feminin',      // francés/rumano\n  'dames',        // francés/holandés\n  'naiset',       // finlandés\n  'kvinder',      // danés\n  'damer'         // noruego/sueco\n];\n\nconst isFemenino = (league) => {\n  const norm = normalize(league);\n  return femeninoMarkers.some(m => norm.includes(m));\n};\n\nconst raw    = items[0].json;\nconst events = raw.events || [];\n\n// Si lista vacía: pasan todos (excepto femeninos siempre)\nconst sinFiltroLiga = allowedLeagues.length === 0;\nconst allowedNorm   = allowedLeagues.map(normalize);\n\nconst filtered = events.filter(e => {\n  const league     = e.league || e.league_raw || '';\n  const leagueNorm = normalize(league);\n\n  // Excluir femeninos siempre, sin excepción\n  if (isFemenino(league)) return false;\n\n  // Sin filtro de liga configurado: pasa todo lo masculino\n  if (sinFiltroLiga) return true;\n\n  // Coincidencia parcial con ligas permitidas\n  return allowedNorm.some(allowed =>\n    leagueNorm.includes(allowed) || allowed.includes(leagueNorm)\n  );\n});\n\nconst skipped     = events.length - filtered.length;\nconst femeninos   = events.filter(e => isFemenino(e.league || '')).length;\nconst fueraLiga   = skipped - femeninos;\n\nconsole.log(`Filter - ByLeague: ${filtered.length} OK | ${femeninos} femeninos excluidos | ${fueraLiga} fuera de liga`);\nconsole.log('Ligas permitidas:', allowedLeagues);\nconsole.log('Ligas encontradas:', [...new Set(events.map(e => e.league))]);\n\nif (filtered.length === 0) {\n  return [{ json: { events: [], _filteredCount: 0, _totalCount: events.length, _femeninosExcluidos: femeninos } }];\n}\n\nreturn [{ json: {\n  ...raw,\n  events: filtered,\n  _filteredCount:       filtered.length,\n  _totalCount:          events.length,\n  _femeninosExcluidos:  femeninos,\n  _fueraLigaExcluidos:  fueraLiga\n}}];"
+        },
+        "name": "Filter - ByLeague",
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          3104,
+          1136
+        ],
+        "id": "8619dd36-ad85-450a-a3f0-2f83095ca9e1"
+      },
+      {
+        "parameters": {
+          "jsCode": "// ══════════════════════════════════════════════════════════════\n// NODO DE PRUEBAS — Mock Data\n// ══════════════════════════════════════════════════════════════\n// HABILITADO  → el flujo usa estos datos en lugar de la API real\n// DESHABILITADO → el flujo usa HTTP Request - Get events normal\n//\n// Para habilitar/deshabilitar:\n//   Click derecho en el nodo → Toggle Active\n//   O usar el switch del nodo en el canvas\n//\n// Casos incluidos (16 eventos):\n//   1001 Surebet real 2.7%      → DEBE alertar\n//   1002 Sin surebet            → silencio\n//   1003 Margen<1, 2 casas      → silencio (no arbitraje)\n//   1004 1 sola casa            → silencio\n//   1005 Liga 1 Perú            → filtrada por liga\n//   1006 Partido ya iniciado    → filtrado por tiempo\n//   1007 Partido a 47h          → pasa filtro, sin surebet\n//   1008 Partido a 50h          → filtrado por tiempo\n//   1009 Cuotas null            → sin crash\n//   1010 Value bet cuota 8.50   → posible alerta valuebet\n//   1011 Surebet alta 9%        → DEBE alertar\n//   1012 Surebet marginal 0.22% → bajo umbral, silencio\n//   1013 timestamp null         → pasa filtro, sin surebet\n//   1014 Surebet 2.4% con URLs  → DEBE alertar con links\n//   1015 Segunda alerta (mejoró)→ DEBE alertar si 1001 operado\n//   1016 Oportunidad cerrada    → DEBE alertar si 1014 operado\n// ══════════════════════════════════════════════════════════════\n\nconst mockData = {\"ok\": true, \"source\": \"nightbet-scraper\", \"date\": \"2026-05-23\", \"count\": 16, \"generated_at\": \"2026-05-23T13:59:13.356759\", \"cached_at\": \"2026-05-23T13:59:13.356847\", \"events\": [{\"id\": 1001, \"canonical_id\": \"hash_1001\", \"homeTeam\": \"Universitario\", \"awayTeam\": \"Alianza Lima\", \"league\": \"Copa Libertadores\", \"league_raw\": \"Copa Libertadores\", \"country\": \"South America\", \"time\": \"20:00\", \"date\": \"2026-05-23\", \"timestamp\": 1779566353, \"sport\": \"Fútbol\", \"status\": \"NS\", \"canonical\": {\"bookmakers\": {\"Inkabet\": {\"odds\": {\"1X2\": [2.15, 3.1, 3.8]}, \"url\": \"https://casa.pe/uni-alianza-inkabet\", \"currency\": \"PEN\"}, \"Betsson\": {\"odds\": {\"1X2\": [2.05, 3.5, 3.6]}, \"url\": \"https://casa.pe/uni-alianza-betsson\", \"currency\": \"PEN\"}, \"Codere\": {\"odds\": {\"1X2\": [2.0, 3.2, 4.5]}, \"url\": \"https://casa.pe/uni-alianza-codere\", \"currency\": \"PEN\"}, \"TeApuesto\": {\"odds\": {\"1X2\": [1.95, 3.0, 3.7]}, \"url\": \"https://casa.pe/uni-alianza-tea\", \"currency\": \"PEN\"}}}}, {\"id\": 1002, \"canonical_id\": \"hash_1002\", \"homeTeam\": \"Real Madrid\", \"awayTeam\": \"Barcelona\", \"league\": \"La Liga\", \"league_raw\": \"La Liga\", \"country\": \"Spain\", \"time\": \"20:00\", \"date\": \"2026-05-24\", \"timestamp\": 1779616753, \"sport\": \"Fútbol\", \"status\": \"NS\", \"canonical\": {\"bookmakers\": {\"Inkabet\": {\"odds\": {\"1X2\": [1.8, 3.6, 4.0]}, \"url\": \"https://casa.pe/real-barca-inkabet\", \"currency\": \"PEN\"}, \"Betsson\": {\"odds\": {\"1X2\": [1.75, 3.5, 4.1]}, \"url\": \"https://casa.pe/real-barca-betsson\", \"currency\": \"PEN\"}, \"Doradobet\": {\"odds\": {\"1X2\": [1.78, 3.55, 3.95]}, \"url\": \"https://casa.pe/real-barca-dorado\", \"currency\": \"PEN\"}}}}, {\"id\": 1003, \"canonical_id\": \"hash_1003\", \"homeTeam\": \"Liverpool\", \"awayTeam\": \"Manchester City\", \"league\": \"Premier League\", \"league_raw\": \"Premier League\", \"country\": \"England\", \"time\": \"20:00\", \"date\": \"2026-05-24\", \"timestamp\": 1779616753, \"sport\": \"Fútbol\", \"status\": \"NS\", \"canonical\": {\"bookmakers\": {\"Inkabet\": {\"odds\": {\"1X2\": [2.2, 3.6, 2.8]}, \"url\": \"https://casa.pe/liv-mci-inkabet\", \"currency\": \"PEN\"}, \"Betsson\": {\"odds\": {\"1X2\": [1.9, 3.1, 4.8]}, \"url\": \"https://casa.pe/liv-mci-betsson\", \"currency\": \"PEN\"}}}}, {\"id\": 1004, \"canonical_id\": \"hash_1004\", \"homeTeam\": \"Bayern Munich\", \"awayTeam\": \"Dortmund\", \"league\": \"Bundesliga\", \"league_raw\": \"Bundesliga\", \"country\": \"Germany\", \"time\": \"20:00\", \"date\": \"2026-05-24\", \"timestamp\": 1779616753, \"sport\": \"Fútbol\", \"status\": \"NS\", \"canonical\": {\"bookmakers\": {\"Inkabet\": {\"odds\": {\"1X2\": [2.1, 3.5, 3.8]}, \"url\": \"https://casa.pe/bay-bvb-inkabet\", \"currency\": \"PEN\"}}}}, {\"id\": 1005, \"canonical_id\": \"hash_1005\", \"homeTeam\": \"Sporting Cristal\", \"awayTeam\": \"Sport Huancayo\", \"league\": \"Liga 1 Perú\", \"league_raw\": \"Liga 1 Perú\", \"country\": \"Peru\", \"time\": \"20:00\", \"date\": \"2026-05-23\", \"timestamp\": 1779566353, \"sport\": \"Fútbol\", \"status\": \"NS\", \"canonical\": {\"bookmakers\": {\"Inkabet\": {\"odds\": {\"1X2\": [1.9, 3.2, 4.1]}, \"url\": \"https://casa.pe/cristal-huancayo-ink\", \"currency\": \"PEN\"}, \"Betsson\": {\"odds\": {\"1X2\": [1.85, 3.4, 4.2]}, \"url\": \"https://casa.pe/cristal-huancayo-bet\", \"currency\": \"PEN\"}, \"TeApuesto\": {\"odds\": {\"1X2\": [1.88, 3.5, 4.5]}, \"url\": \"https://casa.pe/cristal-huancayo-tea\", \"currency\": \"PEN\"}}}}, {\"id\": 1006, \"canonical_id\": \"hash_1006\", \"homeTeam\": \"PSG\", \"awayTeam\": \"Lyon\", \"league\": \"Ligue 1\", \"league_raw\": \"Ligue 1\", \"country\": \"France\", \"time\": \"20:00\", \"date\": \"2026-05-23\", \"timestamp\": 1779537553, \"sport\": \"Fútbol\", \"status\": \"LIVE\", \"canonical\": {\"bookmakers\": {\"Inkabet\": {\"odds\": {\"1X2\": [1.7, 3.8, 5.0]}, \"url\": \"https://casa.pe/psg-lyon-ink\", \"currency\": \"PEN\"}, \"Betsson\": {\"odds\": {\"1X2\": [1.65, 3.9, 5.2]}, \"url\": \"https://casa.pe/psg-lyon-bet\", \"currency\": \"PEN\"}, \"Doradobet\": {\"odds\": {\"1X2\": [1.6, 3.7, 5.5]}, \"url\": \"https://casa.pe/psg-lyon-dor\", \"currency\": \"PEN\"}}}}, {\"id\": 1007, \"canonical_id\": \"hash_1007\", \"homeTeam\": \"Flamengo\", \"awayTeam\": \"Boca Juniors\", \"league\": \"Copa Libertadores\", \"league_raw\": \"Copa Libertadores\", \"country\": \"South America\", \"time\": \"20:00\", \"date\": \"2026-05-25\", \"timestamp\": 1779713953, \"sport\": \"Fútbol\", \"status\": \"NS\", \"canonical\": {\"bookmakers\": {\"Inkabet\": {\"odds\": {\"1X2\": [2.05, 3.45, 3.9]}, \"url\": \"https://casa.pe/fla-boca-ink\", \"currency\": \"PEN\"}, \"Betsson\": {\"odds\": {\"1X2\": [2.0, 3.4, 4.0]}, \"url\": \"https://casa.pe/fla-boca-bet\", \"currency\": \"PEN\"}, \"Codere\": {\"odds\": {\"1X2\": [1.95, 3.3, 4.3]}, \"url\": \"https://casa.pe/fla-boca-cod\", \"currency\": \"PEN\"}}}}, {\"id\": 1008, \"canonical_id\": \"hash_1008\", \"homeTeam\": \"Inter\", \"awayTeam\": \"Juventus\", \"league\": \"Serie A\", \"league_raw\": \"Serie A\", \"country\": \"Italy\", \"time\": \"20:00\", \"date\": \"2026-05-25\", \"timestamp\": 1779724753, \"sport\": \"Fútbol\", \"status\": \"NS\", \"canonical\": {\"bookmakers\": {\"Inkabet\": {\"odds\": {\"1X2\": [2.2, 3.3, 3.4]}, \"url\": \"https://casa.pe/inter-juve-ink\", \"currency\": \"PEN\"}, \"Betsson\": {\"odds\": {\"1X2\": [2.15, 3.4, 3.5]}, \"url\": \"https://casa.pe/inter-juve-bet\", \"currency\": \"PEN\"}, \"TeApuesto\": {\"odds\": {\"1X2\": [2.1, 3.5, 3.6]}, \"url\": \"https://casa.pe/inter-juve-tea\", \"currency\": \"PEN\"}}}}, {\"id\": 1009, \"canonical_id\": \"hash_1009\", \"homeTeam\": \"Arsenal\", \"awayTeam\": \"Chelsea\", \"league\": \"Premier League\", \"league_raw\": \"Premier League\", \"country\": \"England\", \"time\": \"20:00\", \"date\": \"2026-05-23\", \"timestamp\": 1779566397, \"sport\": \"Fútbol\", \"status\": \"NS\", \"canonical\": {\"bookmakers\": {\"Inkabet\": {\"odds\": {\"1X2\": [null, null, null]}, \"url\": \"https://inkabet.pe/arsenal-chelsea\", \"currency\": \"PEN\"}, \"Betsson\": {\"odds\": {\"1X2\": [null, null, null]}, \"url\": \"https://betsson.pe/arsenal-chelsea\", \"currency\": \"PEN\"}, \"Codere\": {\"odds\": {\"1X2\": [null, null, null]}, \"url\": \"https://codere.pe/arsenal-chelsea\", \"currency\": \"PEN\"}}}}, {\"id\": 1010, \"canonical_id\": \"hash_1010\", \"homeTeam\": \"Manchester City\", \"awayTeam\": \"Luton Town\", \"league\": \"Premier League\", \"league_raw\": \"Premier League\", \"country\": \"England\", \"time\": \"20:00\", \"date\": \"2026-05-24\", \"timestamp\": 1779616753, \"sport\": \"Fútbol\", \"status\": \"NS\", \"canonical\": {\"bookmakers\": {\"Inkabet\": {\"odds\": {\"1X2\": [1.4, 4.2, 7.0]}, \"url\": \"https://casa.pe/mci-lut-ink\", \"currency\": \"PEN\"}, \"Betsson\": {\"odds\": {\"1X2\": [1.38, 4.1, 8.5]}, \"url\": \"https://casa.pe/mci-lut-bet\", \"currency\": \"PEN\"}, \"Doradobet\": {\"odds\": {\"1X2\": [1.42, 4.0, 7.5]}, \"url\": \"https://casa.pe/mci-lut-dor\", \"currency\": \"PEN\"}}}}, {\"id\": 1011, \"canonical_id\": \"hash_1011\", \"homeTeam\": \"Atletico Madrid\", \"awayTeam\": \"Sevilla\", \"league\": \"La Liga\", \"league_raw\": \"La Liga\", \"country\": \"Spain\", \"time\": \"20:00\", \"date\": \"2026-05-23\", \"timestamp\": 1779566353, \"sport\": \"Fútbol\", \"status\": \"NS\", \"canonical\": {\"bookmakers\": {\"Inkabet\": {\"odds\": {\"1X2\": [3.2, 3.1, 2.9]}, \"url\": \"https://casa.pe/atm-sev-ink\", \"currency\": \"PEN\"}, \"Betsson\": {\"odds\": {\"1X2\": [2.95, 3.3, 3.0]}, \"url\": \"https://casa.pe/atm-sev-bet\", \"currency\": \"PEN\"}, \"TeApuesto\": {\"odds\": {\"1X2\": [2.8, 3.05, 3.4]}, \"url\": \"https://casa.pe/atm-sev-tea\", \"currency\": \"PEN\"}}}}, {\"id\": 1012, \"canonical_id\": \"hash_1012\", \"homeTeam\": \"Borussia Dortmund\", \"awayTeam\": \"RB Leipzig\", \"league\": \"Bundesliga\", \"league_raw\": \"Bundesliga\", \"country\": \"Germany\", \"time\": \"20:00\", \"date\": \"2026-05-24\", \"timestamp\": 1779616753, \"sport\": \"Fútbol\", \"status\": \"NS\", \"canonical\": {\"bookmakers\": {\"Inkabet\": {\"odds\": {\"1X2\": [2.06, 3.4, 3.8]}, \"url\": \"https://casa.pe/bvb-rbl-ink\", \"currency\": \"PEN\"}, \"Betsson\": {\"odds\": {\"1X2\": [2.0, 3.52, 3.9]}, \"url\": \"https://casa.pe/bvb-rbl-bet\", \"currency\": \"PEN\"}, \"Doradobet\": {\"odds\": {\"1X2\": [1.98, 3.3, 4.38]}, \"url\": \"https://casa.pe/bvb-rbl-dor\", \"currency\": \"PEN\"}}}}, {\"id\": 1013, \"canonical_id\": \"hash_1013\", \"homeTeam\": \"Palmeiras\", \"awayTeam\": \"Santos\", \"league\": \"Copa Sudamericana\", \"league_raw\": \"Copa Sudamericana\", \"country\": \"South America\", \"time\": \"20:00\", \"date\": \"2026-05-25\", \"timestamp\": null, \"sport\": \"Fútbol\", \"status\": \"NS\", \"canonical\": {\"bookmakers\": {\"Inkabet\": {\"odds\": {\"1X2\": [1.95, 3.2, 4.1]}, \"url\": \"https://casa.pe/pal-san-ink\", \"currency\": \"PEN\"}, \"Betsson\": {\"odds\": {\"1X2\": [1.9, 3.4, 4.2]}, \"url\": \"https://casa.pe/pal-san-bet\", \"currency\": \"PEN\"}, \"TeApuesto\": {\"odds\": {\"1X2\": [1.88, 3.5, 4.5]}, \"url\": \"https://casa.pe/pal-san-tea\", \"currency\": \"PEN\"}}}}, {\"id\": 1014, \"canonical_id\": \"hash_1014\", \"homeTeam\": \"Ajax\", \"awayTeam\": \"PSV\", \"league\": \"Champions League\", \"league_raw\": \"Champions League\", \"country\": \"Europe\", \"time\": \"20:00\", \"date\": \"2026-05-23\", \"timestamp\": 1779566353, \"sport\": \"Fútbol\", \"status\": \"NS\", \"canonical\": {\"bookmakers\": {\"Inkabet\": {\"odds\": {\"1X2\": [2.5, 3.1, 3.6]}, \"url\": \"https://inkabet.pe/ajax-psv\", \"currency\": \"PEN\"}, \"Betsson\": {\"odds\": {\"1X2\": [2.4, 3.2, 3.7]}, \"url\": \"https://betsson.pe/ajax-psv\", \"currency\": \"PEN\"}, \"Codere\": {\"odds\": {\"1X2\": [2.3, 3.0, 3.8]}, \"url\": \"https://codere.pe/ajax-psv\", \"currency\": \"PEN\"}}}}, {\"id\": 1015, \"canonical_id\": \"hash_1015\", \"homeTeam\": \"Universitario\", \"awayTeam\": \"Alianza Lima\", \"league\": \"Copa Libertadores\", \"league_raw\": \"Copa Libertadores\", \"country\": \"South America\", \"time\": \"20:00\", \"date\": \"2026-05-23\", \"timestamp\": 1779566397, \"sport\": \"Fútbol\", \"status\": \"NS\", \"canonical\": {\"bookmakers\": {\"Inkabet\": {\"odds\": {\"1X2\": [2.3, 3.15, 3.9]}, \"url\": \"https://inkabet.pe/uni-alianza-v2\", \"currency\": \"PEN\"}, \"Betsson\": {\"odds\": {\"1X2\": [2.2, 3.6, 3.7]}, \"url\": \"https://betsson.pe/uni-alianza-v2\", \"currency\": \"PEN\"}, \"Codere\": {\"odds\": {\"1X2\": [2.1, 3.25, 4.8]}, \"url\": \"https://codere.pe/uni-alianza-v2\", \"currency\": \"PEN\"}, \"TeApuesto\": {\"odds\": {\"1X2\": [2.0, 3.05, 3.8]}, \"url\": \"https://teapuesto.pe/uni-alianza-v2\", \"currency\": \"PEN\"}}}}, {\"id\": 1016, \"canonical_id\": \"hash_1016\", \"homeTeam\": \"Ajax\", \"awayTeam\": \"PSV\", \"league\": \"Champions League\", \"league_raw\": \"Champions League\", \"country\": \"Europe\", \"time\": \"20:00\", \"date\": \"2026-05-23\", \"timestamp\": 1779566397, \"sport\": \"Fútbol\", \"status\": \"NS\", \"canonical\": {\"bookmakers\": {\"Inkabet\": {\"odds\": {\"1X2\": [2.1, 3.1, 3.2]}, \"url\": \"https://inkabet.pe/ajax-psv-v2\", \"currency\": \"PEN\"}, \"Betsson\": {\"odds\": {\"1X2\": [2.05, 3.0, 3.3]}, \"url\": \"https://betsson.pe/ajax-psv-v2\", \"currency\": \"PEN\"}, \"Codere\": {\"odds\": {\"1X2\": [2.0, 2.95, 3.1]}, \"url\": \"https://codere.pe/ajax-psv-v2\", \"currency\": \"PEN\"}}}}]};\n\n// Actualizar timestamps dinámicamente para que los partidos\n// siempre estén en el futuro al momento de ejecutar la prueba\nconst now = Math.floor(Date.now() / 1000);\nmockData.events = mockData.events.map(e => {\n  if (e.timestamp !== null && e.id !== 1006) {\n    // Recalcular timestamp según offset original\n    const offsetsHoras = {\n      1001: 6,  1002: 20, 1003: 20, 1004: 20,\n      1005: 6,  1007: 47, 1008: 50, 1009: 6,\n      1010: 20, 1011: 6,  1012: 20, 1013: null,\n      1014: 6,  1015: 6,  1016: 6\n    };\n    const horas = offsetsHoras[e.id];\n    if (horas !== null && horas !== undefined) {\n      e.timestamp = now + (horas * 3600);\n    }\n  } else if (e.id === 1006) {\n    // Partido ya iniciado: siempre en el pasado\n    e.timestamp = now - (2 * 3600);\n  }\n  return e;\n});\n\nmockData.generated_at = new Date().toISOString();\nmockData.cached_at    = new Date().toISOString();\nmockData.date         = new Date().toLocaleDateString('en-CA', { timeZone: 'America/Lima' });\n\nreturn [{ json: mockData }];"
+        },
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          4576,
+          896
+        ],
+        "id": "8bdd8a60-1f56-4b61-9d83-b6be322eb72c",
+        "name": "Mock - Test Data",
+        "disabled": true
+      },
+      {
+        "parameters": {
+          "chatId": "1704819492",
+          "text": "={{ $json.rankingMsg }}",
+          "additionalFields": {}
+        },
+        "name": "Telegram - Send Ranking",
+        "type": "n8n-nodes-base.telegram",
+        "typeVersion": 1,
+        "position": [
+          3920,
+          736
+        ],
+        "id": "10299897-ab73-48f7-8f82-d66a1b1261e8",
+        "webhookId": "1f265a43-292b-40db-9ae0-f81b76c5c211",
+        "credentials": {
+          "telegramApi": {
+            "id": "Kz6I7RAZL2mii6bK",
+            "name": "Telegram.api"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "jsCode": "\nconst hoy = new Date().toLocaleDateString('en-CA', { timeZone: 'America/Lima' });\n\nconst getFecha = (r) => {\n  for (const k of ['LastUpdated','last_updated','Last Updated','updated_at','UpdatedAt','fecha']) {\n    if (r[k]) { const d=new Date(r[k]); if(!isNaN(d)) return d.toLocaleDateString('en-CA',{timeZone:'America/Lima'}); }\n  }\n  for (const [k,v] of Object.entries(r)) {\n    if (typeof v==='string' && /^\\d{4}-\\d{2}-\\d{2}/.test(v)) {\n      const d=new Date(v); if(!isNaN(d)) return d.toLocaleDateString('en-CA',{timeZone:'America/Lima'});\n    }\n  }\n  return null;\n};\n\nconst registros = items.map(i=>i.json).filter(r => getFecha(r)===hoy);\n\nif (registros.length===0) {\n  return [{ json: { rankingMsg:`🏆 Ranking — sin datos para hoy (${hoy})`, ranking:[], totalRegistros:0 }}];\n}\n\n// Ranking de casas\nconst conteo = {};\nregistros.forEach(r => {\n  [r.BookmakerHome, r.BookmakerDraw, r.BookmakerAway].forEach(bk => {\n    if (bk) conteo[bk] = (conteo[bk]||0)+1;\n  });\n});\nconst totalOps = registros.length * 3;\nconst sorted = Object.entries(conteo)\n  .map(([bk,total]) => ({ bookmaker:bk, total, pct:((total/totalOps)*100).toFixed(1) }))\n  .sort((a,b)=>b.total-a.total);\nconst top10 = sorted.slice(0,10);\n\n// Resumen surebets del día\nconst surebets = registros.filter(r => (r.Tipo||'').toLowerCase()==='surebet');\nconst beneficios = surebets.map(r=>parseFloat(r.BeneficioPct||0)).filter(v=>!isNaN(v));\nconst beneficioPromedio = beneficios.length>0 ? (beneficios.reduce((a,b)=>a+b,0)/beneficios.length).toFixed(2) : '0.00';\nconst beneficioMax = beneficios.length>0 ? Math.max(...beneficios).toFixed(2) : '0.00';\n\nconst fecha = new Date().toLocaleDateString('es-PE',{timeZone:'America/Lima',day:'2-digit',month:'2-digit',year:'numeric'});\n\nlet msg = `🏆 Ranking de Casas — ${fecha}\\n`;\nmsg += `📊 ${registros.length} partidos/mercados analizados hoy\\n\\n`;\n\ntop10.forEach((c,i) => {\n  const medal = i===0?'🥇':i===1?'🥈':i===2?'🥉':`${i+1}.`;\n  msg += `${medal} ${c.bookmaker} — mejor cuota ${c.pct}% de las veces\\n`;\n});\n\nmsg += `\\n💡 Abre cuenta primero en:\\n`;\nmsg += top10.slice(0,3).map((c,i)=>`  ${i+1}. ${c.bookmaker}`).join('\\n');\n\nmsg += `\\n\\n━━━━━━ 📈 RESUMEN DEL DÍA ━━━━━━\\n`;\nif (surebets.length>0) {\n  msg += `✅ Surebets detectadas: ${surebets.length}\\n`;\n  msg += `📊 Beneficio promedio: ${beneficioPromedio}%\\n`;\n  msg += `🏆 Mejor oportunidad: ${beneficioMax}%\\n`;\n  msg += `\\n💰 Si hubieras ejecutado todas con S/500:\\n`;\n  const ganancia = beneficios.reduce((a,b)=>a+(500*(b/100)),0);\n  msg += `   Ganancia acumulada estimada: S/${ganancia.toFixed(2)}`;\n} else {\n  msg += `ℹ️ Hoy no se detectaron surebets confirmadas\\n`;\n  msg += `   (normal — ocurren 0-3 veces por día en promedio)`;\n}\n\nreturn [{ json: { rankingMsg:msg, ranking:sorted, totalRegistros:registros.length, surebetsHoy:surebets.length }}];\n"
+        },
+        "name": "Code - BookmakerRanking",
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          3632,
+          736
+        ],
+        "id": "426c6d29-f4bc-402c-b8fe-48cffd5d2219"
+      },
+      {
+        "parameters": {
+          "authentication": "databaseToken",
+          "tableId": 987151,
+          "returnAll": true,
+          "additionalOptions": {}
+        },
+        "type": "n8n-nodes-base.baserow",
+        "typeVersion": 1.1,
+        "position": [
+          3360,
+          736
+        ],
+        "id": "6ee8023b-cfca-465c-871b-c618bca153e7",
+        "name": "Get all rows - Ranking",
+        "alwaysOutputData": true,
+        "credentials": {
+          "baserowTokenApi": {
+            "id": "hTWnIZ4BPHanwIRP",
+            "name": "Baserow.api"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "rule": {
+            "interval": [
+              {
+                "field": "cronExpression",
+                "expression": "0 20 * * *"
+              }
+            ]
+          }
+        },
+        "name": "Schedule - Ranking 20:00",
+        "type": "n8n-nodes-base.scheduleTrigger",
+        "typeVersion": 1.2,
+        "position": [
+          3072,
+          736
+        ],
+        "id": "86bb2d83-bad5-4074-be61-f5f4ce9a90f8",
+        "disabled": true
+      },
+      {
+        "parameters": {
+          "jsCode": "// Filtrar partidos por ventana de tiempo\n// timestamp en el scraper = Unix seconds (entero)\nconst cfg = $('CONFIG').first().json;\nconst maxHoras = cfg.CFG_MAX_HORAS_AL_PARTIDO ?? 48;\n\nreturn items.filter(item => {\n  const ts = item.json.timestamp;\n  if (ts === null || ts === undefined) return true;\n\n  // Unix timestamp en segundos → multiplicar por 1000 para ms\n  const matchTime = Number(ts) * 1000;\n  const now = Date.now();\n\n  // Descartar partidos ya iniciados\n  if (matchTime <= now) return false;\n\n  const horasRestantes = (matchTime - now) / (1000 * 60 * 60);\n  return horasRestantes <= maxHoras;\n}).map(item => ({\n  json: {\n    ...item.json,\n    horasRestantes: parseFloat(\n      ((Number(item.json.timestamp) * 1000 - Date.now()) / (1000 * 60 * 60)).toFixed(1)\n    )\n  }\n}));"
+        },
+        "name": "Filter - TimeToMatch",
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          3904,
+          1136
+        ],
+        "id": "a622a669-2c7c-4e11-81ce-c9f3b22ddc91"
+      },
+      {
+        "parameters": {
+          "assignments": {
+            "assignments": [
+              {
+                "id": "cfg-001",
+                "name": "CFG_DATA_URL",
+                "value": "https://app.alphaoddsx.com/api/eventos_deportivos",
+                "type": "string"
+              },
+              {
+                "id": "cfg-002",
+                "name": "CFG_CAPITAL",
+                "value": 500,
+                "type": "number"
+              },
+              {
+                "id": "cfg-003",
+                "name": "CFG_VALUE_THRESHOLD",
+                "value": 1.05,
+                "type": "number"
+              },
+              {
+                "id": "cfg-004",
+                "name": "CFG_MIN_CONFIANZA",
+                "value": 50,
+                "type": "number"
+              },
+              {
+                "id": "cfg-005",
+                "name": "CFG_MIN_BENEFICIO_PCT",
+                "value": 0.5,
+                "type": "number"
+              },
+              {
+                "id": "cfg-006",
+                "name": "CFG_TELEGRAM_CHAT_ID",
+                "value": "1704819492",
+                "type": "string"
+              },
+              {
+                "id": "cfg-007",
+                "name": "CFG_HORA_INICIO",
+                "value": 8,
+                "type": "number"
+              },
+              {
+                "id": "cfg-008",
+                "name": "CFG_HORA_FIN",
+                "value": 23,
+                "type": "number"
+              },
+              {
+                "id": "cfg-009",
+                "name": "CFG_MAX_HORAS_AL_PARTIDO",
+                "value": 48,
+                "type": "number"
+              },
+              {
+                "id": "cfg-010",
+                "name": "CFG_LEAGUES",
+                "value": "[\"Premier League\", \"La Liga\", \"LaLiga\", \"Bundesliga\", \"Ligue 1\", \"Copa Libertadores\", \"Copa Sudamericana\", \"Mundial\", \"Champions League\", \"Europa League\", \"Peru Primera Division\"]",
+                "type": "string"
+              },
+              {
+                "id": "cfg-011",
+                "name": "CFG_ALERTA_MEJORA_PCT",
+                "value": 1,
+                "type": "number"
+              },
+              {
+                "id": "cfg-012",
+                "name": "CFG_API_KEY",
+                "value": "imp_live_QjD8XpyDMt58Y1ImGUDEqv8JwbMwmc1xhXZzUoWh5paGdf4g2VcogbDo",
+                "type": "string"
+              }
+            ]
+          },
+          "options": {}
+        },
+        "name": "CONFIG",
+        "type": "n8n-nodes-base.set",
+        "typeVersion": 3.4,
+        "position": [
+          3360,
+          912
+        ],
+        "id": "42901dc7-0bd5-4824-b9b6-857c0976ff84"
+      },
+      {
+        "parameters": {
+          "authentication": "databaseToken",
+          "operation": "update",
+          "tableId": 987151,
+          "rowId": "={{ $json.baserowRowId }}",
+          "fieldsUi": {
+            "fieldValues": [
+              {
+                "fieldId": 8639448,
+                "fieldValue": "={{ $('Loop Over Items').item.json.hash }}"
+              },
+              {
+                "fieldId": 8639450,
+                "fieldValue": "={{ parseFloat(($('Loop Over Items').item.json.beneficioPct ?? 0).toFixed(2)) }}"
+              },
+              {
+                "fieldId": 8681222,
+                "fieldValue": "={{ (parseInt($('Function - AttachLastHash').item.json.DeteccionesCount) || 0) + 1 }}"
+              },
+              {
+                "fieldId": 8703892,
+                "fieldValue": "={{ $('Loop Over Items').item.json.timestamp ? parseInt($('Loop Over Items').item.json.timestamp) : null }}"
+              },
+              {
+                "fieldId": 8703893,
+                "fieldValue": "={{ $('Loop Over Items').item.json.timestamp ? new Date(parseInt($('Loop Over Items').item.json.timestamp) * 1000).toLocaleString('sv-SE', {timeZone: 'America/Lima'}).replace(' ', 'T') : '' }}"
+              }
+            ]
+          }
+        },
+        "type": "n8n-nodes-base.baserow",
+        "typeVersion": 1.1,
+        "position": [
+          4592,
+          1216
+        ],
+        "id": "f825db11-681b-45e9-9433-10837b812a47",
+        "name": "Update a row",
+        "credentials": {
+          "baserowTokenApi": {
+            "id": "hTWnIZ4BPHanwIRP",
+            "name": "Baserow.api"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "authentication": "databaseToken",
+          "operation": "create",
+          "tableId": 987151,
+          "fieldsUi": {
+            "fieldValues": [
+              {
+                "fieldId": 8639447,
+                "fieldValue": "={{ $('Loop Over Items').item.json.match + ' | ' + $('Loop Over Items').item.json.market }}"
+              },
+              {
+                "fieldId": 8639448,
+                "fieldValue": "={{ $('Loop Over Items').item.json.hash }}"
+              },
+              {
+                "fieldId": 8639449,
+                "fieldValue": "false"
+              },
+              {
+                "fieldId": 8639450,
+                "fieldValue": "={{ parseFloat(($('Loop Over Items').item.json.beneficioPct ?? 0).toFixed(2)) }}"
+              },
+              {
+                "fieldId": 8680865,
+                "fieldValue": "={{ $('Loop Over Items').item.json.outcomes?.[0]?.bookmaker || '' }}"
+              },
+              {
+                "fieldId": 8680901,
+                "fieldValue": "={{ $('Loop Over Items').item.json.outcomes?.[1]?.bookmaker || '' }}"
+              },
+              {
+                "fieldId": 8680902,
+                "fieldValue": "={{ $('Loop Over Items').item.json.outcomes?.[2]?.bookmaker || '' }}"
+              },
+              {
+                "fieldId": 8681222,
+                "fieldValue": "1"
+              },
+              {
+                "fieldId": 8703892,
+                "fieldValue": "={{ $('Loop Over Items').item.json.timestamp ? parseInt($('Loop Over Items').item.json.timestamp) : null }}"
+              },
+              {
+                "fieldId": 8703893,
+                "fieldValue": "={{ $('Loop Over Items').item.json.timestamp ? new Date(parseInt($('Loop Over Items').item.json.timestamp) * 1000).toLocaleString('sv-SE', {timeZone: 'America/Lima'}).replace(' ', 'T') : '' }}"
+              }
+            ]
+          }
+        },
+        "type": "n8n-nodes-base.baserow",
+        "typeVersion": 1.1,
+        "position": [
+          4592,
+          1344
+        ],
+        "id": "0b494942-b231-41a2-877d-dab45982e970",
+        "name": "Create a row",
+        "credentials": {
+          "baserowTokenApi": {
+            "id": "hTWnIZ4BPHanwIRP",
+            "name": "Baserow.api"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "authentication": "databaseToken",
+          "operation": "update",
+          "tableId": 987151,
+          "rowId": "={{ $json.id }}",
+          "fieldsUi": {
+            "fieldValues": [
+              {
+                "fieldId": 8639449,
+                "fieldValue": "true"
+              },
+              {
+                "fieldId": 8671391,
+                "fieldValue": "={{ $('Function - RoundingAndCurrency').item.json.tipo }}"
+              }
+            ]
+          }
+        },
+        "type": "n8n-nodes-base.baserow",
+        "typeVersion": 1.1,
+        "position": [
+          4976,
+          1776
+        ],
+        "id": "9ec42022-9a0b-4367-8cec-04766a114656",
+        "name": "Update a row - AlertSent",
+        "rowId": null,
+        "credentials": {
+          "baserowTokenApi": {
+            "id": "hTWnIZ4BPHanwIRP",
+            "name": "Baserow.api"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "authentication": "databaseToken",
+          "tableId": 987151,
+          "returnAll": true,
+          "additionalOptions": {
+            "filters": {
+              "fields": [
+                {
+                  "field": 8639448,
+                  "value": "={{ $('Loop Over Items').item.json.hash }}"
+                }
+              ]
+            }
+          }
+        },
+        "type": "n8n-nodes-base.baserow",
+        "typeVersion": 1.1,
+        "position": [
+          4768,
+          1776
+        ],
+        "id": "56265596-7143-485d-aa52-553ed08c3c8b",
+        "name": "Get many rows - By Match",
+        "alwaysOutputData": true,
+        "credentials": {
+          "baserowTokenApi": {
+            "id": "hTWnIZ4BPHanwIRP",
+            "name": "Baserow.api"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "chatId": "={{ $('CONFIG').first().json.CFG_TELEGRAM_CHAT_ID }}",
+          "text": "={{ \n  ($json.oportunidadCerrada\n    ? '❌ OPORTUNIDAD CERRADA\\n' +\n      '⚽ ' + $json.match + '\\n' +\n      '🏷️ ' + ($json.marketFmt || $json.market) + '\\n' +\n      '📉 Beneficio: ' + $json.beneficioPrevio.toFixed(2) + '% → ' + $json.beneficioPctFmt + '\\n\\n' +\n      ($json.beneficioPrevio > 0\n        ? '⚠️ Si YA apostaste: recibirás menos ganancia de lo esperado\\n' +\n          '⚠️ Si NO apostaste aún: NO lo hagas, ya no es rentable'\n        : '⚠️ La oportunidad se cerró antes de poder ejecutar')\n    :\n      ($json.esSegundaAlerta ? '⚠️ MEJORA DETECTADA — oportunidad ya alertada\\n\\n' : '') +\n      $json.tipoLabel + '\\n' +\n      '🏷️ Mercado: ' + ($json.marketFmt || $json.market) + '\\n' +\n      '📋 ' + ($json.ligaFmt || 'Liga desconocida') + '\\n' +\n      '📅 ' + $json.fechaPartidoFmt + '\\n' +\n      '⏱️ Tiempo al partido: ' + ($json.horasRestantes ?? '?') + 'h\\n\\n' +\n      '⚽ ' + $json.match + '\\n' +\n      '💹 Beneficio: ' + $json.beneficioPctFmt +\n        ($json.tipo === 'surebet' ? ' → Ganancia neta: ' + $json.gananciaEsperadaFmt : '') +\n        ($json.esSegundaAlerta ? ' (antes: ' + $json.beneficioPrevio.toFixed(2) + '%)' : '') + '\\n' +\n      ($json.esSegundaAlerta ? '📈 Mejora: +' + $json.mejora.toFixed(2) + '%\\n' : '') +\n      '🏠 Casas independientes: ' + ($json.casasDistintas || 0) + '\\n' +\n      '🤖 Confianza IA: ' + $json.confianza + '/100\\n' +\n      ($json.hasPinnacle ? '📊 Referencia: Pinnacle ✅\\n' : '') +\n      '💬 ' + ($json.comentario || '') + '\\n\\n' +\n      '📌 Mejores cuotas:\\n' + ($json.cuotasDetalle || 'Sin detalle') + '\\n\\n' +\n      ($json.tipo === 'surebet'\n        ? '━━━━━━ 💰 EJECUTA AHORA ━━━━━━\\n' +\n          'Capital: S/' + ($json.capitalApostado || $json.capitalTotal || 500) + '\\n' +\n          'Distribución:\\n' + ($json.stakesDetalle || 'Sin detalle') + '\\n' +\n          '\\n✅ Ganancia mínima garantizada: ' + $json.gananciaEsperadaFmt\n        : '━━━━━━ 💰 VALUE BET ━━━━━━\\n' +\n          ($json.valueBetsFmt ? $json.valueBetsFmt + '\\n' : 'Sin value bets\\n') +\n          '\\n⚠️ No es arbitraje — hay riesgo de pérdida'\n      ) + '\\n\\n' +\n      ($json.guiaPrincipiante ? $json.guiaPrincipiante : '')\n  )\n}}",
+          "additionalFields": {}
+        },
+        "name": "Telegram - Send Alert",
+        "type": "n8n-nodes-base.telegram",
+        "typeVersion": 1,
+        "position": [
+          4784,
+          1552
+        ],
+        "id": "ba1045fc-ab6e-4695-8d3f-d9b5729d77f3",
+        "webhookId": "2b8ac5eb-76d0-49fc-9974-52022209ced6",
+        "credentials": {
+          "telegramApi": {
+            "id": "Kz6I7RAZL2mii6bK",
+            "name": "Telegram.api"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "conditions": {
+            "options": {
+              "caseSensitive": false,
+              "leftValue": "",
+              "typeValidation": "loose",
+              "version": 3
+            },
+            "conditions": [
+              {
+                "id": "cond-alert-debe",
+                "leftValue": "={{ $json.debeAlertar }}",
+                "rightValue": true,
+                "operator": {
+                  "type": "boolean",
+                  "operation": "equals"
+                }
+              }
+            ],
+            "combinator": "and"
+          },
+          "options": {}
+        },
+        "name": "IF - Alert?",
+        "type": "n8n-nodes-base.if",
+        "typeVersion": 2.3,
+        "position": [
+          4560,
+          1568
+        ],
+        "id": "2a2ddbd6-f794-4025-ba17-ba6c18f527ee"
+      },
+      {
+        "parameters": {
+          "jsCode": "const cfg = $('CONFIG').first().json;\nconst umbralMejora  = cfg.CFG_ALERTA_MEJORA_PCT ?? 1.0;\nconst umbralCierre  = cfg.CFG_MIN_BENEFICIO_PCT ?? 0.5;\n\nreturn items.map(item => {\n  const d = item.json;\n\n  const beneficioActual = d.beneficioPct ?? 0;\n  const tipo            = d.tipo   ?? 'ninguno';\n  const riesgo          = d.riesgo ?? 'alto';\n  const confianza       = d.confianza ?? 0;\n\n  const alertSent       = $('Function - AttachLastHash').item.json.AlertSent ?? false;\n  const beneficioPrevio = parseFloat($('Function - AttachLastHash').item.json.BeneficioPct ?? 0);\n\n  // Condiciones base\n  const condicionesBase = (\n    beneficioActual > umbralCierre &&\n    tipo      !== 'ninguno' &&\n    riesgo    !== 'alto'    &&\n    confianza >= (cfg.CFG_MIN_CONFIANZA ?? 50)\n  );\n\n  let debeAlertar    = false;\n  let esSegundaAlerta = false;\n  let oportunidadCerrada = false;\n  let mejora = 0;\n\n  if (!alertSent) {\n    // Primera vez — alertar si cumple condiciones base\n    debeAlertar = condicionesBase;\n  } else {\n    // Ya se alertó antes\n    mejora = beneficioActual - beneficioPrevio;\n\n    if (condicionesBase && mejora >= umbralMejora) {\n      // Mejoró significativamente — segunda alerta\n      debeAlertar     = true;\n      esSegundaAlerta = true;\n    } else if (beneficioPrevio >= umbralCierre && beneficioActual < umbralCierre) {\n      // Oportunidad que antes era válida ahora cayó por debajo del umbral\n      debeAlertar        = true;\n      oportunidadCerrada = true;\n    }\n  }\n\n  return {\n    json: {\n      ...d,\n      debeAlertar,\n      esSegundaAlerta,\n      oportunidadCerrada,\n      mejora: parseFloat(mejora.toFixed(3)),\n      beneficioPrevio\n    }\n  };\n});"
+        },
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          4368,
+          1568
+        ],
+        "id": "689e72bc-97cb-4557-b7e0-c1f99f79bf8d",
+        "name": "Code - ShouldAlert"
+      },
+      {
+        "parameters": {
+          "jsCode": "\nreturn items.map(item => {\n  const out   = { ...item.json };\n  const market = out.market || '1X2';\n\n  out.beneficioPctFmt = `${Number(out.beneficioPct??0).toFixed(2)}%`;\n  const gan = out.gananciaEsperada ?? 0;\n  out.gananciaEsperadaFmt = gan>=0 ? `S/${gan.toFixed(2)}` : `-S/${Math.abs(gan).toFixed(2)}`;\n  out.stakesRounded = out.stakes || {};\n\n  const mktLabels = {'1X2':'⚽ Resultado 1X2','DBL':'🔄 Doble Oportunidad','BTTS':'🥅 Ambos Anotan'};\n  out.marketFmt = mktLabels[market] || (market.startsWith('OU_') ? `⬆️ Over/Under ${market.replace('OU_','')}` : market);\n\n  out.tipoLabel = out.tipo==='surebet' ? '🔒 SUREBET (ganancia garantizada)'\n    : out.tipo==='valuebet' ? '📈 VALUE BET (cuota con valor)' : '⚪ Sin oportunidad';\n\n  out.ligaFmt = [out.league, out.country].filter(Boolean).join(' · ') || 'Liga desconocida';\n\n  // Fecha partido\n  if (out.timestamp) {\n    const md    = new Date(Number(out.timestamp)*1000);\n    const ahora = new Date();\n    const hFmt  = md.toLocaleTimeString('es-PE',{timeZone:'America/Lima',hour:'2-digit',minute:'2-digit'});\n    const hoy   = ahora.toLocaleDateString('en-CA',{timeZone:'America/Lima'});\n    const man   = new Date(ahora.getTime()+86400000).toLocaleDateString('en-CA',{timeZone:'America/Lima'});\n    const fM    = md.toLocaleDateString('en-CA',{timeZone:'America/Lima'});\n    out.fechaPartidoFmt = fM===hoy?`Hoy ${hFmt}`:fM===man?`Mañana ${hFmt}`\n      :`${md.toLocaleDateString('es-PE',{timeZone:'America/Lima',day:'2-digit',month:'2-digit'})} ${hFmt}`;\n    // Datetime legible para Baserow\n    out.matchDatetime = `${fM}T${hFmt}:00`;\n  } else {\n    out.fechaPartidoFmt = 'Fecha desconocida';\n    out.matchDatetime   = null;\n  }\n\n  const labelOf = l => l==='home'?'Local':l==='draw'?'Empate':l==='away'?'Visitante'\n    :l==='over'?'Over':l==='under'?'Under':l==='si'?'Sí':l==='no'?'No'\n    :l==='1X'?'1X (Local/Empate)':l==='12'?'12 (Local/Visit.)':l==='X2'?'X2 (Empate/Visit.)':l.toUpperCase();\n\n  const stakes   = out.stakes   || {};\n  const outcomes = out.outcomes || [];\n\n  out.stakesDetalle = outcomes\n    .filter(o=>stakes[o.label])\n    .map(o=>`  ${labelOf(o.label).padEnd(20)}: S/${stakes[o.label]} en ${o.bookmaker}`+(o.url?`\\n  🔗 ${o.url}`:''))\n    .join('\\n');\n\n  out.cuotasDetalle = outcomes\n    .filter(o=>o.odds>1)\n    .map(o=>`  ${labelOf(o.label).padEnd(20)}: ${o.odds} @ ${o.bookmaker}`+(o.url?`\\n  🔗 ${o.url}`:''))\n    .join('\\n');\n\n  out.valueBetsFmt = (out.valueBets||[]).length>0\n    ? out.valueBets.map(v=>`  ${v.label}: cuota ${v.cuota} en ${v.bookmaker} (ROI +${v.roi}%)`+(v.url?`\\n  🔗 ${v.url}`:'')+(out.hasPinnacle?` [ref. Pinnacle]`:'')).join('\\n')\n    : null;\n\n  const horasR   = out.horasRestantes ?? 0;\n  const urgencia = horasR<=2 ? '🔴 URGENTE — menos de 2h para el partido'\n    : horasR<=6 ? '🟡 Actúa pronto — cuotas cambian en las últimas horas'\n    : '🟢 Hay tiempo — verifica cuotas antes de apostar';\n\n  if (out.tipo==='surebet') {\n    out.guiaPrincipiante = [\n      `━━━━━━ 📚 GUÍA PASO A PASO ━━━━━━`,\n      `Ganancia GARANTIZADA. Funciona porque las casas tienen cuotas`,\n      `distintas y la suma de probabilidades implícitas < 1.`,\n      ``,\n      `✅ HAZ ESTO (en orden):`,\n      `1. Abre los links de CADA casa (arriba)`,\n      `2. VERIFICA que las cuotas coincidan exactamente`,\n      `3. Apuesta primero en la cuota MÁS ALTA (cambia más rápido)`,\n      `4. Usa los S/ exactos indicados — no redondees`,\n      `5. Confirma cada apuesta antes de cerrar la página`,\n      ``,\n      `⚠️ RIESGOS REALES:`,\n      `• Cuotas cambian en minutos — actúa rápido`,\n      `• Necesitas saldo en CADA casa simultáneamente`,\n      `• No uses Inkabet + Betsson + Betsafe juntas — son la misma empresa`,\n      `• Verifica que el partido siga en estado \"No iniciado\"`,\n      ``,\n      urgencia\n    ].join('\\n');\n  } else if (out.tipo==='valuebet') {\n    const sugerido = Math.round((out.capitalTotal||500)*0.03);\n    out.guiaPrincipiante = [\n      `━━━━━━ 📚 GUÍA VALUE BET ━━━━━━`,\n      `La cuota ofrecida supera el valor matemático.`,\n      `No garantiza ganancia hoy, pero es rentable a largo plazo.`,\n      out.hasPinnacle ? `📊 Referencia: Pinnacle (la casa más precisa del mundo)` : `📊 Referencia: probabilidad implícita normalizada`,\n      ``,\n      `💰 Monto sugerido: S/${sugerido} (3% del capital)`,\n      `   Solo apuesta si entiendes el mercado: ${out.marketFmt}`,\n      ``,\n      urgencia\n    ].join('\\n');\n  } else {\n    out.guiaPrincipiante = null;\n  }\n\n  return { json: out };\n});\n"
+        },
+        "name": "Function - RoundingAndCurrency",
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          4176,
+          1568
+        ],
+        "id": "4d251ff6-985a-429d-9670-833cbf1f0b6d"
+      },
+      {
+        "parameters": {
+          "jsCode": "\nconst threshold = Number($('CONFIG').first().json.CFG_VALUE_THRESHOLD ?? 1.05);\n\nreturn items.map(item => {\n  const d = item.json;\n  const { match, market, marketLabel, best, bestDynamic, outcomes,\n          stakes, beneficioPct, capitalTotal, capitalApostado, gananciaEsperada,\n          currencies, surebet, tipo, riesgo, confianza, comentario,\n          league, country, region, horasRestantes, margen, casasDistintas,\n          pinnacleRef, pinnacleProb, timestamp } = d;\n\n  const validOutcomes = (outcomes||[]).filter(o=>o.odds>1);\n  if (validOutcomes.length===0) return { json:{...d, prob:{}, valueBets:[], roiPct:[]} };\n\n  // Probabilidades: Pinnacle si disponible, implícitas si no\n  let prob = {};\n  if (pinnacleProb && Object.keys(pinnacleProb).length>0) {\n    prob = pinnacleProb;  // más preciso\n  } else {\n    const sumInv = validOutcomes.reduce((acc,o)=>acc+1/o.odds,0);\n    validOutcomes.forEach(o=>{ prob[o.label]=(1/o.odds)/sumInv; });\n  }\n\n  const hasPinnacle = !!pinnacleProb && Object.keys(pinnacleProb).length>0;\n\n  const labelOf = l => l==='home'?'Local':l==='draw'?'Empate':l==='away'?'Visitante'\n    :l==='over'?'Over':l==='under'?'Under':l==='si'?'Ambos Anotan Sí'\n    :l==='no'?'Ambos Anotan No':l.toUpperCase();\n\n  const valueBets = [];\n  validOutcomes.forEach(o => {\n    const p = prob[o.label] || 0;\n    if (p===0) return;\n    const val = p * o.odds;\n    if (val > threshold) {\n      valueBets.push({\n        outcome: o.label, label: labelOf(o.label),\n        valor: val, roi: ((val-1)*100).toFixed(2),\n        bookmaker: o.bookmaker, cuota: o.odds, url: o.url||null,\n        probabilidad: (p*100).toFixed(1),\n        fuente: hasPinnacle ? 'Pinnacle' : 'implícita'\n      });\n    }\n  });\n\n  return { json: {\n    match, market, marketLabel, best, bestDynamic, outcomes,\n    league, country, region, horasRestantes, margen, casasDistintas,\n    timestamp, pinnacleRef, pinnacleProb, hasPinnacle,\n    prob, valueBets, surebet, tipo, riesgo, confianza, comentario,\n    stakes, capitalTotal, capitalApostado, gananciaEsperada, currencies,\n    beneficioPct, roiPct: valueBets.map(v=>v.roi)\n  }};\n});\n"
+        },
+        "name": "Function - ValueCalc",
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          3984,
+          1568
+        ],
+        "id": "ba997b75-05ca-404f-a580-5e11e1b13c1d"
+      },
+      {
+        "parameters": {
+          "jsCode": "\nreturn items.map(item => {\n  const rawText = item.json?.text || '';\n  let parsed = null;\n  if (rawText) {\n    let clean = rawText.trim().replace(/```json\\s*/gi,'').replace(/```\\s*/g,'').trim();\n    try { parsed = JSON.parse(clean); }\n    catch(e) { try { const m=clean.match(/\\{[\\s\\S]*\\}/); parsed=m?JSON.parse(m[0]):null; } catch(e2){} }\n  }\n  const llm = {\n    tipo:       parsed?.tipo       || 'ninguno',\n    riesgo:     parsed?.riesgo     || 'alto',\n    confianza:  Number(parsed?.confianza ?? 0),\n    comentario: parsed?.comentario || 'Sin análisis'\n  };\n  const src = $('Loop Over Items').item.json;\n  return { json: {\n    match:           src.match           ?? null,\n    market:          src.market          ?? '1X2',\n    marketLabel:     src.marketLabel     ?? '1X2',\n    best:            src.best            ?? null,\n    bestDynamic:     src.bestDynamic     ?? null,\n    outcomes:        src.outcomes        ?? [],\n    league:          src.league          ?? null,\n    country:         src.country         ?? null,\n    region:          src.region          ?? null,\n    horasRestantes:  src.horasRestantes  ?? null,\n    timestamp:       src.timestamp       ?? null,\n    surebet:         src.surebet         ?? false,\n    beneficioPct:    src.beneficioPct    ?? 0,\n    margen:          src.margen          ?? null,\n    stakes:          src.stakes          ?? null,\n    capitalTotal:    src.capitalTotal    ?? 500,\n    capitalApostado: src.capitalApostado ?? 500,\n    gananciaEsperada:src.gananciaEsperada?? 0,\n    casasDistintas:  src.casasDistintas  ?? 0,\n    currencies:      src.currencies      ?? {},\n    pinnacleRef:     src.pinnacleRef     ?? null,\n    pinnacleProb:    src.pinnacleProb    ?? null,\n    hash:            src.hash            ?? null,\n    tipo:       llm.tipo,\n    riesgo:     llm.riesgo,\n    confianza:  llm.confianza,\n    comentario: llm.comentario\n  }};\n});\n"
+        },
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          3584,
+          1568
+        ],
+        "id": "14bb9414-0bbc-4467-8b37-4ee645fc291a",
+        "name": "Code - ParseLLM & Merge"
+      },
+      {
+        "parameters": {
+          "model": "openai/gpt-4o-mini",
+          "options": {}
+        },
+        "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+        "typeVersion": 1,
+        "position": [
+          3280,
+          1744
+        ],
+        "id": "0376477c-e6ab-4d84-b6d9-9c6f9c2f9520",
+        "name": "openai/gpt-4o-mini",
+        "credentials": {
+          "openRouterApi": {
+            "id": "aq9Mu0k1n9JBuo3F",
+            "name": "OpenRouter.msn"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "promptType": "define",
+          "text": "Clasifica esta oportunidad (mercado: {{ $json.market }}):\n\n{{ $json.payloadString }}\n\nDevuelve SOLO el JSON.",
+          "messages": {
+            "messageValues": [
+              {
+                "message": "Eres un analista de arbitraje deportivo. Clasifica EXCLUSIVAMENTE con datos matemáticos (margen, beneficioPct, cuotas, mercado). Sin conocimiento externo.\n\nDevuelve JSON puro sin markdown:\n{\n  \"tipo\": \"surebet | valuebet | ninguno\",\n  \"riesgo\": \"alto | medio | bajo\",\n  \"confianza\": 85,\n  \"comentario\": \"máximo 100 caracteres, menciona el mercado\"\n}\n\nMercados: 1X2 (3 casas independientes para surebet), OU_1.5/OU_2.5/OU_3.5 (2 casas), BTTS (2 casas), DBL (informativo).\nTipo: surebet=margen<1 con casas suficientes | valuebet=cuota supera valor implícito | ninguno=sin oportunidad.\nRiesgo: bajo>2% | medio 0.5-2% | alto<0.5%.\nConfianza: 80-100 surebet>1.5% | 60-79 surebet 0.5-1.5% | 40-59 marginal | 0-39 insuficiente.\nNota: Betsafe/Inkabet/Betsson son la MISMA empresa — no cuentan como casas independientes.\nNUNCA texto fuera del JSON."
+              }
+            ]
+          },
+          "batching": {}
+        },
+        "type": "@n8n/n8n-nodes-langchain.chainLlm",
+        "typeVersion": 1.9,
+        "position": [
+          3280,
+          1568
+        ],
+        "id": "2f385a6e-6df4-432a-9bd4-5b92981486be",
+        "name": "Basic LLM Chain"
+      },
+      {
+        "parameters": {
+          "jsCode": "\nconst src = $('Loop Over Items').item.json;\nconst normalized = {\n  match:          src.match          || '',\n  league:         src.league         || '',\n  country:        src.country        || '',\n  market:         src.market         || '1X2',\n  marketLabel:    src.marketLabel    || src.market || '1X2',\n  margen:         src.margen         ?? null,\n  beneficioPct:   src.beneficioPct   ?? 0,\n  surebet:        src.surebet        ?? false,\n  casasDistintas: src.casasDistintas ?? 0,\n  outcomes: (src.outcomes || []).map(o => ({ label:o.label, odds:o.odds, bookmaker:o.bookmaker })),\n  hasPinnacle:    !!src.pinnacleProb\n};\nconst hasOdds = normalized.outcomes.length >= 2 && normalized.outcomes.every(o => o.odds > 1);\n// Skip LLM si margen > 1.03 — claramente sin oportunidad, ahorra llamadas API\nconst skipLLM = !hasOdds || (src.margen !== null && src.margen > 1.03 && !src.surebet);\nreturn [{ json: { ...src, normalized, payloadString: JSON.stringify(normalized), skipLLM } }];\n"
+        },
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          3088,
+          1568
+        ],
+        "id": "00675be1-4ef8-4280-9d09-ef952aa065d6",
+        "name": "Function - PayloadString"
+      },
+      {
+        "parameters": {
+          "conditions": {
+            "options": {
+              "caseSensitive": false,
+              "leftValue": "",
+              "typeValidation": "loose",
+              "version": 3
+            },
+            "conditions": [
+              {
+                "id": "cond-rowexists-001",
+                "leftValue": "={{ $json.baserowRowExists }}",
+                "rightValue": true,
+                "operator": {
+                  "type": "boolean",
+                  "operation": "equals"
+                }
+              }
+            ],
+            "combinator": "and"
+          },
+          "options": {}
+        },
+        "name": "IF - RowExists?",
+        "type": "n8n-nodes-base.if",
+        "typeVersion": 2.3,
+        "position": [
+          4336,
+          1328
+        ],
+        "id": "b5d75ed9-aad2-48e7-8c86-1a2d446414d6"
+      },
+      {
+        "parameters": {
+          "conditions": {
+            "options": {
+              "caseSensitive": false,
+              "leftValue": "",
+              "typeValidation": "loose",
+              "version": 3
+            },
+            "conditions": [
+              {
+                "id": "cond-hash-newrow",
+                "leftValue": "={{ !$json.baserowRowExists || ($json.hash !== $json.lastHash) }}",
+                "rightValue": true,
+                "operator": {
+                  "type": "boolean",
+                  "operation": "equals"
+                }
+              }
+            ],
+            "combinator": "and"
+          },
+          "options": {}
+        },
+        "name": "IF Compare Hash",
+        "type": "n8n-nodes-base.if",
+        "typeVersion": 2.3,
+        "position": [
+          4048,
+          1344
+        ],
+        "id": "b5847e91-77eb-45ee-96f1-0480783ba166"
+      },
+      {
+        "parameters": {
+          "jsCode": "// AttachLastHash: fusiona datos de Baserow con el item del Loop\n// Detecta si Baserow devolvió una fila existente o está vacío\nreturn items.map(it => {\n  const out = { ...it.json };\n\n  const norm = v => {\n    if (v === null || v === undefined) return null;\n    const s = String(v).trim();\n    return (s === '' || s.toLowerCase() === 'null') ? null : s.toLowerCase();\n  };\n\n  // El item del Loop tiene el hash calculado\n  // El item de Baserow (si existe) tiene 'id' y los campos de la tabla\n  const loopItem = $('Loop Over Items').item.json;\n\n  // Recuperar hash calculado desde el Loop\n  out.hash = norm(loopItem.hash) || null;\n\n  // Detectar si Baserow devolvió una fila real\n  // Una fila de Baserow siempre tiene campo 'id' (número entero)\n  const baserowId = out.id ?? null;\n  out.baserowRowExists = (baserowId !== null && baserowId !== undefined && baserowId !== '');\n  out.baserowRowId = out.baserowRowExists ? baserowId : null;\n\n  // Hash guardado en Baserow (campo que hayas definido)\n  const possibleHashKeys = ['Hash', 'hash', 'lastHash', 'last_hash'];\n  let savedHash = null;\n  for (const k of possibleHashKeys) {\n    if (out[k] !== undefined && out[k] !== null && out[k] !== '') {\n      savedHash = norm(out[k]);\n      break;\n    }\n  }\n  out.lastHash = savedHash;\n\n  // beneficioPct desde Loop (ya calculado en SurebetCalc)\n  out.beneficioPct = loopItem.beneficioPct ?? 0;\n\n  return { json: out };\n});"
+        },
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          3680,
+          1344
+        ],
+        "id": "9cba013e-c048-4e73-b915-7ae48790ec88",
+        "name": "Function - AttachLastHash"
+      },
+      {
+        "parameters": {
+          "authentication": "databaseToken",
+          "tableId": 987151,
+          "limit": 1,
+          "additionalOptions": {
+            "filters": {
+              "fields": [
+                {
+                  "field": 8639447,
+                  "value": "={{$json['match'] + ' | ' + $json['market']}}"
+                }
+              ]
+            }
+          }
+        },
+        "type": "n8n-nodes-base.baserow",
+        "typeVersion": 1.1,
+        "position": [
+          3408,
+          1344
+        ],
+        "id": "89ce3089-33d9-4b76-ba02-87fdc3a4f5af",
+        "name": "Get many rows",
+        "alwaysOutputData": true,
+        "credentials": {
+          "baserowTokenApi": {
+            "id": "hTWnIZ4BPHanwIRP",
+            "name": "Baserow.api"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "options": {
+            "reset": false
+          }
+        },
+        "type": "n8n-nodes-base.splitInBatches",
+        "typeVersion": 3,
+        "position": [
+          3088,
+          1328
+        ],
+        "id": "d5f25868-d13b-417e-8837-f489185887e8",
+        "name": "Loop Over Items"
+      },
+      {
+        "parameters": {
+          "jsCode": "\nconst crypto = require('crypto');\nreturn items.map(item => {\n  const { match, market, outcomes } = item.json;\n  const oddsStr = (outcomes||[])\n    .sort((a,b)=>a.label.localeCompare(b.label))\n    .map(o=>`${o.label}:${o.odds}:${o.bookmaker}`)\n    .join('|');\n  const raw  = `${match}||${market}||${oddsStr}`;\n  const hash = crypto.createHash('md5').update(raw).digest('hex');\n  return { json: { ...item.json, hash } };\n});\n"
+        },
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          4336,
+          1136
+        ],
+        "id": "57456ebd-ceff-4098-bca1-e2587f4c579d",
+        "name": "Generate Hash"
+      },
+      {
+        "parameters": {
+          "jsCode": "\nconst parseOdd = (v) => {\n  if (v === null || v === undefined) return NaN;\n  if (typeof v === 'number') return v > 1 ? v : NaN;\n  const num = Number(String(v).trim().replace(',','.'));\n  return isFinite(num) && num > 1 ? num : NaN;\n};\nconst round      = (n, d=3) => Math.round(n * Math.pow(10,d)) / Math.pow(10,d);\nconst roundToInt = (n) => Math.round(n);\nconst CAPITAL    = Number($('CONFIG').first().json.CFG_CAPITAL ?? 500);\nconst minCasas   = (market) => (market === '1X2' || market === 'DBL') ? 3 : 2;\n\nreturn items.map(item => {\n  const { match, market, marketLabel, outcomes, best, bestDynamic,\n          league, country, region, timestamp, casasDistintas, pinnacleRef } = item.json || {};\n\n  if (!outcomes || outcomes.length === 0)\n    return { json: { match, market, marketLabel, error:'sin outcomes', league, country, timestamp } };\n\n  const parsed = outcomes\n    .map(o => ({ label:o.label, odds:parseOdd(o.odds), bookmaker:o.bookmaker, url:o.url, currency:o.currency }))\n    .filter(o => isFinite(o.odds) && o.odds > 1);\n\n  if (parsed.length < 2)\n    return { json: { match, market, marketLabel, league, country, region, timestamp,\n      margen:null, surebet:false, beneficioPct:0, stakes:null,\n      gananciaEsperada:0, capitalTotal:CAPITAL, casasDistintas:casasDistintas||0,\n      best, bestDynamic, outcomes, pinnacleRef, debug:'Cuotas insuficientes' }};\n\n  const sumInv         = parsed.reduce((acc,o) => acc + 1/o.odds, 0);\n  const margen         = round(sumInv, 6);\n  const minC           = minCasas(market);\n  const surebet        = margen < 1 && (casasDistintas || 0) >= minC;\n  const beneficioPct   = surebet ? round((1-margen)*100, 3) : 0;\n\n  const stakeMap = {};\n  let capitalApostado = CAPITAL, gananciaEsperada = 0;\n  if (surebet) {\n    parsed.forEach(o => { stakeMap[o.label] = roundToInt((CAPITAL*(1/o.odds))/sumInv); });\n    capitalApostado  = Object.values(stakeMap).reduce((a,b)=>a+b,0);\n    gananciaEsperada = round(Math.min(...parsed.map(o=>stakeMap[o.label]*o.odds))-capitalApostado,2);\n  }\n\n  const bestCompat = {};\n  parsed.forEach(o => { bestCompat[o.label] = { odds:o.odds, bookmaker:o.bookmaker, url:o.url, currency:o.currency }; });\n  const bestLegacy = market==='1X2'\n    ? { home:bestCompat['home']||null, draw:bestCompat['draw']||null, away:bestCompat['away']||null }\n    : bestCompat;\n\n  // ── Value con Pinnacle como referencia ──────────────────\n  // Si Pinnacle está presente, usamos sus cuotas como probabilidad real\n  // Si no, usamos probabilidades implícitas normalizadas\n  let pinnacleProb = null;\n  if (pinnacleRef && Array.isArray(pinnacleRef) && pinnacleRef.length >= parsed.length) {\n    const pinSum = pinnacleRef.slice(0,parsed.length).reduce((a,v)=> v>0 ? a+1/v : a, 0);\n    if (pinSum > 0) {\n      pinnacleProb = {};\n      parsed.forEach((o,i) => {\n        const pv = pinnacleRef[i];\n        if (pv > 0) pinnacleProb[o.label] = (1/pv)/pinSum;\n      });\n    }\n  }\n\n  return { json: {\n    match, market, marketLabel,\n    league, country, region, timestamp,\n    margen, surebet,\n    casasDistintas, beneficioPct, gananciaEsperada, capitalApostado,\n    stakes: stakeMap, capitalTotal: CAPITAL,\n    best: bestLegacy, bestDynamic: bestCompat,\n    outcomes: parsed, pinnacleRef, pinnacleProb,\n    currencies: Object.fromEntries(parsed.map(o=>[o.label, o.currency||'PEN']))\n  }};\n});\n"
+        },
+        "name": "Function - SurebetCalc",
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          4128,
+          1136
+        ],
+        "id": "eaf8e5e0-3d27-4869-a3db-74346aca59ba"
+      },
+      {
+        "parameters": {
+          "jsCode": "\n// Grupos de clones — misma empresa, NO cuentan como casas distintas\nconst CLONE_FAMILIES = [\n  ['Betsafe','Inkabet','Betsson'],\n  ['1xbet','Megapari'],\n  ['Cosmobet','Mystake'],\n  ['Gangabet','Doradobet','Masterbets365','Atlantic City'],\n];\nconst cloneOf = {};\nCLONE_FAMILIES.forEach(fam => { fam.forEach(m => { cloneOf[m] = fam[0]; }); });\n\nconst countIndependent = (bookmakerSet) => {\n  const seen = new Set();\n  let n = 0;\n  [...bookmakerSet].forEach(bk => {\n    const key = cloneOf[bk] || bk;\n    if (!seen.has(key)) { seen.add(key); n++; }\n  });\n  return n;\n};\n\nreturn items.map(item => {\n  const { match, market, marketLabel, offers, league, country, region, timestamp, pinnacleRef } = item.json || {};\n  const bestMap = {};\n\n  (offers || []).forEach(offer => {\n    const { bookmaker, url, currency, outcomes } = offer;\n    (outcomes || []).forEach(({ label, odds }) => {\n      if (!odds || odds <= 1) return;\n      if (!bestMap[label] || odds > bestMap[label].odds) {\n        bestMap[label] = { bookmaker, odds, url, currency };\n      }\n    });\n  });\n\n  const allBks       = new Set(Object.values(bestMap).map(b => b.bookmaker));\n  const casasDistintas = countIndependent(allBks);\n\n  // Compatibilidad 1X2\n  const bestLegacy = market === '1X2' ? {\n    home: bestMap['home'] || null,\n    draw: bestMap['draw'] || null,\n    away: bestMap['away'] || null\n  } : bestMap;\n\n  const outcomesArray = Object.entries(bestMap).map(([label, data]) => ({ label, ...data }));\n\n  return { json: {\n    match, market, marketLabel,\n    league, country, region, timestamp,\n    best:        bestLegacy,\n    bestDynamic: bestMap,\n    outcomes:    outcomesArray,\n    casasDistintas,           // ya descontando clones\n    pinnacleRef               // referencia de valor\n  }};\n});\n"
+        },
+        "name": "Function - BestOddsPerOutcome",
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          3680,
+          1136
+        ],
+        "id": "82053683-5f63-4167-9467-80f739ab6daa"
+      },
+      {
+        "parameters": {
+          "jsCode": "\nconst arr     = items.map(i => i.json);\nconst grouped = {};\narr.forEach(r => {\n  const key = `${r.match}|||${r.market}`;\n  if (!grouped[key]) grouped[key] = [];\n  grouped[key].push(r);\n});\nreturn Object.keys(grouped).map(key => {\n  const [match, market] = key.split('|||');\n  const offers = grouped[key];\n  return { json: {\n    match, market,\n    marketLabel: offers[0]?.marketLabel || market,\n    offers,\n    league:    offers[0]?.league    || null,\n    country:   offers[0]?.country   || null,\n    region:    offers[0]?.region    || null,\n    timestamp: offers[0]?.timestamp || null,\n    pinnacleRef: offers.find(o => o.bookmaker === 'Pinnacle')?.pinnacleRef || null\n  }};\n});\n"
+        },
+        "name": "Function - GroupByMatch",
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          3488,
+          1136
+        ],
+        "id": "a64c61df-bd1b-4d4d-8e2f-e14ab82ce65f"
+      },
+      {
+        "parameters": {
+          "jsCode": "\nconst raw    = items[0].json;\nconst events = raw.events || [];\n\nconst currencyMap = {\n  'Peru':'PEN','Brazil':'BRL','Argentina':'ARS','Chile':'CLP',\n  'Colombia':'COP','Uruguay':'UYU','South America':'PEN',\n  'England':'GBP','Spain':'EUR','Germany':'EUR','Italy':'EUR',\n  'France':'EUR','Netherlands':'EUR','Portugal':'EUR','Europe':'EUR',\n  'United States':'USD','Mexico':'MXN','Canada':'CAD','North America':'USD',\n  'Japan':'JPY','China':'CNY','South Korea':'KRW','default':'USD'\n};\n\n// OU umbrales permitidos — solo los líquidos\nconst ALLOWED_OU = new Set(['1.5','2.5','3.5']);\n\nconst parseOddValue = (v) => {\n  if (v === null || v === undefined) return null;\n  if (typeof v === 'number')  return v > 1 ? v : null;\n  if (typeof v === 'object' && v.price !== undefined) return v.price > 1 ? v.price : null;\n  const n = parseFloat(String(v));\n  return isFinite(n) && n > 1 ? n : null;\n};\n\n// Clones — excluir al calcular casas independientes (se propagan a BestOdds)\nconst CLONE_FAMILIES = [\n  ['Betsafe','Inkabet','Betsson'],\n  ['1xbet','Megapari'],\n  ['Cosmobet','Mystake'],\n  ['Gangabet','Doradobet','Masterbets365','Atlantic City'],\n];\nconst cloneOf = {};\nCLONE_FAMILIES.forEach(fam => {\n  const canonical = fam[0];\n  fam.forEach(m => { cloneOf[m] = canonical; });\n});\n\nconst normalized = [];\n\nevents.forEach(e => {\n  const match     = `${e.homeTeam} vs ${e.awayTeam}`;\n  const timestamp = e.timestamp;\n  const league    = e.league  || null;\n  const country   = e.country || null;\n  const region    = e.region  || null;\n  const bookmakers = e.canonical?.bookmakers || {};\n\n  // Pinnacle como referencia de valor (si existe)\n  const pinnacleOdds = bookmakers['Pinnacle']?.odds || null;\n\n  Object.keys(bookmakers).forEach(bk => {\n    const bkData   = bookmakers[bk];\n    const allOdds  = bkData.odds || {};\n    const url      = bkData.url  || null;\n    const currency = bkData.currency || currencyMap[country] || currencyMap['default'];\n    // Familia canónica para detectar clones\n    const canonicalFamily = cloneOf[bk] || bk;\n    const base = { match, timestamp, league, country, region, bookmaker: bk, canonicalFamily, url, currency };\n\n    // ── 1X2 + PA + SC ────────────────────────────────────────\n    ['1X2','1x2','PA','SC'].forEach(src => {\n      const arr = allOdds[src];\n      if (!arr || !Array.isArray(arr) || arr.length < 3) return;\n      const h = parseOddValue(arr[0]);\n      const d = parseOddValue(arr[1]);\n      const a = parseOddValue(arr[2]);\n      if (!h || !d || !a) return;\n      normalized.push({\n        ...base, market:'1X2', marketKey: src,\n        outcomes:[{label:'home',odds:h},{label:'draw',odds:d},{label:'away',odds:a}],\n        pinnacleRef: pinnacleOdds?.['1X2'] || null\n      });\n    });\n\n    // ── DBL ──────────────────────────────────────────────────\n    const rawDBL = allOdds['DBL'];\n    if (rawDBL && Array.isArray(rawDBL) && rawDBL.length >= 3) {\n      const d1X = parseOddValue(rawDBL[0]);\n      const d12 = parseOddValue(rawDBL[1]);\n      const dX2 = parseOddValue(rawDBL[2]);\n      if (d1X && d12 && dX2) {\n        normalized.push({\n          ...base, market:'DBL', marketLabel:'Doble Oportunidad',\n          outcomes:[{label:'1X',odds:d1X},{label:'12',odds:d12},{label:'X2',odds:dX2}]\n        });\n      }\n    }\n\n    // ── Over/Under — solo 1.5 / 2.5 / 3.5 ───────────────────\n    Object.keys(allOdds).filter(k => k.startsWith('Over/Under')).forEach(key => {\n      const arr = allOdds[key];\n      if (!arr || !Array.isArray(arr) || arr.length < 2) return;\n      const over  = parseOddValue(arr[0]);\n      const under = parseOddValue(arr[1]);\n      if (!over || !under) return;\n      const m = key.match(/(\\d+\\.?\\d*)/);\n      const line = m ? m[1] : null;\n      if (!line || !ALLOWED_OU.has(line)) return;   // filtro umbrales\n      normalized.push({\n        ...base, market:`OU_${line}`, marketLabel:`Over/Under ${line}`,\n        outcomes:[{label:'over',odds:over},{label:'under',odds:under}],\n        pinnacleRef: pinnacleOdds?.[key] || null\n      });\n    });\n\n    // ── BTTS ─────────────────────────────────────────────────\n    const rawBTTS = allOdds['BTTS'];\n    if (rawBTTS && Array.isArray(rawBTTS) && rawBTTS.length >= 2) {\n      const si = parseOddValue(rawBTTS[0]);\n      const no = parseOddValue(rawBTTS[1]);\n      if (si && no) {\n        normalized.push({\n          ...base, market:'BTTS', marketLabel:'Ambos Anotan',\n          outcomes:[{label:'si',odds:si},{label:'no',odds:no}],\n          pinnacleRef: pinnacleOdds?.['BTTS'] || null\n        });\n      }\n    }\n  });\n});\n\nreturn normalized.map(r => ({ json: r }));\n"
+        },
+        "name": "Function - Normalize",
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          3296,
+          1136
+        ],
+        "id": "a06d8d04-404d-471c-a5be-c722856e6b50"
+      },
+      {
+        "parameters": {
+          "conditions": {
+            "options": {
+              "caseSensitive": true,
+              "leftValue": "",
+              "typeValidation": "strict",
+              "version": 3
+            },
+            "conditions": [
+              {
+                "id": "cond-schedule-001",
+                "leftValue": "={{ $json.dentroHorario }}",
+                "rightValue": true,
+                "operator": {
+                  "type": "boolean",
+                  "operation": "equals"
+                }
+              }
+            ],
+            "combinator": "and"
+          },
+          "options": {}
+        },
+        "name": "IF - WithinSchedule?",
+        "type": "n8n-nodes-base.if",
+        "typeVersion": 2.3,
+        "position": [
+          3920,
+          912
+        ],
+        "id": "ccfbb84b-84b1-41ba-9a1c-bb3c0efaf206"
+      },
+      {
+        "parameters": {
+          "jsCode": "const cfg = $('CONFIG').first().json;\nconst horaInicio = cfg.CFG_HORA_INICIO ?? 8;\nconst horaFin = cfg.CFG_HORA_FIN ?? 23;\n\nconst hour = Number(\n  new Date().toLocaleString('en-US', {\n    hour: 'numeric',\n    hour12: false,\n    timeZone: 'America/Lima'\n  })\n);\n\nreturn [\n  {\n    json: {\n      ...cfg,\n      horaPeru: hour,\n      dentroHorario: (hour >= horaInicio && hour < horaFin)\n    }\n  }\n];"
+        },
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          3632,
+          912
+        ],
+        "id": "1466afd4-e821-4881-8ad0-5da74cf18e27",
+        "name": "Function - TimeWindow"
+      },
+      {
+        "parameters": {
+          "rule": {
+            "interval": [
+              {
+                "field": "minutes",
+                "minutesInterval": 15
+              }
+            ]
+          }
+        },
+        "name": "Schedule - Every 15min",
+        "type": "n8n-nodes-base.scheduleTrigger",
+        "typeVersion": 1.2,
+        "position": [
+          3072,
+          912
+        ],
+        "id": "83e32dfc-2293-4d7a-86d9-725983d7cdad"
+      },
+      {
+        "parameters": {
+          "url": "={{ $('CONFIG').first().json.CFG_DATA_URL + '?date=' + $now.setZone('America/Lima').toFormat('yyyy-MM-dd') }}",
+          "sendHeaders": true,
+          "headerParameters": {
+            "parameters": [
+              {
+                "name": "x-apisports-key",
+                "value": "={{ $('CONFIG').first().json.CFG_API_KEY }}"
+              }
+            ]
+          },
+          "options": {
+            "timeout": 10000
+          }
+        },
+        "name": "HTTP Request - Hoy",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.2,
+        "position": [
+          4208,
+          752
+        ],
+        "id": "a6d408e5-9962-427b-a3a1-695aa8f4af4e"
+      },
+      {
+        "parameters": {
+          "url": "={{ $('CONFIG').first().json.CFG_DATA_URL + '?date=' + $now.setZone('America/Lima').plus({days:1}).toFormat('yyyy-MM-dd') }}",
+          "sendHeaders": true,
+          "headerParameters": {
+            "parameters": [
+              {
+                "name": "x-apisports-key",
+                "value": "={{ $('CONFIG').first().json.CFG_API_KEY }}"
+              }
+            ]
+          },
+          "options": {
+            "timeout": 10000
+          }
+        },
+        "name": "HTTP Request - Mañana",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.2,
+        "position": [
+          4208,
+          896
+        ],
+        "id": "925f8950-f8af-4c65-9339-d481b7f797e5"
+      },
+      {
+        "parameters": {
+          "content": "## NightBet Edge — v4 Multi-Market\n**Última actualización:** Mayo 2026\n\n### Cambios v4:\n- ✅ Filtro clones (Betsafe/Inkabet/Betsson = misma empresa)\n- ✅ OU limitado a 1.5 / 2.5 / 3.5 (líquidos)\n- ✅ Pinnacle como referencia de valor\n- ✅ Skip LLM si margen > 1.03 (ahorra API)\n- ✅ MatchTimestamp + MatchDatetime en Baserow\n- ✅ Resumen diario de surebets en ranking 20:00\n- ✅ Bug fix: Update AlertSent → Loop Over Items\n- ✅ Guía paso a paso en cada alerta Telegram",
+          "height": 112,
+          "width": 272,
+          "color": 4
+        },
+        "type": "n8n-nodes-base.stickyNote",
+        "position": [
+          4832,
+          1248
+        ],
+        "typeVersion": 1,
+        "id": "e06e1b28-9d9a-456b-a714-e2b5bf640014",
+        "name": "Sticky Note"
+      }
+    ],
+    "connections": {
+      "Mock - Test Data": {
+        "main": [
+          [
+            {
+              "node": "Filter - ByLeague",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Code - BookmakerRanking": {
+        "main": [
+          [
+            {
+              "node": "Telegram - Send Ranking",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Get all rows - Ranking": {
+        "main": [
+          [
+            {
+              "node": "Code - BookmakerRanking",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Schedule - Ranking 20:00": {
+        "main": [
+          [
+            {
+              "node": "Get all rows - Ranking",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Filter - ByLeague": {
+        "main": [
+          [
+            {
+              "node": "Function - Normalize",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "CONFIG": {
+        "main": [
+          [
+            {
+              "node": "Function - TimeWindow",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Code - ValidateLLM": {
+        "main": [
+          [
+            {
+              "node": "Function - ValueCalc",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Get many rows - By Match": {
+        "main": [
+          [
+            {
+              "node": "Update a row - AlertSent",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Telegram - Send Alert": {
+        "main": [
+          [
+            {
+              "node": "Get many rows - By Match",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "IF - Alert?": {
+        "main": [
+          [
+            {
+              "node": "Telegram - Send Alert",
+              "type": "main",
+              "index": 0
+            }
+          ],
+          [
+            {
+              "node": "Loop Over Items",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Code - ShouldAlert": {
+        "main": [
+          [
+            {
+              "node": "IF - Alert?",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Function - RoundingAndCurrency": {
+        "main": [
+          [
+            {
+              "node": "Code - ShouldAlert",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Function - ValueCalc": {
+        "main": [
+          [
+            {
+              "node": "Function - RoundingAndCurrency",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Code - ParseLLM & Merge": {
+        "main": [
+          [
+            {
+              "node": "Code - ValidateLLM",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "openai/gpt-4o-mini": {
+        "ai_languageModel": [
+          [
+            {
+              "node": "Basic LLM Chain",
+              "type": "ai_languageModel",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Basic LLM Chain": {
+        "main": [
+          [
+            {
+              "node": "Code - ParseLLM & Merge",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Function - PayloadString": {
+        "main": [
+          [
+            {
+              "node": "Basic LLM Chain",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "IF - RowExists?": {
+        "main": [
+          [
+            {
+              "node": "Update a row",
+              "type": "main",
+              "index": 0
+            }
+          ],
+          [
+            {
+              "node": "Create a row",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "IF Compare Hash": {
+        "main": [
+          [
+            {
+              "node": "Function - PayloadString",
+              "type": "main",
+              "index": 0
+            },
+            {
+              "node": "IF - RowExists?",
+              "type": "main",
+              "index": 0
+            }
+          ],
+          [
+            {
+              "node": "Loop Over Items",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Function - AttachLastHash": {
+        "main": [
+          [
+            {
+              "node": "IF Compare Hash",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Get many rows": {
+        "main": [
+          [
+            {
+              "node": "Function - AttachLastHash",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Filter - TimeToMatch": {
+        "main": [
+          [
+            {
+              "node": "Function - SurebetCalc",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Update a row - AlertSent": {
+        "main": [
+          [
+            {
+              "node": "Loop Over Items",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Loop Over Items": {
+        "main": [
+          [],
+          [
+            {
+              "node": "Get many rows",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Generate Hash": {
+        "main": [
+          [
+            {
+              "node": "Loop Over Items",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Function - SurebetCalc": {
+        "main": [
+          [
+            {
+              "node": "Generate Hash",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Function - BestOddsPerOutcome": {
+        "main": [
+          [
+            {
+              "node": "Filter - TimeToMatch",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Function - GroupByMatch": {
+        "main": [
+          [
+            {
+              "node": "Function - BestOddsPerOutcome",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Function - Normalize": {
+        "main": [
+          [
+            {
+              "node": "Function - GroupByMatch",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "IF - WithinSchedule?": {
+        "main": [
+          [
+            {
+              "node": "HTTP Request - Hoy",
+              "type": "main",
+              "index": 0
+            },
+            {
+              "node": "HTTP Request - Mañana",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Function - TimeWindow": {
+        "main": [
+          [
+            {
+              "node": "IF - WithinSchedule?",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Schedule - Every 15min": {
+        "main": [
+          [
+            {
+              "node": "CONFIG",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "HTTP Request - Hoy": {
+        "main": [
+          [
+            {
+              "node": "Mock - Test Data",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "HTTP Request - Mañana": {
+        "main": [
+          [
+            {
+              "node": "Mock - Test Data",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      }
+    },
+    "authors": "John Ordóñez Monroy",
+    "name": "Version 36538b5f",
+    "description": "",
+    "autosaved": true
+  },
+  "activeVersionId": "36538b5f-f3ac-407a-8b17-81de8094b8eb",
   "connections": {
     "Mock - Test Data": {
       "main": [
@@ -424,10 +1727,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        4992,
-        2096
+        3792,
+        1568
       ],
-      "id": "47a14c32-cbbb-49d8-8ce7-1d3840c4da56"
+      "id": "4123e4d8-dd1d-4718-ab4c-a1f8cc8a5f24"
     },
     {
       "parameters": {
@@ -437,10 +1740,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        4304,
-        1664
+        3104,
+        1136
       ],
-      "id": "64798802-0787-4c05-a4f1-4307e7f70add"
+      "id": "8619dd36-ad85-450a-a3f0-2f83095ca9e1"
     },
     {
       "parameters": {
@@ -449,10 +1752,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        5776,
-        1424
+        4576,
+        896
       ],
-      "id": "e2bbf6d8-3a25-46c2-801f-1cc3a88c6b85",
+      "id": "8bdd8a60-1f56-4b61-9d83-b6be322eb72c",
       "name": "Mock - Test Data",
       "disabled": true
     },
@@ -466,10 +1769,10 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1,
       "position": [
-        5120,
-        1264
+        3920,
+        736
       ],
-      "id": "279535da-8a95-4a18-aa46-f660d6854ee0",
+      "id": "10299897-ab73-48f7-8f82-d66a1b1261e8",
       "webhookId": "1f265a43-292b-40db-9ae0-f81b76c5c211",
       "credentials": {
         "telegramApi": {
@@ -486,10 +1789,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        4832,
-        1264
+        3632,
+        736
       ],
-      "id": "daaf64ae-0e71-4522-9a52-c076603dd4a5"
+      "id": "426c6d29-f4bc-402c-b8fe-48cffd5d2219"
     },
     {
       "parameters": {
@@ -501,10 +1804,10 @@
       "type": "n8n-nodes-base.baserow",
       "typeVersion": 1.1,
       "position": [
-        4560,
-        1264
+        3360,
+        736
       ],
-      "id": "ab7e5c91-1ef1-4e43-b0fc-d15857726a8e",
+      "id": "6ee8023b-cfca-465c-871b-c618bca153e7",
       "name": "Get all rows - Ranking",
       "alwaysOutputData": true,
       "credentials": {
@@ -529,10 +1832,10 @@
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.2,
       "position": [
-        4272,
-        1264
+        3072,
+        736
       ],
-      "id": "9f58dfa8-74d0-42d6-aaa2-8682d7d7255d",
+      "id": "86bb2d83-bad5-4074-be61-f5f4ce9a90f8",
       "disabled": true
     },
     {
@@ -543,10 +1846,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        5104,
-        1664
+        3904,
+        1136
       ],
-      "id": "17b22f9c-b4ec-423c-a251-83166372ccf6"
+      "id": "a622a669-2c7c-4e11-81ce-c9f3b22ddc91"
     },
     {
       "parameters": {
@@ -555,7 +1858,7 @@
             {
               "id": "cfg-001",
               "name": "CFG_DATA_URL",
-              "value": "https://unmixed-subgroup-patronize.ngrok-free.dev/api/eventos_deportivos",
+              "value": "https://app.alphaoddsx.com/api/eventos_deportivos",
               "type": "string"
             },
             {
@@ -597,7 +1900,7 @@
             {
               "id": "cfg-008",
               "name": "CFG_HORA_FIN",
-              "value": 20,
+              "value": 23,
               "type": "number"
             },
             {
@@ -609,7 +1912,7 @@
             {
               "id": "cfg-010",
               "name": "CFG_LEAGUES",
-              "value": "[\"Premier League\", \"La Liga\", \"LaLiga\", \"Bundesliga\", \"Serie A\", \"Ligue 1\", \"Copa Libertadores\", \"Copa Sudamericana\", \"Mundial\", \"Champions League\", \"Europa League\", \"Peru Primera Division\"]",
+              "value": "[\"Premier League\", \"La Liga\", \"LaLiga\", \"Bundesliga\", \"Ligue 1\", \"Copa Libertadores\", \"Copa Sudamericana\", \"Mundial\", \"Champions League\", \"Europa League\", \"Peru Primera Division\"]",
               "type": "string"
             },
             {
@@ -617,6 +1920,12 @@
               "name": "CFG_ALERTA_MEJORA_PCT",
               "value": 1,
               "type": "number"
+            },
+            {
+              "id": "cfg-012",
+              "name": "CFG_API_KEY",
+              "value": "imp_live_QjD8XpyDMt58Y1ImGUDEqv8JwbMwmc1xhXZzUoWh5paGdf4g2VcogbDo",
+              "type": "string"
             }
           ]
         },
@@ -626,10 +1935,10 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        4560,
-        1440
+        3360,
+        912
       ],
-      "id": "e4de629c-cb1a-4825-b458-df8e90043101"
+      "id": "42901dc7-0bd5-4824-b9b6-857c0976ff84"
     },
     {
       "parameters": {
@@ -657,7 +1966,7 @@
             },
             {
               "fieldId": 8703893,
-              "fieldValue": "={{ $('Function - RoundingAndCurrency').item.json.matchDatetime }}"
+              "fieldValue": "={{ $('Loop Over Items').item.json.timestamp ? new Date(parseInt($('Loop Over Items').item.json.timestamp) * 1000).toLocaleString('sv-SE', {timeZone: 'America/Lima'}).replace(' ', 'T') : '' }}"
             }
           ]
         }
@@ -665,10 +1974,10 @@
       "type": "n8n-nodes-base.baserow",
       "typeVersion": 1.1,
       "position": [
-        5792,
-        1744
+        4592,
+        1216
       ],
-      "id": "9468f68a-6e25-4c3a-807d-f4073243dc35",
+      "id": "f825db11-681b-45e9-9433-10837b812a47",
       "name": "Update a row",
       "credentials": {
         "baserowTokenApi": {
@@ -722,7 +2031,7 @@
             },
             {
               "fieldId": 8703893,
-              "fieldValue": "={{ $('Function - RoundingAndCurrency').item.json.matchDatetime }}"
+              "fieldValue": "={{ $('Loop Over Items').item.json.timestamp ? new Date(parseInt($('Loop Over Items').item.json.timestamp) * 1000).toLocaleString('sv-SE', {timeZone: 'America/Lima'}).replace(' ', 'T') : '' }}"
             }
           ]
         }
@@ -730,10 +2039,10 @@
       "type": "n8n-nodes-base.baserow",
       "typeVersion": 1.1,
       "position": [
-        5792,
-        1872
+        4592,
+        1344
       ],
-      "id": "df9dd4a7-a90e-45d6-a51e-fabe9bbc0d38",
+      "id": "0b494942-b231-41a2-877d-dab45982e970",
       "name": "Create a row",
       "credentials": {
         "baserowTokenApi": {
@@ -764,10 +2073,10 @@
       "type": "n8n-nodes-base.baserow",
       "typeVersion": 1.1,
       "position": [
-        6176,
-        2304
+        4976,
+        1776
       ],
-      "id": "d16bc190-7f1a-4cf5-8ede-a6552f5d1055",
+      "id": "9ec42022-9a0b-4367-8cec-04766a114656",
       "name": "Update a row - AlertSent",
       "rowId": null,
       "credentials": {
@@ -796,10 +2105,10 @@
       "type": "n8n-nodes-base.baserow",
       "typeVersion": 1.1,
       "position": [
-        5968,
-        2304
+        4768,
+        1776
       ],
-      "id": "631ee119-e351-4848-8340-0d79f47d9a83",
+      "id": "56265596-7143-485d-aa52-553ed08c3c8b",
       "name": "Get many rows - By Match",
       "alwaysOutputData": true,
       "credentials": {
@@ -819,10 +2128,10 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1,
       "position": [
-        5984,
-        2080
+        4784,
+        1552
       ],
-      "id": "fcba7939-6d4c-4c09-818f-29dc989a4632",
+      "id": "ba1045fc-ab6e-4695-8d3f-d9b5729d77f3",
       "webhookId": "2b8ac5eb-76d0-49fc-9974-52022209ced6",
       "credentials": {
         "telegramApi": {
@@ -859,10 +2168,10 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.3,
       "position": [
-        5760,
-        2096
+        4560,
+        1568
       ],
-      "id": "cde46447-b24d-45c7-b177-98c776cac928"
+      "id": "2a2ddbd6-f794-4025-ba17-ba6c18f527ee"
     },
     {
       "parameters": {
@@ -871,10 +2180,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        5568,
-        2096
+        4368,
+        1568
       ],
-      "id": "83024077-8988-4828-ba59-849d200a0ebb",
+      "id": "689e72bc-97cb-4557-b7e0-c1f99f79bf8d",
       "name": "Code - ShouldAlert"
     },
     {
@@ -885,10 +2194,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        5376,
-        2096
+        4176,
+        1568
       ],
-      "id": "0a7b3a48-3bcf-412d-ac01-49a714e8536e"
+      "id": "4d251ff6-985a-429d-9670-833cbf1f0b6d"
     },
     {
       "parameters": {
@@ -898,10 +2207,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        5184,
-        2096
+        3984,
+        1568
       ],
-      "id": "84726eeb-9422-42cb-9012-0605e6c8d13e"
+      "id": "ba997b75-05ca-404f-a580-5e11e1b13c1d"
     },
     {
       "parameters": {
@@ -910,10 +2219,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        4784,
-        2096
+        3584,
+        1568
       ],
-      "id": "a9b17656-bb0c-48db-ae8e-92ba85743e55",
+      "id": "14bb9414-0bbc-4467-8b37-4ee645fc291a",
       "name": "Code - ParseLLM & Merge"
     },
     {
@@ -924,10 +2233,10 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
       "typeVersion": 1,
       "position": [
-        4480,
-        2272
+        3280,
+        1744
       ],
-      "id": "69abd603-8282-4577-8fb4-a6ff2ee72176",
+      "id": "0376477c-e6ab-4d84-b6d9-9c6f9c2f9520",
       "name": "openai/gpt-4o-mini",
       "credentials": {
         "openRouterApi": {
@@ -952,10 +2261,10 @@
       "type": "@n8n/n8n-nodes-langchain.chainLlm",
       "typeVersion": 1.9,
       "position": [
-        4480,
-        2096
+        3280,
+        1568
       ],
-      "id": "05152fcc-765d-466d-930f-0fc09e4c49b2",
+      "id": "2f385a6e-6df4-432a-9bd4-5b92981486be",
       "name": "Basic LLM Chain"
     },
     {
@@ -965,10 +2274,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        4288,
-        2096
+        3088,
+        1568
       ],
-      "id": "781975ad-1c53-4a55-8b17-1a0348a3909a",
+      "id": "00675be1-4ef8-4280-9d09-ef952aa065d6",
       "name": "Function - PayloadString"
     },
     {
@@ -999,10 +2308,10 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.3,
       "position": [
-        5536,
-        1856
+        4336,
+        1328
       ],
-      "id": "c7f6cf08-622f-49ce-a004-37fc1cb43dd5"
+      "id": "b5d75ed9-aad2-48e7-8c86-1a2d446414d6"
     },
     {
       "parameters": {
@@ -1032,10 +2341,10 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.3,
       "position": [
-        5248,
-        1872
+        4048,
+        1344
       ],
-      "id": "154cb1b5-ef29-456a-8017-262b72862532"
+      "id": "b5847e91-77eb-45ee-96f1-0480783ba166"
     },
     {
       "parameters": {
@@ -1044,10 +2353,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        4880,
-        1872
+        3680,
+        1344
       ],
-      "id": "5cf3130f-ba61-43ef-845c-27d4cb3dceb9",
+      "id": "9cba013e-c048-4e73-b915-7ae48790ec88",
       "name": "Function - AttachLastHash"
     },
     {
@@ -1069,10 +2378,10 @@
       "type": "n8n-nodes-base.baserow",
       "typeVersion": 1.1,
       "position": [
-        4608,
-        1872
+        3408,
+        1344
       ],
-      "id": "eff6c9d9-e5b3-4e1b-b732-7f23ea9b42c6",
+      "id": "89ce3089-33d9-4b76-ba02-87fdc3a4f5af",
       "name": "Get many rows",
       "alwaysOutputData": true,
       "credentials": {
@@ -1091,10 +2400,10 @@
       "type": "n8n-nodes-base.splitInBatches",
       "typeVersion": 3,
       "position": [
-        4288,
-        1856
+        3088,
+        1328
       ],
-      "id": "ad0cdaf5-a22c-400a-b558-f2fe106a9792",
+      "id": "d5f25868-d13b-417e-8837-f489185887e8",
       "name": "Loop Over Items"
     },
     {
@@ -1104,10 +2413,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        5536,
-        1664
+        4336,
+        1136
       ],
-      "id": "2de8fe64-7dbf-43d9-9a56-04f26ac3bd01",
+      "id": "57456ebd-ceff-4098-bca1-e2587f4c579d",
       "name": "Generate Hash"
     },
     {
@@ -1118,10 +2427,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        5328,
-        1664
+        4128,
+        1136
       ],
-      "id": "5d3b406b-5fe3-48a2-8e7c-b5e6bfb33ab6"
+      "id": "eaf8e5e0-3d27-4869-a3db-74346aca59ba"
     },
     {
       "parameters": {
@@ -1131,10 +2440,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        4880,
-        1664
+        3680,
+        1136
       ],
-      "id": "a718142e-1e66-4a75-a182-57e944b88822"
+      "id": "82053683-5f63-4167-9467-80f739ab6daa"
     },
     {
       "parameters": {
@@ -1144,10 +2453,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        4688,
-        1664
+        3488,
+        1136
       ],
-      "id": "14fba55d-2eac-4c2f-a9f3-633270b53e81"
+      "id": "a64c61df-bd1b-4d4d-8e2f-e14ab82ce65f"
     },
     {
       "parameters": {
@@ -1157,10 +2466,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        4496,
-        1664
+        3296,
+        1136
       ],
-      "id": "8dc0af0e-daba-49a6-a0e8-771d4a1f1f36"
+      "id": "a06d8d04-404d-471c-a5be-c722856e6b50"
     },
     {
       "parameters": {
@@ -1190,10 +2499,10 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.3,
       "position": [
-        5120,
-        1440
+        3920,
+        912
       ],
-      "id": "a58d2562-3b72-4621-90a1-ed85d801d979"
+      "id": "ccfbb84b-84b1-41ba-9a1c-bb3c0efaf206"
     },
     {
       "parameters": {
@@ -1202,10 +2511,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        4832,
-        1440
+        3632,
+        912
       ],
-      "id": "2d2b7188-38db-41d8-83f8-47f6d2496ebe",
+      "id": "1466afd4-e821-4881-8ad0-5da74cf18e27",
       "name": "Function - TimeWindow"
     },
     {
@@ -1223,14 +2532,23 @@
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.2,
       "position": [
-        4272,
-        1440
+        3072,
+        912
       ],
-      "id": "d444efc0-c39d-4628-9859-33afb0141222"
+      "id": "83e32dfc-2293-4d7a-86d9-725983d7cdad"
     },
     {
       "parameters": {
         "url": "={{ $('CONFIG').first().json.CFG_DATA_URL + '?date=' + $now.setZone('America/Lima').toFormat('yyyy-MM-dd') }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "x-apisports-key",
+              "value": "={{ $('CONFIG').first().json.CFG_API_KEY }}"
+            }
+          ]
+        },
         "options": {
           "timeout": 10000
         }
@@ -1239,14 +2557,23 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        5408,
-        1280
+        4208,
+        752
       ],
-      "id": "9b1516e7-f170-4dc6-b9e1-cbc0a06b63df"
+      "id": "a6d408e5-9962-427b-a3a1-695aa8f4af4e"
     },
     {
       "parameters": {
         "url": "={{ $('CONFIG').first().json.CFG_DATA_URL + '?date=' + $now.setZone('America/Lima').plus({days:1}).toFormat('yyyy-MM-dd') }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "x-apisports-key",
+              "value": "={{ $('CONFIG').first().json.CFG_API_KEY }}"
+            }
+          ]
+        },
         "options": {
           "timeout": 10000
         }
@@ -1255,10 +2582,10 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        5408,
-        1424
+        4208,
+        896
       ],
-      "id": "a095f67c-c5bb-4e31-b97d-e54d0147a307"
+      "id": "925f8950-f8af-4c65-9339-d481b7f797e5"
     },
     {
       "parameters": {
@@ -1269,11 +2596,11 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        6016,
-        1680
+        4832,
+        1248
       ],
       "typeVersion": 1,
-      "id": "8f1244f3-14c0-4352-a30b-cacc0c691cde",
+      "id": "e06e1b28-9d9a-456b-a714-e2b5bf640014",
       "name": "Sticky Note"
     }
   ],
@@ -1305,7 +2632,7 @@
     }
   },
   "tags": [],
-  "triggerCount": 2,
-  "updatedAt": "2026-05-25T14:34:03.592Z",
-  "versionId": "747fffb6-2392-495f-84f8-6ed057fe2098"
+  "triggerCount": 1,
+  "updatedAt": "2026-05-31T03:28:06.228Z",
+  "versionId": "36538b5f-f3ac-407a-8b17-81de8094b8eb"
 }
