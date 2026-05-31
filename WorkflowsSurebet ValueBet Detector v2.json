@@ -1,9 +1,9 @@
 {
   "active": true,
   "activeVersion": {
-    "updatedAt": "2026-05-31T03:31:54.923Z",
-    "createdAt": "2026-05-31T03:28:06.233Z",
-    "versionId": "36538b5f-f3ac-407a-8b17-81de8094b8eb",
+    "updatedAt": "2026-05-31T13:08:28.994Z",
+    "createdAt": "2026-05-31T13:08:19.044Z",
+    "versionId": "89df2768-2abb-42f3-a2c8-72d5e5b2ca06",
     "workflowId": "ECcE1aUJqB2En9Rj",
     "nodes": [
       {
@@ -122,8 +122,7 @@
           3072,
           736
         ],
-        "id": "86bb2d83-bad5-4074-be61-f5f4ce9a90f8",
-        "disabled": true
+        "id": "86bb2d83-bad5-4074-be61-f5f4ce9a90f8"
       },
       {
         "parameters": {
@@ -187,7 +186,7 @@
               {
                 "id": "cfg-008",
                 "name": "CFG_HORA_FIN",
-                "value": 23,
+                "value": 20,
                 "type": "number"
               },
               {
@@ -1300,11 +1299,11 @@
       }
     },
     "authors": "John Ordóñez Monroy",
-    "name": "Version 36538b5f",
+    "name": "Version 89df2768",
     "description": "",
     "autosaved": true
   },
-  "activeVersionId": "36538b5f-f3ac-407a-8b17-81de8094b8eb",
+  "activeVersionId": "89df2768-2abb-42f3-a2c8-72d5e5b2ca06",
   "connections": {
     "Mock - Test Data": {
       "main": [
@@ -1835,8 +1834,7 @@
         3072,
         736
       ],
-      "id": "86bb2d83-bad5-4074-be61-f5f4ce9a90f8",
-      "disabled": true
+      "id": "86bb2d83-bad5-4074-be61-f5f4ce9a90f8"
     },
     {
       "parameters": {
@@ -1900,7 +1898,7 @@
             {
               "id": "cfg-008",
               "name": "CFG_HORA_FIN",
-              "value": 23,
+              "value": 20,
               "type": "number"
             },
             {
@@ -2632,7 +2630,7 @@
     }
   },
   "tags": [],
-  "triggerCount": 1,
-  "updatedAt": "2026-05-31T03:28:06.228Z",
-  "versionId": "36538b5f-f3ac-407a-8b17-81de8094b8eb"
+  "triggerCount": 2,
+  "updatedAt": "2026-05-31T13:08:19.039Z",
+  "versionId": "89df2768-2abb-42f3-a2c8-72d5e5b2ca06"
 }
