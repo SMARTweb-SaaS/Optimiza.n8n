@@ -1,0 +1,294 @@
+{
+  "active": false,
+  "activeVersion": null,
+  "activeVersionId": null,
+  "connections": {
+    "Manual Trigger": {
+      "main": [
+        [
+          {
+            "node": "Random Variables",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Random Variables": {
+      "main": [
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extraer Relato": {
+      "main": [
+        [
+          {
+            "node": "Send a text message",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Send.Lead",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "cydonia-24b-v4.1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Basic LLM Chain": {
+      "main": [
+        [
+          {
+            "node": "Extraer Relato",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2026-06-01T02:00:16.563Z",
+  "id": "VsbSZaaoISsIcSC2",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Valeria.Relatos.Generar",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "d7773847-5b13-4185-ad96-b7885ec8d9c5",
+      "name": "Manual Trigger",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -1360,
+        48
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const hombres = [\n  \"desconocido atractivo y misterioso\",\n  \"colega de trabajo serio y reservado\",\n  \"ex pareja que reaparece\",\n  \"amigo cercano con tensión no resuelta\",\n  \"viajero que conoce en un aeropuerto\",\n  \"dueño de un bar tranquilo\",\n  \"fotógrafo bohemio\",\n  \"empresario exitoso y distante\",\n  \"entrenador personal carismático\",\n  \"vecino nuevo del edificio\",\n  \"escritor o artista creativo\",\n  \"amigo del pasado de la universidad\"\n];\n\nconst situaciones = [\n  \"reencuentro inesperado\",\n  \"primera cita\",\n  \"encuentro casual en un lugar público\",\n  \"conversación que se vuelve íntima\",\n  \"noche después de una fiesta\",\n  \"viaje improvisado\",\n  \"coincidencia en un hotel\",\n  \"tarde de lluvia encerrados\",\n  \"cena privada\",\n  \"paseo nocturno por la ciudad\",\n  \"espera en un aeropuerto\",\n  \"visita sorpresa\"\n];\n\nconst lugares = [\n  \"hotel elegante en ciudad grande\",\n  \"apartamento moderno con vista nocturna\",\n  \"bar con luces tenues\",\n  \"cafetería tranquila\",\n  \"playa al atardecer\",\n  \"oficina vacía después del horario\",\n  \"ascensor de edificio corporativo\",\n  \"tren nocturno\",\n  \"aeropuerto internacional\",\n  \"terraza con vista a la ciudad\",\n  \"casa privada con iluminación suave\",\n  \"calle lluviosa de noche\"\n];\n\nconst relaciones = [\n  \"desconocidos\",\n  \"conocidos recientes\",\n  \"colegas de trabajo\",\n  \"ex pareja\",\n  \"amistad con tensión emocional\",\n  \"cita a ciegas\",\n  \"relación intermitente\",\n  \"atracción no confesada\",\n  \"reencuentro después de años\",\n  \"vínculo profesional con tensión romántica\"\n];\n\nconst tonos = [\n  \"elegante y cinematográfico\",\n  \"intenso y emocional\",\n  \"misterioso y sugerente\",\n  \"cálido y romántico\",\n  \"melancólico con tensión\",\n  \"sofisticado y sensual\",\n  \"nostálgico y profundo\",\n  \"tenso y emocionalmente cargado\"\n];\n\nconst ctas = [\n  \"¿Qué habría pasado si esta noche no terminaba aquí?\",\n  \"Elige el próximo encuentro de Valeria.\",\n  \"¿Continuamos con otra historia distinta?\",\n  \"Descubre su siguiente encuentro inesperado.\",\n  \"¿Quién será el próximo en cruzarse con ella?\",\n  \"Otra historia de Valeria te espera mañana.\",\n  \"El siguiente momento puede cambiarlo todo…\",\n  \"¿Quieres verla en otro escenario?\"\n];\n\nconst pick = arr => arr[Math.floor(Math.random() * arr.length)];\nconst intensidad = Math.floor(Math.random() * 10) + 1;\n\nreturn [{\n  json: {\n    hombre: pick(hombres),\n    situacion: pick(situaciones),\n    lugar: pick(lugares),\n    relacion: pick(relaciones),\n    tono: pick(tonos),\n    intensidad: intensidad.toString(),\n    cta: pick(ctas)\n  }\n}];"
+      },
+      "id": "0e505063-f5da-4d18-98e4-7dc7437ae076",
+      "name": "Random Variables",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1136,
+        48
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "assign-relato",
+              "name": "relato",
+              "value": "={{ $json.text }}",
+              "type": "string"
+            },
+            {
+              "id": "assign-hombre",
+              "name": "hombre",
+              "value": "={{ $('Random Variables').item.json.hombre }}",
+              "type": "string"
+            },
+            {
+              "id": "assign-situacion",
+              "name": "situacion",
+              "value": "={{ $('Random Variables').item.json.situacion }}",
+              "type": "string"
+            },
+            {
+              "id": "assign-lugar",
+              "name": "lugar",
+              "value": "={{ $('Random Variables').item.json.lugar }}",
+              "type": "string"
+            },
+            {
+              "id": "assign-relacion",
+              "name": "relacion",
+              "value": "={{ $('Random Variables').item.json.relacion }}",
+              "type": "string"
+            },
+            {
+              "id": "assign-tono",
+              "name": "tono",
+              "value": "={{ $('Random Variables').item.json.tono }}",
+              "type": "string"
+            },
+            {
+              "id": "assign-intensidad",
+              "name": "intensidad",
+              "value": "={{ $('Random Variables').item.json.intensidad }}",
+              "type": "string"
+            },
+            {
+              "id": "assign-cta",
+              "name": "cta",
+              "value": "={{ $('Random Variables').item.json.cta }}",
+              "type": "string"
+            },
+            {
+              "id": "assign-fecha",
+              "name": "fecha",
+              "value": "={{ $now.toISO() }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "0f8a79aa-c6e0-4862-b472-13a4683c83a2",
+      "name": "Extraer Relato",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -512,
+        48
+      ]
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Genera un micro-relato romántico intenso con Valeria.\n\n════════════════════════════\nCONTEXTO\n════════════════════════════\n\nPersonaje masculino:\n{{ $json.hombre }}\n\nSituación:\n{{ $json.situacion }}\n\nLugar:\n{{ $json.lugar }}\n\nRelación:\n{{ $json.relacion }}\n\nTono:\n{{ $json.tono }}\n\nIntensidad (1-10):\n{{ $json.intensidad }}\n\nNivel de carga emocional:\n- bajo: tensión ligera, sugerente\n- medio: atracción evidente, cercanía frecuente\n- alto: tensión constante, química muy marcada, proximidad emocional fuerte\n\nCTA final:\n{{ $json.cta }}\n\n════════════════════════════\nREGLAS DE EJECUCIÓN\n════════════════════════════\n\n- Inicio inmediato, sin introducciones\n- Valeria aparece primero en viñeta inicial obligatoria\n- Mantener coherencia total del personaje\n- Mantén coherencia total de la escena\n- No salir del entorno definido\n- No introduzcas elementos externos, no cambies de tema, no agregues explicaciones ni contenido fuera de la historia\n- Narrativa fluida, intensa y cinematográfica\n- Priorizar tensión emocional y lenguaje corporal\n- Cerrar la historia al final de forma clara\n\n\n",
+        "messages": {
+          "messageValues": [
+            {
+              "message": "=Eres un escritor experto en micro-relatos románticos intensos y cinematográficos.\n\nEste modelo responde mejor a instrucciones estrictas: sigue las reglas al pie de la letra sin desviarte.\n\n════════════════════════════\nPERSONAJE FIJO (INMUTABLE)\n════════════════════════════\n\nValeria:\n- Mujer adulta (30–35)\n- Presencia magnética y elegante\n- Personalidad: segura, observadora, emocionalmente inteligente, sensual de forma sutil\n- Expresión: calma exterior con tensión interna\n- Comunicación: precisa, con subtexto emocional\n- Energía: dominante en lo emocional sin ser explícita\n\nIMPORTANTE:\nValeria es SIEMPRE el mismo personaje en todas las historias. Su personalidad no cambia.\n\n════════════════════════════\nREGLAS ABSOLUTAS (ANTI-DERIVA)\n════════════════════════════\n\n- Prohibido cambiar de estilo narrativo (sin humor, sin ensayo, sin reflexión externa)\n- Prohibido romper la cuarta pared\n- Prohibido introducir contenido fuera de la escena\n- Prohibido cambiar de idioma\n- Prohibido agregar personajes no definidos\n- Toda la historia debe mantenerse en el universo del prompt\n\nSi no se especifica cambio de lugar, la escena ocurre en un solo entorno.\n\n════════════════════════════\nCONTENIDO\n════════════════════════════\n\n- El relato SIEMPRE incluye contenido sexual explícito, detallado y cinematográfico\n- La explicitud es obligatoria, no opcional\n- Mantener elegancia narrativa en la descripción: explícito no significa vulgar\n- Usar lenguaje directo, preciso y sensorial — sin eufemismos ni metáforas evasivas\n- La escena física debe estar integrada en la tensión emocional, no separada de ella\n- El clímax de la historia incluye siempre una escena de alta carga sexual explícita\n\n════════════════════════════\nESTILO NARRATIVO\n════════════════════════════\n\n- Español neutro\n- Estilo cinematográfico\n- Ritmo ágil, sin relleno\n- Alta carga emocional y sensorial\n- Mostrar acciones, no explicarlas\n- Subtexto constante entre personajes\n- Diálogos naturales y tensos\n- Enfoque en lenguaje corporal, silencios y proximidad\n\n════════════════════════════\nESTRUCTURA OBLIGATORIA\n════════════════════════════\n\n1. VIÑETA INICIAL:\n   - Descripción breve de Valeria (2–4 frases)\n   - Visual, elegante, sensual, sin exageración\n\n2. ESCENA:\n   - Inicio inmediato en la situación\n   - Desarrollo rápido de tensión emocional\n   - Interacción fuerte entre personajes\n   - Clímax emocional implícito o directo (sin romper elegancia narrativa)\n\n3. CIERRE:\n   - Final corto y cerrado\n   - Dejar una sensación emocional residual\n\n════════════════════════════\nRITMO DE ESCENA\n════════════════════════════\n\n- Cada intervención debe empujar la escena hacia adelante.\n- No se permiten párrafos únicamente descriptivos sin interacción.\n- Priorizar: acercamientos, interrupciones, decisiones, resistencia o respuesta emocional.\n- El lenguaje corporal debe ser dinámico, no decorativo."
+            }
+          ]
+        },
+        "batching": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.9,
+      "position": [
+        -848,
+        48
+      ],
+      "id": "74c2fab8-7651-41b7-9b69-301c600a9139",
+      "name": "Basic LLM Chain"
+    },
+    {
+      "parameters": {
+        "model": "thedrummer/cydonia-24b-v4.1",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [
+        -976,
+        192
+      ],
+      "id": "32888618-c978-4132-83f4-6c01bed83a07",
+      "name": "cydonia-24b-v4.1",
+      "credentials": {
+        "openRouterApi": {
+          "id": "aq9Mu0k1n9JBuo3F",
+          "name": "OpenRouter.msn"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "1704819492",
+        "text": "={{ $json.relato }}",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        -256,
+        -48
+      ],
+      "id": "f5b3c629-0bfd-4940-8aa2-3e8387d4da43",
+      "name": "Send a text message",
+      "webhookId": "47768359-131c-4dcd-9e2b-e3a0a44fb69e",
+      "credentials": {
+        "telegramApi": {
+          "id": "Kz6I7RAZL2mii6bK",
+          "name": "Telegram.api"
+        }
+      },
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "fromEmail": "\"Optimiza IA Soluciones creativas\" <hola@optimiza-ia.com>",
+        "toEmail": "=jomBusiness@msn.com",
+        "subject": "=Valeria con un {{ $json.hombre }}",
+        "html": "={{ $json.relato }}",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [
+        -256,
+        176
+      ],
+      "id": "d653be5e-607b-4cce-9597-c12a98e025c5",
+      "name": "Send.Lead",
+      "webhookId": "f4c94d16-2482-4d18-b3c3-41ae05868902",
+      "credentials": {
+        "smtp": {
+          "id": "HUZKWIFzTUTleZeZ",
+          "name": "SMTP account"
+        }
+      }
+    }
+  ],
+  "pinData": {
+    "Basic LLM Chain": [
+      {
+        "json": {
+          "text": "════════════════════════════\n\nValeria caminaba por la orilla, descalza, con la soughta de su vestido negro siendo acariciada por las moderadas olas del mar. Su avanzada perfecta marcaba un ritmo constante, decidido, mientras miraba al frente sin prisa. A su alrededor flotaba una serena autoridad.\n\n—Valeria.\n\nSu nombre, pronunciado con la voz ligeramente áspera de alguien que no había fumado en años pero cuyas cuerdas vocales aún recordarían el humo, le hizo detenerse. Giró lentamente, con deliberación, cada movimiento calculado, como si supiera exactamente quién estaba detrás antes de mirarlo. Allí estaba él: Alessio. La ex pareja que reaparece después de cinco años de silencio.\n\n—¿Qué haces aquí? —preguntó, su voz sin traicionar emoción.\n\nAlessio dio un paso hacia atrás, metiendo las manos en los bolsillos de su abrigo de lana gris. Sus ojos azules seguían siendo penetrantes, incluso a la tenue luz del atardecer.\n\n—Coincidencia —mintió.\n\nElla arqueó una ceja ligeramente, una acción minúscula pero que expresaba más que mil palabras. Se acercaron lentamente, reduciendo la distancia minuciosamente. Entre ellos se elevó el sonido de las olas y el crujido de la arena bajo sus pies.\n\n—Estás sola —observó él, una afirmación más que una pregunta.\n\n—Como querías. Como siempre. Recuerdo que disfrutabas mi soledad.\n\nÉl avanzó otro paso, cerrando la distancia a menos de veinte centímetros.\n\n—También recuerdo otras cosas.\n\nAntes de que pudiera reaccionar, Alessio extendió la mano, agarrándole la nuca con firmeza pero sin rudeza. Valeria contuvo el aliento, sus pupilas dilatándose levemente. Por un segundo, se permitió sentirse sujeta, atrapada en aquello que renunció a rin lider en los años.\n\n—¿Qué estás haciendo? —murmuró, pero su tono ya había cambiado, cargado de algo que se parecía a la anticipación.\n\nAlessio contestó bajando lentamente su cabeza, su aliento cálido rozándole la mejilla.\n\n—Terminando lo que empezamos.\n\nSus bocas se encontraron. Comenzó como un choque, un reencuentro violento y húmedo. Valeria respondió de inmediato, sus manos ascendiendo a su pecho. El beso se profundizó, su lengua explorando la cavidad de su boca con hambre acumulada. Él gruñó contra sus labios, sus dedos presionando más firmemente contra su cuello, inclinándole la cabeza para tener mejor ángulo.\n\nElla sintió el calor irradiando de su cuerpo, sus pechos presionando contra el abrigo de lana. Sin romper el beso, sus manos comenzaron a trabajar la cerradura de su cinturón, con movimientos rápidos y seguros. Alessio murmuró algo contra su boca, una mezcla de suplicio y placer.\n\n—Necesito más —jadeó él entre besos, sus manos bajando por su espalda para agarrar sus nalgas y empujar su cuerpo contra el suyo, dejándole sentir su erección, urgente y hambrienta.\n\nValeria lo apartó con un empujón no violento pero firme. Sus ojos oscuros se clavaron en los de él, brillantes y febriles.\n\n—Nunca fuiste paciente. Acepté que eras impetuoso, pero nunca suficiente para mí.\n\nExtendió la mano, tomando su erección aún cubierta por el pantalón. Alessio cerró los ojos por un segundo, sintiendo su tacto a través de la tela.\n\n—No puedes... no puedes aparecer así después de cinco años... y esperar...\n\n—¿Qué espero? —preguntó ella, sus dedos begins a abrir la cremallera de sus pantalones.\n\n—Más.\n\n—Lineas más gruesas. Más riesgo.\n\n—...\n\nValeria encontró en privado mi erecciónamálo. que la encontró completamente erecta y la rodeó con sus dedos. Alessio emitió un sonido gutural, sus caderas moviéndose instintivamente hacia adelante.\n\n—¿Sigues siendo así de evidentes? —preguntó ella con voz baja y ronca.\n\nÉl gruñó, sus manos ahora desabrochando su vestido, abriéndolo para revealed su pecho. Sus pulgares rozaron los pezones endurecidos, provocando otro suspiro de ella.\n\n—Nunca cambie eso —confesó, inclinándose para tomar su pezón en su boca, jugueteando con la lengua.\n\nElla gimió, sus dedos deslizándose arriba y abajo de su longitud. La tensión se acumuló entre ellos, palpable como el calor que radiaba de sus cuerpos. Las olas lamían sus pies, el mundo reduciéndose a ese círculo de arena, deseo y recuerdos alfón.\n\n—¿Fui tu primer advocating? —preguntó él, soltando el pezón y morderle el cuello suavemente, una sensación que reconocía demasiado bien.\n\nElla asintió, su otra mano ascendiendo a su cabello, haciéndolo acercarse más.\n\n—¿Soy el único que nunca olvidaste?\n\n—... el que nunca he...\n\nLa pregunta quedó sin respuesta cuando él la empujó suavemente a la arena, arrodillándose entre sus muslos abiertos. Con un movimiento rápido, deslizó su tanga a un lado y se sumergió entre sus piernas. Valeria gritó, su espalda arqueándose contra la arena, mientras la lengua de Alessio encontraba su clítoris, lambiendo, succionando, la mera sensación de volverla deglutidora.\n\n—¿Sigues así de sensible? —murmuró contra su carne hinchada, sus dedos deslizándose dentro de ella, un Id de tres dedos que hizo que Valeria maldijera en italiano.\n\n—Más —rogó ella, sus caderas moviéndose contra su boca—. Por favor...\n\nÉl chupó ardientemente el clítoris mientras sus dedos giraban dentro de ella, buscando ese punto que siempre, siempre la hacia alcanzar el límite. Valeria apiló hileras en vozalta, el sonido mezclándose con el romper de las olas. Su liberación llegó rápido y violento, sacudiendo su cuerpo mientras montones de susPtrides de placer se rompieron sobre ella.\n\nCuando su orgasmo la hubo atravesado, él se endereció, tomando su rostro con ambas manos y besándola brutalmente, dejfinaleai OECD su sabor a sí misma en sus labios.\n\n—Ahora... —dijo ella, con los ojos brillando y llenos de propósitos.\n\nCon movimientos rápidos y seguros, lo guiadoellies hacia su entrada ya empapada. Alessio empujó dentro de ella, su invasión directa Marcinato un gemido en ambos.\n\n—Dios, te he extrañado —susurró mientras comenzaba a moverse, cada empujón una sentenciado de desesperación y necesidad acumulada.\n\nValeria siguió sus movimientos con los suyos, su cuerpo acordándose del ritmo, adaptándose a él como si nunca se hubieran separado. La conexión fue instantánea, casi abrumadora en su intensidad. No había palabras ahora, solo el sonido del mar, de la piel golpeando piel y de la respiración acelerada entre ellos.\n\n—Más fuerte —ordenó ella, sus uñas arañando su espalda a través de la tela del abrigo.\n\nÉl obedeció, cambiando de ángulo mientras la penetraba repetidamente, sus embestidas cada vez más profundas y desesperadas. Valeria sintiendo el familiar hormigueo en lo profundo de su vientre, creciendo, expandiéndose, sus muslos temblando contra los suyos.\n\n—Juntos —susurró ella, sus ojos fijos en los de él.\n\nAlessio asintió, sus movimientos volviéndose torpes, frenéticos. Con un último y poderoso empujón, se liberaron simultáneamente, un clímax perfecto que los envolvió como un manto caliente.\n\nEntre ambos, respiraciones aceleradas. El atardecer se había convertido en noche, la luna iluminaba sus cuerpos enredados en la playa.\n\n> Valeria y Alessio no han hecho planes, pero ambos saben que mañana, al amanecer, se encontrarán en el mismo lugar."
+        },
+        "pairedItem": {
+          "item": 0
+        }
+      }
+    ]
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "shared": [
+    {
+      "updatedAt": "2026-06-01T02:00:16.563Z",
+      "createdAt": "2026-06-01T02:00:16.563Z",
+      "role": "workflow:owner",
+      "workflowId": "VsbSZaaoISsIcSC2",
+      "projectId": "eyOyKz68GM9OloYk"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2026-06-01T02:47:39.390Z",
+  "versionId": "b5c4dd6a-2d66-4321-94c0-7477193681bd"
+}
