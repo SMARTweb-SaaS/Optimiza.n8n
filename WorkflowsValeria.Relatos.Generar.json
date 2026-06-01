@@ -25,14 +25,20 @@
         ]
       ]
     },
-    "Extraer Relato": {
+    "Basic LLM Chain": {
       "main": [
         [
           {
-            "node": "Send a text message",
+            "node": "Parsear JSON",
             "type": "main",
             "index": 0
-          },
+          }
+        ]
+      ]
+    },
+    "Parsear JSON": {
+      "main": [
+        [
           {
             "node": "Send.Lead",
             "type": "main",
@@ -41,7 +47,7 @@
         ]
       ]
     },
-    "cydonia-24b-v4.1": {
+    "magnum-v4-72b": {
       "ai_languageModel": [
         [
           {
@@ -52,12 +58,12 @@
         ]
       ]
     },
-    "Basic LLM Chain": {
-      "main": [
+    "Structured Output Parser": {
+      "ai_outputParser": [
         [
           {
-            "node": "Extraer Relato",
-            "type": "main",
+            "node": "Basic LLM Chain",
+            "type": "ai_outputParser",
             "index": 0
           }
         ]
@@ -74,107 +80,37 @@
   "nodes": [
     {
       "parameters": {},
-      "id": "d7773847-5b13-4185-ad96-b7885ec8d9c5",
+      "id": "f9c6ab1c-6de2-4df0-a0c7-8fbae941739f",
       "name": "Manual Trigger",
       "type": "n8n-nodes-base.manualTrigger",
       "typeVersion": 1,
       "position": [
-        -1360,
-        48
+        -2016,
+        560
       ]
     },
     {
       "parameters": {
         "jsCode": "const hombres = [\n  \"desconocido atractivo y misterioso\",\n  \"colega de trabajo serio y reservado\",\n  \"ex pareja que reaparece\",\n  \"amigo cercano con tensión no resuelta\",\n  \"viajero que conoce en un aeropuerto\",\n  \"dueño de un bar tranquilo\",\n  \"fotógrafo bohemio\",\n  \"empresario exitoso y distante\",\n  \"entrenador personal carismático\",\n  \"vecino nuevo del edificio\",\n  \"escritor o artista creativo\",\n  \"amigo del pasado de la universidad\"\n];\n\nconst situaciones = [\n  \"reencuentro inesperado\",\n  \"primera cita\",\n  \"encuentro casual en un lugar público\",\n  \"conversación que se vuelve íntima\",\n  \"noche después de una fiesta\",\n  \"viaje improvisado\",\n  \"coincidencia en un hotel\",\n  \"tarde de lluvia encerrados\",\n  \"cena privada\",\n  \"paseo nocturno por la ciudad\",\n  \"espera en un aeropuerto\",\n  \"visita sorpresa\"\n];\n\nconst lugares = [\n  \"hotel elegante en ciudad grande\",\n  \"apartamento moderno con vista nocturna\",\n  \"bar con luces tenues\",\n  \"cafetería tranquila\",\n  \"playa al atardecer\",\n  \"oficina vacía después del horario\",\n  \"ascensor de edificio corporativo\",\n  \"tren nocturno\",\n  \"aeropuerto internacional\",\n  \"terraza con vista a la ciudad\",\n  \"casa privada con iluminación suave\",\n  \"calle lluviosa de noche\"\n];\n\nconst relaciones = [\n  \"desconocidos\",\n  \"conocidos recientes\",\n  \"colegas de trabajo\",\n  \"ex pareja\",\n  \"amistad con tensión emocional\",\n  \"cita a ciegas\",\n  \"relación intermitente\",\n  \"atracción no confesada\",\n  \"reencuentro después de años\",\n  \"vínculo profesional con tensión romántica\"\n];\n\nconst tonos = [\n  \"elegante y cinematográfico\",\n  \"intenso y emocional\",\n  \"misterioso y sugerente\",\n  \"cálido y romántico\",\n  \"melancólico con tensión\",\n  \"sofisticado y sensual\",\n  \"nostálgico y profundo\",\n  \"tenso y emocionalmente cargado\"\n];\n\nconst ctas = [\n  \"¿Qué habría pasado si esta noche no terminaba aquí?\",\n  \"Elige el próximo encuentro de Valeria.\",\n  \"¿Continuamos con otra historia distinta?\",\n  \"Descubre su siguiente encuentro inesperado.\",\n  \"¿Quién será el próximo en cruzarse con ella?\",\n  \"Otra historia de Valeria te espera mañana.\",\n  \"El siguiente momento puede cambiarlo todo…\",\n  \"¿Quieres verla en otro escenario?\"\n];\n\nconst pick = arr => arr[Math.floor(Math.random() * arr.length)];\nconst intensidad = Math.floor(Math.random() * 10) + 1;\n\nreturn [{\n  json: {\n    hombre: pick(hombres),\n    situacion: pick(situaciones),\n    lugar: pick(lugares),\n    relacion: pick(relaciones),\n    tono: pick(tonos),\n    intensidad: intensidad.toString(),\n    cta: pick(ctas)\n  }\n}];"
       },
-      "id": "0e505063-f5da-4d18-98e4-7dc7437ae076",
+      "id": "19847baa-db81-40b1-bffb-c2b2b8ea8472",
       "name": "Random Variables",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -1136,
-        48
-      ]
-    },
-    {
-      "parameters": {
-        "assignments": {
-          "assignments": [
-            {
-              "id": "assign-relato",
-              "name": "relato",
-              "value": "={{ $json.text }}",
-              "type": "string"
-            },
-            {
-              "id": "assign-hombre",
-              "name": "hombre",
-              "value": "={{ $('Random Variables').item.json.hombre }}",
-              "type": "string"
-            },
-            {
-              "id": "assign-situacion",
-              "name": "situacion",
-              "value": "={{ $('Random Variables').item.json.situacion }}",
-              "type": "string"
-            },
-            {
-              "id": "assign-lugar",
-              "name": "lugar",
-              "value": "={{ $('Random Variables').item.json.lugar }}",
-              "type": "string"
-            },
-            {
-              "id": "assign-relacion",
-              "name": "relacion",
-              "value": "={{ $('Random Variables').item.json.relacion }}",
-              "type": "string"
-            },
-            {
-              "id": "assign-tono",
-              "name": "tono",
-              "value": "={{ $('Random Variables').item.json.tono }}",
-              "type": "string"
-            },
-            {
-              "id": "assign-intensidad",
-              "name": "intensidad",
-              "value": "={{ $('Random Variables').item.json.intensidad }}",
-              "type": "string"
-            },
-            {
-              "id": "assign-cta",
-              "name": "cta",
-              "value": "={{ $('Random Variables').item.json.cta }}",
-              "type": "string"
-            },
-            {
-              "id": "assign-fecha",
-              "name": "fecha",
-              "value": "={{ $now.toISO() }}",
-              "type": "string"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "id": "0f8a79aa-c6e0-4862-b472-13a4683c83a2",
-      "name": "Extraer Relato",
-      "type": "n8n-nodes-base.set",
-      "typeVersion": 3.4,
-      "position": [
-        -512,
-        48
+        -1792,
+        560
       ]
     },
     {
       "parameters": {
         "promptType": "define",
-        "text": "=Genera un micro-relato romántico intenso con Valeria.\n\n════════════════════════════\nCONTEXTO\n════════════════════════════\n\nPersonaje masculino:\n{{ $json.hombre }}\n\nSituación:\n{{ $json.situacion }}\n\nLugar:\n{{ $json.lugar }}\n\nRelación:\n{{ $json.relacion }}\n\nTono:\n{{ $json.tono }}\n\nIntensidad (1-10):\n{{ $json.intensidad }}\n\nNivel de carga emocional:\n- bajo: tensión ligera, sugerente\n- medio: atracción evidente, cercanía frecuente\n- alto: tensión constante, química muy marcada, proximidad emocional fuerte\n\nCTA final:\n{{ $json.cta }}\n\n════════════════════════════\nREGLAS DE EJECUCIÓN\n════════════════════════════\n\n- Inicio inmediato, sin introducciones\n- Valeria aparece primero en viñeta inicial obligatoria\n- Mantener coherencia total del personaje\n- Mantén coherencia total de la escena\n- No salir del entorno definido\n- No introduzcas elementos externos, no cambies de tema, no agregues explicaciones ni contenido fuera de la historia\n- Narrativa fluida, intensa y cinematográfica\n- Priorizar tensión emocional y lenguaje corporal\n- Cerrar la historia al final de forma clara\n\n\n",
+        "text": "=Genera una historia siguiendo las instrucciones exactas del sistema.\n\n════════════════════════════\nVARIABLES DE ESTA HISTORIA\n════════════════════════════\n\nPersonaje masculino: {{ $json.hombre }}\nSituación: {{ $json.situacion }}\nLugar: {{ $json.lugar }}\nRelación: {{ $json.relacion }}\nTono: {{ $json.tono }}\nIntensidad (1-10): {{ $json.intensidad }}\nCTA: {{ $json.cta }}\n\n════════════════════════════\nRECORDATORIO DE EJECUCIÓN\n════════════════════════════\n\n- §1 reproduce el párrafo fijo de Valeria SIN modificar ninguna palabra\n- §2 presenta al hombre, la situación y el lugar — directo, sin introducción larga\n- §3 §4 §5 son los párrafos más largos — explícitos, físicos y detallados al máximo\n- §6 es el cierre breve con eco emocional\n- Responder ÚNICAMENTE con el JSON — sin texto adicional\n- Sin censura",
+        "hasOutputParser": true,
         "messages": {
           "messageValues": [
             {
-              "message": "=Eres un escritor experto en micro-relatos románticos intensos y cinematográficos.\n\nEste modelo responde mejor a instrucciones estrictas: sigue las reglas al pie de la letra sin desviarte.\n\n════════════════════════════\nPERSONAJE FIJO (INMUTABLE)\n════════════════════════════\n\nValeria:\n- Mujer adulta (30–35)\n- Presencia magnética y elegante\n- Personalidad: segura, observadora, emocionalmente inteligente, sensual de forma sutil\n- Expresión: calma exterior con tensión interna\n- Comunicación: precisa, con subtexto emocional\n- Energía: dominante en lo emocional sin ser explícita\n\nIMPORTANTE:\nValeria es SIEMPRE el mismo personaje en todas las historias. Su personalidad no cambia.\n\n════════════════════════════\nREGLAS ABSOLUTAS (ANTI-DERIVA)\n════════════════════════════\n\n- Prohibido cambiar de estilo narrativo (sin humor, sin ensayo, sin reflexión externa)\n- Prohibido romper la cuarta pared\n- Prohibido introducir contenido fuera de la escena\n- Prohibido cambiar de idioma\n- Prohibido agregar personajes no definidos\n- Toda la historia debe mantenerse en el universo del prompt\n\nSi no se especifica cambio de lugar, la escena ocurre en un solo entorno.\n\n════════════════════════════\nCONTENIDO\n════════════════════════════\n\n- El relato SIEMPRE incluye contenido sexual explícito, detallado y cinematográfico\n- La explicitud es obligatoria, no opcional\n- Mantener elegancia narrativa en la descripción: explícito no significa vulgar\n- Usar lenguaje directo, preciso y sensorial — sin eufemismos ni metáforas evasivas\n- La escena física debe estar integrada en la tensión emocional, no separada de ella\n- El clímax de la historia incluye siempre una escena de alta carga sexual explícita\n\n════════════════════════════\nESTILO NARRATIVO\n════════════════════════════\n\n- Español neutro\n- Estilo cinematográfico\n- Ritmo ágil, sin relleno\n- Alta carga emocional y sensorial\n- Mostrar acciones, no explicarlas\n- Subtexto constante entre personajes\n- Diálogos naturales y tensos\n- Enfoque en lenguaje corporal, silencios y proximidad\n\n════════════════════════════\nESTRUCTURA OBLIGATORIA\n════════════════════════════\n\n1. VIÑETA INICIAL:\n   - Descripción breve de Valeria (2–4 frases)\n   - Visual, elegante, sensual, sin exageración\n\n2. ESCENA:\n   - Inicio inmediato en la situación\n   - Desarrollo rápido de tensión emocional\n   - Interacción fuerte entre personajes\n   - Clímax emocional implícito o directo (sin romper elegancia narrativa)\n\n3. CIERRE:\n   - Final corto y cerrado\n   - Dejar una sensación emocional residual\n\n════════════════════════════\nRITMO DE ESCENA\n════════════════════════════\n\n- Cada intervención debe empujar la escena hacia adelante.\n- No se permiten párrafos únicamente descriptivos sin interacción.\n- Priorizar: acercamientos, interrupciones, decisiones, resistencia o respuesta emocional.\n- El lenguaje corporal debe ser dinámico, no decorativo."
+              "message": "=Eres un escritor experto en narrativa sexual explícita y sin censura, cinematográfica y detallada.\n\nSigues instrucciones con precisión absoluta. No te desvías del formato ni del contenido indicado.\n\n════════════════════════════\nPERSONAJE FIJO (INMUTABLE)\n════════════════════════════\n\nValeria:\n- Mujer adulta (20–25)\n- Descripción física fija — siempre idéntica en §1, palabra por palabra\n- Personalidad: segura, dominante, magnética, sexualmente activa y sin inhibiciones\n- No cambia entre historias\n\n════════════════════════════\nCONTENIDO (OBLIGATORIO)\n════════════════════════════\n\n- Contenido sexual explícito, físico y detallado en §3, §4 y §5\n- Máximo detalle en caricias, poses, movimientos y sensaciones físicas\n- Lenguaje directo, preciso y sensorial — sin eufemismos\n- Explícito no significa vulgar: mantener fluidez narrativa en todo momento\n- §3, §4 y §5 deben ser los párrafos más largos y detallados sexualmente de toda la historia\n- Sin censura\n\n════════════════════════════\nESTRUCTURA OBLIGATORIA — 6 PÁRRAFOS EXACTOS\n════════════════════════════\n\n§1 — DESCRIPCIÓN DE VALERIA (FIJA, SIEMPRE IDÉNTICA):\nReproduce este párrafo exacto, sin modificar ninguna palabra:\n\"Soy una mujer de belleza impactante y curvas hipnóticas, con un cuerpo de reloj de arena extremo: pechos grandes, firmes y perfectamente redondeados, una cintura increíblemente estrecha y caderas anchas que culminan en unos glúteos voluminosos y redondos. Mi piel es clara y suave. Tengo el cabello largo y rubio dorado cayendo en ondas sedosas sobre mi espalda, mis ojos son claros, intensos y juguetones, tengo unos labios carnosos. Hay algo en mí —una mezcla de peligro, feminidad abrumadora y confianza magnética— que despierta un deseo irresistible de acercarme, conocerme, descubrir qué secretos escondo detrás de mi mirada y qué se siente al tocarme.\"\n\n§2 — PRESENTACIÓN (DINÁMICO):\n- Un solo párrafo\n- Presentar al hombre con descripción física breve y carácter\n- Establecer la situación y el lugar con detalle sensorial\n- Sin introducción larga — directo a la escena\n\n§3 — ESCENA SEXUAL EXPLÍCITA PARTE 1 — CARICIAS E INICIO:\n- Primer contacto físico entre Valeria y el hombre\n- Descripción detallada de caricias, roces, besos y exploración corporal\n- Incluir reacciones físicas de ambos\n- Párrafo largo y detallado\n\n§4 — ESCENA SEXUAL EXPLÍCITA PARTE 2 — POSES Y ESCALADA:\n- Descripción explícita y detallada de poses y movimientos\n- Progresión clara desde el inicio hasta la escalada máxima\n- Máximo detalle físico en cada acción\n- Párrafo largo y detallado\n\n§5 — ESCENA SEXUAL EXPLÍCITA PARTE 3 — CLÍMAX:\n- Clímax de la escena con máximo detalle físico\n- Describir el momento culminante sin cortes ni saltos\n- Incluir reacciones físicas completas de ambos personajes\n- Párrafo largo y detallado\n\n§6 — DESPEDIDA:\n- Cierre breve, emocional o físico\n- Una o dos frases que dejen sensación residual\n- Puede ser una mirada, una frase dicha, un gesto final\n\n════════════════════════════\nREGLAS ABSOLUTAS\n════════════════════════════\n\n- §1 es SIEMPRE el párrafo fijo de Valeria — nunca modificarlo\n- §3, §4 y §5 son obligatoriamente explícitos sexualmente y muy detallados\n- Prohibido reducir o resumir los párrafos sexuales\n- Prohibido cambiar de idioma\n- Prohibido agregar párrafos extra fuera de los 6 definidos\n- Prohibido texto fuera del JSON de respuesta\n\n════════════════════════════\nTÍTULO\n════════════════════════════\n\n- Máximo 8 palabras\n- Provocador, viral, que genere intriga o deseo inmediato\n- Sin signos de exclamación genéricos\n- En primera persona o tercera, lo que genere más impacto\n- Tono acorde al tono y situación de la historia\n\n════════════════════════════\nHASHTAGS\n════════════════════════════\n\n- Entre 8 y 12 hashtags\n- Mezcla español e inglés\n- Relacionados con la escena, el tono, los personajes y el lugar\n- Formato: #palabra #palabra #palabra (todos en una línea)\n\n════════════════════════════\nPROMPT DE IMAGEN\n════════════════════════════\n\nGenera un prompt en inglés optimizado para generadores de imagen (FLUX, Stable Diffusion, Midjourney).\nEl prompt debe describir a Valeria en la escena del §2.\nIncluir siempre:\n- Descripción física de Valeria: stunning blonde woman, extremely curvy hourglass figure, very large firm breasts, incredibly narrow waist, very wide hips, large round buttocks, clear smooth skin, long golden wavy hair, clear intense eyes, full lips\n- La situación y lugar del §2 adaptados visualmente\n- Iluminación y atmósfera acorde al tono\n- Calidad: photorealistic, cinematic, 8k, editorial photography, dramatic lighting\n- Estilo: sensual but elegant, fashion editorial\n\n════════════════════════════\nFORMATO DE RESPUESTA (OBLIGATORIO)\n════════════════════════════\n\nResponde ÚNICAMENTE con un objeto JSON válido.\nSin markdown, sin bloques de código, sin texto antes o después del JSON.\nEl JSON debe tener exactamente estas 4 claves:\n\n{\n  \"titulo\": \"string\",\n  \"historia\": \"§1 completo\\n\\n§2 completo\\n\\n§3 completo\\n\\n§4 completo\\n\\n§5 completo\\n\\n§6 completo\",\n  \"hashtags\": \"string con todos los hashtags en una línea\",\n  \"prompt_imagen\": \"string en inglés para generador de imágenes\"\n}"
             }
           ]
         },
@@ -183,25 +119,69 @@
       "type": "@n8n/n8n-nodes-langchain.chainLlm",
       "typeVersion": 1.9,
       "position": [
-        -848,
-        48
+        -1568,
+        560
       ],
-      "id": "74c2fab8-7651-41b7-9b69-301c600a9139",
+      "id": "76fa7ef1-0a32-4ee0-a742-f4d532b39228",
       "name": "Basic LLM Chain"
     },
     {
       "parameters": {
-        "model": "thedrummer/cydonia-24b-v4.1",
-        "options": {}
+        "fromEmail": "\"Optimiza IA Soluciones creativas\" <hola@optimiza-ia.com>",
+        "toEmail": "=jomBusiness@msn.com",
+        "subject": "=✦ {{ $json.titulo }}",
+        "html": "=<!DOCTYPE html>\n<html>\n<head>\n<meta charset=\"UTF-8\">\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n<style>\n  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Lato:wght@300;400;700&display=swap');\n  body{margin:0;padding:0;background:#0c0c0c;color:#e0d6cc;font-family:'Lato',sans-serif;font-weight:300;}\n  .wrapper{max-width:640px;margin:0 auto;padding:48px 32px;}\n  .brand{font-size:10px;letter-spacing:4px;text-transform:uppercase;color:#444;margin-bottom:20px;}\n  h1{font-family:'Playfair Display',serif;font-size:30px;font-weight:700;color:#d4a853;line-height:1.25;margin:0 0 10px 0;}\n  .meta{font-size:11px;color:#555;letter-spacing:2px;text-transform:uppercase;margin-bottom:36px;padding-bottom:24px;border-bottom:1px solid #1e1e1e;}\n  .story p{font-size:16px;line-height:1.95;margin:0 0 22px 0;color:#ddd;}\n  .story p:first-child{color:#c9b99a;font-style:italic;font-family:'Playfair Display',serif;font-size:15.5px;}\n  .hashtags{margin-top:28px;font-size:12px;color:#4a4035;line-height:2.2;word-spacing:4px;}\n  .cta{margin-top:36px;padding:20px 24px;border-left:3px solid #d4a853;background:#111;font-size:15px;color:#d4a853;font-style:italic;font-family:'Playfair Display',serif;}\n  .divider{border:none;border-top:1px solid #1a1a1a;margin:36px 0;}\n  .footer{font-size:10px;color:#2a2a2a;text-align:center;letter-spacing:2px;text-transform:uppercase;}\n  .prompt-box{margin-top:24px;padding:16px;background:#0f0f0f;border:1px solid #222;font-size:11px;color:#3a3a3a;font-family:monospace;line-height:1.6;border-radius:2px;}\n</style>\n</head>\n<body>\n<div class=\"wrapper\">\n  <div class=\"brand\">Valeria · Historia</div>\n  <h1>{{ $json.titulo }}</h1>\n  <div class=\"meta\">{{ $('Random Variables').item.json.tono }} &nbsp;·&nbsp; Intensidad {{ $('Random Variables').item.json.intensidad }}/10 &nbsp;·&nbsp; {{ $json.fecha }}</div>\n  <div class=\"story\">\n    {{ $json.historia.split('\\n\\n').map(p => '<p>' + p + '</p>').join('') }}\n  </div>\n  <div class=\"cta\">{{ $('Random Variables').item.json.cta }}</div>\n  <div class=\"hashtags\">{{ $json.hashtags }}</div>\n  <hr class=\"divider\">\n  <div class=\"prompt-box\">🖼 IMAGE PROMPT: {{ $json.prompt_imagen }}</div>\n  <div class=\"footer\">{{ $('Random Variables').item.json.lugar }} &nbsp;·&nbsp; {{ $('Random Variables').item.json.hombre }}</div>\n</div>\n</body>\n</html>",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [
+        -1040,
+        560
+      ],
+      "id": "8ea946eb-ac49-4df3-a543-77432d98a0ff",
+      "name": "Send.Lead",
+      "webhookId": "f4c94d16-2482-4d18-b3c3-41ae05868902",
+      "credentials": {
+        "smtp": {
+          "id": "HUZKWIFzTUTleZeZ",
+          "name": "SMTP account"
+        }
+      },
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "jsCode": "const raw = $input.first().json.text || '';\n\n// Strip markdown code fences if model wraps in ```json\nconst cleaned = raw.replace(/^```json\\s*/i, '').replace(/^```\\s*/i, '').replace(/```\\s*$/i, '').trim();\n\nlet parsed;\ntry {\n  parsed = JSON.parse(cleaned);\n} catch(e) {\n  // Fallback: return raw so we can debug\n  return [{ json: { titulo: 'Error de parseo', historia: raw, hashtags: '', prompt_imagen: '', error: e.message } }];\n}\n\nreturn [{\n  json: {\n    titulo:        parsed.titulo        || '',\n    historia:      parsed.historia      || '',\n    hashtags:      parsed.hashtags      || '',\n    prompt_imagen: parsed.prompt_imagen || '',\n    hombre:        $('Random Variables').first().json.hombre,\n    situacion:     $('Random Variables').first().json.situacion,\n    lugar:         $('Random Variables').first().json.lugar,\n    relacion:      $('Random Variables').first().json.relacion,\n    tono:          $('Random Variables').first().json.tono,\n    intensidad:    $('Random Variables').first().json.intensidad,\n    cta:           $('Random Variables').first().json.cta,\n    fecha:         $now.toISO()\n  }\n}];"
+      },
+      "id": "7278eaac-19b6-4f0a-aa65-1ec09b8c5895",
+      "name": "Parsear JSON",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1248,
+        560
+      ],
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "model": "anthracite-org/magnum-v4-72b",
+        "options": {
+          "temperature": 1,
+          "topP": 1
+        }
       },
       "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
       "typeVersion": 1,
       "position": [
-        -976,
-        192
+        -1648,
+        736
       ],
-      "id": "32888618-c978-4132-83f4-6c01bed83a07",
-      "name": "cydonia-24b-v4.1",
+      "id": "7b87bea7-902c-42b2-993a-63c8bd386612",
+      "name": "magnum-v4-72b",
       "credentials": {
         "openRouterApi": {
           "id": "aq9Mu0k1n9JBuo3F",
@@ -211,68 +191,19 @@
     },
     {
       "parameters": {
-        "chatId": "1704819492",
-        "text": "={{ $json.relato }}",
-        "additionalFields": {
-          "appendAttribution": false
-        }
+        "jsonSchemaExample": "{\n  \"titulo\": \"string\",\n  \"historia\": \"§1 completo\\n\\n§2 completo\\n\\n§3 completo\\n\\n§4 completo\\n\\n§5 completo\\n\\n§6 completo\",\n  \"hashtags\": \"string con todos los hashtags en una línea\",\n  \"prompt_imagen\": \"string en inglés para generador de imágenes\"\n}"
       },
-      "type": "n8n-nodes-base.telegram",
-      "typeVersion": 1.2,
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.3,
       "position": [
-        -256,
-        -48
+        -1360,
+        720
       ],
-      "id": "f5b3c629-0bfd-4940-8aa2-3e8387d4da43",
-      "name": "Send a text message",
-      "webhookId": "47768359-131c-4dcd-9e2b-e3a0a44fb69e",
-      "credentials": {
-        "telegramApi": {
-          "id": "Kz6I7RAZL2mii6bK",
-          "name": "Telegram.api"
-        }
-      },
-      "disabled": true
-    },
-    {
-      "parameters": {
-        "fromEmail": "\"Optimiza IA Soluciones creativas\" <hola@optimiza-ia.com>",
-        "toEmail": "=jomBusiness@msn.com",
-        "subject": "=Valeria con un {{ $json.hombre }}",
-        "html": "={{ $json.relato }}",
-        "options": {
-          "appendAttribution": false
-        }
-      },
-      "type": "n8n-nodes-base.emailSend",
-      "typeVersion": 2.1,
-      "position": [
-        -256,
-        176
-      ],
-      "id": "d653be5e-607b-4cce-9597-c12a98e025c5",
-      "name": "Send.Lead",
-      "webhookId": "f4c94d16-2482-4d18-b3c3-41ae05868902",
-      "credentials": {
-        "smtp": {
-          "id": "HUZKWIFzTUTleZeZ",
-          "name": "SMTP account"
-        }
-      }
+      "id": "62154ea3-54c7-4dd7-80d5-750b9d65cc66",
+      "name": "Structured Output Parser"
     }
   ],
-  "pinData": {
-    "Basic LLM Chain": [
-      {
-        "json": {
-          "text": "════════════════════════════\n\nValeria caminaba por la orilla, descalza, con la soughta de su vestido negro siendo acariciada por las moderadas olas del mar. Su avanzada perfecta marcaba un ritmo constante, decidido, mientras miraba al frente sin prisa. A su alrededor flotaba una serena autoridad.\n\n—Valeria.\n\nSu nombre, pronunciado con la voz ligeramente áspera de alguien que no había fumado en años pero cuyas cuerdas vocales aún recordarían el humo, le hizo detenerse. Giró lentamente, con deliberación, cada movimiento calculado, como si supiera exactamente quién estaba detrás antes de mirarlo. Allí estaba él: Alessio. La ex pareja que reaparece después de cinco años de silencio.\n\n—¿Qué haces aquí? —preguntó, su voz sin traicionar emoción.\n\nAlessio dio un paso hacia atrás, metiendo las manos en los bolsillos de su abrigo de lana gris. Sus ojos azules seguían siendo penetrantes, incluso a la tenue luz del atardecer.\n\n—Coincidencia —mintió.\n\nElla arqueó una ceja ligeramente, una acción minúscula pero que expresaba más que mil palabras. Se acercaron lentamente, reduciendo la distancia minuciosamente. Entre ellos se elevó el sonido de las olas y el crujido de la arena bajo sus pies.\n\n—Estás sola —observó él, una afirmación más que una pregunta.\n\n—Como querías. Como siempre. Recuerdo que disfrutabas mi soledad.\n\nÉl avanzó otro paso, cerrando la distancia a menos de veinte centímetros.\n\n—También recuerdo otras cosas.\n\nAntes de que pudiera reaccionar, Alessio extendió la mano, agarrándole la nuca con firmeza pero sin rudeza. Valeria contuvo el aliento, sus pupilas dilatándose levemente. Por un segundo, se permitió sentirse sujeta, atrapada en aquello que renunció a rin lider en los años.\n\n—¿Qué estás haciendo? —murmuró, pero su tono ya había cambiado, cargado de algo que se parecía a la anticipación.\n\nAlessio contestó bajando lentamente su cabeza, su aliento cálido rozándole la mejilla.\n\n—Terminando lo que empezamos.\n\nSus bocas se encontraron. Comenzó como un choque, un reencuentro violento y húmedo. Valeria respondió de inmediato, sus manos ascendiendo a su pecho. El beso se profundizó, su lengua explorando la cavidad de su boca con hambre acumulada. Él gruñó contra sus labios, sus dedos presionando más firmemente contra su cuello, inclinándole la cabeza para tener mejor ángulo.\n\nElla sintió el calor irradiando de su cuerpo, sus pechos presionando contra el abrigo de lana. Sin romper el beso, sus manos comenzaron a trabajar la cerradura de su cinturón, con movimientos rápidos y seguros. Alessio murmuró algo contra su boca, una mezcla de suplicio y placer.\n\n—Necesito más —jadeó él entre besos, sus manos bajando por su espalda para agarrar sus nalgas y empujar su cuerpo contra el suyo, dejándole sentir su erección, urgente y hambrienta.\n\nValeria lo apartó con un empujón no violento pero firme. Sus ojos oscuros se clavaron en los de él, brillantes y febriles.\n\n—Nunca fuiste paciente. Acepté que eras impetuoso, pero nunca suficiente para mí.\n\nExtendió la mano, tomando su erección aún cubierta por el pantalón. Alessio cerró los ojos por un segundo, sintiendo su tacto a través de la tela.\n\n—No puedes... no puedes aparecer así después de cinco años... y esperar...\n\n—¿Qué espero? —preguntó ella, sus dedos begins a abrir la cremallera de sus pantalones.\n\n—Más.\n\n—Lineas más gruesas. Más riesgo.\n\n—...\n\nValeria encontró en privado mi erecciónamálo. que la encontró completamente erecta y la rodeó con sus dedos. Alessio emitió un sonido gutural, sus caderas moviéndose instintivamente hacia adelante.\n\n—¿Sigues siendo así de evidentes? —preguntó ella con voz baja y ronca.\n\nÉl gruñó, sus manos ahora desabrochando su vestido, abriéndolo para revealed su pecho. Sus pulgares rozaron los pezones endurecidos, provocando otro suspiro de ella.\n\n—Nunca cambie eso —confesó, inclinándose para tomar su pezón en su boca, jugueteando con la lengua.\n\nElla gimió, sus dedos deslizándose arriba y abajo de su longitud. La tensión se acumuló entre ellos, palpable como el calor que radiaba de sus cuerpos. Las olas lamían sus pies, el mundo reduciéndose a ese círculo de arena, deseo y recuerdos alfón.\n\n—¿Fui tu primer advocating? —preguntó él, soltando el pezón y morderle el cuello suavemente, una sensación que reconocía demasiado bien.\n\nElla asintió, su otra mano ascendiendo a su cabello, haciéndolo acercarse más.\n\n—¿Soy el único que nunca olvidaste?\n\n—... el que nunca he...\n\nLa pregunta quedó sin respuesta cuando él la empujó suavemente a la arena, arrodillándose entre sus muslos abiertos. Con un movimiento rápido, deslizó su tanga a un lado y se sumergió entre sus piernas. Valeria gritó, su espalda arqueándose contra la arena, mientras la lengua de Alessio encontraba su clítoris, lambiendo, succionando, la mera sensación de volverla deglutidora.\n\n—¿Sigues así de sensible? —murmuró contra su carne hinchada, sus dedos deslizándose dentro de ella, un Id de tres dedos que hizo que Valeria maldijera en italiano.\n\n—Más —rogó ella, sus caderas moviéndose contra su boca—. Por favor...\n\nÉl chupó ardientemente el clítoris mientras sus dedos giraban dentro de ella, buscando ese punto que siempre, siempre la hacia alcanzar el límite. Valeria apiló hileras en vozalta, el sonido mezclándose con el romper de las olas. Su liberación llegó rápido y violento, sacudiendo su cuerpo mientras montones de susPtrides de placer se rompieron sobre ella.\n\nCuando su orgasmo la hubo atravesado, él se endereció, tomando su rostro con ambas manos y besándola brutalmente, dejfinaleai OECD su sabor a sí misma en sus labios.\n\n—Ahora... —dijo ella, con los ojos brillando y llenos de propósitos.\n\nCon movimientos rápidos y seguros, lo guiadoellies hacia su entrada ya empapada. Alessio empujó dentro de ella, su invasión directa Marcinato un gemido en ambos.\n\n—Dios, te he extrañado —susurró mientras comenzaba a moverse, cada empujón una sentenciado de desesperación y necesidad acumulada.\n\nValeria siguió sus movimientos con los suyos, su cuerpo acordándose del ritmo, adaptándose a él como si nunca se hubieran separado. La conexión fue instantánea, casi abrumadora en su intensidad. No había palabras ahora, solo el sonido del mar, de la piel golpeando piel y de la respiración acelerada entre ellos.\n\n—Más fuerte —ordenó ella, sus uñas arañando su espalda a través de la tela del abrigo.\n\nÉl obedeció, cambiando de ángulo mientras la penetraba repetidamente, sus embestidas cada vez más profundas y desesperadas. Valeria sintiendo el familiar hormigueo en lo profundo de su vientre, creciendo, expandiéndose, sus muslos temblando contra los suyos.\n\n—Juntos —susurró ella, sus ojos fijos en los de él.\n\nAlessio asintió, sus movimientos volviéndose torpes, frenéticos. Con un último y poderoso empujón, se liberaron simultáneamente, un clímax perfecto que los envolvió como un manto caliente.\n\nEntre ambos, respiraciones aceleradas. El atardecer se había convertido en noche, la luna iluminaba sus cuerpos enredados en la playa.\n\n> Valeria y Alessio no han hecho planes, pero ambos saben que mañana, al amanecer, se encontrarán en el mismo lugar."
-        },
-        "pairedItem": {
-          "item": 0
-        }
-      }
-    ]
-  },
+  "pinData": {},
   "settings": {
     "executionOrder": "v1",
     "binaryMode": "separate"
@@ -289,6 +220,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2026-06-01T02:47:39.390Z",
-  "versionId": "b5c4dd6a-2d66-4321-94c0-7477193681bd"
+  "updatedAt": "2026-06-01T16:33:35.374Z",
+  "versionId": "d4790bf6-a311-4d42-b024-68dd11f42588"
 }
