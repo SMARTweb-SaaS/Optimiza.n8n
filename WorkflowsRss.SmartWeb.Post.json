@@ -346,7 +346,7 @@
       "typeVersion": 4.2,
       "position": [
         1408,
-        784
+        768
       ],
       "id": "d23e7509-f75b-43bf-9fad-77a40f84dd2e",
       "name": "Upload.Image",
@@ -395,7 +395,7 @@
       "typeVersion": 1,
       "position": [
         1792,
-        640
+        624
       ],
       "id": "67a45603-fce3-45e1-8a19-53baab28dc8a",
       "name": "Create a post",
@@ -417,7 +417,7 @@
       "typeVersion": 2,
       "position": [
         1792,
-        784
+        768
       ],
       "id": "4717caef-d5ee-42db-8961-bd6d618b4d4d",
       "name": "Create Tweet",
@@ -723,7 +723,7 @@
       "typeVersion": 1,
       "position": [
         1792,
-        496
+        480
       ],
       "id": "5de72e9a-2bda-4df9-bcb2-93ecda434ac8",
       "name": "Post.SmartWeb",
@@ -807,7 +807,7 @@
       "typeVersion": 2,
       "position": [
         1600,
-        784
+        768
       ],
       "id": "44676099-50ac-4c2d-81b6-99bd28a07ba1",
       "name": "Code in JavaScript",
@@ -826,7 +826,7 @@
     },
     {
       "parameters": {
-        "jsCode": "// Obtén todos los elementos que vienen del nodo anterior (RSS Read)\nconst rssArray = $input.all();\n\n// --- Elige tu lógica de selección ---\nconst indice = 28// 0: Primer elemento\nconst selectedElement = rssArray[indice];\n\n// Envía el elemento seleccionado como salida\nif (selectedElement) {\n  return [{ json: selectedElement }]; // Asegúrate de devolverlo dentro de un objeto con la propiedad 'json'\n} else {\n  // Manejo si no se encuentra ningún elemento o si el array está vacío\n  return [];\n}"
+        "jsCode": "// Obtén todos los elementos que vienen del nodo anterior (RSS Read)\nconst rssArray = $input.all();\n\n// --- Elige tu lógica de selección ---\nconst indice = 13// 0: Primer elemento\nconst selectedElement = rssArray[indice];\n\n// Envía el elemento seleccionado como salida\nif (selectedElement) {\n  return [{ json: selectedElement }]; // Asegúrate de devolverlo dentro de un objeto con la propiedad 'json'\n} else {\n  // Manejo si no se encuentra ningún elemento o si el array está vacío\n  return [];\n}"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -902,8 +902,7 @@
               "rightValue": "dinero",
               "operator": {
                 "type": "string",
-                "operation": "equals",
-                "name": "filter.operator.equals"
+                "operation": "contains"
               }
             },
             {
@@ -912,8 +911,7 @@
               "rightValue": "AI",
               "operator": {
                 "type": "string",
-                "operation": "equals",
-                "name": "filter.operator.equals"
+                "operation": "contains"
               }
             },
             {
@@ -922,8 +920,7 @@
               "rightValue": "ChatGPT",
               "operator": {
                 "type": "string",
-                "operation": "equals",
-                "name": "filter.operator.equals"
+                "operation": "contains"
               }
             },
             {
@@ -932,8 +929,7 @@
               "rightValue": "Instagram",
               "operator": {
                 "type": "string",
-                "operation": "equals",
-                "name": "filter.operator.equals"
+                "operation": "contains"
               }
             },
             {
@@ -942,8 +938,7 @@
               "rightValue": "Facebook",
               "operator": {
                 "type": "string",
-                "operation": "equals",
-                "name": "filter.operator.equals"
+                "operation": "contains"
               }
             },
             {
@@ -952,8 +947,7 @@
               "rightValue": "YouTube",
               "operator": {
                 "type": "string",
-                "operation": "equals",
-                "name": "filter.operator.equals"
+                "operation": "contains"
               }
             }
           ],
@@ -1095,6 +1089,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2026-06-01T00:08:41.247Z",
-  "versionId": "edcaee0e-28d0-4c0d-9d72-5f389c1b8949"
+  "updatedAt": "2026-06-01T15:17:48.914Z",
+  "versionId": "8d86543c-d134-4b21-b24f-fe5c4c26ef9f"
 }
