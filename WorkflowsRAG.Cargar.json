@@ -1,0 +1,134 @@
+{
+  "active": false,
+  "activeVersion": null,
+  "activeVersionId": null,
+  "connections": {
+    "Subir documento": {
+      "main": [
+        [
+          {
+            "node": "Definir cliente (tenant)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Definir cliente (tenant)": {
+      "main": [
+        [
+          {
+            "node": "Llamar _Utils.RAG.Ingestar",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2026-06-04T22:30:25.374Z",
+  "id": "tp9pFG08nnf14LEK",
+  "isArchived": false,
+  "meta": null,
+  "name": "RAG.Cargar",
+  "nodes": [
+    {
+      "parameters": {
+        "formTitle": "Cargar conocimiento — Optimiza",
+        "formDescription": "Sube el .md consolidado. Reemplaza TODO el contenido actual de este cliente.",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "documento",
+              "fieldType": "file",
+              "multipleFiles": false,
+              "acceptFileTypes": ".md",
+              "requiredField": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.2,
+      "position": [
+        -272,
+        -32
+      ],
+      "id": "f1f81642-28b2-4c8b-8586-2176a71340cf",
+      "name": "Subir documento",
+      "webhookId": "764a3c3c-c1d9-4194-9680-1fa77f21d1a7"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "b53000e0-8c50-44b8-bb48-387fa76c26ed",
+              "name": "tenant",
+              "value": "optimiza",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -48,
+        -32
+      ],
+      "id": "5709236c-4ecb-464c-af48-3a42936f2973",
+      "name": "Definir cliente (tenant)"
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "0XOqICRbivKnhsTP",
+          "mode": "list",
+          "cachedResultUrl": "/workflow/0XOqICRbivKnhsTP",
+          "cachedResultName": "RAG.Ingestar"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        176,
+        -32
+      ],
+      "id": "4769fd9a-7e3a-40c9-bdae-69b87f7b0fbd",
+      "name": "Llamar _Utils.RAG.Ingestar"
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "shared": [
+    {
+      "updatedAt": "2026-06-04T22:30:25.374Z",
+      "createdAt": "2026-06-04T22:30:25.374Z",
+      "role": "workflow:owner",
+      "workflowId": "tp9pFG08nnf14LEK",
+      "projectId": "eyOyKz68GM9OloYk"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2026-06-04T22:40:01.785Z",
+  "versionId": "78dd315b-b8d6-4863-a0e0-56692bea9a2a"
+}
