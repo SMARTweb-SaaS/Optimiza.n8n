@@ -1,0 +1,345 @@
+{
+  "active": false,
+  "activeVersion": null,
+  "activeVersionId": null,
+  "connections": {
+    "Cron — 1pm / 7pm / Lunes 9am": {
+      "main": [
+        [
+          {
+            "node": "Variables — Hora / Día / Estilo / Locación",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Variables — Hora / Día / Estilo / Locación": {
+      "main": [
+        [
+          {
+            "node": "Construye Prompt según Tipo",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Construye Prompt según Tipo": {
+      "main": [
+        [
+          {
+            "node": "OpenRouter — Genera Contenido",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenRouter — Genera Contenido": {
+      "main": [
+        [
+          {
+            "node": "Parsea + Construye Prompt Imagen",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parsea + Construye Prompt Imagen": {
+      "main": [
+        [
+          {
+            "node": "fal.ai — Genera Imagen",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "fal.ai — Genera Imagen": {
+      "main": [
+        [
+          {
+            "node": "Extrae URL Imagen",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extrae URL Imagen": {
+      "main": [
+        [
+          {
+            "node": "Facebook — Publica Post",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Baserow — Guarda Registro",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Facebook — Publica Post": {
+      "main": [
+        [
+          {
+            "node": "Log — Confirmación",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Baserow — Guarda Registro": {
+      "main": [
+        [
+          {
+            "node": "Log — Confirmación",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2026-06-04T17:23:48.603Z",
+  "id": "FUeKpqFbvBO3bZOt",
+  "isArchived": false,
+  "meta": null,
+  "name": "HumorViral.Contenido.Generar.v3",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 13 * * *"
+            },
+            {
+              "field": "cronExpression",
+              "expression": "0 19 * * *"
+            },
+            {
+              "field": "cronExpression",
+              "expression": "0 9 * * 1"
+            }
+          ]
+        }
+      },
+      "id": "5503e9b1-d839-46fc-8206-c17d0f44ae70",
+      "name": "Cron — 1pm / 7pm / Lunes 9am",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -1536,
+        128
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const now = new Date();\nconst horaUTC = now.getUTCHours();\nconst horaLima = (horaUTC - 5 + 24) % 24;\nconst diaSemana = now.getUTCDay();\n\nconst esHoroscopo = (diaSemana === 1 && horaLima === 9);\n\n// ─── TONO por hora ───────────────────────────────────────────────────\nlet tono, intensidad;\nif (esHoroscopo) {\n  tono = 'horoscopo';\n  intensidad = 'horoscopo';\n} else if (horaLima === 13) {\n  tono = 'humor adulto atrevido con doble sentido fuerte, confesiones comprometedoras, situaciones coquetas de doble lectura, insinuante e inteligente, para audiencia 18+';\n  intensidad = 'medio';\n} else {\n  tono = 'humor adulto muy picante, doble sentido directo y atrevido, confesiones atrevidas, remates inesperados, preguntas que dejan volar la imaginación, sin ser explícito, para audiencia 18+';\n  intensidad = 'picante';\n}\n\n// ─── ESTILO DE IMAGEN por día ────────────────────────────────────────\nconst estilos = [\n  { dia: 'Domingo',   estilo: 'digital painting fantasy art',  artistico: 'vibrant fantasy digital painting, painterly strokes, cinematic lighting' },\n  { dia: 'Lunes',     estilo: 'photorealistic',                artistico: 'hyperrealistic photography, 8k resolution, professional lighting, sharp details' },\n  { dia: 'Martes',    estilo: 'anime illustration',            artistico: 'high quality anime art style, detailed manga illustration, vibrant colors' },\n  { dia: 'Miercoles', estilo: 'pin-up vintage art',            artistico: 'classic 1950s pin-up art style, saturated colors, retro aesthetic, Gil Elvgren style' },\n  { dia: 'Jueves',    estilo: 'semi-realistic digital art',    artistico: 'semi-realistic digital art, between photo and illustration, dramatic lighting' },\n  { dia: 'Viernes',   estilo: 'western comic art',             artistico: 'western comic book art style, bold lines, vibrant colors, dynamic composition' },\n  { dia: 'Sabado',    estilo: 'pixel art',                     artistico: 'detailed 16-bit pixel art style, retro video game aesthetic, colorful sprites' }\n];\n\n// ─── LOCACIÓN por día ────────────────────────────────────────────────\nconst locaciones = [\n  { lugar: 'terraza penthouse',    escenario: 'luxury penthouse rooftop terrace, panoramic city view, sunset sky, elegant outdoor furniture' },\n  { lugar: 'piscina infinity',     escenario: 'luxury infinity pool overlooking the ocean, turquoise water, tropical surroundings, daylight' },\n  { lugar: 'playa privada',        escenario: 'exclusive private beach, golden sand, crystal clear water, golden hour sunset lighting' },\n  { lugar: 'yate de lujo',         escenario: 'luxury yacht deck, open sea, warm sunlight, elegant marine setting' },\n  { lugar: 'hotel boutique',       escenario: 'luxury boutique hotel room, floor-to-ceiling windows, city view, sophisticated interior' },\n  { lugar: 'bar rooftop',          escenario: 'trendy rooftop bar, city lights at night, ambient lighting, urban luxury setting' },\n  { lugar: 'jacuzzi exterior',     escenario: 'outdoor jacuzzi, night setting, soft ambient lighting, steam, luxury resort' }\n];\n\n// ─── ROPA por estilo ─────────────────────────────────────────────────\nconst ropaPorEstilo = {\n  'photorealistic':              'wearing a luxury designer string bikini, wet skin glistening',\n  'anime illustration':          'wearing a stylish anime-style beach outfit, crop top and high waist shorts',\n  'pin-up vintage art':          'wearing a classic retro pin-up swimsuit, high waist bottom and halter top',\n  'semi-realistic digital art':  'wearing a sheer cover-up over a bikini, elegant and sensual',\n  'western comic art':           'wearing a fitted superhero-inspired swimsuit, bold colors',\n  'pixel art':                   'wearing a retro-style pixel swimsuit, colorful and playful',\n  'digital painting fantasy art':'wearing an elegant fantasy-inspired draped dress, ethereal and sensual'\n};\n\nconst { dia, estilo, artistico } = estilos[diaSemana];\nconst { lugar, escenario } = locaciones[diaSemana];\nconst ropa = ropaPorEstilo[estilo];\n\n// ─── CTA por intensidad ──────────────────────────────────────────────\nconst ctas = {\n  medio: [\n    '😏 ¿Te suena familiar? Etiqueta a quien te entiende',\n    '👀 ¿Verdad o mentira? Comenta sin mentir',\n    '🔥 Etiqueta al cómplice que sabe de qué hablas'\n  ],\n  picante: [\n    '😈 Comenta el número sin dar explicaciones 🔥',\n    '💋 ¿Culpable o inocente? Solo tú lo sabes',\n    '🔥 Etiqueta a quien le llegó este mensaje directo'\n  ],\n  horoscopo: [\n    '🔮 Comenta tu signo y etiqueta a tu cómplice del zodiaco 😏',\n    '⭐ ¿Te identificas? Comenta y etiqueta al culpable 😈',\n    '🌙 Comenta tu signo sin explicar por qué te quedaste callado/a 😂'\n  ]\n};\n\nconst listaCtas = ctas[intensidad];\nconst cta = listaCtas[Math.floor(Math.random() * listaCtas.length)];\n\nreturn [{\n  json: {\n    hora: horaLima,\n    dia, diaSemana,\n    tono, intensidad,\n    estilo, artistico,\n    lugar, escenario, ropa,\n    cta, esHoroscopo,\n    timestamp: now.toISOString()\n  }\n}];"
+      },
+      "id": "eb702287-3adc-48a5-9a4e-7996a5db680c",
+      "name": "Variables — Hora / Día / Estilo / Locación",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1328,
+        128
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const datos = $input.first().json;\n\nlet systemPrompt, userPrompt;\n\nif (datos.esHoroscopo) {\n  systemPrompt = `Eres un experto en humor adulto latinoamericano para redes sociales. Creas horóscopos pícaros, atrevidos y con doble sentido fuerte para audiencia adulta 18+. Cada predicción es corta, sugerente, con doble lectura inteligente. SIEMPRE respondes ÚNICAMENTE con JSON válido, sin backticks, sin markdown.`;\n\n  userPrompt = `Crea el horóscopo pícaro semanal. Cada signo tiene UNA predicción de máximo 10 palabras, con doble sentido atrevido, insinuante e inteligente. En español latinoamericano.\n\nResponde SOLO con este JSON:\n{\n  \"chiste\": \"♈ ARIES: [predicción]\\n♉ TAURO: [predicción]\\n♊ GÉMINIS: [predicción]\\n♋ CÁNCER: [predicción]\\n♌ LEO: [predicción]\\n♍ VIRGO: [predicción]\\n♎ LIBRA: [predicción]\\n♏ ESCORPIO: [predicción]\\n♐ SAGITARIO: [predicción]\\n♑ CAPRICORNIO: [predicción]\\n♒ ACUARIO: [predicción]\\n♓ PISCIS: [predicción]\",\n  \"caption\": \"🔮 EL HORÓSCOPO DE LA SEMANA llegó... y el universo sabe más de ti de lo que crees. 😏\\n\\n[los 12 signos aquí]\",\n  \"situacion_imagen\": \"mysterious and seductive astrologer, sensual and confident expression, looking directly at camera with a knowing smile\",\n  \"hashtags\": \"#Horoscopo #HumorAdulto #BellezasConPicardia #Zodiaco #HumorLatino\"\n}`;\n\n} else {\n  systemPrompt = `Eres un experto en humor adulto latinoamericano viral para redes sociales. Generas contenido muy atrevido con doble sentido fuerte e inteligente, confesiones comprometedoras, remates inesperados y preguntas que hacen volar la imaginación. NUNCA eres explícito ni vulgar — el poder está en la insinuación inteligente. Audiencia 18+. SIEMPRE respondes ÚNICAMENTE con JSON válido, sin backticks, sin markdown.`;\n\n  userPrompt = `Genera un chiste/confesión de humor adulto con tono: ${datos.tono}\n\nFormatos posibles (elige el más viral):\n- Confesión comprometedora: \"Confieso que cuando [situación inocente]... [remate con doble sentido]\"\n- Remate inesperado: setup inocente de 2 líneas + golpe final atrevido\n- Pregunta sin respuesta: pregunta que deja volar la imaginación del lector\n- Situación de 'te pillé': momento de complicidad vergonzosa\n\nReglas:\n- Máximo 3 líneas\n- Doble sentido fuerte pero inteligente, no vulgar\n- Que genere comentarios y etiquetas\n- En español latinoamericano natural\n\nTambién extrae la situación específica del chiste para generar la imagen relacionada.\n\nResponde SOLO con este JSON:\n{\n  \"chiste\": \"texto del chiste (máximo 3 líneas)\",\n  \"caption\": \"chiste completo con emoji que amplifica el doble sentido (máximo 220 caracteres)\",\n  \"situacion_imagen\": \"descripción en inglés de la expresión/actitud/pose de la mujer que conecta con el chiste (máximo 20 palabras)\",\n  \"hashtags\": \"#HumorAdulto #BellezasConPicardia #DoubleMeaning #HumorLatino #Picardía\"\n}`;\n}\n\nreturn [{ json: { ...datos, systemPrompt, userPrompt } }];"
+      },
+      "id": "f8009bf4-028b-46d2-b9db-ef893502991d",
+      "name": "Construye Prompt según Tipo",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1104,
+        128
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://openrouter.ai/api/v1/chat/completions",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "name": "HTTP-Referer",
+              "value": "https://automate.smartweberp.com"
+            },
+            {
+              "name": "X-Title",
+              "value": "HumorViral SmartWeb"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"model\": \"anthropic/claude-haiku-4-5\",\n  \"max_tokens\": 800,\n  \"messages\": [\n    { \"role\": \"system\", \"content\": \"{{ $json.systemPrompt }}\" },\n    { \"role\": \"user\",   \"content\": \"{{ $json.userPrompt }}\" }\n  ]\n}",
+        "options": {}
+      },
+      "id": "6a8e75cf-c511-4b2a-b75b-9eaa549e3fb2",
+      "name": "OpenRouter — Genera Contenido",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -880,
+        128
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const response = $input.first().json;\nconst variables = $('Construye Prompt según Tipo').first().json;\n\nlet contenido;\ntry {\n  const rawText = response.choices[0].message.content;\n  const cleaned = rawText.replace(/```json/g, '').replace(/```/g, '').trim();\n  contenido = JSON.parse(cleaned);\n} catch(e) {\n  throw new Error('Error parseando JSON de OpenRouter: ' + e.message);\n}\n\n// ─── Construir prompt de imagen CONECTADO al chiste ──────────────────\nconst situacionImagen = contenido.situacion_imagen || 'confident and seductive expression, looking at camera';\n\nlet promptImagen;\nif (variables.esHoroscopo) {\n  promptImagen = `sexy adult woman 25-35 years old, full body shot, ${variables.ropa}, ${situacionImagen}, ${variables.escenario}, ${variables.artistico}, high quality, tasteful but provocative, alluring, no nudity, no explicit content`;\n} else {\n  promptImagen = `sexy adult woman 25-35 years old, full body shot, ${variables.ropa}, ${situacionImagen}, ${variables.escenario}, ${variables.artistico}, high quality, tasteful but provocative, alluring, no nudity, no explicit content`;\n}\n\n// Caption final\nconst captionFinal = contenido.caption + '\\n\\n' + variables.cta + '\\n\\n' + contenido.hashtags;\n\nreturn [{\n  json: {\n    ...variables,\n    chiste: contenido.chiste,\n    caption: captionFinal,\n    situacion_imagen: situacionImagen,\n    prompt_imagen: promptImagen,\n    hashtags: contenido.hashtags\n  }\n}];"
+      },
+      "id": "997e3d88-e9b9-4745-8143-55d2447b60c6",
+      "name": "Parsea + Construye Prompt Imagen",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -656,
+        128
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://fal.run/fal-ai/flux/schnell",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"prompt\": \"{{ $json.prompt_imagen }}\",\n  \"image_size\": \"portrait_4_3\",\n  \"num_inference_steps\": 8,\n  \"num_images\": 1,\n  \"enable_safety_checker\": true\n}",
+        "options": {}
+      },
+      "id": "1c16f287-18bb-487b-888c-7d48fa13f220",
+      "name": "fal.ai — Genera Imagen",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -448,
+        128
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const falResponse = $input.first().json;\nconst datos = $('Parsea + Construye Prompt Imagen').first().json;\n\nlet imageUrl;\ntry {\n  imageUrl = falResponse.images[0].url;\n} catch(e) {\n  throw new Error('fal.ai no devolvió imagen: ' + JSON.stringify(falResponse));\n}\n\nreturn [{ json: { ...datos, image_url: imageUrl } }];"
+      },
+      "id": "ee3e945c-eec7-4f0c-9067-bfe8ccb236be",
+      "name": "Extrae URL Imagen",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -224,
+        128
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://graph.facebook.com/v19.0/TU_PAGE_ID/photos",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"url\": \"{{ $json.image_url }}\",\n  \"caption\": \"{{ $json.caption }}\",\n  \"access_token\": \"TU_FACEBOOK_PAGE_TOKEN\"\n}",
+        "options": {}
+      },
+      "id": "f3bae17c-6ed6-4312-8088-d3fe76754d39",
+      "name": "Facebook — Publica Post",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        0,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.baserow.io/api/database/rows/table/TU_TABLE_ID/?user_field_names=true",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Token TU_BASEROW_TOKEN"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"Fecha\": \"{{ $json.timestamp }}\",\n  \"Dia\": \"{{ $json.dia }}\",\n  \"Hora\": {{ $json.hora }},\n  \"Intensidad\": \"{{ $json.intensidad }}\",\n  \"Estilo\": \"{{ $json.estilo }}\",\n  \"Lugar\": \"{{ $json.lugar }}\",\n  \"Situacion_Imagen\": \"{{ $json.situacion_imagen }}\",\n  \"Es_Horoscopo\": {{ $json.esHoroscopo }},\n  \"Chiste\": \"{{ $json.chiste }}\",\n  \"Caption\": \"{{ $json.caption }}\",\n  \"Prompt_Imagen\": \"{{ $json.prompt_imagen }}\",\n  \"Image_URL\": \"{{ $json.image_url }}\",\n  \"Hashtags\": \"{{ $json.hashtags }}\"\n}",
+        "options": {}
+      },
+      "id": "2ab3843f-21f4-47ed-8d1f-17455c1438f3",
+      "name": "Baserow — Guarda Registro",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        0,
+        240
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const datos = $('Extrae URL Imagen').first().json;\nconst fbResponse = $('Facebook — Publica Post').first().json;\nconst tipo = datos.esHoroscopo ? '🔮 HORÓSCOPO' : `💬 CHISTE ${datos.intensidad.toUpperCase()}`;\n\nconsole.log(`✅ Post publicado — ${tipo}`);\nconsole.log(`📅 Día: ${datos.dia} | ⏰ Hora: ${datos.hora}h | 🎨 Estilo: ${datos.estilo} | 📍 Lugar: ${datos.lugar}`);\nconsole.log(`🎭 Situación imagen: ${datos.situacion_imagen}`);\nconsole.log(`📸 Imagen: ${datos.image_url}`);\nconsole.log(`📘 Facebook Post ID: ${fbResponse.id || 'N/A'}`);\n\nreturn [{ json: { status: 'ok', tipo, facebook_post_id: fbResponse.id, image_url: datos.image_url } }];"
+      },
+      "id": "27a56f98-510c-4b9b-943f-51ce5ab76d02",
+      "name": "Log — Confirmación",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        224,
+        128
+      ]
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "shared": [
+    {
+      "updatedAt": "2026-06-04T17:23:48.603Z",
+      "createdAt": "2026-06-04T17:23:48.603Z",
+      "role": "workflow:owner",
+      "workflowId": "FUeKpqFbvBO3bZOt",
+      "projectId": "eyOyKz68GM9OloYk"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2026-06-04T17:23:48.603Z",
+  "versionId": "5c0adfc7-930e-48f5-97b3-7b63e661e21d"
+}
