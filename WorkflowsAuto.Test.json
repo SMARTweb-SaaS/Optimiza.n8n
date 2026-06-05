@@ -948,6 +948,7 @@
         ]
       }
     },
+    "nodeGroups": [],
     "authors": "John Ordóñez Monroy",
     "name": "Version 5ada5aea",
     "description": "",
@@ -1001,6 +1002,11 @@
           },
           {
             "node": "CopiarPlantilla.Docs",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "HTTP Request",
             "type": "main",
             "index": 0
           }
@@ -1263,6 +1269,17 @@
           }
         ]
       ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Enviar texto",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "createdAt": "2026-05-01T14:05:50.594Z",
@@ -1293,7 +1310,8 @@
           "id": "YqSYIxI25n1uZgWB",
           "name": "Google.api"
         }
-      }
+      },
+      "disabled": true
     },
     {
       "parameters": {
@@ -1345,7 +1363,8 @@
           "id": "YqSYIxI25n1uZgWB",
           "name": "Google.api"
         }
-      }
+      },
+      "disabled": true
     },
     {
       "parameters": {
@@ -1390,6 +1409,7 @@
           "name": "Facebook.CodigoAlfa"
         }
       },
+      "disabled": true,
       "onError": "continueRegularOutput"
     },
     {
@@ -1412,6 +1432,7 @@
           "name": "Facebook.SmartWeb"
         }
       },
+      "disabled": true,
       "onError": "continueRegularOutput"
     },
     {
@@ -1496,7 +1517,8 @@
         208
       ],
       "id": "4877e121-b83a-435f-9f39-baba77b944db",
-      "name": "Validar.CodigoAlfa"
+      "name": "Validar.CodigoAlfa",
+      "disabled": true
     },
     {
       "parameters": {
@@ -1509,7 +1531,8 @@
         400
       ],
       "id": "2cb5b283-a8d9-44ba-802f-0c3b5c4eebd9",
-      "name": "Validar.SmartWeb"
+      "name": "Validar.SmartWeb",
+      "disabled": true
     },
     {
       "parameters": {
@@ -1573,7 +1596,8 @@
         400
       ],
       "id": "0c9679c1-1afe-4ec4-a217-32666d3aeb26",
-      "name": "If"
+      "name": "If",
+      "disabled": true
     },
     {
       "parameters": {
@@ -1597,7 +1621,8 @@
           "id": "Kz6I7RAZL2mii6bK",
           "name": "Telegram.api"
         }
-      }
+      },
+      "disabled": true
     },
     {
       "parameters": {
@@ -1623,7 +1648,8 @@
           "id": "HUZKWIFzTUTleZeZ",
           "name": "SMTP account"
         }
-      }
+      },
+      "disabled": true
     },
     {
       "parameters": {},
@@ -1634,7 +1660,8 @@
         560
       ],
       "id": "88dc7ce7-2199-483d-b040-7c4f6e5ddb40",
-      "name": "No Operation, do nothing"
+      "name": "No Operation, do nothing",
+      "disabled": true
     },
     {
       "parameters": {
@@ -1660,6 +1687,7 @@
           "name": "Gmail.api"
         }
       },
+      "disabled": true,
       "onError": "continueRegularOutput"
     },
     {
@@ -1673,7 +1701,8 @@
         976
       ],
       "id": "f1aba86d-2055-47d3-9184-140b43ccb5fd",
-      "name": "Validar.Gmail"
+      "name": "Validar.Gmail",
+      "disabled": true
     },
     {
       "parameters": {
@@ -1704,6 +1733,7 @@
           "name": "Google.api"
         }
       },
+      "disabled": true,
       "onError": "continueRegularOutput"
     },
     {
@@ -1717,7 +1747,8 @@
         16
       ],
       "id": "0ed7805b-dbac-47fc-828b-229dbc668d5e",
-      "name": "Validar.Slides"
+      "name": "Validar.Slides",
+      "disabled": true
     },
     {
       "parameters": {
@@ -1743,7 +1774,8 @@
           "id": "YqSYIxI25n1uZgWB",
           "name": "Google.api"
         }
-      }
+      },
+      "disabled": true
     },
     {
       "parameters": {
@@ -1770,6 +1802,7 @@
           "name": "Google.api"
         }
       },
+      "disabled": true,
       "onError": "continueRegularOutput"
     },
     {
@@ -1783,7 +1816,8 @@
         -176
       ],
       "id": "63a88311-e180-4670-b524-fd10df5cd80a",
-      "name": "Validar.Docs"
+      "name": "Validar.Docs",
+      "disabled": true
     },
     {
       "parameters": {
@@ -1810,7 +1844,8 @@
           "id": "YqSYIxI25n1uZgWB",
           "name": "Google.api"
         }
-      }
+      },
+      "disabled": true
     },
     {
       "parameters": {
@@ -1833,7 +1868,8 @@
           "id": "YqSYIxI25n1uZgWB",
           "name": "Google.api"
         }
-      }
+      },
+      "disabled": true
     },
     {
       "parameters": {
@@ -1867,7 +1903,8 @@
         -176
       ],
       "id": "730b3234-e2e6-479f-9ca0-530045a480c4",
-      "name": "If1"
+      "name": "If1",
+      "disabled": true
     },
     {
       "parameters": {
@@ -1901,7 +1938,54 @@
         16
       ],
       "id": "e68682a2-683a-4f87-902e-9c7a949eb24a",
-      "name": "If2"
+      "name": "If2",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "resource": "messages-api",
+        "instanceName": "Optimiza.ia.pro",
+        "remoteJid": "51952947576",
+        "messageText": "Esto es una prueba de Evolution.inHouse",
+        "options_message": {}
+      },
+      "type": "n8n-nodes-evolution-api.evolutionApi",
+      "typeVersion": 1,
+      "position": [
+        112,
+        1200
+      ],
+      "id": "84a80e42-f36f-494d-b4c9-b989bd1993d3",
+      "name": "Enviar texto",
+      "credentials": {
+        "evolutionApi": {
+          "id": "pkZphInpmEQfnYQG",
+          "name": "Evolution.inHouse"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "https://smartweb-web-evolution-api.izq3rn.easypanel.host/instance/connectionState/Optimiza.ia.pro",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "apikey",
+              "value": "429683C4C977415CAAFCCE10F7D57E11"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        -96,
+        1200
+      ],
+      "id": "77a29af9-7d5f-45a5-bf08-9a310737173a",
+      "name": "HTTP Request"
     }
   ],
   "pinData": {},
@@ -1925,10 +2009,10 @@
   },
   "tags": [
     {
-      "updatedAt": "2026-05-01T14:05:45.832Z",
-      "createdAt": "2026-05-01T14:05:45.832Z",
-      "id": "8wlQKtpUxQ9ElXHE",
-      "name": "💡SmartWeb"
+      "updatedAt": "2026-04-30T23:13:50.319Z",
+      "createdAt": "2026-04-30T23:13:50.319Z",
+      "id": "WkzLO7ASOwlX9Xby",
+      "name": "✨ Optimiza.ia.pro"
     },
     {
       "updatedAt": "2026-04-30T23:13:50.360Z",
@@ -1937,13 +2021,13 @@
       "name": "🤖 IA al mando"
     },
     {
-      "updatedAt": "2026-04-30T23:13:50.319Z",
-      "createdAt": "2026-04-30T23:13:50.319Z",
-      "id": "WkzLO7ASOwlX9Xby",
-      "name": "✨ Optimiza.ia.pro"
+      "updatedAt": "2026-05-01T14:05:45.832Z",
+      "createdAt": "2026-05-01T14:05:45.832Z",
+      "id": "8wlQKtpUxQ9ElXHE",
+      "name": "💡SmartWeb"
     }
   ],
   "triggerCount": 1,
-  "updatedAt": "2026-05-02T14:10:23.674Z",
-  "versionId": "ade69bfa-ef31-49c4-9284-23e5d81055ed"
+  "updatedAt": "2026-06-04T23:40:15.440Z",
+  "versionId": "8fb22f40-d894-4b2a-857e-c076713be19b"
 }
