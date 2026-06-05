@@ -1274,7 +1274,18 @@
       "main": [
         [
           {
-            "node": "Enviar texto",
+            "node": "Validar.EvolutionAPI",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Validar.EvolutionAPI": {
+      "main": [
+        [
+          {
+            "node": "If",
             "type": "main",
             "index": 0
           }
@@ -1310,8 +1321,7 @@
           "id": "YqSYIxI25n1uZgWB",
           "name": "Google.api"
         }
-      },
-      "disabled": true
+      }
     },
     {
       "parameters": {
@@ -1337,7 +1347,7 @@
       "typeVersion": 3.4,
       "position": [
         -528,
-        400
+        464
       ],
       "id": "861863a0-8b8b-4817-bf59-2914636fad40",
       "name": "Edit Fields"
@@ -1363,8 +1373,7 @@
           "id": "YqSYIxI25n1uZgWB",
           "name": "Google.api"
         }
-      },
-      "disabled": true
+      }
     },
     {
       "parameters": {
@@ -1376,7 +1385,7 @@
       "typeVersion": 1,
       "position": [
         -96,
-        784
+        608
       ],
       "id": "2fad7e66-bfb9-4655-8155-0ad585293f32",
       "name": "Instagram.Optimiza",
@@ -1399,7 +1408,7 @@
       "typeVersion": 1,
       "position": [
         -96,
-        208
+        176
       ],
       "id": "c68e704a-2e7b-4a85-9e8e-fe7cddb1a1c8",
       "name": "Facebook.CodigoAlfa",
@@ -1409,7 +1418,6 @@
           "name": "Facebook.CodigoAlfa"
         }
       },
-      "disabled": true,
       "onError": "continueRegularOutput"
     },
     {
@@ -1422,7 +1430,7 @@
       "typeVersion": 1,
       "position": [
         -96,
-        400
+        320
       ],
       "id": "dbd30410-f7f8-4583-bc83-031fd1a009cb",
       "name": "Facebook.Smartweb",
@@ -1432,7 +1440,6 @@
           "name": "Facebook.SmartWeb"
         }
       },
-      "disabled": true,
       "onError": "continueRegularOutput"
     },
     {
@@ -1445,7 +1452,7 @@
       "typeVersion": 1,
       "position": [
         -96,
-        592
+        464
       ],
       "id": "695bb5d1-9c02-45fd-a6a7-b79015297a4b",
       "name": "Facebook.Optimiza",
@@ -1468,12 +1475,11 @@
       "type": "n8n-nodes-base.stickyNote",
       "position": [
         544,
-        784
+        672
       ],
       "typeVersion": 1,
       "id": "8c63687d-cc18-438a-8c23-8294cf66666d",
-      "name": "Sticky Note1",
-      "disabled": true
+      "name": "Sticky Note1"
     },
     {
       "parameters": {},
@@ -1481,7 +1487,7 @@
       "typeVersion": 1,
       "position": [
         -752,
-        496
+        560
       ],
       "id": "496882ae-2209-44d1-a5f7-19155d5cf117",
       "name": "When clicking ‘Execute workflow’"
@@ -1501,7 +1507,7 @@
       "typeVersion": 1.2,
       "position": [
         -752,
-        304
+        368
       ],
       "id": "516127fd-9f3c-4f3f-a7a8-1de067729dae",
       "name": "Schedule Trigger"
@@ -1514,11 +1520,10 @@
       "typeVersion": 2,
       "position": [
         112,
-        208
+        176
       ],
       "id": "4877e121-b83a-435f-9f39-baba77b944db",
-      "name": "Validar.CodigoAlfa",
-      "disabled": true
+      "name": "Validar.CodigoAlfa"
     },
     {
       "parameters": {
@@ -1528,11 +1533,10 @@
       "typeVersion": 2,
       "position": [
         112,
-        400
+        320
       ],
       "id": "2cb5b283-a8d9-44ba-802f-0c3b5c4eebd9",
-      "name": "Validar.SmartWeb",
-      "disabled": true
+      "name": "Validar.SmartWeb"
     },
     {
       "parameters": {
@@ -1542,7 +1546,7 @@
       "typeVersion": 2,
       "position": [
         112,
-        592
+        464
       ],
       "id": "ce178452-434d-41fd-b37e-9f0b5ce1ee7f",
       "name": "Validar.Facebook.Optimiza",
@@ -1558,7 +1562,7 @@
       "typeVersion": 2,
       "position": [
         112,
-        784
+        608
       ],
       "id": "b5219962-f2d1-4e19-a853-916030a2e873",
       "name": "Validar.Instagram.Optimiza",
@@ -1593,11 +1597,10 @@
       "typeVersion": 2.2,
       "position": [
         624,
-        400
+        320
       ],
       "id": "0c9679c1-1afe-4ec4-a217-32666d3aeb26",
-      "name": "If",
-      "disabled": true
+      "name": "If"
     },
     {
       "parameters": {
@@ -1610,8 +1613,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        848,
-        368
+        896,
+        336
       ],
       "id": "765ae484-2b23-4848-914e-968c95f2d0a3",
       "name": "Send a text message",
@@ -1621,8 +1624,7 @@
           "id": "Kz6I7RAZL2mii6bK",
           "name": "Telegram.api"
         }
-      },
-      "disabled": true
+      }
     },
     {
       "parameters": {
@@ -1637,8 +1639,8 @@
       "type": "n8n-nodes-base.emailSend",
       "typeVersion": 2.1,
       "position": [
-        848,
-        208
+        896,
+        176
       ],
       "id": "f3a35cc3-b6f4-4146-9768-250765588dd8",
       "name": "Send.Lead",
@@ -1648,20 +1650,18 @@
           "id": "HUZKWIFzTUTleZeZ",
           "name": "SMTP account"
         }
-      },
-      "disabled": true
+      }
     },
     {
       "parameters": {},
       "type": "n8n-nodes-base.noOp",
       "typeVersion": 1,
       "position": [
-        864,
-        560
+        912,
+        480
       ],
       "id": "88dc7ce7-2199-483d-b040-7c4f6e5ddb40",
-      "name": "No Operation, do nothing",
-      "disabled": true
+      "name": "No Operation, do nothing"
     },
     {
       "parameters": {
@@ -1676,7 +1676,7 @@
       "typeVersion": 2.1,
       "position": [
         -96,
-        976
+        752
       ],
       "id": "06cee038-4ec4-41ad-a6e8-8c08e5f0ddd9",
       "name": "Gmail",
@@ -1687,7 +1687,6 @@
           "name": "Gmail.api"
         }
       },
-      "disabled": true,
       "onError": "continueRegularOutput"
     },
     {
@@ -1698,11 +1697,10 @@
       "typeVersion": 2,
       "position": [
         112,
-        976
+        752
       ],
       "id": "f1aba86d-2055-47d3-9184-140b43ccb5fd",
-      "name": "Validar.Gmail",
-      "disabled": true
+      "name": "Validar.Gmail"
     },
     {
       "parameters": {
@@ -1733,7 +1731,6 @@
           "name": "Google.api"
         }
       },
-      "disabled": true,
       "onError": "continueRegularOutput"
     },
     {
@@ -1747,8 +1744,7 @@
         16
       ],
       "id": "0ed7805b-dbac-47fc-828b-229dbc668d5e",
-      "name": "Validar.Slides",
-      "disabled": true
+      "name": "Validar.Slides"
     },
     {
       "parameters": {
@@ -1774,8 +1770,7 @@
           "id": "YqSYIxI25n1uZgWB",
           "name": "Google.api"
         }
-      },
-      "disabled": true
+      }
     },
     {
       "parameters": {
@@ -1802,7 +1797,6 @@
           "name": "Google.api"
         }
       },
-      "disabled": true,
       "onError": "continueRegularOutput"
     },
     {
@@ -1816,8 +1810,7 @@
         -176
       ],
       "id": "63a88311-e180-4670-b524-fd10df5cd80a",
-      "name": "Validar.Docs",
-      "disabled": true
+      "name": "Validar.Docs"
     },
     {
       "parameters": {
@@ -1844,8 +1837,7 @@
           "id": "YqSYIxI25n1uZgWB",
           "name": "Google.api"
         }
-      },
-      "disabled": true
+      }
     },
     {
       "parameters": {
@@ -1868,8 +1860,7 @@
           "id": "YqSYIxI25n1uZgWB",
           "name": "Google.api"
         }
-      },
-      "disabled": true
+      }
     },
     {
       "parameters": {
@@ -1903,8 +1894,7 @@
         -176
       ],
       "id": "730b3234-e2e6-479f-9ca0-530045a480c4",
-      "name": "If1",
-      "disabled": true
+      "name": "If1"
     },
     {
       "parameters": {
@@ -1938,31 +1928,7 @@
         16
       ],
       "id": "e68682a2-683a-4f87-902e-9c7a949eb24a",
-      "name": "If2",
-      "disabled": true
-    },
-    {
-      "parameters": {
-        "resource": "messages-api",
-        "instanceName": "Optimiza.ia.pro",
-        "remoteJid": "51952947576",
-        "messageText": "Esto es una prueba de Evolution.inHouse",
-        "options_message": {}
-      },
-      "type": "n8n-nodes-evolution-api.evolutionApi",
-      "typeVersion": 1,
-      "position": [
-        112,
-        1200
-      ],
-      "id": "84a80e42-f36f-494d-b4c9-b989bd1993d3",
-      "name": "Enviar texto",
-      "credentials": {
-        "evolutionApi": {
-          "id": "pkZphInpmEQfnYQG",
-          "name": "Evolution.inHouse"
-        }
-      }
+      "name": "If2"
     },
     {
       "parameters": {
@@ -1982,10 +1948,23 @@
       "typeVersion": 4.4,
       "position": [
         -96,
-        1200
+        912
       ],
       "id": "77a29af9-7d5f-45a5-bf08-9a310737173a",
       "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Captura el objeto devuelto por el nodo Gmail\nconst estado = $input.first().json.instance.state\n\n// Si existe error y contiene mensaje de credenciales\nif (estado && (\n    estado.includes('close')\n)) {\n  return [\n    {\n      json: {\n        notify: true,\n        message: '⚠️ Credenciales de WhastApp (Evolution API) caducadas o inválidas. Genera nuevamente el QR de conexión: ' + estado\n      }\n    }\n  ];\n}\n\n// Si todo está bien, continúa\nreturn [{ json: { notify: false } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        112,
+        912
+      ],
+      "id": "935d6aa4-fd2c-4a84-be1c-d0211029d41c",
+      "name": "Validar.EvolutionAPI"
     }
   ],
   "pinData": {},
@@ -2028,6 +2007,6 @@
     }
   ],
   "triggerCount": 1,
-  "updatedAt": "2026-06-04T23:40:15.440Z",
-  "versionId": "8fb22f40-d894-4b2a-857e-c076713be19b"
+  "updatedAt": "2026-06-05T13:47:44.685Z",
+  "versionId": "1e75797c-bccc-4481-9a14-701d1b8414be"
 }
