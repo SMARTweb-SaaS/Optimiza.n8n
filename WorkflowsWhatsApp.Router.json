@@ -1,0 +1,1341 @@
+{
+  "active": true,
+  "activeVersion": {
+    "updatedAt": "2026-06-05T20:37:30.815Z",
+    "createdAt": "2026-06-05T20:33:02.777Z",
+    "versionId": "52648f7a-eecb-4680-b980-847588b0f7c5",
+    "workflowId": "785x7zyYzqiwj5ds",
+    "nodes": [
+      {
+        "parameters": {
+          "httpMethod": "POST",
+          "path": "f2ea5940-89c9-4e2d-981a-ac30f207d011",
+          "options": {}
+        },
+        "type": "n8n-nodes-base.webhook",
+        "typeVersion": 2,
+        "position": [
+          -336,
+          -80
+        ],
+        "id": "19f843dd-38fe-4250-be1c-5fa291640661",
+        "name": "Webhook entrante",
+        "webhookId": "ae239af0-54da-44f1-8ecf-4ec75c96d1c4"
+      },
+      {
+        "parameters": {
+          "conditions": {
+            "options": {
+              "caseSensitive": true,
+              "leftValue": "",
+              "typeValidation": "loose",
+              "version": 2
+            },
+            "conditions": [
+              {
+                "id": "43a06fe9-6ab3-4cbf-8066-4f441cf6ee7d",
+                "leftValue": "={{ $json.body.data.key.fromMe }}",
+                "rightValue": true,
+                "operator": {
+                  "type": "boolean",
+                  "operation": "true",
+                  "singleValue": true
+                }
+              }
+            ],
+            "combinator": "and"
+          },
+          "options": {}
+        },
+        "type": "n8n-nodes-base.if",
+        "typeVersion": 2.2,
+        "position": [
+          -144,
+          -80
+        ],
+        "id": "848212a6-69e9-4abc-92e4-0b9b56186da0",
+        "name": "Filtro fromMe"
+      },
+      {
+        "parameters": {},
+        "type": "n8n-nodes-base.noOp",
+        "typeVersion": 1,
+        "position": [
+          64,
+          -272
+        ],
+        "id": "17b064f3-434c-4fc7-99ac-c8b389642542",
+        "name": "Ignorar propio"
+      },
+      {
+        "parameters": {
+          "assignments": {
+            "assignments": [
+              {
+                "id": "78970b95-ff9a-4bfd-acad-ac9c9e90320a",
+                "name": "remoteJid",
+                "value": "={{ $json.body.data.key.remoteJid }}",
+                "type": "string"
+              },
+              {
+                "id": "c1773097-25b8-4426-aada-a972494ed716",
+                "name": "texto",
+                "value": "={{ $json.body.data.message.conversation || '' }}",
+                "type": "string"
+              },
+              {
+                "id": "4c4a0ecc-1878-4cf3-b2cc-a7b1f20fa0a0",
+                "name": "bodyRaw",
+                "value": "={{ $json.body }}",
+                "type": "object"
+              }
+            ]
+          },
+          "options": {}
+        },
+        "type": "n8n-nodes-base.set",
+        "typeVersion": 3.4,
+        "position": [
+          64,
+          32
+        ],
+        "id": "3004f07d-bce5-4798-bd93-32ecebeeb7c7",
+        "name": "Datos"
+      },
+      {
+        "parameters": {
+          "operation": "executeQuery",
+          "query": "SELECT tenant FROM whatsapp_routing WHERE remote_jid = '{{ $json.remoteJid }}' LIMIT 1",
+          "options": {}
+        },
+        "type": "n8n-nodes-base.postgres",
+        "typeVersion": 2.6,
+        "position": [
+          272,
+          32
+        ],
+        "id": "b5bf85a4-d26c-4d76-8a45-72f0045f6cdc",
+        "name": "Buscar ruta",
+        "alwaysOutputData": true,
+        "credentials": {
+          "postgres": {
+            "id": "dptch5UJkIPuomI3",
+            "name": "Postgres.contabo"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "rules": {
+            "values": [
+              {
+                "conditions": {
+                  "options": {
+                    "caseSensitive": true,
+                    "leftValue": "",
+                    "typeValidation": "loose",
+                    "version": 2
+                  },
+                  "conditions": [
+                    {
+                      "id": "780c887b-989e-453d-b405-9b192d8311df",
+                      "leftValue": "={{ $json.tenant }}",
+                      "rightValue": "",
+                      "operator": {
+                        "type": "string",
+                        "operation": "empty",
+                        "singleValue": true
+                      }
+                    }
+                  ],
+                  "combinator": "and"
+                },
+                "renameOutput": true,
+                "outputKey": "NUEVO"
+              },
+              {
+                "conditions": {
+                  "options": {
+                    "caseSensitive": true,
+                    "leftValue": "",
+                    "typeValidation": "loose",
+                    "version": 2
+                  },
+                  "conditions": [
+                    {
+                      "id": "73a0b888-493a-4cb2-aa9d-02d889c702cf",
+                      "leftValue": "={{ $json.tenant }}",
+                      "rightValue": "pending",
+                      "operator": {
+                        "type": "string",
+                        "operation": "equals"
+                      }
+                    }
+                  ],
+                  "combinator": "and"
+                },
+                "renameOutput": true,
+                "outputKey": "PENDIENTE"
+              }
+            ]
+          },
+          "options": {
+            "fallbackOutput": "extra"
+          }
+        },
+        "type": "n8n-nodes-base.switch",
+        "typeVersion": 3.2,
+        "position": [
+          464,
+          32
+        ],
+        "id": "9a9404a8-e138-49b0-ae77-2ec2d80ffc73",
+        "name": "Estado"
+      },
+      {
+        "parameters": {
+          "authentication": "databaseToken",
+          "tableId": 1013406,
+          "returnAll": true,
+          "additionalOptions": {}
+        },
+        "type": "n8n-nodes-base.baserow",
+        "typeVersion": 1,
+        "position": [
+          704,
+          -208
+        ],
+        "id": "5e0c6f85-7a5d-434a-a5bf-cc663058a56d",
+        "name": "Empresas (menu)",
+        "credentials": {
+          "baserowTokenApi": {
+            "id": "hTWnIZ4BPHanwIRP",
+            "name": "Baserow.api"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "jsCode": "const empresas = $input.all().map(i=>i.json).filter(r=>r.activo===true).sort((a,b)=>a.id-b.id);\nlet menu = '¡Hola! ¿A cuál de nuestras empresas deseas contactar? Responde con el número:\\n\\n';\nempresas.forEach((e,i)=>{ menu += (i+1)+'. '+e.nombre+'\\n'; });\nreturn [{ json: { remoteJid: $('Datos').first().json.remoteJid, menu } }];"
+        },
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          912,
+          -208
+        ],
+        "id": "377c79c7-2282-4a3e-9d0e-286c74096a66",
+        "name": "Construir menu"
+      },
+      {
+        "parameters": {
+          "resource": "messages-api",
+          "instanceName": "Optimiza.ia.pro",
+          "remoteJid": "={{ $json.remoteJid }}",
+          "messageText": "={{ $json.menu }}",
+          "options_message": {}
+        },
+        "type": "n8n-nodes-evolution-api.evolutionApi",
+        "typeVersion": 1,
+        "position": [
+          1104,
+          -208
+        ],
+        "id": "ad37b9ef-45dc-4fa2-a033-447db93951ab",
+        "name": "Enviar menu",
+        "credentials": {
+          "evolutionApi": {
+            "id": "pkZphInpmEQfnYQG",
+            "name": "Evolution.inHouse"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "operation": "executeQuery",
+          "query": "INSERT INTO whatsapp_routing (remote_jid, tenant) VALUES ('{{ $('Datos').item.json.remoteJid }}', 'pending') ON CONFLICT (remote_jid) DO UPDATE SET tenant='pending', updated_at=now()",
+          "options": {}
+        },
+        "type": "n8n-nodes-base.postgres",
+        "typeVersion": 2.6,
+        "position": [
+          1312,
+          -208
+        ],
+        "id": "d5539294-f36b-4550-aa3f-4332a397297c",
+        "name": "Marcar pendiente",
+        "credentials": {
+          "postgres": {
+            "id": "dptch5UJkIPuomI3",
+            "name": "Postgres.contabo"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "authentication": "databaseToken",
+          "tableId": 1013406,
+          "returnAll": true,
+          "additionalOptions": {}
+        },
+        "type": "n8n-nodes-base.baserow",
+        "typeVersion": 1,
+        "position": [
+          704,
+          32
+        ],
+        "id": "25a54638-a244-4799-9bc2-50fd620af9f8",
+        "name": "Empresas (sel)",
+        "credentials": {
+          "baserowTokenApi": {
+            "id": "hTWnIZ4BPHanwIRP",
+            "name": "Baserow.api"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "jsCode": "const empresas = $input.all().map(i=>i.json).filter(r=>r.activo===true).sort((a,b)=>a.id-b.id);\nconst texto = ($('Datos').first().json.texto || '').trim();\nconst n = parseInt(texto, 10);\nconst remoteJid = $('Datos').first().json.remoteJid;\nlet tenant=null, nombre=null;\nif(!isNaN(n) && n>=1 && n<=empresas.length){ tenant=empresas[n-1].tenant; nombre=empresas[n-1].nombre; }\nreturn [{ json: { remoteJid, tenant, nombre, valido: tenant!==null } }];"
+        },
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          912,
+          32
+        ],
+        "id": "07c924bc-5736-43c1-85fb-dad4ea91cfb6",
+        "name": "Resolver seleccion"
+      },
+      {
+        "parameters": {
+          "conditions": {
+            "options": {
+              "caseSensitive": true,
+              "leftValue": "",
+              "typeValidation": "loose",
+              "version": 2
+            },
+            "conditions": [
+              {
+                "id": "4105b596-93bc-4714-a01a-1afe41bbb4ea",
+                "leftValue": "={{ $json.valido }}",
+                "rightValue": true,
+                "operator": {
+                  "type": "boolean",
+                  "operation": "true",
+                  "singleValue": true
+                }
+              }
+            ],
+            "combinator": "and"
+          },
+          "options": {}
+        },
+        "type": "n8n-nodes-base.if",
+        "typeVersion": 2.2,
+        "position": [
+          1104,
+          32
+        ],
+        "id": "f8bc19e9-98df-4c5c-9834-cd6b07d81372",
+        "name": "Seleccion valida?"
+      },
+      {
+        "parameters": {
+          "operation": "executeQuery",
+          "query": "UPDATE whatsapp_routing SET tenant='{{ $json.tenant }}', updated_at=now() WHERE remote_jid='{{ $json.remoteJid }}'",
+          "options": {}
+        },
+        "type": "n8n-nodes-base.postgres",
+        "typeVersion": 2.6,
+        "position": [
+          1328,
+          -48
+        ],
+        "id": "c31e2bf9-0ca4-40f2-b5ed-475ac3c93443",
+        "name": "Guardar empresa",
+        "credentials": {
+          "postgres": {
+            "id": "dptch5UJkIPuomI3",
+            "name": "Postgres.contabo"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "resource": "messages-api",
+          "instanceName": "Optimiza.ia.pro",
+          "remoteJid": "={{ $('Resolver seleccion').item.json.remoteJid }}",
+          "messageText": "=¡Listo! Quedaste registrado con {{ $('Resolver seleccion').item.json.nombre }}. Ahora cuéntame, ¿en qué puedo ayudarte?",
+          "options_message": {}
+        },
+        "type": "n8n-nodes-evolution-api.evolutionApi",
+        "typeVersion": 1,
+        "position": [
+          1536,
+          -48
+        ],
+        "id": "89518d0d-4598-4145-a72e-fe39345bc922",
+        "name": "Confirmar seleccion",
+        "credentials": {
+          "evolutionApi": {
+            "id": "pkZphInpmEQfnYQG",
+            "name": "Evolution.inHouse"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "resource": "messages-api",
+          "instanceName": "Optimiza.ia.pro",
+          "remoteJid": "={{ $('Resolver seleccion').item.json.remoteJid }}",
+          "messageText": "No entendí tu respuesta. Por favor responde solo con el número de la empresa.",
+          "options_message": {}
+        },
+        "type": "n8n-nodes-evolution-api.evolutionApi",
+        "typeVersion": 1,
+        "position": [
+          1328,
+          128
+        ],
+        "id": "bb6a01b4-d55c-44d1-b85d-f71d4fe79c34",
+        "name": "Reintentar menu",
+        "credentials": {
+          "evolutionApi": {
+            "id": "pkZphInpmEQfnYQG",
+            "name": "Evolution.inHouse"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "authentication": "databaseToken",
+          "tableId": 1013406,
+          "returnAll": true,
+          "additionalOptions": {}
+        },
+        "type": "n8n-nodes-base.baserow",
+        "typeVersion": 1,
+        "position": [
+          704,
+          272
+        ],
+        "id": "b1429dc5-1d99-49db-b49f-5b13d8d816a9",
+        "name": "Config empresas",
+        "credentials": {
+          "baserowTokenApi": {
+            "id": "hTWnIZ4BPHanwIRP",
+            "name": "Baserow.api"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "jsCode": "const tenant = $('Buscar ruta').first().json.tenant;\nconst e = $input.all().map(i=>i.json).find(r=>r.tenant===tenant) || {};\nreturn [{ json: {\n  body: $('Datos').first().json.bodyRaw,\n  tenant: e.tenant,\n  empresaNombre: e.nombre,\n  email: e.email,\n  calEventTypeId: String(e.cal_event_type_id || ''),\n  calApiKey: e.cal_api_key,\n  evolutionInstance: e.evolution_instance,\n  evolutionUrl: e.evolution_url\n} }];"
+        },
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          912,
+          272
+        ],
+        "id": "25efed1b-182b-4847-95de-7bf4506a7c8c",
+        "name": "Armar payload"
+      },
+      {
+        "parameters": {
+          "workflowId": {
+            "__rl": true,
+            "value": "EzuhMMML1nuiHzh9",
+            "mode": "list",
+            "cachedResultUrl": "/workflow/EzuhMMML1nuiHzh9",
+            "cachedResultName": "WhatsApp.AgenteIA"
+          },
+          "workflowInputs": {
+            "mappingMode": "defineBelow",
+            "value": {},
+            "matchingColumns": [],
+            "schema": [],
+            "attemptToConvertTypes": false,
+            "convertFieldsToString": true
+          },
+          "options": {}
+        },
+        "type": "n8n-nodes-base.executeWorkflow",
+        "typeVersion": 1.2,
+        "position": [
+          1104,
+          272
+        ],
+        "id": "f17e3fa0-1f92-41f4-a26c-e6c70d8f9eca",
+        "name": "Llamar Agente"
+      }
+    ],
+    "connections": {
+      "Webhook entrante": {
+        "main": [
+          [
+            {
+              "node": "Filtro fromMe",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Filtro fromMe": {
+        "main": [
+          [
+            {
+              "node": "Ignorar propio",
+              "type": "main",
+              "index": 0
+            }
+          ],
+          [
+            {
+              "node": "Datos",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Datos": {
+        "main": [
+          [
+            {
+              "node": "Buscar ruta",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Buscar ruta": {
+        "main": [
+          [
+            {
+              "node": "Estado",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Estado": {
+        "main": [
+          [
+            {
+              "node": "Empresas (menu)",
+              "type": "main",
+              "index": 0
+            }
+          ],
+          [
+            {
+              "node": "Empresas (sel)",
+              "type": "main",
+              "index": 0
+            }
+          ],
+          [
+            {
+              "node": "Config empresas",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Empresas (menu)": {
+        "main": [
+          [
+            {
+              "node": "Construir menu",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Construir menu": {
+        "main": [
+          [
+            {
+              "node": "Enviar menu",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Enviar menu": {
+        "main": [
+          [
+            {
+              "node": "Marcar pendiente",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Empresas (sel)": {
+        "main": [
+          [
+            {
+              "node": "Resolver seleccion",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Resolver seleccion": {
+        "main": [
+          [
+            {
+              "node": "Seleccion valida?",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Seleccion valida?": {
+        "main": [
+          [
+            {
+              "node": "Guardar empresa",
+              "type": "main",
+              "index": 0
+            }
+          ],
+          [
+            {
+              "node": "Reintentar menu",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Guardar empresa": {
+        "main": [
+          [
+            {
+              "node": "Confirmar seleccion",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Config empresas": {
+        "main": [
+          [
+            {
+              "node": "Armar payload",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Armar payload": {
+        "main": [
+          [
+            {
+              "node": "Llamar Agente",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      }
+    },
+    "nodeGroups": [],
+    "authors": "John Ordóñez Monroy",
+    "name": "Version 52648f7a",
+    "description": "",
+    "autosaved": true
+  },
+  "activeVersionId": "52648f7a-eecb-4680-b980-847588b0f7c5",
+  "connections": {
+    "Webhook entrante": {
+      "main": [
+        [
+          {
+            "node": "Filtro fromMe",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filtro fromMe": {
+      "main": [
+        [
+          {
+            "node": "Ignorar propio",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Datos",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Datos": {
+      "main": [
+        [
+          {
+            "node": "Buscar ruta",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Buscar ruta": {
+      "main": [
+        [
+          {
+            "node": "Estado",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Estado": {
+      "main": [
+        [
+          {
+            "node": "Empresas (menu)",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Empresas (sel)",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Config empresas",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Empresas (menu)": {
+      "main": [
+        [
+          {
+            "node": "Construir menu",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Construir menu": {
+      "main": [
+        [
+          {
+            "node": "Enviar menu",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Enviar menu": {
+      "main": [
+        [
+          {
+            "node": "Marcar pendiente",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Empresas (sel)": {
+      "main": [
+        [
+          {
+            "node": "Resolver seleccion",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Resolver seleccion": {
+      "main": [
+        [
+          {
+            "node": "Seleccion valida?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Seleccion valida?": {
+      "main": [
+        [
+          {
+            "node": "Guardar empresa",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Reintentar menu",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Guardar empresa": {
+      "main": [
+        [
+          {
+            "node": "Confirmar seleccion",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Config empresas": {
+      "main": [
+        [
+          {
+            "node": "Armar payload",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Armar payload": {
+      "main": [
+        [
+          {
+            "node": "Llamar Agente",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2026-06-05T17:21:49.967Z",
+  "id": "785x7zyYzqiwj5ds",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "WhatsApp.Router",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "f2ea5940-89c9-4e2d-981a-ac30f207d011",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -336,
+        -80
+      ],
+      "id": "19f843dd-38fe-4250-be1c-5fa291640661",
+      "name": "Webhook entrante",
+      "webhookId": "ae239af0-54da-44f1-8ecf-4ec75c96d1c4"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "43a06fe9-6ab3-4cbf-8066-4f441cf6ee7d",
+              "leftValue": "={{ $json.body.data.key.fromMe }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -144,
+        -80
+      ],
+      "id": "848212a6-69e9-4abc-92e4-0b9b56186da0",
+      "name": "Filtro fromMe"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        64,
+        -272
+      ],
+      "id": "17b064f3-434c-4fc7-99ac-c8b389642542",
+      "name": "Ignorar propio"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "78970b95-ff9a-4bfd-acad-ac9c9e90320a",
+              "name": "remoteJid",
+              "value": "={{ $json.body.data.key.remoteJid }}",
+              "type": "string"
+            },
+            {
+              "id": "c1773097-25b8-4426-aada-a972494ed716",
+              "name": "texto",
+              "value": "={{ $json.body.data.message.conversation || '' }}",
+              "type": "string"
+            },
+            {
+              "id": "4c4a0ecc-1878-4cf3-b2cc-a7b1f20fa0a0",
+              "name": "bodyRaw",
+              "value": "={{ $json.body }}",
+              "type": "object"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        64,
+        32
+      ],
+      "id": "3004f07d-bce5-4798-bd93-32ecebeeb7c7",
+      "name": "Datos"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT tenant FROM whatsapp_routing WHERE remote_jid = '{{ $json.remoteJid }}' LIMIT 1",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        272,
+        32
+      ],
+      "id": "b5bf85a4-d26c-4d76-8a45-72f0045f6cdc",
+      "name": "Buscar ruta",
+      "alwaysOutputData": true,
+      "credentials": {
+        "postgres": {
+          "id": "dptch5UJkIPuomI3",
+          "name": "Postgres.contabo"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "loose",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "780c887b-989e-453d-b405-9b192d8311df",
+                    "leftValue": "={{ $json.tenant }}",
+                    "rightValue": "",
+                    "operator": {
+                      "type": "string",
+                      "operation": "empty",
+                      "singleValue": true
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "NUEVO"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "loose",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "73a0b888-493a-4cb2-aa9d-02d889c702cf",
+                    "leftValue": "={{ $json.tenant }}",
+                    "rightValue": "pending",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "PENDIENTE"
+            }
+          ]
+        },
+        "options": {
+          "fallbackOutput": "extra"
+        }
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        464,
+        32
+      ],
+      "id": "9a9404a8-e138-49b0-ae77-2ec2d80ffc73",
+      "name": "Estado"
+    },
+    {
+      "parameters": {
+        "authentication": "databaseToken",
+        "tableId": 1013406,
+        "returnAll": true,
+        "additionalOptions": {}
+      },
+      "type": "n8n-nodes-base.baserow",
+      "typeVersion": 1,
+      "position": [
+        704,
+        -208
+      ],
+      "id": "5e0c6f85-7a5d-434a-a5bf-cc663058a56d",
+      "name": "Empresas (menu)",
+      "credentials": {
+        "baserowTokenApi": {
+          "id": "hTWnIZ4BPHanwIRP",
+          "name": "Baserow.api"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const empresas = $input.all().map(i=>i.json).filter(r=>r.activo===true).sort((a,b)=>a.id-b.id);\nlet menu = '¡Hola! ¿A cuál de nuestras empresas deseas contactar? Responde con el número:\\n\\n';\nempresas.forEach((e,i)=>{ menu += (i+1)+'. '+e.nombre+'\\n'; });\nreturn [{ json: { remoteJid: $('Datos').first().json.remoteJid, menu } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        912,
+        -208
+      ],
+      "id": "377c79c7-2282-4a3e-9d0e-286c74096a66",
+      "name": "Construir menu"
+    },
+    {
+      "parameters": {
+        "resource": "messages-api",
+        "instanceName": "Optimiza.ia.pro",
+        "remoteJid": "={{ $json.remoteJid }}",
+        "messageText": "={{ $json.menu }}",
+        "options_message": {}
+      },
+      "type": "n8n-nodes-evolution-api.evolutionApi",
+      "typeVersion": 1,
+      "position": [
+        1104,
+        -208
+      ],
+      "id": "ad37b9ef-45dc-4fa2-a033-447db93951ab",
+      "name": "Enviar menu",
+      "credentials": {
+        "evolutionApi": {
+          "id": "pkZphInpmEQfnYQG",
+          "name": "Evolution.inHouse"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "INSERT INTO whatsapp_routing (remote_jid, tenant) VALUES ('{{ $('Datos').item.json.remoteJid }}', 'pending') ON CONFLICT (remote_jid) DO UPDATE SET tenant='pending', updated_at=now()",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        1312,
+        -208
+      ],
+      "id": "d5539294-f36b-4550-aa3f-4332a397297c",
+      "name": "Marcar pendiente",
+      "credentials": {
+        "postgres": {
+          "id": "dptch5UJkIPuomI3",
+          "name": "Postgres.contabo"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "databaseToken",
+        "tableId": 1013406,
+        "returnAll": true,
+        "additionalOptions": {}
+      },
+      "type": "n8n-nodes-base.baserow",
+      "typeVersion": 1,
+      "position": [
+        704,
+        32
+      ],
+      "id": "25a54638-a244-4799-9bc2-50fd620af9f8",
+      "name": "Empresas (sel)",
+      "credentials": {
+        "baserowTokenApi": {
+          "id": "hTWnIZ4BPHanwIRP",
+          "name": "Baserow.api"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const empresas = $input.all().map(i=>i.json).filter(r=>r.activo===true).sort((a,b)=>a.id-b.id);\nconst texto = ($('Datos').first().json.texto || '').trim();\nconst n = parseInt(texto, 10);\nconst remoteJid = $('Datos').first().json.remoteJid;\nlet tenant=null, nombre=null;\nif(!isNaN(n) && n>=1 && n<=empresas.length){ tenant=empresas[n-1].tenant; nombre=empresas[n-1].nombre; }\nreturn [{ json: { remoteJid, tenant, nombre, valido: tenant!==null } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        912,
+        32
+      ],
+      "id": "07c924bc-5736-43c1-85fb-dad4ea91cfb6",
+      "name": "Resolver seleccion"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "4105b596-93bc-4714-a01a-1afe41bbb4ea",
+              "leftValue": "={{ $json.valido }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1104,
+        32
+      ],
+      "id": "f8bc19e9-98df-4c5c-9834-cd6b07d81372",
+      "name": "Seleccion valida?"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "UPDATE whatsapp_routing SET tenant='{{ $json.tenant }}', updated_at=now() WHERE remote_jid='{{ $json.remoteJid }}'",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        1328,
+        -48
+      ],
+      "id": "c31e2bf9-0ca4-40f2-b5ed-475ac3c93443",
+      "name": "Guardar empresa",
+      "credentials": {
+        "postgres": {
+          "id": "dptch5UJkIPuomI3",
+          "name": "Postgres.contabo"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "messages-api",
+        "instanceName": "Optimiza.ia.pro",
+        "remoteJid": "={{ $('Resolver seleccion').item.json.remoteJid }}",
+        "messageText": "=¡Listo! Quedaste registrado con {{ $('Resolver seleccion').item.json.nombre }}. Ahora cuéntame, ¿en qué puedo ayudarte?",
+        "options_message": {}
+      },
+      "type": "n8n-nodes-evolution-api.evolutionApi",
+      "typeVersion": 1,
+      "position": [
+        1536,
+        -48
+      ],
+      "id": "89518d0d-4598-4145-a72e-fe39345bc922",
+      "name": "Confirmar seleccion",
+      "credentials": {
+        "evolutionApi": {
+          "id": "pkZphInpmEQfnYQG",
+          "name": "Evolution.inHouse"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "messages-api",
+        "instanceName": "Optimiza.ia.pro",
+        "remoteJid": "={{ $('Resolver seleccion').item.json.remoteJid }}",
+        "messageText": "No entendí tu respuesta. Por favor responde solo con el número de la empresa.",
+        "options_message": {}
+      },
+      "type": "n8n-nodes-evolution-api.evolutionApi",
+      "typeVersion": 1,
+      "position": [
+        1328,
+        128
+      ],
+      "id": "bb6a01b4-d55c-44d1-b85d-f71d4fe79c34",
+      "name": "Reintentar menu",
+      "credentials": {
+        "evolutionApi": {
+          "id": "pkZphInpmEQfnYQG",
+          "name": "Evolution.inHouse"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "databaseToken",
+        "tableId": 1013406,
+        "returnAll": true,
+        "additionalOptions": {}
+      },
+      "type": "n8n-nodes-base.baserow",
+      "typeVersion": 1,
+      "position": [
+        704,
+        272
+      ],
+      "id": "b1429dc5-1d99-49db-b49f-5b13d8d816a9",
+      "name": "Config empresas",
+      "credentials": {
+        "baserowTokenApi": {
+          "id": "hTWnIZ4BPHanwIRP",
+          "name": "Baserow.api"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const tenant = $('Buscar ruta').first().json.tenant;\nconst e = $input.all().map(i=>i.json).find(r=>r.tenant===tenant) || {};\nreturn [{ json: {\n  body: $('Datos').first().json.bodyRaw,\n  tenant: e.tenant,\n  empresaNombre: e.nombre,\n  email: e.email,\n  calEventTypeId: String(e.cal_event_type_id || ''),\n  calApiKey: e.cal_api_key,\n  evolutionInstance: e.evolution_instance,\n  evolutionUrl: e.evolution_url\n} }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        912,
+        272
+      ],
+      "id": "25efed1b-182b-4847-95de-7bf4506a7c8c",
+      "name": "Armar payload"
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "EzuhMMML1nuiHzh9",
+          "mode": "list",
+          "cachedResultUrl": "/workflow/EzuhMMML1nuiHzh9",
+          "cachedResultName": "WhatsApp.AgenteIA"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        1104,
+        272
+      ],
+      "id": "f17e3fa0-1f92-41f4-a26c-e6c70d8f9eca",
+      "name": "Llamar Agente"
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "shared": [
+    {
+      "updatedAt": "2026-06-05T17:21:49.967Z",
+      "createdAt": "2026-06-05T17:21:49.967Z",
+      "role": "workflow:owner",
+      "workflowId": "785x7zyYzqiwj5ds",
+      "projectId": "eyOyKz68GM9OloYk"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 1,
+  "updatedAt": "2026-06-05T20:33:02.772Z",
+  "versionId": "52648f7a-eecb-4680-b980-847588b0f7c5"
+}
