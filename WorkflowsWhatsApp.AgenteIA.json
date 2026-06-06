@@ -1,9 +1,9 @@
 {
   "active": true,
   "activeVersion": {
-    "updatedAt": "2026-06-05T15:10:05.549Z",
-    "createdAt": "2026-06-05T15:09:49.981Z",
-    "versionId": "e4a51afd-36f8-4a34-acb1-5e3945d3fa74",
+    "updatedAt": "2026-06-05T20:37:20.809Z",
+    "createdAt": "2026-06-05T20:32:17.971Z",
+    "versionId": "b7894850-23ab-4606-971e-4cc1fd33df34",
     "workflowId": "EzuhMMML1nuiHzh9",
     "nodes": [
       {
@@ -29,10 +29,10 @@
         "type": "n8n-nodes-base.set",
         "typeVersion": 3.4,
         "position": [
-          -608,
-          64
+          -2048,
+          -128
         ],
-        "id": "5edc2c12-9cfc-42b5-8e26-095f7e76b202",
+        "id": "fd301343-40f3-42e5-a116-c162813f9ba5",
         "name": "Edit Fields"
       },
       {
@@ -63,10 +63,10 @@
         "type": "n8n-nodes-base.if",
         "typeVersion": 2.2,
         "position": [
-          -416,
-          64
+          -1856,
+          -128
         ],
-        "id": "978f98c3-44f3-479f-ad68-8fc231cb80d6",
+        "id": "ec7dd983-e70b-4b0a-8b50-1b06e509b338",
         "name": "Filtro fromMe"
       },
       {
@@ -74,10 +74,10 @@
         "type": "n8n-nodes-base.noOp",
         "typeVersion": 1,
         "position": [
-          -416,
-          -80
+          -1856,
+          -272
         ],
-        "id": "c01037d6-43bf-4816-b2db-1c47ecdee5fb",
+        "id": "6743ab2a-8bfd-421c-bf3e-d04bd03c5ace",
         "name": "Ignorar mensaje propio"
       },
       {
@@ -143,10 +143,10 @@
         "type": "n8n-nodes-base.switch",
         "typeVersion": 3.2,
         "position": [
-          -192,
-          64
+          -1632,
+          -128
         ],
-        "id": "da21f71f-f8b0-4872-9508-9c2068967c72",
+        "id": "fd29f17f-34a1-45f1-b02a-c670e8a0309c",
         "name": "Switch tipo mensaje"
       },
       {
@@ -154,10 +154,10 @@
         "type": "n8n-nodes-base.noOp",
         "typeVersion": 1,
         "position": [
-          -208,
-          336
+          -1648,
+          144
         ],
-        "id": "dd3ffa00-298a-4547-adb7-955b98515234",
+        "id": "44ffabc8-c746-4191-be78-cde6e274136c",
         "name": "Ignorar tipo no soportado"
       },
       {
@@ -177,10 +177,10 @@
         "type": "n8n-nodes-base.set",
         "typeVersion": 3.4,
         "position": [
-          80,
-          -80
+          -1376,
+          -272
         ],
-        "id": "bcba507c-35e2-4db2-876f-21dd7946f458",
+        "id": "35ff93f1-edea-4fa4-b0f7-6c6a094cc160",
         "name": "Edit Fields1"
       },
       {
@@ -206,16 +206,16 @@
         "type": "n8n-nodes-base.set",
         "typeVersion": 3.4,
         "position": [
-          80,
-          80
+          -1376,
+          -112
         ],
-        "id": "64f0166b-8b7a-4b24-9642-1706d904a16b",
+        "id": "f7b70f07-5276-44b5-ac78-394d7329b688",
         "name": "Edit Fields3"
       },
       {
         "parameters": {
           "method": "POST",
-          "url": "https://smartweb-web-evolution-api.izq3rn.easypanel.host/chat/getBase64FromMediaMessage/Optimiza.ia.pro",
+          "url": "={{ $('Inicio (Router)').item.json.evolutionUrl }}/chat/getBase64FromMediaMessage/{{ $('Inicio (Router)').item.json.evolutionInstance }}",
           "authentication": "genericCredentialType",
           "genericAuthType": "httpHeaderAuth",
           "sendBody": true,
@@ -226,10 +226,10 @@
         "type": "n8n-nodes-base.httpRequest",
         "typeVersion": 4.2,
         "position": [
-          64,
-          336
+          -1376,
+          144
         ],
-        "id": "01fde04b-0123-4893-811f-206081680a3c",
+        "id": "bf6a0f29-8d5b-4a6c-a974-8f76f8b42340",
         "name": "Obtener audio (Evolution)",
         "credentials": {
           "httpHeaderAuth": {
@@ -247,10 +247,10 @@
         "type": "n8n-nodes-base.convertToFile",
         "typeVersion": 1.1,
         "position": [
-          288,
-          336
+          -1152,
+          144
         ],
-        "id": "594fc43d-9bc4-4f12-b9a7-7d256bd6ec70",
+        "id": "cb1b6bd5-5031-4c94-8085-63144798a10d",
         "name": "Base64 a binario"
       },
       {
@@ -262,10 +262,10 @@
         "type": "@n8n/n8n-nodes-langchain.openAi",
         "typeVersion": 1.8,
         "position": [
-          544,
-          336
+          -896,
+          144
         ],
-        "id": "e8fae3ae-e06e-42db-9311-35209f0fa350",
+        "id": "c8ea0e4b-1803-4daf-ac14-66900aa165d9",
         "name": "Transcribir audio",
         "credentials": {
           "openAiApi": {
@@ -291,10 +291,10 @@
         "type": "n8n-nodes-base.set",
         "typeVersion": 3.4,
         "position": [
-          752,
-          336
+          -688,
+          144
         ],
-        "id": "953dad32-57ac-4ebe-a159-a64edd60f3e3",
+        "id": "c1489675-dab2-47c0-a5ca-6a5d96c366c8",
         "name": "Edit Fields7"
       },
       {
@@ -302,10 +302,10 @@
         "type": "n8n-nodes-base.merge",
         "typeVersion": 3.1,
         "position": [
-          288,
-          -64
+          -1152,
+          -256
         ],
-        "id": "1949883b-a82f-4f1e-b392-c79f015d46c2",
+        "id": "235ae007-4d34-433a-855b-571405029ea4",
         "name": "Merge"
       },
       {
@@ -325,10 +325,10 @@
         "type": "n8n-nodes-base.set",
         "typeVersion": 3.4,
         "position": [
-          512,
-          -64
+          -928,
+          -256
         ],
-        "id": "aa631f2f-edc4-4d0c-96de-42bf20209076",
+        "id": "d9592218-06ac-4af6-9866-5ff4daf3c567",
         "name": "Edit Fields2"
       },
       {
@@ -351,10 +351,10 @@
         "type": "@n8n/n8n-nodes-langchain.textClassifier",
         "typeVersion": 1,
         "position": [
-          720,
-          -64
+          -720,
+          -256
         ],
-        "id": "03dd66d2-aa8d-41e7-88f0-f3670220caba",
+        "id": "bb3ed185-927d-472c-a893-445dcae5af86",
         "name": "Clasificador intencion"
       },
       {
@@ -364,10 +364,10 @@
         "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
         "typeVersion": 1.1,
         "position": [
-          704,
-          160
+          -736,
+          -32
         ],
-        "id": "c2c639ea-10f3-4d89-b869-2b99458ebf16",
+        "id": "f70222ec-dcdf-4a82-ad1a-26135baf098f",
         "name": "Modelo Clasificador (gpt-4o-mini)",
         "credentials": {
           "openAiApi": {
@@ -381,16 +381,16 @@
           "promptType": "define",
           "text": "={{ $('Edit Fields2').item.json.Input }}",
           "options": {
-            "systemMessage": "=Eres un asistente de reservación de citas para una agencia especializada en automatización con inteligencia artificial. Tu objetivo es entender al prospecto y agendar su cita de forma conversacional, profesional y cordial.\n\nHERRAMIENTAS DISPONIBLES (usa exactamente estos nombres):\n- DISPONIBILIDAD: consulta los horarios libres en la fecha indicada por el usuario.\n- AGENDAR: registra la cita en la base de datos (Cal.com).\n- Think: úsala para razonar si te pierdes o para verificar que tienes todos los datos antes de agendar.\n\nZONA HORARIA Y CONVERSIÓN A UTC (CRÍTICO):\n- El usuario está en zona horaria America/Lima (UTC-5, sin horario de verano).\n- Cal.com requiere las horas en formato ISO 8601 UTC: YYYY-MM-DDTHH:mm:ssZ.\n- Para convertir: hora local de Lima + 5 horas = hora UTC.\n  Ejemplo: si el usuario elige las 14:00 hora Lima del 2026-06-10, envía 2026-06-10T19:00:00Z en el campo start de AGENDAR.\n- Para DISPONIBILIDAD usa startTime a las 00:00:00 y endTime a las 23:59:59 del día solicitado, expresados en UTC.\n\nPREGUNTAS DE CONTEXTO (una por una; sirven para entender al prospecto, NUNCA para rechazarlo):\n1. ¿Cuál es tu objetivo principal al buscar automatización con IA?\n2. ¿Ya usas alguna herramienta de automatización o CRM? ¿Cuál?\n3. ¿Qué presupuesto tienes en mente? (solo para orientar la propuesta; nuestros planes inician desde 50 USD al mes)\nContinúa SIEMPRE con el agendamiento, sin importar las respuestas. No descartes a nadie por presupuesto.\n\nFLUJO DE AGENDAMIENTO:\n- Reconoce los datos ya proporcionados y no repitas preguntas. Pide solo lo que falte: nombre completo, correo y fecha.\n- Llama a DISPONIBILIDAD y muestra los horarios libres de forma clara.\n- Franjas horarias (hora Lima): mañana 00:00-11:59, tarde 12:00-17:00, noche 17:01-23:59. Si no hay disponibilidad en la franja pedida, ofrece otras opciones del mismo día.\n- Cuando el usuario elija una hora válida y ya tengas nombre, correo, fecha y hora: resume los datos, convierte la hora a UTC y llama a AGENDAR de inmediato, sin confirmaciones innecesarias.\n- Si se agenda bien: ¡Tu cita quedó reservada para el [fecha] a las [hora Lima]! Te enviamos un correo de confirmación.\n- Si hay error: Hubo un problema al confirmar la cita. ¿Podrías elegir otro horario?\n\nREGLAS:\n- Valida que el correo tenga @ y un dominio válido.\n- Nunca inventes horarios. Si cambia la fecha u hora, vuelve a llamar a DISPONIBILIDAD.\n- Interpreta correctamente frases como mañana por la mañana, próximo lunes, la siguiente semana, respecto a la fecha actual.\n- No menciones herramientas técnicas como n8n o Make. Habla de beneficios: ayudamos a las empresas a ahorrar tiempo automatizando tareas repetitivas con tecnología inteligente.\n- No pongas palabras entre comillas. No saltes párrafos innecesariamente.\n\nFecha y hora actual (referencia, America/Lima): {{ new Date($now).toLocaleString(\"es-PE\", { weekday: \"long\", year: \"numeric\", month: \"long\", day: \"numeric\", hour: \"2-digit\", minute: \"2-digit\", hour12: true, timeZone: \"America/Lima\" }) }}"
+            "systemMessage": "=Eres el asistente de agendamiento de {{ $('Inicio (Router)').item.json.empresaNombre }}, una empresa especializada en automatización con inteligencia artificial. Tu objetivo es entender al prospecto y agendar su cita de forma conversacional, profesional y cordial.\n\nHERRAMIENTAS DISPONIBLES (usa exactamente estos nombres):\n- DISPONIBILIDAD: consulta los horarios libres en la fecha indicada por el usuario.\n- AGENDAR: registra la cita en la base de datos (Cal.com).\n- Think: úsala para razonar si te pierdes o para verificar que tienes todos los datos antes de agendar.\n\nZONA HORARIA Y CONVERSIÓN A UTC (CRÍTICO):\n- El usuario está en zona horaria America/Lima (UTC-5, sin horario de verano).\n- Cal.com requiere las horas en formato ISO 8601 UTC: YYYY-MM-DDTHH:mm:ssZ.\n- Para convertir: hora local de Lima + 5 horas = hora UTC.\n  Ejemplo: si el usuario elige las 14:00 hora Lima del 2026-06-10, envía 2026-06-10T19:00:00Z en el campo start de AGENDAR.\n- Para DISPONIBILIDAD usa startTime a las 00:00:00 y endTime a las 23:59:59 del día solicitado, expresados en UTC.\n\nPREGUNTAS DE CONTEXTO (una por una; sirven para entender al prospecto, NUNCA para rechazarlo):\n1. ¿Cuál es tu objetivo principal al buscar automatización con IA?\n2. ¿Ya usas alguna herramienta de automatización o CRM? ¿Cuál?\n3. ¿Qué presupuesto tienes en mente? (solo para orientar la propuesta)\nContinúa SIEMPRE con el agendamiento, sin importar las respuestas. No descartes a nadie por presupuesto.\n\nFLUJO DE AGENDAMIENTO:\n- Reconoce los datos ya proporcionados y no repitas preguntas. Pide solo lo que falte: nombre completo, correo y fecha.\n- Llama a DISPONIBILIDAD y muestra los horarios libres de forma clara.\n- Franjas horarias (hora Lima): mañana 00:00-11:59, tarde 12:00-17:00, noche 17:01-23:59. Si no hay disponibilidad en la franja pedida, ofrece otras opciones del mismo día.\n- Cuando el usuario elija una hora válida y ya tengas nombre, correo, fecha y hora: resume los datos, convierte la hora a UTC y llama a AGENDAR de inmediato, sin confirmaciones innecesarias.\n- Si se agenda bien: ¡Tu cita quedó reservada para el [fecha] a las [hora Lima]! Te enviamos un correo de confirmación.\n- Si hay error: Hubo un problema al confirmar la cita. ¿Podrías elegir otro horario?\n\nREGLAS:\n- Valida que el correo tenga @ y un dominio válido.\n- Nunca inventes horarios. Si cambia la fecha u hora, vuelve a llamar a DISPONIBILIDAD.\n- Interpreta correctamente frases como mañana por la mañana, próximo lunes, la siguiente semana, respecto a la fecha actual.\n- No menciones herramientas técnicas como n8n o Make. Habla de beneficios.\n- No pongas palabras entre comillas. No saltes párrafos innecesariamente.\n\nFecha y hora actual (referencia, America/Lima): {{ new Date($now).toLocaleString(\"es-PE\", { weekday: \"long\", year: \"numeric\", month: \"long\", day: \"numeric\", hour: \"2-digit\", minute: \"2-digit\", hour12: true, timeZone: \"America/Lima\" }) }}"
           }
         },
         "type": "@n8n/n8n-nodes-langchain.agent",
         "typeVersion": 1.7,
         "position": [
-          1056,
-          -208
+          -384,
+          -400
         ],
-        "id": "4525e830-7007-4809-8f51-9c6c3d89926d",
+        "id": "49a49f6c-b532-46e5-b744-8ff63a55e986",
         "name": "AGENDADOR"
       },
       {
@@ -400,10 +400,10 @@
         "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
         "typeVersion": 1.1,
         "position": [
-          1024,
-          -32
+          -416,
+          -224
         ],
-        "id": "d2ac4996-dae6-4c3b-b95d-70f11342706d",
+        "id": "90a3c7d5-8397-40dd-ac3b-4bd91aeb21a4",
         "name": "Modelo Agendador (gpt-4o)",
         "credentials": {
           "openAiApi": {
@@ -417,16 +417,16 @@
           "promptType": "define",
           "text": "={{ $('Edit Fields2').item.json.Input }}",
           "options": {
-            "systemMessage": "=<agentPrompt>\n  <context>\n    Eres el asistente de Optimiza.ia.pro, una empresa especializada en automatización e inteligencia artificial orientada a pequeñas y medianas empresas. Tu rol es ayudar a personas interesadas en los servicios de automatización a través de su plataforma SaaS, brindando soluciones simples, efectivas y personalizadas.\n  </context>\n  <role>\n    Asistente informativo profesional, humano y claro. Responde únicamente con base en la información de tu base de datos vectorial (RAG), con tono natural y conversacional.\n  </role>\n  <tools>\n    companyKnowledge: base de datos vectorial con toda la información de Optimiza.ia.pro.\n  </tools>\n  <services>\n    Si preguntan si ofrecen servicios de automatización, responde que trabajan con proyectos de automatización con IA, que nuestros planes inician desde 50 USD al mes con todo incluido, y ofrece agendar una llamada o contar más sobre las soluciones SaaS.\n  </services>\n  <ragRule>\n    Siempre consulta companyKnowledge antes de responder. Si no tienes una respuesta clara, no inventes; redirige a https://www.facebook.com/optimiza.ia.pro o propone agendar una cita.\n  </ragRule>\n  <contact>Correo: hola@optimiza-ia.com</contact>\n  <tone>Cercano, claro, profesional, sin sonar robótico. No uses emojis.</tone>\n  <limits>\n    No inventes información no respaldada por la base. No participes en temas fuera del enfoque. Redirige al sitio web si es necesario.\n  </limits>\n  <personaRules>\n    Responde en primera persona como parte del equipo de Optimiza.ia.pro. Si te preguntan algo personal o te felicitan, agradece y di que eres la IA de Optimiza.ia.pro y que lo harás llegar al equipo. Si preguntan cuántos clientes han tenido, responde con amabilidad que eso lo responde mejor el equipo.\n  </personaRules>\n</agentPrompt>\n\nTrata de no saltar párrafos. No menciones herramientas como Make.com ni n8n.com. Enfócate en los beneficios prácticos para el cliente: ayudamos a las empresas a ahorrar tiempo y esfuerzo automatizando tareas repetitivas con el apoyo de tecnología inteligente."
+            "systemMessage": "=<agentPrompt>\n  <context>\n    Eres el asistente de {{ $('Inicio (Router)').item.json.empresaNombre }}, una empresa de automatización con inteligencia artificial. Ayudas a personas interesadas en sus servicios, con soluciones simples y personalizadas.\n  </context>\n  <role>\n    Asistente informativo profesional, humano y claro. Responde ÚNICAMENTE con base en la información de companyKnowledge (RAG). No inventes nada.\n  </role>\n  <tools>\n    companyKnowledge: base de datos vectorial con toda la información de {{ $('Inicio (Router)').item.json.empresaNombre }} (servicios, precios, preguntas frecuentes, contacto).\n  </tools>\n  <ragRule>\n    Consulta SIEMPRE companyKnowledge antes de responder. Si no encuentras la respuesta, no inventes; ofrece agendar una llamada o deja el correo de contacto: {{ $('Inicio (Router)').item.json.email }}.\n  </ragRule>\n  <contact>Correo: {{ $('Inicio (Router)').item.json.email }}</contact>\n  <tone>Cercano, claro, profesional, sin sonar robótico. No uses emojis.</tone>\n  <limits>\n    No inventes información no respaldada por companyKnowledge. No participes en temas fuera del enfoque del negocio.\n  </limits>\n  <personaRules>\n    Responde en primera persona como parte del equipo de {{ $('Inicio (Router)').item.json.empresaNombre }}. Si te preguntan algo personal o te felicitan, agradece y di que eres la IA de {{ $('Inicio (Router)').item.json.empresaNombre }} y que lo harás llegar al equipo.\n  </personaRules>\n</agentPrompt>\n\nTrata de no saltar párrafos. No menciones herramientas técnicas como n8n o Make. Enfócate en los beneficios prácticos para el cliente."
           }
         },
         "type": "@n8n/n8n-nodes-langchain.agent",
         "typeVersion": 1.7,
         "position": [
-          1040,
-          208
+          -400,
+          16
         ],
-        "id": "e162d262-356b-4c88-ab12-9c1556d5a6b1",
+        "id": "01cd3715-b575-452f-9ed8-d5aa323b819a",
         "name": "CONVERSACION"
       },
       {
@@ -436,10 +436,10 @@
         "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
         "typeVersion": 1.1,
         "position": [
-          976,
-          368
+          -464,
+          176
         ],
-        "id": "a9963987-b086-4530-877a-5524d9b1511b",
+        "id": "1441ce1a-1970-4824-b7eb-46aa7fe8814f",
         "name": "Modelo Conversacion (gpt-4o-mini)",
         "credentials": {
           "openAiApi": {
@@ -451,16 +451,16 @@
       {
         "parameters": {
           "sessionIdType": "customKey",
-          "sessionKey": "={{ $('Webhook').item.json.body.data.key.remoteJid }}",
+          "sessionKey": "={{ $('Inicio (Router)').item.json.tenant }}_{{ $('Inicio (Router)').item.json.body.data.key.remoteJid }}",
           "contextWindowLength": 20
         },
         "type": "@n8n/n8n-nodes-langchain.memoryPostgresChat",
         "typeVersion": 1.3,
         "position": [
-          1152,
-          0
+          -288,
+          -192
         ],
-        "id": "4dab0792-7bec-46fd-b10c-180dbe651e7e",
+        "id": "2c885c65-92b6-4732-b020-9f5b3d61f2df",
         "name": "Postgres Chat Memory",
         "credentials": {
           "postgres": {
@@ -473,11 +473,9 @@
         "parameters": {
           "toolDescription": "Recupera todos los espacios de citas libres disponibles de la base de datos.",
           "url": "https://api.cal.com/v1/slots",
-          "authentication": "genericCredentialType",
-          "genericAuthType": "httpQueryAuth",
           "sendQuery": true,
           "specifyQuery": "json",
-          "jsonQuery": "={\n  \"startTime\": \"{startTime}\",\n  \"endTime\": \"{endTime}\",\n  \"eventTypeId\": \"2848727\",\n  \"timeZone\": \"America/Lima\"\n}",
+          "jsonQuery": "={\n  \"startTime\": \"{startTime}\",\n  \"endTime\": \"{endTime}\",\n  \"eventTypeId\": \"{{ $('Inicio (Router)').item.json.calEventTypeId }}\",\n  \"timeZone\": \"America/Lima\",\\n  \"apiKey\": \"{{ $('Inicio (Router)').item.json.calApiKey }}\"\n}",
           "placeholderDefinitions": {
             "values": [
               {
@@ -496,28 +494,23 @@
         "type": "@n8n/n8n-nodes-langchain.toolHttpRequest",
         "typeVersion": 1.1,
         "position": [
-          1296,
-          -16
+          -144,
+          -208
         ],
-        "id": "f400813c-c484-402a-9c8a-03b3e66d4c3c",
-        "name": "DISPONIBILIDAD",
-        "credentials": {
-          "httpQueryAuth": {
-            "id": "hy15mO7aQlU97oEM",
-            "name": "Calc.Auth"
-          }
-        }
+        "id": "254c019c-bf26-4031-8c31-5c632ddc14ff",
+        "name": "DISPONIBILIDAD"
       },
       {
         "parameters": {
           "toolDescription": "Guarda la cita en la base de datos.",
           "method": "POST",
           "url": "https://api.cal.com/v1/bookings",
-          "authentication": "genericCredentialType",
-          "genericAuthType": "httpQueryAuth",
+          "sendQuery": true,
+          "specifyQuery": "json",
+          "jsonQuery": "={\\n  \"apiKey\": \"{{ $('Inicio (Router)').item.json.calApiKey }}\"\\n}",
           "sendBody": true,
           "specifyBody": "json",
-          "jsonBody": "={\n  \"eventTypeId\": 2848727,\n  \"start\": \"{startTime}\",\n  \"responses\": {\n    \"name\": \"{userName}\",\n    \"email\": \"{userEmail}\",\n    \"location\": {\n      \"value\": \"online\",\n      \"optionValue\": \"\"\n    }\n  },\n  \"timeZone\": \"America/Lima\",\n  \"language\": \"es\",\n  \"metadata\": {}\n}",
+          "jsonBody": "={\n  \"eventTypeId\": {{ Number($('Inicio (Router)').item.json.calEventTypeId) }},\n  \"start\": \"{startTime}\",\n  \"responses\": {\n    \"name\": \"{userName}\",\n    \"email\": \"{userEmail}\",\n    \"location\": {\n      \"value\": \"online\",\n      \"optionValue\": \"\"\n    }\n  },\n  \"timeZone\": \"America/Lima\",\n  \"language\": \"es\",\n  \"metadata\": {}\n}",
           "placeholderDefinitions": {
             "values": [
               {
@@ -540,34 +533,28 @@
         "type": "@n8n/n8n-nodes-langchain.toolHttpRequest",
         "typeVersion": 1.1,
         "position": [
-          1472,
-          -16
+          32,
+          -208
         ],
-        "id": "199112f6-eda8-4c04-b648-5edbdd2d2466",
-        "name": "AGENDAR",
-        "credentials": {
-          "httpQueryAuth": {
-            "id": "hy15mO7aQlU97oEM",
-            "name": "Calc.Auth"
-          }
-        }
+        "id": "16e40def-dbbd-441e-8014-a7880a204853",
+        "name": "AGENDAR"
       },
       {
         "parameters": {},
         "type": "@n8n/n8n-nodes-langchain.toolThink",
         "typeVersion": 1,
         "position": [
-          1632,
-          -16
+          192,
+          -208
         ],
-        "id": "d75610d9-c683-4991-aa0a-834a9650bcb7",
+        "id": "ca9b62f3-222d-4e2b-9dff-ace90bffc437",
         "name": "Think"
       },
       {
         "parameters": {
           "mode": "retrieve-as-tool",
           "toolName": "companyKnowledge",
-          "toolDescription": "Usa esta herramienta para recuperar información sobre Optimiza.ia.pro",
+          "toolDescription": "Usa esta herramienta para recuperar información de la empresa (servicios, precios, FAQ, contacto).",
           "qdrantCollection": {
             "__rl": true,
             "value": "smartweb_knowledge",
@@ -576,16 +563,16 @@
           },
           "topK": 10,
           "options": {
-            "searchFilterJson": "={\n  \"must\": [\n    {\n      \"key\": \"metadata.tenant\",\n      \"match\": { \"value\": \"optimiza\" }\n    }\n  ]\n}"
+            "searchFilterJson": "={\n  \"must\": [\n    {\n      \"key\": \"metadata.tenant\",\n      \"match\": { \"value\": \"{{ $('Inicio (Router)').item.json.tenant }}\" }\n    }\n  ]\n}"
           }
         },
         "type": "@n8n/n8n-nodes-langchain.vectorStoreQdrant",
         "typeVersion": 1.1,
         "position": [
-          1248,
-          416
+          -192,
+          224
         ],
-        "id": "3c9ddbae-b2d0-4af4-90cf-dc5d0cfc8a50",
+        "id": "7b35bf17-0077-4a89-8318-fccea163875d",
         "name": "Qdrant Vector Store",
         "credentials": {
           "qdrantApi": {
@@ -601,10 +588,10 @@
         "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
         "typeVersion": 1.2,
         "position": [
-          1120,
-          560
+          -320,
+          368
         ],
-        "id": "70264054-1bc7-43a5-a08a-60202bc194ea",
+        "id": "cca5de2e-621f-48b3-81a9-babd5668afc0",
         "name": "Embeddings OpenAI",
         "credentials": {
           "openAiApi": {
@@ -616,18 +603,18 @@
       {
         "parameters": {
           "resource": "messages-api",
-          "instanceName": "Optimiza.ia.pro",
-          "remoteJid": "={{ $('Webhook').item.json.body.data.key.remoteJid }}",
+          "instanceName": "={{ $('Inicio (Router)').item.json.evolutionInstance }}",
+          "remoteJid": "={{ $('Inicio (Router)').item.json.body.data.key.remoteJid }}",
           "messageText": "={{ $json.output }}",
           "options_message": {}
         },
         "type": "n8n-nodes-evolution-api.evolutionApi",
         "typeVersion": 1,
         "position": [
-          1504,
-          -208
+          64,
+          -400
         ],
-        "id": "9b3b76de-f11c-4bf5-9ddb-7dc164e630ce",
+        "id": "eb2e13d5-a1ba-496b-b11a-1b942df8a470",
         "name": "Enviar texto (AGENDADOR)",
         "credentials": {
           "evolutionApi": {
@@ -639,18 +626,18 @@
       {
         "parameters": {
           "resource": "messages-api",
-          "instanceName": "Optimiza.ia.pro",
-          "remoteJid": "={{ $('Webhook').item.json.body.data.key.remoteJid }}",
+          "instanceName": "={{ $('Inicio (Router)').item.json.evolutionInstance }}",
+          "remoteJid": "={{ $('Inicio (Router)').item.json.body.data.key.remoteJid }}",
           "messageText": "={{ $json.output }}",
           "options_message": {}
         },
         "type": "n8n-nodes-evolution-api.evolutionApi",
         "typeVersion": 1,
         "position": [
-          1456,
-          208
+          16,
+          16
         ],
-        "id": "12eb8cb6-41f9-4b41-b271-7e0469e87c61",
+        "id": "0e309913-0825-432e-bebd-b0f080086e18",
         "name": "Enviar texto (CONVERSACION)",
         "credentials": {
           "evolutionApi": {
@@ -661,19 +648,16 @@
       },
       {
         "parameters": {
-          "httpMethod": "POST",
-          "path": "d60b9d1f-d38b-4f74-8a08-27203d85aa2a",
-          "options": {}
+          "inputSource": "passthrough"
         },
-        "type": "n8n-nodes-base.webhook",
-        "typeVersion": 2.1,
+        "type": "n8n-nodes-base.executeWorkflowTrigger",
+        "typeVersion": 1.1,
         "position": [
-          -816,
-          64
+          -2256,
+          -128
         ],
-        "id": "2cfb5460-e664-47aa-a60c-fa90e35be68f",
-        "name": "Webhook",
-        "webhookId": "d60b9d1f-d38b-4f74-8a08-27203d85aa2a"
+        "id": "26bd5e8d-9ee0-4c70-afd4-ed78d649da01",
+        "name": "Inicio (Router)"
       },
       {
         "parameters": {
@@ -682,11 +666,11 @@
         },
         "type": "n8n-nodes-base.stickyNote",
         "position": [
-          -784,
-          -144
+          -2224,
+          -336
         ],
         "typeVersion": 1,
-        "id": "3e489264-2956-42b5-ada2-237c97e2652c",
+        "id": "f527055b-30e7-4153-b31f-f7490ec88e5d",
         "name": "Sticky Note1"
       }
     ],
@@ -851,28 +835,6 @@
           ]
         ]
       },
-      "AGENDADOR": {
-        "main": [
-          [
-            {
-              "node": "Enviar texto (AGENDADOR)",
-              "type": "main",
-              "index": 0
-            }
-          ]
-        ]
-      },
-      "CONVERSACION": {
-        "main": [
-          [
-            {
-              "node": "Enviar texto (CONVERSACION)",
-              "type": "main",
-              "index": 0
-            }
-          ]
-        ]
-      },
       "Modelo Clasificador (gpt-4o-mini)": {
         "ai_languageModel": [
           [
@@ -884,12 +846,34 @@
           ]
         ]
       },
+      "AGENDADOR": {
+        "main": [
+          [
+            {
+              "node": "Enviar texto (AGENDADOR)",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
       "Modelo Agendador (gpt-4o)": {
         "ai_languageModel": [
           [
             {
               "node": "AGENDADOR",
               "type": "ai_languageModel",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "CONVERSACION": {
+        "main": [
+          [
+            {
+              "node": "Enviar texto (CONVERSACION)",
+              "type": "main",
               "index": 0
             }
           ]
@@ -977,7 +961,7 @@
           ]
         ]
       },
-      "Webhook": {
+      "Inicio (Router)": {
         "main": [
           [
             {
@@ -991,11 +975,11 @@
     },
     "nodeGroups": [],
     "authors": "John Ordóñez Monroy",
-    "name": "Version e4a51afd",
+    "name": "Version b7894850",
     "description": "",
     "autosaved": true
   },
-  "activeVersionId": "e4a51afd-36f8-4a34-acb1-5e3945d3fa74",
+  "activeVersionId": "b7894850-23ab-4606-971e-4cc1fd33df34",
   "connections": {
     "Edit Fields": {
       "main": [
@@ -1157,28 +1141,6 @@
         ]
       ]
     },
-    "AGENDADOR": {
-      "main": [
-        [
-          {
-            "node": "Enviar texto (AGENDADOR)",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "CONVERSACION": {
-      "main": [
-        [
-          {
-            "node": "Enviar texto (CONVERSACION)",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Modelo Clasificador (gpt-4o-mini)": {
       "ai_languageModel": [
         [
@@ -1190,12 +1152,34 @@
         ]
       ]
     },
+    "AGENDADOR": {
+      "main": [
+        [
+          {
+            "node": "Enviar texto (AGENDADOR)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
     "Modelo Agendador (gpt-4o)": {
       "ai_languageModel": [
         [
           {
             "node": "AGENDADOR",
             "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "CONVERSACION": {
+      "main": [
+        [
+          {
+            "node": "Enviar texto (CONVERSACION)",
+            "type": "main",
             "index": 0
           }
         ]
@@ -1283,7 +1267,7 @@
         ]
       ]
     },
-    "Webhook": {
+    "Inicio (Router)": {
       "main": [
         [
           {
@@ -1326,10 +1310,10 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        -608,
-        64
+        -2048,
+        -128
       ],
-      "id": "5edc2c12-9cfc-42b5-8e26-095f7e76b202",
+      "id": "fd301343-40f3-42e5-a116-c162813f9ba5",
       "name": "Edit Fields"
     },
     {
@@ -1360,10 +1344,10 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        -416,
-        64
+        -1856,
+        -128
       ],
-      "id": "978f98c3-44f3-479f-ad68-8fc231cb80d6",
+      "id": "ec7dd983-e70b-4b0a-8b50-1b06e509b338",
       "name": "Filtro fromMe"
     },
     {
@@ -1371,10 +1355,10 @@
       "type": "n8n-nodes-base.noOp",
       "typeVersion": 1,
       "position": [
-        -416,
-        -80
+        -1856,
+        -272
       ],
-      "id": "c01037d6-43bf-4816-b2db-1c47ecdee5fb",
+      "id": "6743ab2a-8bfd-421c-bf3e-d04bd03c5ace",
       "name": "Ignorar mensaje propio"
     },
     {
@@ -1440,10 +1424,10 @@
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3.2,
       "position": [
-        -192,
-        64
+        -1632,
+        -128
       ],
-      "id": "da21f71f-f8b0-4872-9508-9c2068967c72",
+      "id": "fd29f17f-34a1-45f1-b02a-c670e8a0309c",
       "name": "Switch tipo mensaje"
     },
     {
@@ -1451,10 +1435,10 @@
       "type": "n8n-nodes-base.noOp",
       "typeVersion": 1,
       "position": [
-        -208,
-        336
+        -1648,
+        144
       ],
-      "id": "dd3ffa00-298a-4547-adb7-955b98515234",
+      "id": "44ffabc8-c746-4191-be78-cde6e274136c",
       "name": "Ignorar tipo no soportado"
     },
     {
@@ -1474,10 +1458,10 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        64,
-        -80
+        -1376,
+        -272
       ],
-      "id": "bcba507c-35e2-4db2-876f-21dd7946f458",
+      "id": "35ff93f1-edea-4fa4-b0f7-6c6a094cc160",
       "name": "Edit Fields1"
     },
     {
@@ -1503,16 +1487,16 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        64,
-        80
+        -1376,
+        -112
       ],
-      "id": "64f0166b-8b7a-4b24-9642-1706d904a16b",
+      "id": "f7b70f07-5276-44b5-ac78-394d7329b688",
       "name": "Edit Fields3"
     },
     {
       "parameters": {
         "method": "POST",
-        "url": "https://smartweb-web-evolution-api.izq3rn.easypanel.host/chat/getBase64FromMediaMessage/Optimiza.ia.pro",
+        "url": "={{ $('Inicio (Router)').item.json.evolutionUrl }}/chat/getBase64FromMediaMessage/{{ $('Inicio (Router)').item.json.evolutionInstance }}",
         "authentication": "genericCredentialType",
         "genericAuthType": "httpHeaderAuth",
         "sendBody": true,
@@ -1523,10 +1507,10 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        64,
-        336
+        -1376,
+        144
       ],
-      "id": "01fde04b-0123-4893-811f-206081680a3c",
+      "id": "bf6a0f29-8d5b-4a6c-a974-8f76f8b42340",
       "name": "Obtener audio (Evolution)",
       "credentials": {
         "httpHeaderAuth": {
@@ -1544,10 +1528,10 @@
       "type": "n8n-nodes-base.convertToFile",
       "typeVersion": 1.1,
       "position": [
-        288,
-        336
+        -1152,
+        144
       ],
-      "id": "594fc43d-9bc4-4f12-b9a7-7d256bd6ec70",
+      "id": "cb1b6bd5-5031-4c94-8085-63144798a10d",
       "name": "Base64 a binario"
     },
     {
@@ -1559,10 +1543,10 @@
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1.8,
       "position": [
-        544,
-        336
+        -896,
+        144
       ],
-      "id": "e8fae3ae-e06e-42db-9311-35209f0fa350",
+      "id": "c8ea0e4b-1803-4daf-ac14-66900aa165d9",
       "name": "Transcribir audio",
       "credentials": {
         "openAiApi": {
@@ -1588,10 +1572,10 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        752,
-        336
+        -688,
+        144
       ],
-      "id": "953dad32-57ac-4ebe-a159-a64edd60f3e3",
+      "id": "c1489675-dab2-47c0-a5ca-6a5d96c366c8",
       "name": "Edit Fields7"
     },
     {
@@ -1599,10 +1583,10 @@
       "type": "n8n-nodes-base.merge",
       "typeVersion": 3.1,
       "position": [
-        288,
-        -64
+        -1152,
+        -256
       ],
-      "id": "1949883b-a82f-4f1e-b392-c79f015d46c2",
+      "id": "235ae007-4d34-433a-855b-571405029ea4",
       "name": "Merge"
     },
     {
@@ -1622,10 +1606,10 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        512,
-        -64
+        -928,
+        -256
       ],
-      "id": "aa631f2f-edc4-4d0c-96de-42bf20209076",
+      "id": "d9592218-06ac-4af6-9866-5ff4daf3c567",
       "name": "Edit Fields2"
     },
     {
@@ -1648,10 +1632,10 @@
       "type": "@n8n/n8n-nodes-langchain.textClassifier",
       "typeVersion": 1,
       "position": [
-        720,
-        -64
+        -720,
+        -256
       ],
-      "id": "03dd66d2-aa8d-41e7-88f0-f3670220caba",
+      "id": "bb3ed185-927d-472c-a893-445dcae5af86",
       "name": "Clasificador intencion"
     },
     {
@@ -1661,10 +1645,10 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
       "typeVersion": 1.1,
       "position": [
-        704,
-        160
+        -736,
+        -32
       ],
-      "id": "c2c639ea-10f3-4d89-b869-2b99458ebf16",
+      "id": "f70222ec-dcdf-4a82-ad1a-26135baf098f",
       "name": "Modelo Clasificador (gpt-4o-mini)",
       "credentials": {
         "openAiApi": {
@@ -1678,16 +1662,16 @@
         "promptType": "define",
         "text": "={{ $('Edit Fields2').item.json.Input }}",
         "options": {
-          "systemMessage": "=Eres un asistente de reservación de citas para una agencia especializada en automatización con inteligencia artificial. Tu objetivo es entender al prospecto y agendar su cita de forma conversacional, profesional y cordial.\n\nHERRAMIENTAS DISPONIBLES (usa exactamente estos nombres):\n- DISPONIBILIDAD: consulta los horarios libres en la fecha indicada por el usuario.\n- AGENDAR: registra la cita en la base de datos (Cal.com).\n- Think: úsala para razonar si te pierdes o para verificar que tienes todos los datos antes de agendar.\n\nZONA HORARIA Y CONVERSIÓN A UTC (CRÍTICO):\n- El usuario está en zona horaria America/Lima (UTC-5, sin horario de verano).\n- Cal.com requiere las horas en formato ISO 8601 UTC: YYYY-MM-DDTHH:mm:ssZ.\n- Para convertir: hora local de Lima + 5 horas = hora UTC.\n  Ejemplo: si el usuario elige las 14:00 hora Lima del 2026-06-10, envía 2026-06-10T19:00:00Z en el campo start de AGENDAR.\n- Para DISPONIBILIDAD usa startTime a las 00:00:00 y endTime a las 23:59:59 del día solicitado, expresados en UTC.\n\nPREGUNTAS DE CONTEXTO (una por una; sirven para entender al prospecto, NUNCA para rechazarlo):\n1. ¿Cuál es tu objetivo principal al buscar automatización con IA?\n2. ¿Ya usas alguna herramienta de automatización o CRM? ¿Cuál?\n3. ¿Qué presupuesto tienes en mente? (solo para orientar la propuesta; nuestros planes inician desde 50 USD al mes)\nContinúa SIEMPRE con el agendamiento, sin importar las respuestas. No descartes a nadie por presupuesto.\n\nFLUJO DE AGENDAMIENTO:\n- Reconoce los datos ya proporcionados y no repitas preguntas. Pide solo lo que falte: nombre completo, correo y fecha.\n- Llama a DISPONIBILIDAD y muestra los horarios libres de forma clara.\n- Franjas horarias (hora Lima): mañana 00:00-11:59, tarde 12:00-17:00, noche 17:01-23:59. Si no hay disponibilidad en la franja pedida, ofrece otras opciones del mismo día.\n- Cuando el usuario elija una hora válida y ya tengas nombre, correo, fecha y hora: resume los datos, convierte la hora a UTC y llama a AGENDAR de inmediato, sin confirmaciones innecesarias.\n- Si se agenda bien: ¡Tu cita quedó reservada para el [fecha] a las [hora Lima]! Te enviamos un correo de confirmación.\n- Si hay error: Hubo un problema al confirmar la cita. ¿Podrías elegir otro horario?\n\nREGLAS:\n- Valida que el correo tenga @ y un dominio válido.\n- Nunca inventes horarios. Si cambia la fecha u hora, vuelve a llamar a DISPONIBILIDAD.\n- Interpreta correctamente frases como mañana por la mañana, próximo lunes, la siguiente semana, respecto a la fecha actual.\n- No menciones herramientas técnicas como n8n o Make. Habla de beneficios: ayudamos a las empresas a ahorrar tiempo automatizando tareas repetitivas con tecnología inteligente.\n- No pongas palabras entre comillas. No saltes párrafos innecesariamente.\n\nFecha y hora actual (referencia, America/Lima): {{ new Date($now).toLocaleString(\"es-PE\", { weekday: \"long\", year: \"numeric\", month: \"long\", day: \"numeric\", hour: \"2-digit\", minute: \"2-digit\", hour12: true, timeZone: \"America/Lima\" }) }}"
+          "systemMessage": "=Eres el asistente de agendamiento de {{ $('Inicio (Router)').item.json.empresaNombre }}, una empresa especializada en automatización con inteligencia artificial. Tu objetivo es entender al prospecto y agendar su cita de forma conversacional, profesional y cordial.\n\nHERRAMIENTAS DISPONIBLES (usa exactamente estos nombres):\n- DISPONIBILIDAD: consulta los horarios libres en la fecha indicada por el usuario.\n- AGENDAR: registra la cita en la base de datos (Cal.com).\n- Think: úsala para razonar si te pierdes o para verificar que tienes todos los datos antes de agendar.\n\nZONA HORARIA Y CONVERSIÓN A UTC (CRÍTICO):\n- El usuario está en zona horaria America/Lima (UTC-5, sin horario de verano).\n- Cal.com requiere las horas en formato ISO 8601 UTC: YYYY-MM-DDTHH:mm:ssZ.\n- Para convertir: hora local de Lima + 5 horas = hora UTC.\n  Ejemplo: si el usuario elige las 14:00 hora Lima del 2026-06-10, envía 2026-06-10T19:00:00Z en el campo start de AGENDAR.\n- Para DISPONIBILIDAD usa startTime a las 00:00:00 y endTime a las 23:59:59 del día solicitado, expresados en UTC.\n\nPREGUNTAS DE CONTEXTO (una por una; sirven para entender al prospecto, NUNCA para rechazarlo):\n1. ¿Cuál es tu objetivo principal al buscar automatización con IA?\n2. ¿Ya usas alguna herramienta de automatización o CRM? ¿Cuál?\n3. ¿Qué presupuesto tienes en mente? (solo para orientar la propuesta)\nContinúa SIEMPRE con el agendamiento, sin importar las respuestas. No descartes a nadie por presupuesto.\n\nFLUJO DE AGENDAMIENTO:\n- Reconoce los datos ya proporcionados y no repitas preguntas. Pide solo lo que falte: nombre completo, correo y fecha.\n- Llama a DISPONIBILIDAD y muestra los horarios libres de forma clara.\n- Franjas horarias (hora Lima): mañana 00:00-11:59, tarde 12:00-17:00, noche 17:01-23:59. Si no hay disponibilidad en la franja pedida, ofrece otras opciones del mismo día.\n- Cuando el usuario elija una hora válida y ya tengas nombre, correo, fecha y hora: resume los datos, convierte la hora a UTC y llama a AGENDAR de inmediato, sin confirmaciones innecesarias.\n- Si se agenda bien: ¡Tu cita quedó reservada para el [fecha] a las [hora Lima]! Te enviamos un correo de confirmación.\n- Si hay error: Hubo un problema al confirmar la cita. ¿Podrías elegir otro horario?\n\nREGLAS:\n- Valida que el correo tenga @ y un dominio válido.\n- Nunca inventes horarios. Si cambia la fecha u hora, vuelve a llamar a DISPONIBILIDAD.\n- Interpreta correctamente frases como mañana por la mañana, próximo lunes, la siguiente semana, respecto a la fecha actual.\n- No menciones herramientas técnicas como n8n o Make. Habla de beneficios.\n- No pongas palabras entre comillas. No saltes párrafos innecesariamente.\n\nFecha y hora actual (referencia, America/Lima): {{ new Date($now).toLocaleString(\"es-PE\", { weekday: \"long\", year: \"numeric\", month: \"long\", day: \"numeric\", hour: \"2-digit\", minute: \"2-digit\", hour12: true, timeZone: \"America/Lima\" }) }}"
         }
       },
       "type": "@n8n/n8n-nodes-langchain.agent",
       "typeVersion": 1.7,
       "position": [
-        1056,
-        -208
+        -384,
+        -400
       ],
-      "id": "4525e830-7007-4809-8f51-9c6c3d89926d",
+      "id": "49a49f6c-b532-46e5-b744-8ff63a55e986",
       "name": "AGENDADOR"
     },
     {
@@ -1697,10 +1681,10 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
       "typeVersion": 1.1,
       "position": [
-        1024,
-        -32
+        -416,
+        -224
       ],
-      "id": "d2ac4996-dae6-4c3b-b95d-70f11342706d",
+      "id": "90a3c7d5-8397-40dd-ac3b-4bd91aeb21a4",
       "name": "Modelo Agendador (gpt-4o)",
       "credentials": {
         "openAiApi": {
@@ -1714,16 +1698,16 @@
         "promptType": "define",
         "text": "={{ $('Edit Fields2').item.json.Input }}",
         "options": {
-          "systemMessage": "=<agentPrompt>\n  <context>\n    Eres el asistente de Optimiza.ia.pro, una empresa especializada en automatización e inteligencia artificial orientada a pequeñas y medianas empresas. Tu rol es ayudar a personas interesadas en los servicios de automatización a través de su plataforma SaaS, brindando soluciones simples, efectivas y personalizadas.\n  </context>\n  <role>\n    Asistente informativo profesional, humano y claro. Responde únicamente con base en la información de tu base de datos vectorial (RAG), con tono natural y conversacional.\n  </role>\n  <tools>\n    companyKnowledge: base de datos vectorial con toda la información de Optimiza.ia.pro.\n  </tools>\n  <services>\n    Si preguntan si ofrecen servicios de automatización, responde que trabajan con proyectos de automatización con IA, que nuestros planes inician desde 50 USD al mes con todo incluido, y ofrece agendar una llamada o contar más sobre las soluciones SaaS.\n  </services>\n  <ragRule>\n    Siempre consulta companyKnowledge antes de responder. Si no tienes una respuesta clara, no inventes; redirige a https://www.facebook.com/optimiza.ia.pro o propone agendar una cita.\n  </ragRule>\n  <contact>Correo: hola@optimiza-ia.com</contact>\n  <tone>Cercano, claro, profesional, sin sonar robótico. No uses emojis.</tone>\n  <limits>\n    No inventes información no respaldada por la base. No participes en temas fuera del enfoque. Redirige al sitio web si es necesario.\n  </limits>\n  <personaRules>\n    Responde en primera persona como parte del equipo de Optimiza.ia.pro. Si te preguntan algo personal o te felicitan, agradece y di que eres la IA de Optimiza.ia.pro y que lo harás llegar al equipo. Si preguntan cuántos clientes han tenido, responde con amabilidad que eso lo responde mejor el equipo.\n  </personaRules>\n</agentPrompt>\n\nTrata de no saltar párrafos. No menciones herramientas como Make.com ni n8n.com. Enfócate en los beneficios prácticos para el cliente: ayudamos a las empresas a ahorrar tiempo y esfuerzo automatizando tareas repetitivas con el apoyo de tecnología inteligente."
+          "systemMessage": "=<agentPrompt>\n  <context>\n    Eres el asistente de {{ $('Inicio (Router)').item.json.empresaNombre }}, una empresa de automatización con inteligencia artificial. Ayudas a personas interesadas en sus servicios, con soluciones simples y personalizadas.\n  </context>\n  <role>\n    Asistente informativo profesional, humano y claro. Responde ÚNICAMENTE con base en la información de companyKnowledge (RAG). No inventes nada.\n  </role>\n  <tools>\n    companyKnowledge: base de datos vectorial con toda la información de {{ $('Inicio (Router)').item.json.empresaNombre }} (servicios, precios, preguntas frecuentes, contacto).\n  </tools>\n  <ragRule>\n    Consulta SIEMPRE companyKnowledge antes de responder. Si no encuentras la respuesta, no inventes; ofrece agendar una llamada o deja el correo de contacto: {{ $('Inicio (Router)').item.json.email }}.\n  </ragRule>\n  <contact>Correo: {{ $('Inicio (Router)').item.json.email }}</contact>\n  <tone>Cercano, claro, profesional, sin sonar robótico. No uses emojis.</tone>\n  <limits>\n    No inventes información no respaldada por companyKnowledge. No participes en temas fuera del enfoque del negocio.\n  </limits>\n  <personaRules>\n    Responde en primera persona como parte del equipo de {{ $('Inicio (Router)').item.json.empresaNombre }}. Si te preguntan algo personal o te felicitan, agradece y di que eres la IA de {{ $('Inicio (Router)').item.json.empresaNombre }} y que lo harás llegar al equipo.\n  </personaRules>\n</agentPrompt>\n\nTrata de no saltar párrafos. No menciones herramientas técnicas como n8n o Make. Enfócate en los beneficios prácticos para el cliente."
         }
       },
       "type": "@n8n/n8n-nodes-langchain.agent",
       "typeVersion": 1.7,
       "position": [
-        1040,
-        208
+        -400,
+        16
       ],
-      "id": "e162d262-356b-4c88-ab12-9c1556d5a6b1",
+      "id": "01cd3715-b575-452f-9ed8-d5aa323b819a",
       "name": "CONVERSACION"
     },
     {
@@ -1733,10 +1717,10 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
       "typeVersion": 1.1,
       "position": [
-        976,
-        368
+        -464,
+        176
       ],
-      "id": "a9963987-b086-4530-877a-5524d9b1511b",
+      "id": "1441ce1a-1970-4824-b7eb-46aa7fe8814f",
       "name": "Modelo Conversacion (gpt-4o-mini)",
       "credentials": {
         "openAiApi": {
@@ -1748,16 +1732,16 @@
     {
       "parameters": {
         "sessionIdType": "customKey",
-        "sessionKey": "={{ $('Webhook').item.json.body.data.key.remoteJid }}",
+        "sessionKey": "={{ $('Inicio (Router)').item.json.tenant }}_{{ $('Inicio (Router)').item.json.body.data.key.remoteJid }}",
         "contextWindowLength": 20
       },
       "type": "@n8n/n8n-nodes-langchain.memoryPostgresChat",
       "typeVersion": 1.3,
       "position": [
-        1152,
-        0
+        -288,
+        -192
       ],
-      "id": "4dab0792-7bec-46fd-b10c-180dbe651e7e",
+      "id": "2c885c65-92b6-4732-b020-9f5b3d61f2df",
       "name": "Postgres Chat Memory",
       "credentials": {
         "postgres": {
@@ -1770,11 +1754,9 @@
       "parameters": {
         "toolDescription": "Recupera todos los espacios de citas libres disponibles de la base de datos.",
         "url": "https://api.cal.com/v1/slots",
-        "authentication": "genericCredentialType",
-        "genericAuthType": "httpQueryAuth",
         "sendQuery": true,
         "specifyQuery": "json",
-        "jsonQuery": "={\n  \"startTime\": \"{startTime}\",\n  \"endTime\": \"{endTime}\",\n  \"eventTypeId\": \"2848727\",\n  \"timeZone\": \"America/Lima\"\n}",
+        "jsonQuery": "={\n  \"startTime\": \"{startTime}\",\n  \"endTime\": \"{endTime}\",\n  \"eventTypeId\": \"{{ $('Inicio (Router)').item.json.calEventTypeId }}\",\n  \"timeZone\": \"America/Lima\",\\n  \"apiKey\": \"{{ $('Inicio (Router)').item.json.calApiKey }}\"\n}",
         "placeholderDefinitions": {
           "values": [
             {
@@ -1793,28 +1775,23 @@
       "type": "@n8n/n8n-nodes-langchain.toolHttpRequest",
       "typeVersion": 1.1,
       "position": [
-        1296,
-        -16
+        -144,
+        -208
       ],
-      "id": "f400813c-c484-402a-9c8a-03b3e66d4c3c",
-      "name": "DISPONIBILIDAD",
-      "credentials": {
-        "httpQueryAuth": {
-          "id": "hy15mO7aQlU97oEM",
-          "name": "Calc.Auth"
-        }
-      }
+      "id": "254c019c-bf26-4031-8c31-5c632ddc14ff",
+      "name": "DISPONIBILIDAD"
     },
     {
       "parameters": {
         "toolDescription": "Guarda la cita en la base de datos.",
         "method": "POST",
         "url": "https://api.cal.com/v1/bookings",
-        "authentication": "genericCredentialType",
-        "genericAuthType": "httpQueryAuth",
+        "sendQuery": true,
+        "specifyQuery": "json",
+        "jsonQuery": "={\\n  \"apiKey\": \"{{ $('Inicio (Router)').item.json.calApiKey }}\"\\n}",
         "sendBody": true,
         "specifyBody": "json",
-        "jsonBody": "={\n  \"eventTypeId\": 2848727,\n  \"start\": \"{startTime}\",\n  \"responses\": {\n    \"name\": \"{userName}\",\n    \"email\": \"{userEmail}\",\n    \"location\": {\n      \"value\": \"online\",\n      \"optionValue\": \"\"\n    }\n  },\n  \"timeZone\": \"America/Lima\",\n  \"language\": \"es\",\n  \"metadata\": {}\n}",
+        "jsonBody": "={\n  \"eventTypeId\": {{ Number($('Inicio (Router)').item.json.calEventTypeId) }},\n  \"start\": \"{startTime}\",\n  \"responses\": {\n    \"name\": \"{userName}\",\n    \"email\": \"{userEmail}\",\n    \"location\": {\n      \"value\": \"online\",\n      \"optionValue\": \"\"\n    }\n  },\n  \"timeZone\": \"America/Lima\",\n  \"language\": \"es\",\n  \"metadata\": {}\n}",
         "placeholderDefinitions": {
           "values": [
             {
@@ -1837,34 +1814,28 @@
       "type": "@n8n/n8n-nodes-langchain.toolHttpRequest",
       "typeVersion": 1.1,
       "position": [
-        1472,
-        -16
+        32,
+        -208
       ],
-      "id": "199112f6-eda8-4c04-b648-5edbdd2d2466",
-      "name": "AGENDAR",
-      "credentials": {
-        "httpQueryAuth": {
-          "id": "hy15mO7aQlU97oEM",
-          "name": "Calc.Auth"
-        }
-      }
+      "id": "16e40def-dbbd-441e-8014-a7880a204853",
+      "name": "AGENDAR"
     },
     {
       "parameters": {},
       "type": "@n8n/n8n-nodes-langchain.toolThink",
       "typeVersion": 1,
       "position": [
-        1632,
-        -16
+        192,
+        -208
       ],
-      "id": "d75610d9-c683-4991-aa0a-834a9650bcb7",
+      "id": "ca9b62f3-222d-4e2b-9dff-ace90bffc437",
       "name": "Think"
     },
     {
       "parameters": {
         "mode": "retrieve-as-tool",
         "toolName": "companyKnowledge",
-        "toolDescription": "Usa esta herramienta para recuperar información sobre Optimiza.ia.pro",
+        "toolDescription": "Usa esta herramienta para recuperar información de la empresa (servicios, precios, FAQ, contacto).",
         "qdrantCollection": {
           "__rl": true,
           "value": "smartweb_knowledge",
@@ -1873,16 +1844,16 @@
         },
         "topK": 10,
         "options": {
-          "searchFilterJson": "={\n  \"must\": [\n    {\n      \"key\": \"metadata.tenant\",\n      \"match\": { \"value\": \"optimiza\" }\n    }\n  ]\n}"
+          "searchFilterJson": "={\n  \"must\": [\n    {\n      \"key\": \"metadata.tenant\",\n      \"match\": { \"value\": \"{{ $('Inicio (Router)').item.json.tenant }}\" }\n    }\n  ]\n}"
         }
       },
       "type": "@n8n/n8n-nodes-langchain.vectorStoreQdrant",
       "typeVersion": 1.1,
       "position": [
-        1248,
-        416
+        -192,
+        224
       ],
-      "id": "3c9ddbae-b2d0-4af4-90cf-dc5d0cfc8a50",
+      "id": "7b35bf17-0077-4a89-8318-fccea163875d",
       "name": "Qdrant Vector Store",
       "credentials": {
         "qdrantApi": {
@@ -1898,10 +1869,10 @@
       "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
       "typeVersion": 1.2,
       "position": [
-        1120,
-        560
+        -320,
+        368
       ],
-      "id": "70264054-1bc7-43a5-a08a-60202bc194ea",
+      "id": "cca5de2e-621f-48b3-81a9-babd5668afc0",
       "name": "Embeddings OpenAI",
       "credentials": {
         "openAiApi": {
@@ -1913,18 +1884,18 @@
     {
       "parameters": {
         "resource": "messages-api",
-        "instanceName": "Optimiza.ia.pro",
-        "remoteJid": "={{ $('Webhook').item.json.body.data.key.remoteJid }}",
+        "instanceName": "={{ $('Inicio (Router)').item.json.evolutionInstance }}",
+        "remoteJid": "={{ $('Inicio (Router)').item.json.body.data.key.remoteJid }}",
         "messageText": "={{ $json.output }}",
         "options_message": {}
       },
       "type": "n8n-nodes-evolution-api.evolutionApi",
       "typeVersion": 1,
       "position": [
-        1504,
-        -208
+        64,
+        -400
       ],
-      "id": "9b3b76de-f11c-4bf5-9ddb-7dc164e630ce",
+      "id": "eb2e13d5-a1ba-496b-b11a-1b942df8a470",
       "name": "Enviar texto (AGENDADOR)",
       "credentials": {
         "evolutionApi": {
@@ -1936,18 +1907,18 @@
     {
       "parameters": {
         "resource": "messages-api",
-        "instanceName": "Optimiza.ia.pro",
-        "remoteJid": "={{ $('Webhook').item.json.body.data.key.remoteJid }}",
+        "instanceName": "={{ $('Inicio (Router)').item.json.evolutionInstance }}",
+        "remoteJid": "={{ $('Inicio (Router)').item.json.body.data.key.remoteJid }}",
         "messageText": "={{ $json.output }}",
         "options_message": {}
       },
       "type": "n8n-nodes-evolution-api.evolutionApi",
       "typeVersion": 1,
       "position": [
-        1456,
-        208
+        16,
+        16
       ],
-      "id": "12eb8cb6-41f9-4b41-b271-7e0469e87c61",
+      "id": "0e309913-0825-432e-bebd-b0f080086e18",
       "name": "Enviar texto (CONVERSACION)",
       "credentials": {
         "evolutionApi": {
@@ -1958,19 +1929,16 @@
     },
     {
       "parameters": {
-        "httpMethod": "POST",
-        "path": "d60b9d1f-d38b-4f74-8a08-27203d85aa2a",
-        "options": {}
+        "inputSource": "passthrough"
       },
-      "type": "n8n-nodes-base.webhook",
-      "typeVersion": 2.1,
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
       "position": [
-        -816,
-        64
+        -2256,
+        -128
       ],
-      "id": "2cfb5460-e664-47aa-a60c-fa90e35be68f",
-      "name": "Webhook",
-      "webhookId": "d60b9d1f-d38b-4f74-8a08-27203d85aa2a"
+      "id": "26bd5e8d-9ee0-4c70-afd4-ed78d649da01",
+      "name": "Inicio (Router)"
     },
     {
       "parameters": {
@@ -1979,11 +1947,11 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        -784,
-        -144
+        -2224,
+        -336
       ],
       "typeVersion": 1,
-      "id": "3e489264-2956-42b5-ada2-237c97e2652c",
+      "id": "f527055b-30e7-4153-b31f-f7490ec88e5d",
       "name": "Sticky Note1"
     }
   ],
@@ -2003,7 +1971,7 @@
   ],
   "staticData": null,
   "tags": [],
-  "triggerCount": 1,
-  "updatedAt": "2026-06-05T15:10:21.191Z",
-  "versionId": "003d41f6-0b0e-4a0a-832d-56d28b61ca1d"
+  "triggerCount": 0,
+  "updatedAt": "2026-06-05T20:32:17.968Z",
+  "versionId": "b7894850-23ab-4606-971e-4cc1fd33df34"
 }
