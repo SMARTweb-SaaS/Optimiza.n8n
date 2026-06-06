@@ -1,0 +1,92 @@
+{
+  "active": false,
+  "activeVersion": null,
+  "activeVersionId": null,
+  "connections": {
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Reintentar menu",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2026-06-05T20:15:58.517Z",
+  "id": "vv2HbaxqRZmZS4Dq",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "123",
+  "nodes": [
+    {
+      "parameters": {
+        "resource": "messages-api",
+        "instanceName": "Optimiza.ia.pro",
+        "remoteJid": "=51952947576",
+        "messageText": "No entendí tu respuesta. Por favor responde solo con el número de la empresa.",
+        "options_message": {}
+      },
+      "type": "n8n-nodes-evolution-api.evolutionApi",
+      "typeVersion": 1,
+      "position": [
+        -96,
+        -144
+      ],
+      "id": "76770ee4-da39-43fc-815b-e8bb17959bbd",
+      "name": "Reintentar menu",
+      "credentials": {
+        "evolutionApi": {
+          "id": "pkZphInpmEQfnYQG",
+          "name": "Evolution.inHouse"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "https://smartweb-web-evolution-api.izq3rn.easypanel.host/instance/connectionState/Optimiza.ia.pro",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "apikey",
+              "value": "429683C4C977415CAAFCCE10F7D57E11"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        -352,
+        -144
+      ],
+      "id": "e7e09c83-8508-4284-a495-12a3a71eb758",
+      "name": "HTTP Request"
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "shared": [
+    {
+      "updatedAt": "2026-06-05T20:15:58.517Z",
+      "createdAt": "2026-06-05T20:15:58.517Z",
+      "role": "workflow:owner",
+      "workflowId": "vv2HbaxqRZmZS4Dq",
+      "projectId": "eyOyKz68GM9OloYk"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2026-06-05T22:16:22.952Z",
+  "versionId": "0ef34481-6d4e-4905-b2c9-3f7f85b6d03e"
+}
