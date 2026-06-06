@@ -274,7 +274,7 @@
       "main": [
         [
           {
-            "node": "If",
+            "node": "HTTP Request",
             "type": "main",
             "index": 0
           }
@@ -293,6 +293,17 @@
         [
           {
             "node": "Wait.20",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "If",
             "type": "main",
             "index": 0
           }
@@ -676,7 +687,7 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        1568,
+        1520,
         80
       ],
       "id": "120ca62d-2e2d-4b31-bae5-4c5f26ec47d7",
@@ -1078,12 +1089,12 @@
     },
     {
       "parameters": {
-        "amount": 20
+        "amount": "=20"
       },
       "type": "n8n-nodes-base.wait",
       "typeVersion": 1.1,
       "position": [
-        1792,
+        1760,
         80
       ],
       "id": "4a3eca95-6a54-4521-8c7b-a5f138586680",
@@ -1117,14 +1128,86 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.3,
       "position": [
-        2016,
+        2160,
         80
       ],
       "id": "1c055c58-e4fb-492e-895d-66bba81298cc",
       "name": "If"
+    },
+    {
+      "parameters": {
+        "url": "=https://api.replicate.com/v1/predictions/{{ $('Replicate.google.imagen-4').item.json.id }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        1952,
+        80
+      ],
+      "id": "a5b40cda-6d35-42ce-bf6c-8ff3add84b7d",
+      "name": "HTTP Request",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "yKsf30NQFRM3zopJ",
+          "name": "Replicate.msn"
+        }
+      }
     }
   ],
-  "pinData": {},
+  "pinData": {
+    "Analiza.Rss": [
+      {
+        "json": {
+          "resumen_objetivo": "LinkedIn está emergiendo como una fuente influyente para modelos de IA como ChatGPT y otras herramientas de búsqueda AI, destacando la importancia del contenido compartido en esta red profesional.",
+          "puntos_clave": [
+            "Un estudio de Semrush indica que LinkedIn es una de las principales plataformas de referencia citadas por sistemas de IA, evidenciando su relevancia en el mundo digital actual.",
+            "Los tipos de contenido más citados por IA incluyen artículos profesionales, publicaciones sobre tendencias del mercado y análisis de casos de éxito, lo que sugiere un enfoque en la calidad y el conocimiento sectorial.",
+            "LinkedIn cuenta con más de 900 millones de usuarios, lo que lo posiciona como un espacio clave para la visibilidad profesional y la creación de redes enfocadas en la industria."
+          ],
+          "antecedentes": "Con el crecimiento de la inteligencia artificial y su integración en plataformas digitales, LinkedIn ha sido parcialmente impulsado por la necesidad de un contenido profesional de alta calidad. Esto representa un cambio en la forma en que se crea y comparte el conocimiento en el ámbito profesional.",
+          "implicaciones": "A medida que más modelos de IA utilizan LinkedIn como fuente de información, los profesionales pueden optimizar su presencia en esta red social. Esto puede traducirse en una mayor visibilidad, oportunidades de colaboración y posicionamiento como expertos en sus campos, lo que a su vez puede influir en el desarrollo de carrera y oportunidades laborales.",
+          "terminos_tecnicos": [
+            {
+              "termino": "Modelos de IA",
+              "definicion": "Sistemas de inteligencia artificial que aprenden a través de datos y algoritmos para realizar tareas específicas, como procesamiento de lenguaje natural y generación de contenido."
+            },
+            {
+              "termino": "Citación de contenido",
+              "definicion": "La referencia o mención de un contenido específico en un modelo de IA, lo que indica la relevancia y credibilidad de ese contenido en la formación de respuestas."
+            }
+          ]
+        },
+        "pairedItem": {
+          "item": 0
+        }
+      }
+    ],
+    "Crea.Titulo": [
+      {
+        "json": {
+          "title": "LINKEDIN IMPULSA MODELOS DE IA",
+          "subtitle": "900M USUARIOS ENFOCADOS EN CALIDAD",
+          "logo_search_term": "LinkedIn logo png transparente"
+        },
+        "pairedItem": {
+          "item": 0
+        }
+      }
+    ],
+    "Prompt.Imagen": [
+      {
+        "json": {
+          "text": "A collection of AI tools and models, including ChatGPT, surrounded by digital connections and networking symbols, with a dark and opaque background."
+        },
+        "pairedItem": {
+          "item": 0
+        }
+      }
+    ]
+  },
   "settings": {
     "executionOrder": "v1",
     "binaryMode": "separate"
@@ -1148,6 +1231,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2026-06-05T16:55:35.044Z",
-  "versionId": "675f24c4-e2b0-4221-bd9a-c45ee531fa00"
+  "updatedAt": "2026-06-05T17:13:24.151Z",
+  "versionId": "a6d2b2c1-b74d-43b0-910d-f9e9a17ddf00"
 }
