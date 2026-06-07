@@ -1,0 +1,2079 @@
+{
+  "active": true,
+  "activeVersion": {
+    "updatedAt": "2026-06-06T23:17:29.960Z",
+    "createdAt": "2026-06-06T23:16:56.708Z",
+    "versionId": "46dcbc66-0f26-4879-b007-6e5e6cf9a246",
+    "workflowId": "EzuhMMML1nuiHzh9",
+    "nodes": [
+      {
+        "parameters": {
+          "assignments": {
+            "assignments": [
+              {
+                "id": "d4b35b41-549a-4b23-b8f9-459e9bee0e80",
+                "name": "body.key",
+                "value": "={{ $json.body.data.key.remoteJid }}",
+                "type": "string"
+              },
+              {
+                "id": "4d21c639-5d85-4e57-b7d9-709ed4513ef8",
+                "name": "body",
+                "value": "={{ $json.body }}",
+                "type": "object"
+              }
+            ]
+          },
+          "options": {}
+        },
+        "type": "n8n-nodes-base.set",
+        "typeVersion": 3.4,
+        "position": [
+          -2896,
+          240
+        ],
+        "id": "5dbb0cca-54da-4ba7-8866-e2476fe6b5f8",
+        "name": "Edit Fields"
+      },
+      {
+        "parameters": {
+          "conditions": {
+            "options": {
+              "caseSensitive": true,
+              "leftValue": "",
+              "typeValidation": "strict",
+              "version": 2
+            },
+            "conditions": [
+              {
+                "id": "b912eb55-c707-4caa-a2e9-6ea7eb2ecec3",
+                "leftValue": "={{ $json.body.data.key.fromMe }}",
+                "rightValue": true,
+                "operator": {
+                  "type": "boolean",
+                  "operation": "true",
+                  "singleValue": true
+                }
+              }
+            ],
+            "combinator": "and"
+          },
+          "options": {}
+        },
+        "type": "n8n-nodes-base.if",
+        "typeVersion": 2.2,
+        "position": [
+          -2704,
+          240
+        ],
+        "id": "5945d956-938d-46aa-937f-005b44170d43",
+        "name": "Filtro fromMe"
+      },
+      {
+        "parameters": {},
+        "type": "n8n-nodes-base.noOp",
+        "typeVersion": 1,
+        "position": [
+          -2704,
+          96
+        ],
+        "id": "f87dbef2-4ce9-42eb-8bb2-132aa5cca5c4",
+        "name": "Ignorar mensaje propio"
+      },
+      {
+        "parameters": {
+          "rules": {
+            "values": [
+              {
+                "conditions": {
+                  "options": {
+                    "caseSensitive": true,
+                    "leftValue": "",
+                    "typeValidation": "strict",
+                    "version": 2
+                  },
+                  "conditions": [
+                    {
+                      "id": "37e8d4ea-8815-4800-b3bd-f9c76884d803",
+                      "leftValue": "={{ $json.body.data.messageType }}",
+                      "rightValue": "conversation",
+                      "operator": {
+                        "type": "string",
+                        "operation": "equals",
+                        "name": "filter.operator.equals"
+                      }
+                    }
+                  ],
+                  "combinator": "and"
+                },
+                "renameOutput": true,
+                "outputKey": "TEXTO"
+              },
+              {
+                "conditions": {
+                  "options": {
+                    "caseSensitive": true,
+                    "leftValue": "",
+                    "typeValidation": "strict",
+                    "version": 2
+                  },
+                  "conditions": [
+                    {
+                      "id": "4d4dfaa6-272f-4f2b-9ce5-e6c1ba5b490a",
+                      "leftValue": "={{ $json.body.data.messageType }}",
+                      "rightValue": "audioMessage",
+                      "operator": {
+                        "type": "string",
+                        "operation": "equals",
+                        "name": "filter.operator.equals"
+                      }
+                    }
+                  ],
+                  "combinator": "and"
+                },
+                "renameOutput": true,
+                "outputKey": "AUDIO"
+              }
+            ]
+          },
+          "options": {
+            "fallbackOutput": "extra"
+          }
+        },
+        "type": "n8n-nodes-base.switch",
+        "typeVersion": 3.2,
+        "position": [
+          -2480,
+          240
+        ],
+        "id": "a19d0527-6a78-44ac-96fb-3637f20e8000",
+        "name": "Switch tipo mensaje"
+      },
+      {
+        "parameters": {},
+        "type": "n8n-nodes-base.noOp",
+        "typeVersion": 1,
+        "position": [
+          -2496,
+          512
+        ],
+        "id": "6d2c077a-5267-4c73-af12-004416cd56a5",
+        "name": "Ignorar tipo no soportado"
+      },
+      {
+        "parameters": {
+          "assignments": {
+            "assignments": [
+              {
+                "id": "e209fc01-2976-4973-bca9-3b08b202e0a6",
+                "name": "mensaje",
+                "value": "={{ $json.body.data.message.conversation }}",
+                "type": "string"
+              }
+            ]
+          },
+          "options": {}
+        },
+        "type": "n8n-nodes-base.set",
+        "typeVersion": 3.4,
+        "position": [
+          -2224,
+          96
+        ],
+        "id": "528783e4-370c-4665-9cf4-711315443e6f",
+        "name": "Edit Fields1"
+      },
+      {
+        "parameters": {
+          "assignments": {
+            "assignments": [
+              {
+                "id": "3fb9ea6c-bd0d-401a-ab2d-d27a59c6ffa1",
+                "name": "audioMessageKeyId",
+                "value": "={{ $json.body.data.key.id }}",
+                "type": "string"
+              },
+              {
+                "id": "ce02b96b-10c9-456b-8746-525ff16f67a0",
+                "name": "remoteJid",
+                "value": "={{ $json.body.data.key.remoteJid }}",
+                "type": "string"
+              }
+            ]
+          },
+          "options": {}
+        },
+        "type": "n8n-nodes-base.set",
+        "typeVersion": 3.4,
+        "position": [
+          -2224,
+          256
+        ],
+        "id": "8f21bf90-9c52-42c7-bf74-97b337eb6ee9",
+        "name": "Edit Fields3"
+      },
+      {
+        "parameters": {
+          "method": "POST",
+          "url": "={{ $('Inicio (Router)').item.json.evolutionUrl }}/chat/getBase64FromMediaMessage/{{ $('Inicio (Router)').item.json.evolutionInstance }}",
+          "authentication": "genericCredentialType",
+          "genericAuthType": "httpHeaderAuth",
+          "sendBody": true,
+          "specifyBody": "json",
+          "jsonBody": "={{ { \"message\": $('Edit Fields').item.json.body.data, \"convertToMp4\": false } }}",
+          "options": {}
+        },
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.2,
+        "position": [
+          -2224,
+          512
+        ],
+        "id": "275866a8-24f3-4f2b-a0c3-473636559943",
+        "name": "Obtener audio (Evolution)",
+        "credentials": {
+          "httpHeaderAuth": {
+            "id": "rimSruvmZs92DDB6",
+            "name": "Evolution.inHouse"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "operation": "toBinary",
+          "sourceProperty": "base64",
+          "options": {
+            "fileName": "audio.ogg",
+            "mimeType": "audio/ogg"
+          }
+        },
+        "type": "n8n-nodes-base.convertToFile",
+        "typeVersion": 1.1,
+        "position": [
+          -2000,
+          512
+        ],
+        "id": "821bbc45-80c7-4fe2-86b2-41c4a5b65a6c",
+        "name": "Base64 a binario"
+      },
+      {
+        "parameters": {
+          "resource": "audio",
+          "operation": "transcribe",
+          "options": {}
+        },
+        "type": "@n8n/n8n-nodes-langchain.openAi",
+        "typeVersion": 1.8,
+        "position": [
+          -1744,
+          512
+        ],
+        "id": "dfdbd1d6-1eaf-4664-b17c-dd145ad9e27c",
+        "name": "Transcribir audio",
+        "credentials": {
+          "openAiApi": {
+            "id": "KY7AUSiKP5pDlGeh",
+            "name": "OpenAI.msn"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "assignments": {
+            "assignments": [
+              {
+                "id": "1966fbe0-8564-4acc-96b6-c38b26e8440e",
+                "name": "mensaje",
+                "value": "={{ $json.text }}",
+                "type": "string"
+              }
+            ]
+          },
+          "options": {}
+        },
+        "type": "n8n-nodes-base.set",
+        "typeVersion": 3.4,
+        "position": [
+          -1536,
+          512
+        ],
+        "id": "842b86a6-58ff-408f-9d7f-9103294ba22e",
+        "name": "Edit Fields7"
+      },
+      {
+        "parameters": {},
+        "type": "n8n-nodes-base.merge",
+        "typeVersion": 3.1,
+        "position": [
+          -2000,
+          112
+        ],
+        "id": "aa01d4d3-8cad-41b5-981a-8300f013a149",
+        "name": "Merge"
+      },
+      {
+        "parameters": {
+          "assignments": {
+            "assignments": [
+              {
+                "id": "0df1f23d-5e07-48c7-8cfe-1df7058c1a86",
+                "name": "Input",
+                "value": "={{ $json.mensaje }}",
+                "type": "string"
+              }
+            ]
+          },
+          "options": {}
+        },
+        "type": "n8n-nodes-base.set",
+        "typeVersion": 3.4,
+        "position": [
+          -1776,
+          112
+        ],
+        "id": "e7f83d68-482e-4981-a272-f91c31ee9286",
+        "name": "Edit Fields2"
+      },
+      {
+        "parameters": {
+          "inputText": "={{ $json.Input }}",
+          "categories": {
+            "categories": [
+              {
+                "category": "RESERVA",
+                "description": "El usuario quiere agendar una cita: inicia una nueva cita, pide horarios disponibles, da datos para agendar (nombre, correo, fecha, hora), corrige datos de una cita en proceso, pide horarios por franja (mañana, tarde, noche) o responde a las preguntas de contexto previas al agendamiento. Si el flujo de agendamiento ya está activo, cualquier respuesta dentro de ese contexto es RESERVA."
+              },
+              {
+                "category": "CONVERSACION",
+                "description": "El usuario hace preguntas o comentarios no relacionados con agendar una cita: dudas informativas sobre la empresa o sus servicios, temas generales o cualquier asunto fuera del proceso de reserva."
+              }
+            ]
+          },
+          "options": {}
+        },
+        "type": "@n8n/n8n-nodes-langchain.textClassifier",
+        "typeVersion": 1,
+        "position": [
+          -1568,
+          112
+        ],
+        "id": "08c53c16-75cd-4c53-abaa-4e4c8c6a0687",
+        "name": "Clasificador intencion"
+      },
+      {
+        "parameters": {
+          "options": {}
+        },
+        "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+        "typeVersion": 1.1,
+        "position": [
+          -1584,
+          336
+        ],
+        "id": "deb54034-05b1-4f9c-926a-08c47c64a1db",
+        "name": "Modelo Clasificador (gpt-4o-mini)",
+        "credentials": {
+          "openAiApi": {
+            "id": "KY7AUSiKP5pDlGeh",
+            "name": "OpenAI.msn"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "options": {}
+        },
+        "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+        "typeVersion": 1.1,
+        "position": [
+          -1264,
+          144
+        ],
+        "id": "af0a30cd-50c7-40cd-a07b-8ea5009bc6ca",
+        "name": "Modelo Agendador (gpt-4o)",
+        "credentials": {
+          "openAiApi": {
+            "id": "KY7AUSiKP5pDlGeh",
+            "name": "OpenAI.msn"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "options": {}
+        },
+        "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+        "typeVersion": 1.1,
+        "position": [
+          -1312,
+          544
+        ],
+        "id": "435888f0-e58e-48e1-b25a-42b3a3695ff2",
+        "name": "Modelo Conversacion (gpt-4o-mini)",
+        "credentials": {
+          "openAiApi": {
+            "id": "KY7AUSiKP5pDlGeh",
+            "name": "OpenAI.msn"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "sessionIdType": "customKey",
+          "sessionKey": "={{ $('Inicio (Router)').item.json.tenant }}_{{ $('Inicio (Router)').item.json.body.data.key.remoteJid }}",
+          "contextWindowLength": 20
+        },
+        "type": "@n8n/n8n-nodes-langchain.memoryPostgresChat",
+        "typeVersion": 1.3,
+        "position": [
+          -1136,
+          224
+        ],
+        "id": "026ec74a-85be-420e-91b9-817c1d1e71df",
+        "name": "Postgres Chat Memory",
+        "credentials": {
+          "postgres": {
+            "id": "dptch5UJkIPuomI3",
+            "name": "Postgres.contabo"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "toolDescription": "Recupera todos los espacios de citas libres disponibles de la base de datos.",
+          "url": "https://api.cal.com/v1/slots",
+          "sendQuery": true,
+          "specifyQuery": "json",
+          "jsonQuery": "={\n  \"startTime\": \"{startTime}\",\n  \"endTime\": \"{endTime}\",\n  \"eventTypeId\": \"{{ $('Inicio (Router)').item.json.calEventTypeId }}\",\n  \"timeZone\": \"America/Lima\",\\n  \"apiKey\": \"{{ $('Inicio (Router)').item.json.calApiKey }}\"\n}",
+          "placeholderDefinitions": {
+            "values": [
+              {
+                "name": "startTime",
+                "description": "Fecha de inicio en ISO 8601 UTC. La hora siempre empieza a las 00:00:00.",
+                "type": "string"
+              },
+              {
+                "name": "endTime",
+                "description": "Fecha de fin en ISO 8601 UTC. La hora siempre finaliza a las 23:59:59.",
+                "type": "string"
+              }
+            ]
+          }
+        },
+        "type": "@n8n/n8n-nodes-langchain.toolHttpRequest",
+        "typeVersion": 1.1,
+        "position": [
+          -992,
+          160
+        ],
+        "id": "ee9ff748-044e-4db0-ba70-b5d98b3e9320",
+        "name": "DISPONIBILIDAD"
+      },
+      {
+        "parameters": {
+          "toolDescription": "Guarda la cita en la base de datos.",
+          "method": "POST",
+          "url": "https://api.cal.com/v1/bookings",
+          "sendQuery": true,
+          "specifyQuery": "json",
+          "jsonQuery": "={\\n  \"apiKey\": \"{{ $('Inicio (Router)').item.json.calApiKey }}\"\\n}",
+          "sendBody": true,
+          "specifyBody": "json",
+          "jsonBody": "={\n  \"eventTypeId\": {{ Number($('Inicio (Router)').item.json.calEventTypeId) }},\n  \"start\": \"{startTime}\",\n  \"responses\": {\n    \"name\": \"{userName}\",\n    \"email\": \"{userEmail}\",\n    \"location\": {\n      \"value\": \"online\",\n      \"optionValue\": \"\"\n    }\n  },\n  \"timeZone\": \"America/Lima\",\n  \"language\": \"es\",\n  \"metadata\": {}\n}",
+          "placeholderDefinitions": {
+            "values": [
+              {
+                "name": "startTime",
+                "description": "Fecha/hora de inicio elegida por el usuario en ISO 8601 UTC.",
+                "type": "string"
+              },
+              {
+                "name": "userName",
+                "description": "Nombre completo del usuario",
+                "type": "string"
+              },
+              {
+                "name": "userEmail",
+                "description": "Email del usuario"
+              }
+            ]
+          }
+        },
+        "type": "@n8n/n8n-nodes-langchain.toolHttpRequest",
+        "typeVersion": 1.1,
+        "position": [
+          -816,
+          160
+        ],
+        "id": "01671bb4-cdbd-4836-89e1-3c6ef3bc46e1",
+        "name": "AGENDAR"
+      },
+      {
+        "parameters": {},
+        "type": "@n8n/n8n-nodes-langchain.toolThink",
+        "typeVersion": 1,
+        "position": [
+          -656,
+          160
+        ],
+        "id": "873d2069-26b5-44ab-b579-85236e3018d2",
+        "name": "Think"
+      },
+      {
+        "parameters": {
+          "mode": "retrieve-as-tool",
+          "toolName": "companyKnowledge",
+          "toolDescription": "Usa esta herramienta para recuperar información de la empresa (servicios, precios, FAQ, contacto).",
+          "qdrantCollection": {
+            "__rl": true,
+            "value": "smartweb_knowledge",
+            "mode": "list",
+            "cachedResultName": "smartweb_knowledge"
+          },
+          "topK": 10,
+          "options": {
+            "searchFilterJson": "={\n  \"must\": [\n    {\n      \"key\": \"metadata.tenant\",\n      \"match\": { \"value\": \"{{ $('Inicio (Router)').item.json.tenant }}\" }\n    }\n  ]\n}"
+          }
+        },
+        "type": "@n8n/n8n-nodes-langchain.vectorStoreQdrant",
+        "typeVersion": 1.1,
+        "position": [
+          -1120,
+          592
+        ],
+        "id": "d34d1b18-7595-4da4-bceb-b6c96b6bc662",
+        "name": "Qdrant Vector Store",
+        "credentials": {
+          "qdrantApi": {
+            "id": "CGQrp2xFcyYxuAVX",
+            "name": "Qdrant.inHouse"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "options": {}
+        },
+        "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
+        "typeVersion": 1.2,
+        "position": [
+          -1056,
+          768
+        ],
+        "id": "9df568c5-4992-4b14-bc1d-9a0f1363316f",
+        "name": "Embeddings OpenAI",
+        "credentials": {
+          "openAiApi": {
+            "id": "KY7AUSiKP5pDlGeh",
+            "name": "OpenAI.msn"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "inputSource": "passthrough"
+        },
+        "type": "n8n-nodes-base.executeWorkflowTrigger",
+        "typeVersion": 1.1,
+        "position": [
+          -3104,
+          240
+        ],
+        "id": "7e0b9413-0d1c-41db-b467-0018003c01cd",
+        "name": "Inicio (Router)"
+      },
+      {
+        "parameters": {
+          "content": "## Notas \n[Configurar Webhokk](https://smartweb-web-evolution-api.izq3rn.easypanel.host/manager/instance/c6d3e45e-2616-40f6-b822-934a6ca62591/webhook)",
+          "width": 272
+        },
+        "type": "n8n-nodes-base.stickyNote",
+        "position": [
+          -3072,
+          32
+        ],
+        "typeVersion": 1,
+        "id": "ab2ad395-1fa5-4b9e-ba58-cc56d704aa43",
+        "name": "Sticky Note1"
+      },
+      {
+        "parameters": {
+          "promptType": "define",
+          "text": "=[FORMATO OBLIGATORIO WhatsApp — aplica esto ANTES de responder:\n• Usa 💡 para CADA servicio o ítem (NUNCA separes con comas)\n• Usa *negrita* para títulos y términos clave (un asterisco, no dos)\n• Pon una LÍNEA EN BLANCO entre cada sección o grupo de ítems\n• Máximo 3 oraciones por bloque — si hay más, divide en bloques\n• NUNCA respondas como un párrafo largo con comas]\n\n{{ $('Edit Fields2').item.json.Input }}",
+          "options": {
+            "systemMessage": "=<agentPrompt>\n  <context>\n    Eres el asistente de {{ $('Inicio (Router)').item.json.empresaNombre }}, una empresa de automatización con inteligencia artificial. Ayudas a personas interesadas en sus servicios, con soluciones simples y personalizadas.\n  </context>\n  <role>\n    Asistente informativo profesional, humano y claro. Responde ÚNICAMENTE con base en la información de companyKnowledge (RAG). No inventes nada.\n  </role>\n  <tools>\n    companyKnowledge: base de datos vectorial con toda la información de {{ $('Inicio (Router)').item.json.empresaNombre }} (servicios, precios, preguntas frecuentes, contacto).\n  </tools>\n  <ragRule>\n    Consulta SIEMPRE companyKnowledge antes de responder. Si no encuentras la respuesta, no inventes; ofrece agendar una llamada o deja el correo de contacto: {{ $('Inicio (Router)').item.json.email }}.\n  </ragRule>\n  <contact>Correo: {{ $('Inicio (Router)').item.json.email }}</contact>\n  <tone>Cercano, claro, profesional, sin sonar robótico. No uses emojis.</tone>\n  <limits>\n    No inventes información no respaldada por companyKnowledge. No participes en temas fuera del enfoque del negocio.\n  </limits>\n  <personaRules>\n    Responde en primera persona como parte del equipo de {{ $('Inicio (Router)').item.json.empresaNombre }}. Si te preguntan algo personal o te felicitan, agradece y di que eres la IA de {{ $('Inicio (Router)').item.json.empresaNombre }} y que lo harás llegar al equipo.\n  </personaRules>\n</agentPrompt>\n\nTrata de no saltar párrafos. No menciones herramientas técnicas como n8n o Make. Enfócate en los beneficios prácticos para el cliente.\n\nFORMATO DE RESPUESTA — WhatsApp (obligatorio):\nUsa siempre el formato nativo de WhatsApp. Reglas estrictas:\n- Negrita: *texto* (un asterisco por lado — nunca **)\n- Cursiva: _texto_ (guión bajo)\n- Viñetas: 💡 elemento (nunca - ni *)\n- Viñeta ÚNICA permitida: 💡 (úsala para TODOS los ítems, sin excepción)\n- Separa secciones con una línea en blanco\n- Máximo 2-3 oraciones por bloque; sé conciso y directo\n- Nunca uses ##, **, ---, ni bloques de código"
+          }
+        },
+        "type": "@n8n/n8n-nodes-langchain.agent",
+        "typeVersion": 1.7,
+        "position": [
+          -1248,
+          384
+        ],
+        "id": "3ab5f1a2-c053-4d9c-bd03-51d5ce32727c",
+        "name": "Conversacion"
+      },
+      {
+        "parameters": {
+          "promptType": "define",
+          "text": "=[FORMATO OBLIGATORIO WhatsApp — aplica esto ANTES de responder:\n• Usa *negrita* para nombre, fecha, hora y correo del usuario\n• Al listar horarios usa 1. 2. 3. (uno por línea)\n• Pon una LÍNEA EN BLANCO entre cada pregunta o sección\n• Resumen final de la cita: usa 📅 ⏰ 📧 con línea propia cada uno]\n\n{{ $('Edit Fields2').item.json.Input }}",
+          "options": {
+            "systemMessage": "=Eres el asistente de agendamiento de {{ $('Inicio (Router)').item.json.empresaNombre }}, una empresa especializada en automatización con inteligencia artificial. Tu objetivo es entender al prospecto y agendar su cita de forma conversacional, profesional y cordial.\n\nHERRAMIENTAS DISPONIBLES (usa exactamente estos nombres):\n- DISPONIBILIDAD: consulta los horarios libres en la fecha indicada por el usuario.\n- AGENDAR: registra la cita en la base de datos (Cal.com).\n- Think: úsala para razonar si te pierdes o para verificar que tienes todos los datos antes de agendar.\n\nZONA HORARIA Y CONVERSIÓN A UTC (CRÍTICO):\n- El usuario está en zona horaria America/Lima (UTC-5, sin horario de verano).\n- Cal.com requiere las horas en formato ISO 8601 UTC: YYYY-MM-DDTHH:mm:ssZ.\n- Para convertir: hora local de Lima + 5 horas = hora UTC.\n  Ejemplo: si el usuario elige las 14:00 hora Lima del 2026-06-10, envía 2026-06-10T19:00:00Z en el campo start de AGENDAR.\n- Para DISPONIBILIDAD usa startTime a las 00:00:00 y endTime a las 23:59:59 del día solicitado, expresados en UTC.\n\nPREGUNTAS DE CONTEXTO (una por una; sirven para entender al prospecto, NUNCA para rechazarlo):\n1. ¿Cuál es tu objetivo principal al buscar automatización con IA?\n2. ¿Ya usas alguna herramienta de automatización o CRM? ¿Cuál?\n3. ¿Qué presupuesto tienes en mente? (solo para orientar la propuesta)\nContinúa SIEMPRE con el agendamiento, sin importar las respuestas. No descartes a nadie por presupuesto.\n\nFLUJO DE AGENDAMIENTO:\n- Reconoce los datos ya proporcionados y no repitas preguntas. Pide solo lo que falte: nombre completo, correo y fecha.\n- Llama a DISPONIBILIDAD y muestra los horarios libres de forma clara.\n- Franjas horarias (hora Lima): mañana 00:00-11:59, tarde 12:00-17:00, noche 17:01-23:59. Si no hay disponibilidad en la franja pedida, ofrece otras opciones del mismo día.\n- Cuando el usuario elija una hora válida y ya tengas nombre, correo, fecha y hora: resume los datos, convierte la hora a UTC y llama a AGENDAR de inmediato, sin confirmaciones innecesarias.\n- Si se agenda bien: ¡Tu cita quedó reservada para el [fecha] a las [hora Lima]! Te enviamos un correo de confirmación.\n- Si hay error: Hubo un problema al confirmar la cita. ¿Podrías elegir otro horario?\n\nREGLAS:\n- Valida que el correo tenga @ y un dominio válido.\n- Nunca inventes horarios. Si cambia la fecha u hora, vuelve a llamar a DISPONIBILIDAD.\n- Interpreta correctamente frases como mañana por la mañana, próximo lunes, la siguiente semana, respecto a la fecha actual.\n- No menciones herramientas técnicas como n8n o Make. Habla de beneficios.\n- No pongas palabras entre comillas. No saltes párrafos innecesariamente.\n\nFecha y hora actual (referencia, America/Lima): {{ new Date($now).toLocaleString(\"es-PE\", { weekday: \"long\", year: \"numeric\", month: \"long\", day: \"numeric\", hour: \"2-digit\", minute: \"2-digit\", hour12: true, timeZone: \"America/Lima\" }) }}\n\nFORMATO DE RESPUESTA — WhatsApp (obligatorio):\nUsa siempre el formato nativo de WhatsApp. Reglas estrictas:\n- Negrita: *texto* (un asterisco por lado — nunca **)\n- Resalta con negrita: *nombre*, *fecha*, *hora*, *correo del usuario*\n- Horarios disponibles: lista numerada · 1. opción · 2. opción · 3. opción\n- Confirmación de cita: bloque resumen con 📅 fecha · ⏰ hora · 📧 correo\n- Emojis de apoyo: 📅 fecha · ⏰ hora · 📧 correo · ✅ confirmado · ❓ pregunta\n- Separa pasos con una línea en blanco; sé conciso y directo\n- Nunca uses ##, **, ---, ni bloques de código"
+          }
+        },
+        "type": "@n8n/n8n-nodes-langchain.agent",
+        "typeVersion": 1.7,
+        "position": [
+          -1232,
+          -32
+        ],
+        "id": "4a5d6dda-5ec1-419e-bace-7960a642799a",
+        "name": "Agendador"
+      },
+      {
+        "parameters": {
+          "resource": "messages-api",
+          "instanceName": "={{ $json.instanceName }}",
+          "remoteJid": "={{ $json.remoteJid }}",
+          "messageText": "={{ $json.mensaje }}",
+          "options_message": {}
+        },
+        "type": "n8n-nodes-evolution-api.evolutionApi",
+        "typeVersion": 1,
+        "position": [
+          -688,
+          384
+        ],
+        "id": "033593c8-9faf-4ff7-b767-7bf6efbc2d01",
+        "name": "Enviar texto (Conversacion)",
+        "credentials": {
+          "evolutionApi": {
+            "id": "pkZphInpmEQfnYQG",
+            "name": "Evolution.inHouse"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "resource": "messages-api",
+          "instanceName": "={{ $json.instanceName }}",
+          "remoteJid": "={{ $json.remoteJid }}",
+          "messageText": "={{ $json.mensaje }}",
+          "options_message": {}
+        },
+        "type": "n8n-nodes-evolution-api.evolutionApi",
+        "typeVersion": 1,
+        "position": [
+          -720,
+          -32
+        ],
+        "id": "6353d76d-5b7a-4143-97e9-05269f03c166",
+        "name": "Enviar texto (Agendador)",
+        "credentials": {
+          "evolutionApi": {
+            "id": "pkZphInpmEQfnYQG",
+            "name": "Evolution.inHouse"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "jsCode": "const raw = $json.output || '';\nconst remoteJid = $('Inicio (Router)').item.json.body.data.key.remoteJid;\nconst instanceName = $('Inicio (Router)').item.json.evolutionInstance;\n\nlet t = raw;\n// Markdown → WhatsApp\nt = t.replace(/\\*\\*(.+?)\\*\\*/gs, '*$1*');\nt = t.replace(/__(.+?)__/g, '*$1*');\nt = t.replace(/^#{1,3} +(.+)/gm, '*$1*');\nt = t.replace(/^[ \\t]*[-•·] (.+)/gm, '💡 $1'); // -, •, · → 💡\nt = t.replace(/~~(.+?)~~/g, '~$1~');\nt = t.replace(/```[\\s\\S]*?```/g, '').replace(/`([^`]+)`/g, '$1');\nt = t.trim();\n\n// Dividir por doble salto de línea (párrafos)\nlet bloques = t.split(/\\n{2,}/).map(b => b.trim()).filter(b => b.length > 0);\n\n// Fallback: si hay un bloque largo sin párrafos, dividir por oraciones\nif (bloques.length === 1 && bloques[0].length > 280) {\n  const texto = bloques[0];\n  const oraciones = texto.split(/(?<=[.!?;])\\s+(?=[A-ZÁÉÍÓÚÑ💡✅📌📅⏰📧💡\\-\\d])/);\n  const reagrupado = [];\n  let actual = '';\n  for (const o of oraciones) {\n    const candidato = actual ? actual + ' ' + o : o;\n    if (actual && candidato.length > 260) {\n      reagrupado.push(actual.trim());\n      actual = o;\n    } else {\n      actual = candidato;\n    }\n  }\n  if (actual.trim()) reagrupado.push(actual.trim());\n  bloques = reagrupado.length > 1 ? reagrupado : [texto];\n}\n\n// Sub-dividir bloques aún muy largos (> 700 chars) por línea\nconst chunks = [];\nfor (const bloque of bloques) {\n  if (bloque.length <= 700) {\n    chunks.push(bloque);\n  } else {\n    const lineas = bloque.split('\\n');\n    let actual = '';\n    for (const linea of lineas) {\n      if (actual && (actual + '\\n' + linea).length > 700) {\n        chunks.push(actual.trim());\n        actual = linea;\n      } else {\n        actual = actual ? actual + '\\n' + linea : linea;\n      }\n    }\n    if (actual.trim()) chunks.push(actual.trim());\n  }\n}\n\nconst final = chunks.length > 0 ? chunks : [t || ''];\nreturn final.map(msg => ({ json: { mensaje: msg, remoteJid, instanceName } }));"
+        },
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          -912,
+          -32
+        ],
+        "id": "11619f01-ea29-4936-85f9-53e4ebffc36c",
+        "name": "Formatear y dividir (Agendador)"
+      },
+      {
+        "parameters": {
+          "jsCode": "const raw = $json.output || '';\nconst remoteJid = $('Inicio (Router)').item.json.body.data.key.remoteJid;\nconst instanceName = $('Inicio (Router)').item.json.evolutionInstance;\n\nlet t = raw;\n// Markdown → WhatsApp\nt = t.replace(/\\*\\*(.+?)\\*\\*/gs, '*$1*');\nt = t.replace(/__(.+?)__/g, '*$1*');\nt = t.replace(/^#{1,3} +(.+)/gm, '*$1*');\nt = t.replace(/^[ \\t]*[-•·] (.+)/gm, '💡 $1'); // -, •, · → 💡\nt = t.replace(/~~(.+?)~~/g, '~$1~');\nt = t.replace(/```[\\s\\S]*?```/g, '').replace(/`([^`]+)`/g, '$1');\nt = t.trim();\n\n// Dividir por doble salto de línea (párrafos)\nlet bloques = t.split(/\\n{2,}/).map(b => b.trim()).filter(b => b.length > 0);\n\n// Fallback: si hay un bloque largo sin párrafos, dividir por oraciones\nif (bloques.length === 1 && bloques[0].length > 280) {\n  const texto = bloques[0];\n  const oraciones = texto.split(/(?<=[.!?;])\\s+(?=[A-ZÁÉÍÓÚÑ💡✅📌📅⏰📧💡\\-\\d])/);\n  const reagrupado = [];\n  let actual = '';\n  for (const o of oraciones) {\n    const candidato = actual ? actual + ' ' + o : o;\n    if (actual && candidato.length > 260) {\n      reagrupado.push(actual.trim());\n      actual = o;\n    } else {\n      actual = candidato;\n    }\n  }\n  if (actual.trim()) reagrupado.push(actual.trim());\n  bloques = reagrupado.length > 1 ? reagrupado : [texto];\n}\n\n// Sub-dividir bloques aún muy largos (> 700 chars) por línea\nconst chunks = [];\nfor (const bloque of bloques) {\n  if (bloque.length <= 700) {\n    chunks.push(bloque);\n  } else {\n    const lineas = bloque.split('\\n');\n    let actual = '';\n    for (const linea of lineas) {\n      if (actual && (actual + '\\n' + linea).length > 700) {\n        chunks.push(actual.trim());\n        actual = linea;\n      } else {\n        actual = actual ? actual + '\\n' + linea : linea;\n      }\n    }\n    if (actual.trim()) chunks.push(actual.trim());\n  }\n}\n\nconst final = chunks.length > 0 ? chunks : [t || ''];\nreturn final.map(msg => ({ json: { mensaje: msg, remoteJid, instanceName } }));"
+        },
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          -896,
+          384
+        ],
+        "id": "de38a2d9-3fd6-43c7-8487-a76782ed8455",
+        "name": "Formatear y dividir (Conversacion)"
+      }
+    ],
+    "connections": {
+      "Edit Fields": {
+        "main": [
+          [
+            {
+              "node": "Filtro fromMe",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Filtro fromMe": {
+        "main": [
+          [
+            {
+              "node": "Ignorar mensaje propio",
+              "type": "main",
+              "index": 0
+            }
+          ],
+          [
+            {
+              "node": "Switch tipo mensaje",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Switch tipo mensaje": {
+        "main": [
+          [
+            {
+              "node": "Edit Fields1",
+              "type": "main",
+              "index": 0
+            }
+          ],
+          [
+            {
+              "node": "Edit Fields3",
+              "type": "main",
+              "index": 0
+            }
+          ],
+          [
+            {
+              "node": "Ignorar tipo no soportado",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Edit Fields1": {
+        "main": [
+          [
+            {
+              "node": "Merge",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Edit Fields3": {
+        "main": [
+          [
+            {
+              "node": "Obtener audio (Evolution)",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Obtener audio (Evolution)": {
+        "main": [
+          [
+            {
+              "node": "Base64 a binario",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Base64 a binario": {
+        "main": [
+          [
+            {
+              "node": "Transcribir audio",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Transcribir audio": {
+        "main": [
+          [
+            {
+              "node": "Edit Fields7",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Edit Fields7": {
+        "main": [
+          [
+            {
+              "node": "Merge",
+              "type": "main",
+              "index": 1
+            }
+          ]
+        ]
+      },
+      "Merge": {
+        "main": [
+          [
+            {
+              "node": "Edit Fields2",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Edit Fields2": {
+        "main": [
+          [
+            {
+              "node": "Clasificador intencion",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Clasificador intencion": {
+        "main": [
+          [
+            {
+              "node": "Agendador",
+              "type": "main",
+              "index": 0
+            }
+          ],
+          [
+            {
+              "node": "Conversacion",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Modelo Clasificador (gpt-4o-mini)": {
+        "ai_languageModel": [
+          [
+            {
+              "node": "Clasificador intencion",
+              "type": "ai_languageModel",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Modelo Agendador (gpt-4o)": {
+        "ai_languageModel": [
+          [
+            {
+              "node": "Agendador",
+              "type": "ai_languageModel",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Modelo Conversacion (gpt-4o-mini)": {
+        "ai_languageModel": [
+          [
+            {
+              "node": "Conversacion",
+              "type": "ai_languageModel",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Postgres Chat Memory": {
+        "ai_memory": [
+          [
+            {
+              "node": "Agendador",
+              "type": "ai_memory",
+              "index": 0
+            },
+            {
+              "node": "Conversacion",
+              "type": "ai_memory",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "DISPONIBILIDAD": {
+        "ai_tool": [
+          [
+            {
+              "node": "Agendador",
+              "type": "ai_tool",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "AGENDAR": {
+        "ai_tool": [
+          [
+            {
+              "node": "Agendador",
+              "type": "ai_tool",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Think": {
+        "ai_tool": [
+          [
+            {
+              "node": "Agendador",
+              "type": "ai_tool",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Qdrant Vector Store": {
+        "ai_tool": [
+          [
+            {
+              "node": "Conversacion",
+              "type": "ai_tool",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Embeddings OpenAI": {
+        "ai_embedding": [
+          [
+            {
+              "node": "Qdrant Vector Store",
+              "type": "ai_embedding",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Inicio (Router)": {
+        "main": [
+          [
+            {
+              "node": "Edit Fields",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Conversacion": {
+        "main": [
+          [
+            {
+              "node": "Formatear y dividir (Conversacion)",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Agendador": {
+        "main": [
+          [
+            {
+              "node": "Formatear y dividir (Agendador)",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Formatear y dividir (Agendador)": {
+        "main": [
+          [
+            {
+              "node": "Enviar texto (Agendador)",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Formatear y dividir (Conversacion)": {
+        "main": [
+          [
+            {
+              "node": "Enviar texto (Conversacion)",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      }
+    },
+    "nodeGroups": [],
+    "authors": "John Ordóñez Monroy",
+    "name": "Version 46dcbc66",
+    "description": "",
+    "autosaved": true
+  },
+  "activeVersionId": "46dcbc66-0f26-4879-b007-6e5e6cf9a246",
+  "connections": {
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Filtro fromMe",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filtro fromMe": {
+      "main": [
+        [
+          {
+            "node": "Ignorar mensaje propio",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Switch tipo mensaje",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch tipo mensaje": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Edit Fields3",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Ignorar tipo no soportado",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields1": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields3": {
+      "main": [
+        [
+          {
+            "node": "Obtener audio (Evolution)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Obtener audio (Evolution)": {
+      "main": [
+        [
+          {
+            "node": "Base64 a binario",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Base64 a binario": {
+      "main": [
+        [
+          {
+            "node": "Transcribir audio",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Transcribir audio": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields7",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields7": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields2": {
+      "main": [
+        [
+          {
+            "node": "Clasificador intencion",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Clasificador intencion": {
+      "main": [
+        [
+          {
+            "node": "Agendador",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Conversacion",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Modelo Clasificador (gpt-4o-mini)": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Clasificador intencion",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Modelo Agendador (gpt-4o)": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Agendador",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Modelo Conversacion (gpt-4o-mini)": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Conversacion",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Postgres Chat Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "Agendador",
+            "type": "ai_memory",
+            "index": 0
+          },
+          {
+            "node": "Conversacion",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "DISPONIBILIDAD": {
+      "ai_tool": [
+        [
+          {
+            "node": "Agendador",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AGENDAR": {
+      "ai_tool": [
+        [
+          {
+            "node": "Agendador",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Think": {
+      "ai_tool": [
+        [
+          {
+            "node": "Agendador",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Qdrant Vector Store": {
+      "ai_tool": [
+        [
+          {
+            "node": "Conversacion",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings OpenAI": {
+      "ai_embedding": [
+        [
+          {
+            "node": "Qdrant Vector Store",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Inicio (Router)": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Conversacion": {
+      "main": [
+        [
+          {
+            "node": "Formatear y dividir (Conversacion)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Agendador": {
+      "main": [
+        [
+          {
+            "node": "Formatear y dividir (Agendador)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Formatear y dividir (Agendador)": {
+      "main": [
+        [
+          {
+            "node": "Enviar texto (Agendador)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Formatear y dividir (Conversacion)": {
+      "main": [
+        [
+          {
+            "node": "Enviar texto (Conversacion)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2026-06-04T22:22:35.100Z",
+  "id": "EzuhMMML1nuiHzh9",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "WhatsApp.Agente.IA",
+  "nodes": [
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "d4b35b41-549a-4b23-b8f9-459e9bee0e80",
+              "name": "body.key",
+              "value": "={{ $json.body.data.key.remoteJid }}",
+              "type": "string"
+            },
+            {
+              "id": "4d21c639-5d85-4e57-b7d9-709ed4513ef8",
+              "name": "body",
+              "value": "={{ $json.body }}",
+              "type": "object"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -2896,
+        240
+      ],
+      "id": "5dbb0cca-54da-4ba7-8866-e2476fe6b5f8",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "b912eb55-c707-4caa-a2e9-6ea7eb2ecec3",
+              "leftValue": "={{ $json.body.data.key.fromMe }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -2704,
+        240
+      ],
+      "id": "5945d956-938d-46aa-937f-005b44170d43",
+      "name": "Filtro fromMe"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        -2704,
+        96
+      ],
+      "id": "f87dbef2-4ce9-42eb-8bb2-132aa5cca5c4",
+      "name": "Ignorar mensaje propio"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "37e8d4ea-8815-4800-b3bd-f9c76884d803",
+                    "leftValue": "={{ $json.body.data.messageType }}",
+                    "rightValue": "conversation",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "TEXTO"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "4d4dfaa6-272f-4f2b-9ce5-e6c1ba5b490a",
+                    "leftValue": "={{ $json.body.data.messageType }}",
+                    "rightValue": "audioMessage",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "AUDIO"
+            }
+          ]
+        },
+        "options": {
+          "fallbackOutput": "extra"
+        }
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        -2480,
+        240
+      ],
+      "id": "a19d0527-6a78-44ac-96fb-3637f20e8000",
+      "name": "Switch tipo mensaje"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        -2496,
+        512
+      ],
+      "id": "6d2c077a-5267-4c73-af12-004416cd56a5",
+      "name": "Ignorar tipo no soportado"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "e209fc01-2976-4973-bca9-3b08b202e0a6",
+              "name": "mensaje",
+              "value": "={{ $json.body.data.message.conversation }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -2224,
+        96
+      ],
+      "id": "528783e4-370c-4665-9cf4-711315443e6f",
+      "name": "Edit Fields1"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "3fb9ea6c-bd0d-401a-ab2d-d27a59c6ffa1",
+              "name": "audioMessageKeyId",
+              "value": "={{ $json.body.data.key.id }}",
+              "type": "string"
+            },
+            {
+              "id": "ce02b96b-10c9-456b-8746-525ff16f67a0",
+              "name": "remoteJid",
+              "value": "={{ $json.body.data.key.remoteJid }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -2224,
+        256
+      ],
+      "id": "8f21bf90-9c52-42c7-bf74-97b337eb6ee9",
+      "name": "Edit Fields3"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('Inicio (Router)').item.json.evolutionUrl }}/chat/getBase64FromMediaMessage/{{ $('Inicio (Router)').item.json.evolutionInstance }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ { \"message\": $('Edit Fields').item.json.body.data, \"convertToMp4\": false } }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -2224,
+        512
+      ],
+      "id": "275866a8-24f3-4f2b-a0c3-473636559943",
+      "name": "Obtener audio (Evolution)",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "rimSruvmZs92DDB6",
+          "name": "Evolution.inHouse"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "toBinary",
+        "sourceProperty": "base64",
+        "options": {
+          "fileName": "audio.ogg",
+          "mimeType": "audio/ogg"
+        }
+      },
+      "type": "n8n-nodes-base.convertToFile",
+      "typeVersion": 1.1,
+      "position": [
+        -2000,
+        512
+      ],
+      "id": "821bbc45-80c7-4fe2-86b2-41c4a5b65a6c",
+      "name": "Base64 a binario"
+    },
+    {
+      "parameters": {
+        "resource": "audio",
+        "operation": "transcribe",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.8,
+      "position": [
+        -1744,
+        512
+      ],
+      "id": "dfdbd1d6-1eaf-4664-b17c-dd145ad9e27c",
+      "name": "Transcribir audio",
+      "credentials": {
+        "openAiApi": {
+          "id": "KY7AUSiKP5pDlGeh",
+          "name": "OpenAI.msn"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "1966fbe0-8564-4acc-96b6-c38b26e8440e",
+              "name": "mensaje",
+              "value": "={{ $json.text }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -1536,
+        512
+      ],
+      "id": "842b86a6-58ff-408f-9d7f-9103294ba22e",
+      "name": "Edit Fields7"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.1,
+      "position": [
+        -2000,
+        112
+      ],
+      "id": "aa01d4d3-8cad-41b5-981a-8300f013a149",
+      "name": "Merge"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "0df1f23d-5e07-48c7-8cfe-1df7058c1a86",
+              "name": "Input",
+              "value": "={{ $json.mensaje }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -1776,
+        112
+      ],
+      "id": "e7f83d68-482e-4981-a272-f91c31ee9286",
+      "name": "Edit Fields2"
+    },
+    {
+      "parameters": {
+        "inputText": "={{ $json.Input }}",
+        "categories": {
+          "categories": [
+            {
+              "category": "RESERVA",
+              "description": "El usuario quiere agendar una cita: inicia una nueva cita, pide horarios disponibles, da datos para agendar (nombre, correo, fecha, hora), corrige datos de una cita en proceso, pide horarios por franja (mañana, tarde, noche) o responde a las preguntas de contexto previas al agendamiento. Si el flujo de agendamiento ya está activo, cualquier respuesta dentro de ese contexto es RESERVA."
+            },
+            {
+              "category": "CONVERSACION",
+              "description": "El usuario hace preguntas o comentarios no relacionados con agendar una cita: dudas informativas sobre la empresa o sus servicios, temas generales o cualquier asunto fuera del proceso de reserva."
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.textClassifier",
+      "typeVersion": 1,
+      "position": [
+        -1568,
+        112
+      ],
+      "id": "08c53c16-75cd-4c53-abaa-4e4c8c6a0687",
+      "name": "Clasificador intencion"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.1,
+      "position": [
+        -1584,
+        336
+      ],
+      "id": "deb54034-05b1-4f9c-926a-08c47c64a1db",
+      "name": "Modelo Clasificador (gpt-4o-mini)",
+      "credentials": {
+        "openAiApi": {
+          "id": "KY7AUSiKP5pDlGeh",
+          "name": "OpenAI.msn"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.1,
+      "position": [
+        -1264,
+        144
+      ],
+      "id": "af0a30cd-50c7-40cd-a07b-8ea5009bc6ca",
+      "name": "Modelo Agendador (gpt-4o)",
+      "credentials": {
+        "openAiApi": {
+          "id": "KY7AUSiKP5pDlGeh",
+          "name": "OpenAI.msn"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.1,
+      "position": [
+        -1312,
+        544
+      ],
+      "id": "435888f0-e58e-48e1-b25a-42b3a3695ff2",
+      "name": "Modelo Conversacion (gpt-4o-mini)",
+      "credentials": {
+        "openAiApi": {
+          "id": "KY7AUSiKP5pDlGeh",
+          "name": "OpenAI.msn"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $('Inicio (Router)').item.json.tenant }}_{{ $('Inicio (Router)').item.json.body.data.key.remoteJid }}",
+        "contextWindowLength": 20
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryPostgresChat",
+      "typeVersion": 1.3,
+      "position": [
+        -1136,
+        224
+      ],
+      "id": "026ec74a-85be-420e-91b9-817c1d1e71df",
+      "name": "Postgres Chat Memory",
+      "credentials": {
+        "postgres": {
+          "id": "dptch5UJkIPuomI3",
+          "name": "Postgres.contabo"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "toolDescription": "Recupera todos los espacios de citas libres disponibles de la base de datos.",
+        "url": "https://api.cal.com/v1/slots",
+        "sendQuery": true,
+        "specifyQuery": "json",
+        "jsonQuery": "={\n  \"startTime\": \"{startTime}\",\n  \"endTime\": \"{endTime}\",\n  \"eventTypeId\": \"{{ $('Inicio (Router)').item.json.calEventTypeId }}\",\n  \"timeZone\": \"America/Lima\",\\n  \"apiKey\": \"{{ $('Inicio (Router)').item.json.calApiKey }}\"\n}",
+        "placeholderDefinitions": {
+          "values": [
+            {
+              "name": "startTime",
+              "description": "Fecha de inicio en ISO 8601 UTC. La hora siempre empieza a las 00:00:00.",
+              "type": "string"
+            },
+            {
+              "name": "endTime",
+              "description": "Fecha de fin en ISO 8601 UTC. La hora siempre finaliza a las 23:59:59.",
+              "type": "string"
+            }
+          ]
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolHttpRequest",
+      "typeVersion": 1.1,
+      "position": [
+        -992,
+        160
+      ],
+      "id": "ee9ff748-044e-4db0-ba70-b5d98b3e9320",
+      "name": "DISPONIBILIDAD"
+    },
+    {
+      "parameters": {
+        "toolDescription": "Guarda la cita en la base de datos.",
+        "method": "POST",
+        "url": "https://api.cal.com/v1/bookings",
+        "sendQuery": true,
+        "specifyQuery": "json",
+        "jsonQuery": "={\\n  \"apiKey\": \"{{ $('Inicio (Router)').item.json.calApiKey }}\"\\n}",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"eventTypeId\": {{ Number($('Inicio (Router)').item.json.calEventTypeId) }},\n  \"start\": \"{startTime}\",\n  \"responses\": {\n    \"name\": \"{userName}\",\n    \"email\": \"{userEmail}\",\n    \"location\": {\n      \"value\": \"online\",\n      \"optionValue\": \"\"\n    }\n  },\n  \"timeZone\": \"America/Lima\",\n  \"language\": \"es\",\n  \"metadata\": {}\n}",
+        "placeholderDefinitions": {
+          "values": [
+            {
+              "name": "startTime",
+              "description": "Fecha/hora de inicio elegida por el usuario en ISO 8601 UTC.",
+              "type": "string"
+            },
+            {
+              "name": "userName",
+              "description": "Nombre completo del usuario",
+              "type": "string"
+            },
+            {
+              "name": "userEmail",
+              "description": "Email del usuario"
+            }
+          ]
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolHttpRequest",
+      "typeVersion": 1.1,
+      "position": [
+        -816,
+        160
+      ],
+      "id": "01671bb4-cdbd-4836-89e1-3c6ef3bc46e1",
+      "name": "AGENDAR"
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.toolThink",
+      "typeVersion": 1,
+      "position": [
+        -656,
+        160
+      ],
+      "id": "873d2069-26b5-44ab-b579-85236e3018d2",
+      "name": "Think"
+    },
+    {
+      "parameters": {
+        "mode": "retrieve-as-tool",
+        "toolName": "companyKnowledge",
+        "toolDescription": "Usa esta herramienta para recuperar información de la empresa (servicios, precios, FAQ, contacto).",
+        "qdrantCollection": {
+          "__rl": true,
+          "value": "smartweb_knowledge",
+          "mode": "list",
+          "cachedResultName": "smartweb_knowledge"
+        },
+        "topK": 10,
+        "options": {
+          "searchFilterJson": "={\n  \"must\": [\n    {\n      \"key\": \"metadata.tenant\",\n      \"match\": { \"value\": \"{{ $('Inicio (Router)').item.json.tenant }}\" }\n    }\n  ]\n}"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStoreQdrant",
+      "typeVersion": 1.1,
+      "position": [
+        -1120,
+        592
+      ],
+      "id": "d34d1b18-7595-4da4-bceb-b6c96b6bc662",
+      "name": "Qdrant Vector Store",
+      "credentials": {
+        "qdrantApi": {
+          "id": "CGQrp2xFcyYxuAVX",
+          "name": "Qdrant.inHouse"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        -1056,
+        768
+      ],
+      "id": "9df568c5-4992-4b14-bc1d-9a0f1363316f",
+      "name": "Embeddings OpenAI",
+      "credentials": {
+        "openAiApi": {
+          "id": "KY7AUSiKP5pDlGeh",
+          "name": "OpenAI.msn"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "inputSource": "passthrough"
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -3104,
+        240
+      ],
+      "id": "7e0b9413-0d1c-41db-b467-0018003c01cd",
+      "name": "Inicio (Router)"
+    },
+    {
+      "parameters": {
+        "content": "## Notas \n[Configurar Webhokk](https://smartweb-web-evolution-api.izq3rn.easypanel.host/manager/instance/c6d3e45e-2616-40f6-b822-934a6ca62591/webhook)",
+        "width": 272
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -3072,
+        32
+      ],
+      "typeVersion": 1,
+      "id": "ab2ad395-1fa5-4b9e-ba58-cc56d704aa43",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=[FORMATO OBLIGATORIO WhatsApp — aplica esto ANTES de responder:\n• Usa 💡 para CADA servicio o ítem (NUNCA separes con comas)\n• Usa *negrita* para títulos y términos clave (un asterisco, no dos)\n• Pon una LÍNEA EN BLANCO entre cada sección o grupo de ítems\n• Máximo 3 oraciones por bloque — si hay más, divide en bloques\n• NUNCA respondas como un párrafo largo con comas]\n\n{{ $('Edit Fields2').item.json.Input }}",
+        "options": {
+          "systemMessage": "=<agentPrompt>\n  <context>\n    Eres el asistente de {{ $('Inicio (Router)').item.json.empresaNombre }}, una empresa de automatización con inteligencia artificial. Ayudas a personas interesadas en sus servicios, con soluciones simples y personalizadas.\n  </context>\n  <role>\n    Asistente informativo profesional, humano y claro. Responde ÚNICAMENTE con base en la información de companyKnowledge (RAG). No inventes nada.\n  </role>\n  <tools>\n    companyKnowledge: base de datos vectorial con toda la información de {{ $('Inicio (Router)').item.json.empresaNombre }} (servicios, precios, preguntas frecuentes, contacto).\n  </tools>\n  <ragRule>\n    Consulta SIEMPRE companyKnowledge antes de responder. Si no encuentras la respuesta, no inventes; ofrece agendar una llamada o deja el correo de contacto: {{ $('Inicio (Router)').item.json.email }}.\n  </ragRule>\n  <contact>Correo: {{ $('Inicio (Router)').item.json.email }}</contact>\n  <tone>Cercano, claro, profesional, sin sonar robótico. No uses emojis.</tone>\n  <limits>\n    No inventes información no respaldada por companyKnowledge. No participes en temas fuera del enfoque del negocio.\n  </limits>\n  <personaRules>\n    Responde en primera persona como parte del equipo de {{ $('Inicio (Router)').item.json.empresaNombre }}. Si te preguntan algo personal o te felicitan, agradece y di que eres la IA de {{ $('Inicio (Router)').item.json.empresaNombre }} y que lo harás llegar al equipo.\n  </personaRules>\n</agentPrompt>\n\nTrata de no saltar párrafos. No menciones herramientas técnicas como n8n o Make. Enfócate en los beneficios prácticos para el cliente.\n\nFORMATO DE RESPUESTA — WhatsApp (obligatorio):\nUsa siempre el formato nativo de WhatsApp. Reglas estrictas:\n- Negrita: *texto* (un asterisco por lado — nunca **)\n- Cursiva: _texto_ (guión bajo)\n- Viñetas: 💡 elemento (nunca - ni *)\n- Viñeta ÚNICA permitida: 💡 (úsala para TODOS los ítems, sin excepción)\n- Separa secciones con una línea en blanco\n- Máximo 2-3 oraciones por bloque; sé conciso y directo\n- Nunca uses ##, **, ---, ni bloques de código"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7,
+      "position": [
+        -1248,
+        384
+      ],
+      "id": "3ab5f1a2-c053-4d9c-bd03-51d5ce32727c",
+      "name": "Conversacion"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=[FORMATO OBLIGATORIO WhatsApp — aplica esto ANTES de responder:\n• Usa *negrita* para nombre, fecha, hora y correo del usuario\n• Al listar horarios usa 1. 2. 3. (uno por línea)\n• Pon una LÍNEA EN BLANCO entre cada pregunta o sección\n• Resumen final de la cita: usa 📅 ⏰ 📧 con línea propia cada uno]\n\n{{ $('Edit Fields2').item.json.Input }}",
+        "options": {
+          "systemMessage": "=Eres el asistente de agendamiento de {{ $('Inicio (Router)').item.json.empresaNombre }}, una empresa especializada en automatización con inteligencia artificial. Tu objetivo es entender al prospecto y agendar su cita de forma conversacional, profesional y cordial.\n\nHERRAMIENTAS DISPONIBLES (usa exactamente estos nombres):\n- DISPONIBILIDAD: consulta los horarios libres en la fecha indicada por el usuario.\n- AGENDAR: registra la cita en la base de datos (Cal.com).\n- Think: úsala para razonar si te pierdes o para verificar que tienes todos los datos antes de agendar.\n\nZONA HORARIA Y CONVERSIÓN A UTC (CRÍTICO):\n- El usuario está en zona horaria America/Lima (UTC-5, sin horario de verano).\n- Cal.com requiere las horas en formato ISO 8601 UTC: YYYY-MM-DDTHH:mm:ssZ.\n- Para convertir: hora local de Lima + 5 horas = hora UTC.\n  Ejemplo: si el usuario elige las 14:00 hora Lima del 2026-06-10, envía 2026-06-10T19:00:00Z en el campo start de AGENDAR.\n- Para DISPONIBILIDAD usa startTime a las 00:00:00 y endTime a las 23:59:59 del día solicitado, expresados en UTC.\n\nPREGUNTAS DE CONTEXTO (una por una; sirven para entender al prospecto, NUNCA para rechazarlo):\n1. ¿Cuál es tu objetivo principal al buscar automatización con IA?\n2. ¿Ya usas alguna herramienta de automatización o CRM? ¿Cuál?\n3. ¿Qué presupuesto tienes en mente? (solo para orientar la propuesta)\nContinúa SIEMPRE con el agendamiento, sin importar las respuestas. No descartes a nadie por presupuesto.\n\nFLUJO DE AGENDAMIENTO:\n- Reconoce los datos ya proporcionados y no repitas preguntas. Pide solo lo que falte: nombre completo, correo y fecha.\n- Llama a DISPONIBILIDAD y muestra los horarios libres de forma clara.\n- Franjas horarias (hora Lima): mañana 00:00-11:59, tarde 12:00-17:00, noche 17:01-23:59. Si no hay disponibilidad en la franja pedida, ofrece otras opciones del mismo día.\n- Cuando el usuario elija una hora válida y ya tengas nombre, correo, fecha y hora: resume los datos, convierte la hora a UTC y llama a AGENDAR de inmediato, sin confirmaciones innecesarias.\n- Si se agenda bien: ¡Tu cita quedó reservada para el [fecha] a las [hora Lima]! Te enviamos un correo de confirmación.\n- Si hay error: Hubo un problema al confirmar la cita. ¿Podrías elegir otro horario?\n\nREGLAS:\n- Valida que el correo tenga @ y un dominio válido.\n- Nunca inventes horarios. Si cambia la fecha u hora, vuelve a llamar a DISPONIBILIDAD.\n- Interpreta correctamente frases como mañana por la mañana, próximo lunes, la siguiente semana, respecto a la fecha actual.\n- No menciones herramientas técnicas como n8n o Make. Habla de beneficios.\n- No pongas palabras entre comillas. No saltes párrafos innecesariamente.\n\nFecha y hora actual (referencia, America/Lima): {{ new Date($now).toLocaleString(\"es-PE\", { weekday: \"long\", year: \"numeric\", month: \"long\", day: \"numeric\", hour: \"2-digit\", minute: \"2-digit\", hour12: true, timeZone: \"America/Lima\" }) }}\n\nFORMATO DE RESPUESTA — WhatsApp (obligatorio):\nUsa siempre el formato nativo de WhatsApp. Reglas estrictas:\n- Negrita: *texto* (un asterisco por lado — nunca **)\n- Resalta con negrita: *nombre*, *fecha*, *hora*, *correo del usuario*\n- Horarios disponibles: lista numerada · 1. opción · 2. opción · 3. opción\n- Confirmación de cita: bloque resumen con 📅 fecha · ⏰ hora · 📧 correo\n- Emojis de apoyo: 📅 fecha · ⏰ hora · 📧 correo · ✅ confirmado · ❓ pregunta\n- Separa pasos con una línea en blanco; sé conciso y directo\n- Nunca uses ##, **, ---, ni bloques de código"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7,
+      "position": [
+        -1232,
+        -32
+      ],
+      "id": "4a5d6dda-5ec1-419e-bace-7960a642799a",
+      "name": "Agendador"
+    },
+    {
+      "parameters": {
+        "resource": "messages-api",
+        "instanceName": "={{ $json.instanceName }}",
+        "remoteJid": "={{ $json.remoteJid }}",
+        "messageText": "={{ $json.mensaje }}",
+        "options_message": {}
+      },
+      "type": "n8n-nodes-evolution-api.evolutionApi",
+      "typeVersion": 1,
+      "position": [
+        -688,
+        384
+      ],
+      "id": "033593c8-9faf-4ff7-b767-7bf6efbc2d01",
+      "name": "Enviar texto (Conversacion)",
+      "credentials": {
+        "evolutionApi": {
+          "id": "pkZphInpmEQfnYQG",
+          "name": "Evolution.inHouse"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "messages-api",
+        "instanceName": "={{ $json.instanceName }}",
+        "remoteJid": "={{ $json.remoteJid }}",
+        "messageText": "={{ $json.mensaje }}",
+        "options_message": {}
+      },
+      "type": "n8n-nodes-evolution-api.evolutionApi",
+      "typeVersion": 1,
+      "position": [
+        -720,
+        -32
+      ],
+      "id": "6353d76d-5b7a-4143-97e9-05269f03c166",
+      "name": "Enviar texto (Agendador)",
+      "credentials": {
+        "evolutionApi": {
+          "id": "pkZphInpmEQfnYQG",
+          "name": "Evolution.inHouse"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const raw = $json.output || '';\nconst remoteJid = $('Inicio (Router)').item.json.body.data.key.remoteJid;\nconst instanceName = $('Inicio (Router)').item.json.evolutionInstance;\n\nlet t = raw;\n// Markdown → WhatsApp\nt = t.replace(/\\*\\*(.+?)\\*\\*/gs, '*$1*');\nt = t.replace(/__(.+?)__/g, '*$1*');\nt = t.replace(/^#{1,3} +(.+)/gm, '*$1*');\nt = t.replace(/^[ \\t]*[-•·] (.+)/gm, '💡 $1'); // -, •, · → 💡\nt = t.replace(/~~(.+?)~~/g, '~$1~');\nt = t.replace(/```[\\s\\S]*?```/g, '').replace(/`([^`]+)`/g, '$1');\nt = t.trim();\n\n// Dividir por doble salto de línea (párrafos)\nlet bloques = t.split(/\\n{2,}/).map(b => b.trim()).filter(b => b.length > 0);\n\n// Fallback: si hay un bloque largo sin párrafos, dividir por oraciones\nif (bloques.length === 1 && bloques[0].length > 280) {\n  const texto = bloques[0];\n  const oraciones = texto.split(/(?<=[.!?;])\\s+(?=[A-ZÁÉÍÓÚÑ💡✅📌📅⏰📧💡\\-\\d])/);\n  const reagrupado = [];\n  let actual = '';\n  for (const o of oraciones) {\n    const candidato = actual ? actual + ' ' + o : o;\n    if (actual && candidato.length > 260) {\n      reagrupado.push(actual.trim());\n      actual = o;\n    } else {\n      actual = candidato;\n    }\n  }\n  if (actual.trim()) reagrupado.push(actual.trim());\n  bloques = reagrupado.length > 1 ? reagrupado : [texto];\n}\n\n// Sub-dividir bloques aún muy largos (> 700 chars) por línea\nconst chunks = [];\nfor (const bloque of bloques) {\n  if (bloque.length <= 700) {\n    chunks.push(bloque);\n  } else {\n    const lineas = bloque.split('\\n');\n    let actual = '';\n    for (const linea of lineas) {\n      if (actual && (actual + '\\n' + linea).length > 700) {\n        chunks.push(actual.trim());\n        actual = linea;\n      } else {\n        actual = actual ? actual + '\\n' + linea : linea;\n      }\n    }\n    if (actual.trim()) chunks.push(actual.trim());\n  }\n}\n\nconst final = chunks.length > 0 ? chunks : [t || ''];\nreturn final.map(msg => ({ json: { mensaje: msg, remoteJid, instanceName } }));"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -912,
+        -32
+      ],
+      "id": "11619f01-ea29-4936-85f9-53e4ebffc36c",
+      "name": "Formatear y dividir (Agendador)"
+    },
+    {
+      "parameters": {
+        "jsCode": "const raw = $json.output || '';\nconst remoteJid = $('Inicio (Router)').item.json.body.data.key.remoteJid;\nconst instanceName = $('Inicio (Router)').item.json.evolutionInstance;\n\nlet t = raw;\n// Markdown → WhatsApp\nt = t.replace(/\\*\\*(.+?)\\*\\*/gs, '*$1*');\nt = t.replace(/__(.+?)__/g, '*$1*');\nt = t.replace(/^#{1,3} +(.+)/gm, '*$1*');\nt = t.replace(/^[ \\t]*[-•·] (.+)/gm, '💡 $1'); // -, •, · → 💡\nt = t.replace(/~~(.+?)~~/g, '~$1~');\nt = t.replace(/```[\\s\\S]*?```/g, '').replace(/`([^`]+)`/g, '$1');\nt = t.trim();\n\n// Dividir por doble salto de línea (párrafos)\nlet bloques = t.split(/\\n{2,}/).map(b => b.trim()).filter(b => b.length > 0);\n\n// Fallback: si hay un bloque largo sin párrafos, dividir por oraciones\nif (bloques.length === 1 && bloques[0].length > 280) {\n  const texto = bloques[0];\n  const oraciones = texto.split(/(?<=[.!?;])\\s+(?=[A-ZÁÉÍÓÚÑ💡✅📌📅⏰📧💡\\-\\d])/);\n  const reagrupado = [];\n  let actual = '';\n  for (const o of oraciones) {\n    const candidato = actual ? actual + ' ' + o : o;\n    if (actual && candidato.length > 260) {\n      reagrupado.push(actual.trim());\n      actual = o;\n    } else {\n      actual = candidato;\n    }\n  }\n  if (actual.trim()) reagrupado.push(actual.trim());\n  bloques = reagrupado.length > 1 ? reagrupado : [texto];\n}\n\n// Sub-dividir bloques aún muy largos (> 700 chars) por línea\nconst chunks = [];\nfor (const bloque of bloques) {\n  if (bloque.length <= 700) {\n    chunks.push(bloque);\n  } else {\n    const lineas = bloque.split('\\n');\n    let actual = '';\n    for (const linea of lineas) {\n      if (actual && (actual + '\\n' + linea).length > 700) {\n        chunks.push(actual.trim());\n        actual = linea;\n      } else {\n        actual = actual ? actual + '\\n' + linea : linea;\n      }\n    }\n    if (actual.trim()) chunks.push(actual.trim());\n  }\n}\n\nconst final = chunks.length > 0 ? chunks : [t || ''];\nreturn final.map(msg => ({ json: { mensaje: msg, remoteJid, instanceName } }));"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -896,
+        384
+      ],
+      "id": "de38a2d9-3fd6-43c7-8487-a76782ed8455",
+      "name": "Formatear y dividir (Conversacion)"
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "shared": [
+    {
+      "updatedAt": "2026-06-04T22:22:35.100Z",
+      "createdAt": "2026-06-04T22:22:35.100Z",
+      "role": "workflow:owner",
+      "workflowId": "EzuhMMML1nuiHzh9",
+      "projectId": "eyOyKz68GM9OloYk"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2026-06-06T23:16:56.704Z",
+  "versionId": "46dcbc66-0f26-4879-b007-6e5e6cf9a246"
+}
