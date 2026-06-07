@@ -1,9 +1,9 @@
 {
   "active": true,
   "activeVersion": {
-    "updatedAt": "2026-06-05T20:37:30.815Z",
-    "createdAt": "2026-06-05T20:33:02.777Z",
-    "versionId": "52648f7a-eecb-4680-b980-847588b0f7c5",
+    "updatedAt": "2026-06-07T14:21:53.407Z",
+    "createdAt": "2026-06-07T14:21:34.313Z",
+    "versionId": "47e19bab-f942-474c-93dd-8a8e3cf375e3",
     "workflowId": "785x7zyYzqiwj5ds",
     "nodes": [
       {
@@ -187,7 +187,7 @@
         "typeVersion": 3.2,
         "position": [
           464,
-          32
+          16
         ],
         "id": "9a9404a8-e138-49b0-ae77-2ec2d80ffc73",
         "name": "Estado"
@@ -657,11 +657,11 @@
     },
     "nodeGroups": [],
     "authors": "John Ordóñez Monroy",
-    "name": "Version 52648f7a",
+    "name": "Version 47e19bab",
     "description": "",
     "autosaved": true
   },
-  "activeVersionId": "52648f7a-eecb-4680-b980-847588b0f7c5",
+  "activeVersionId": "47e19bab-f942-474c-93dd-8a8e3cf375e3",
   "connections": {
     "Webhook entrante": {
       "main": [
@@ -1035,7 +1035,7 @@
       "typeVersion": 3.2,
       "position": [
         464,
-        32
+        16
       ],
       "id": "9a9404a8-e138-49b0-ae77-2ec2d80ffc73",
       "name": "Estado"
@@ -1336,6 +1336,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2026-06-05T20:33:02.772Z",
-  "versionId": "52648f7a-eecb-4680-b980-847588b0f7c5"
+  "updatedAt": "2026-06-07T14:21:34.308Z",
+  "versionId": "47e19bab-f942-474c-93dd-8a8e3cf375e3"
 }
