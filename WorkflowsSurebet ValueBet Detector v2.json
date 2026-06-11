@@ -1,9 +1,9 @@
 {
   "active": true,
   "activeVersion": {
-    "updatedAt": "2026-06-09T18:01:56.231Z",
-    "createdAt": "2026-06-09T18:01:53.898Z",
-    "versionId": "49e95aa6-6007-4604-9641-28feddbcc0bb",
+    "updatedAt": "2026-06-11T01:01:53.102Z",
+    "createdAt": "2026-06-11T01:01:39.898Z",
+    "versionId": "f1dcad12-e571-4353-85fb-71ceb3df4700",
     "workflowId": "ECcE1aUJqB2En9Rj",
     "nodes": [
       {
@@ -186,7 +186,7 @@
               {
                 "id": "cfg-008",
                 "name": "CFG_HORA_FIN",
-                "value": 20,
+                "value": 22,
                 "type": "number"
               },
               {
@@ -198,7 +198,7 @@
               {
                 "id": "cfg-010",
                 "name": "CFG_LEAGUES",
-                "value": "[\"Premier League\", \"La Liga\", \"LaLiga\", \"Bundesliga\", \"Ligue 1\", \"Copa Libertadores\", \"Copa Sudamericana\", \"Mundial\", \"Champions League\", \"Europa League\", \"Peru Primera Division\"]",
+                "value": "[\"Premier League\", \"La Liga\", \"LaLiga\", \"Bundesliga\", \"Ligue 1\", \"Copa Libertadores\", \"Copa Sudamericana\", \"Mundial\", \"Champions League\", \"Europa League\", \"Peru Primera Division\", \"FIFA\"]",
                 "type": "string"
               },
               {
@@ -1300,11 +1300,11 @@
     },
     "nodeGroups": [],
     "authors": "John Ordóñez Monroy",
-    "name": "Version 49e95aa6",
+    "name": "Version f1dcad12",
     "description": "",
     "autosaved": true
   },
-  "activeVersionId": "49e95aa6-6007-4604-9641-28feddbcc0bb",
+  "activeVersionId": "f1dcad12-e571-4353-85fb-71ceb3df4700",
   "connections": {
     "Mock - Test Data": {
       "main": [
@@ -1899,7 +1899,7 @@
             {
               "id": "cfg-008",
               "name": "CFG_HORA_FIN",
-              "value": 20,
+              "value": 22,
               "type": "number"
             },
             {
@@ -1911,7 +1911,7 @@
             {
               "id": "cfg-010",
               "name": "CFG_LEAGUES",
-              "value": "[\"Premier League\", \"La Liga\", \"LaLiga\", \"Bundesliga\", \"Ligue 1\", \"Copa Libertadores\", \"Copa Sudamericana\", \"Mundial\", \"Champions League\", \"Europa League\", \"Peru Primera Division\"]",
+              "value": "[\"Premier League\", \"La Liga\", \"LaLiga\", \"Bundesliga\", \"Ligue 1\", \"Copa Libertadores\", \"Copa Sudamericana\", \"Mundial\", \"Champions League\", \"Europa League\", \"Peru Primera Division\", \"FIFA\"]",
               "type": "string"
             },
             {
@@ -2632,6 +2632,6 @@
   },
   "tags": [],
   "triggerCount": 2,
-  "updatedAt": "2026-06-09T18:01:53.893Z",
-  "versionId": "49e95aa6-6007-4604-9641-28feddbcc0bb"
+  "updatedAt": "2026-06-11T01:01:39.889Z",
+  "versionId": "f1dcad12-e571-4353-85fb-71ceb3df4700"
 }
