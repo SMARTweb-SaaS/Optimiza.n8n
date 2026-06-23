@@ -178,6 +178,16 @@
             "node": "Marketing.4.ecommerce",
             "type": "main",
             "index": 0
+          },
+          {
+            "node": "RSS Read",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "RSS Read1",
+            "type": "main",
+            "index": 0
           }
         ]
       ]
@@ -217,7 +227,13 @@
     },
     "Select.Rss": {
       "main": [
-        []
+        [
+          {
+            "node": "Analiza.Rss",
+            "type": "main",
+            "index": 0
+          }
+        ]
       ]
     },
     "IA.en.Español": {
@@ -300,6 +316,28 @@
             "node": "HTTP Request",
             "type": "main",
             "index": 0
+          }
+        ]
+      ]
+    },
+    "RSS Read": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 3
+          }
+        ]
+      ]
+    },
+    "RSS Read1": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 4
           }
         ]
       ]
@@ -835,15 +873,15 @@
       "type": "n8n-nodes-base.manualTrigger",
       "typeVersion": 1,
       "position": [
-        368,
-        -176
+        304,
+        -224
       ],
       "id": "967b1113-bf33-4c67-83c4-f23a283b96cb",
       "name": "When clicking ‘Execute workflow’"
     },
     {
       "parameters": {
-        "jsCode": "// Obtén todos los elementos que vienen del nodo anterior (RSS Read)\nconst rssArray = $input.all();\n\n// --- Elige tu lógica de selección ---\nconst indice = 12// 0: Primer elemento\nconst selectedElement = rssArray[indice];\n\n// Envía el elemento seleccionado como salida\nif (selectedElement) {\n  return [{ json: selectedElement }]; // Asegúrate de devolverlo dentro de un objeto con la propiedad 'json'\n} else {\n  // Manejo si no se encuentra ningún elemento o si el array está vacío\n  return [];\n}"
+        "jsCode": "// Obtén todos los elementos que vienen del nodo anterior (RSS Read)\nconst rssArray = $input.all();\n\n// --- Elige tu lógica de selección ---\nconst indice = 50// 0: Primer elemento\nconst selectedElement = rssArray[indice];\n\n// Envía el elemento seleccionado como salida\nif (selectedElement) {\n  return [{ json: selectedElement }]; // Asegúrate de devolverlo dentro de un objeto con la propiedad 'json'\n} else {\n  // Manejo si no se encuentra ningún elemento o si el array está vacío\n  return [];\n}"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -856,13 +894,13 @@
     },
     {
       "parameters": {
-        "numberInputs": 3
+        "numberInputs": 5
       },
       "type": "n8n-nodes-base.merge",
       "typeVersion": 3.2,
       "position": [
-        816,
-        -192
+        752,
+        -208
       ],
       "id": "0519321c-c658-49d7-bf8a-4fc25a3c3a2a",
       "name": "Merge"
@@ -907,7 +945,7 @@
             {
               "id": "b6798105-bae7-4e4f-a078-d7b84e5bfdfb",
               "leftValue": "={{ $json.title }}",
-              "rightValue": "Claude",
+              "rightValue": "Mundial",
               "operator": {
                 "type": "string",
                 "operation": "contains"
@@ -1045,8 +1083,8 @@
       "type": "n8n-nodes-base.rssFeedRead",
       "typeVersion": 1.2,
       "position": [
-        608,
-        -320
+        544,
+        -528
       ],
       "id": "af620fd1-9892-4f26-888a-c9082b3585c9",
       "name": "IA.en.Español"
@@ -1061,8 +1099,8 @@
       "type": "n8n-nodes-base.rssFeedRead",
       "typeVersion": 1.2,
       "position": [
-        608,
-        -176
+        544,
+        -384
       ],
       "id": "90bcea56-cf2f-416b-b96d-68cd39f6481e",
       "name": "Es.Wired"
@@ -1075,8 +1113,8 @@
       "type": "n8n-nodes-base.rssFeedRead",
       "typeVersion": 1.2,
       "position": [
-        608,
-        -16
+        544,
+        -224
       ],
       "id": "b6b4ed50-ff86-4fc1-9ef4-dabca7c81e0c",
       "name": "Marketing.4.ecommerce"
@@ -1149,6 +1187,34 @@
       "id": "4a3eca95-6a54-4521-8c7b-a5f138586680",
       "name": "Wait.10",
       "webhookId": "5dbfa580-58e8-44cb-8ec7-ada44805b8e1"
+    },
+    {
+      "parameters": {
+        "url": "https://elcomercio.pe/arc/outboundfeeds/rss/category/tecnologia/?outputType=xml",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.rssFeedRead",
+      "typeVersion": 1.2,
+      "position": [
+        544,
+        -80
+      ],
+      "id": "ed28fdc1-870a-4fd6-a0bb-26fe9be3b968",
+      "name": "RSS Read"
+    },
+    {
+      "parameters": {
+        "url": "https://www.clarin.com/rss/tecnologia/",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.rssFeedRead",
+      "typeVersion": 1.2,
+      "position": [
+        544,
+        64
+      ],
+      "id": "ee7170c3-8a86-4596-8c0b-43a9f8cf4208",
+      "name": "RSS Read1"
     }
   ],
   "pinData": {},
@@ -1175,6 +1241,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2026-06-22T12:22:23.967Z",
-  "versionId": "10fa1635-bca1-499b-8b1a-9db7d0acc56e"
+  "updatedAt": "2026-06-22T22:10:39.544Z",
+  "versionId": "6c7a6d2e-aa19-4de5-940e-2c6444cfa8a5"
 }
