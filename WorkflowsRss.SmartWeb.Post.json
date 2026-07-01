@@ -227,7 +227,13 @@
     },
     "Select.Rss": {
       "main": [
-        []
+        [
+          {
+            "node": "Analiza.Rss",
+            "type": "main",
+            "index": 0
+          }
+        ]
       ]
     },
     "IA.en.Español": {
@@ -750,11 +756,12 @@
     {
       "parameters": {
         "content": "## Se debería de usar Ideograma  \n[Guide](https://about.ideogram.ai/api-pricing)",
-        "height": 128
+        "height": 128,
+        "width": 352
       },
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        624,
+        480,
         704
       ],
       "typeVersion": 1,
@@ -822,14 +829,14 @@
     {
       "parameters": {
         "content": "## Renovar Token: Facebook \n- Ingresar a [developers.facebook](https://developers.facebook.com/tools/explorer/)\n- Copiar: Token de acceso\n- [Depurador de token de acceso\n](https://developers.facebook.com/tools/debug/accesstoken/)\n- Regresar a [developers.facebook](https://developers.facebook.com/tools/explorer/)\n- Usar: me?fields=id,accounts\n- Copiar: access_token\n- Volver a conectar: Graph API ",
-        "height": 224,
+        "height": 272,
         "width": 400,
         "color": 3
       },
       "type": "n8n-nodes-base.stickyNote",
       "position": [
         896,
-        656
+        672
       ],
       "typeVersion": 1,
       "id": "24032e4c-ac1c-4a2d-92c4-3f89f2454124",
@@ -875,7 +882,7 @@
     },
     {
       "parameters": {
-        "jsCode": "// Obtén todos los elementos que vienen del nodo anterior (RSS Read)\nconst rssArray = $input.all();\n\n// --- Elige tu lógica de selección ---\nconst indice = 0// 0: Primer elemento\nconst selectedElement = rssArray[indice];\n\n// Envía el elemento seleccionado como salida\nif (selectedElement) {\n  return [{ json: selectedElement }]; // Asegúrate de devolverlo dentro de un objeto con la propiedad 'json'\n} else {\n  // Manejo si no se encuentra ningún elemento o si el array está vacío\n  return [];\n}"
+        "jsCode": "// Obtén todos los elementos que vienen del nodo anterior (RSS Read)\nconst rssArray = $input.all();\n\n// --- Elige tu lógica de selección ---\nconst indice = 21// 0: Primer elemento\nconst selectedElement = rssArray[indice];\n\n// Envía el elemento seleccionado como salida\nif (selectedElement) {\n  return [{ json: selectedElement }]; // Asegúrate de devolverlo dentro de un objeto con la propiedad 'json'\n} else {\n  // Manejo si no se encuentra ningún elemento o si el array está vacío\n  return [];\n}"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -1235,6 +1242,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2026-06-25T13:44:58.391Z",
-  "versionId": "ccf5b2a1-a7c4-4463-827f-c31fc585dc56"
+  "updatedAt": "2026-07-01T12:29:27.449Z",
+  "versionId": "86a9d18e-f693-45f2-ada4-820b136fef2c"
 }
