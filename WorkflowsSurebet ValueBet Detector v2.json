@@ -1,9 +1,9 @@
 {
   "active": true,
   "activeVersion": {
-    "updatedAt": "2026-06-11T01:01:53.102Z",
-    "createdAt": "2026-06-11T01:01:39.898Z",
-    "versionId": "f1dcad12-e571-4353-85fb-71ceb3df4700",
+    "updatedAt": "2026-07-14T07:56:51.834Z",
+    "createdAt": "2026-07-14T07:56:30.931Z",
+    "versionId": "adf91b43-c674-45f9-ab01-57c7c2665381",
     "workflowId": "ECcE1aUJqB2En9Rj",
     "nodes": [
       {
@@ -210,7 +210,7 @@
               {
                 "id": "cfg-012",
                 "name": "CFG_API_KEY",
-                "value": "imp_live_g9zXGiFMB8BHcMTGeKEVirBERo6N8IULf9b44BV3YJSbSxI8rETjVDaA",
+                "value": "imp_live_E17DRblgvquGL5IR0VNUegF0L4cOovAPaaho23X1AhIthaJAxc3oaC4k",
                 "type": "string"
               }
             ]
@@ -1300,11 +1300,11 @@
     },
     "nodeGroups": [],
     "authors": "John Ordóñez Monroy",
-    "name": "Version f1dcad12",
+    "name": "Version adf91b43",
     "description": "",
     "autosaved": true
   },
-  "activeVersionId": "f1dcad12-e571-4353-85fb-71ceb3df4700",
+  "activeVersionId": "adf91b43-c674-45f9-ab01-57c7c2665381",
   "connections": {
     "Mock - Test Data": {
       "main": [
@@ -1923,7 +1923,7 @@
             {
               "id": "cfg-012",
               "name": "CFG_API_KEY",
-              "value": "imp_live_g9zXGiFMB8BHcMTGeKEVirBERo6N8IULf9b44BV3YJSbSxI8rETjVDaA",
+              "value": "imp_live_E17DRblgvquGL5IR0VNUegF0L4cOovAPaaho23X1AhIthaJAxc3oaC4k",
               "type": "string"
             }
           ]
@@ -2632,6 +2632,6 @@
   },
   "tags": [],
   "triggerCount": 2,
-  "updatedAt": "2026-06-11T01:01:39.889Z",
-  "versionId": "f1dcad12-e571-4353-85fb-71ceb3df4700"
+  "updatedAt": "2026-07-14T07:56:30.921Z",
+  "versionId": "adf91b43-c674-45f9-ab01-57c7c2665381"
 }
