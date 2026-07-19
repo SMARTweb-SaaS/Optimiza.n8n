@@ -1,9 +1,9 @@
 {
   "active": true,
   "activeVersion": {
-    "updatedAt": "2026-07-15T12:41:32.797Z",
-    "createdAt": "2026-07-15T12:41:22.676Z",
-    "versionId": "8eb1088e-b4fe-418b-9de1-052d3dac1833",
+    "updatedAt": "2026-07-19T01:10:56.899Z",
+    "createdAt": "2026-07-19T01:10:32.311Z",
+    "versionId": "1ad2847a-d365-49af-8fdb-3524ad724071",
     "workflowId": "KhuB3AdKN65YfnVW",
     "nodes": [
       {
@@ -396,7 +396,7 @@
       },
       {
         "parameters": {
-          "jsCode": "// Captura el objeto devuelto por el nodo Gmail\nconst error = $input.first().json.error\n\n// Si existe error y contiene mensaje de credenciales\nif (error && (\n    error.includes('invalid') ||\n    error.includes('expired') ||\n    error.includes('revoked')\n)) {\n  return [\n    {\n      json: {\n        notify: true,\n        message: '⚠️ Credenciales de Google (gmail) caducadas o inválidas: ' + error\n      }\n    }\n  ];\n}\n\n// Si todo está bien, continúa\nreturn [{ json: { notify: false } }];"
+          "jsCode": "// Captura el objeto devuelto por el nodo Gmail\nconst error = $input.first().json.error\n\n// Si existe error y contiene mensaje de credenciales\nif (error && (\n    error.includes('invalid') ||\n    error.includes('expired') ||\n    error.includes('reconnected') ||\n    error.includes('revoked')\n)) {\n  return [\n    {\n      json: {\n        notify: true,\n        message: '⚠️ Credenciales de Google (gmail) caducadas o inválidas: ' + error\n      }\n    }\n  ];\n}\n\n// Si todo está bien, continúa\nreturn [{ json: { notify: false } }];"
         },
         "type": "n8n-nodes-base.code",
         "typeVersion": 2,
@@ -440,7 +440,7 @@
       },
       {
         "parameters": {
-          "jsCode": "// Captura el objeto devuelto por el nodo Gmail\nconst error = $input.first().json.error\n\n// Si existe error y contiene mensaje de credenciales\nif (error && error.message && (\n    error.message.includes('invalid') ||\n    error.message.includes('expired') ||\n    error.message.includes('revoked')\n)) {\n  \n  return [\n    {\n      json: {\n        notify: true,\n        message: '⚠️ Credenciales de Google (Slides) caducadas o inválidas: ' + error.message\n      }\n    }\n  ];\n}\n\n// Si todo está bien, continúa\nreturn [{ json: { status: 'ok' } }];"
+          "jsCode": "// Captura el objeto devuelto por el nodo Gmail\nconst error = $input.first().json.error\n\n// Si existe error y contiene mensaje de credenciales\nif (error && error.message && (\n    error.message.includes('invalid') ||\n    error.message.includes('expired') ||\n    error.message.includes('reconnected') ||\n    error.message.includes('revoked')\n)) {\n  \n  return [\n    {\n      json: {\n        notify: true,\n        message: '⚠️ Credenciales de Google (Slides) caducadas o inválidas: ' + error.message\n      }\n    }\n  ];\n}\n\n// Si todo está bien, continúa\nreturn [{ json: { status: 'ok' } }];"
         },
         "type": "n8n-nodes-base.code",
         "typeVersion": 2,
@@ -506,7 +506,7 @@
       },
       {
         "parameters": {
-          "jsCode": "// Captura el objeto devuelto por el nodo Gmail\nconst error = $input.first().json.error\n\n// Si existe error y contiene mensaje de credenciales\nif (error && error.message && (\n    error.message.includes('invalid') ||\n    error.message.includes('expired') ||\n    error.message.includes('revoked')\n)) {\n\n  return [\n    {\n      json: {\n        notify: true,\n        message: '⚠️ Credenciales de Google (Docs) caducadas o inválidas: ' + error.message\n      }\n    }\n  ];\n}\n\n// Si todo está bien, continúa\nreturn [{ json: { status: 'ok' } }];"
+          "jsCode": "// Captura el objeto devuelto por el nodo Gmail\nconst error = $input.first().json.error\n\n// Si existe error y contiene mensaje de credenciales\nif (error && error.message && (\n    error.message.includes('invalid') ||\n    error.message.includes('expired') ||\n    error.message.includes('reconnected') ||\n    error.message.includes('revoked')\n)) {\n\n  return [\n    {\n      json: {\n        notify: true,\n        message: '⚠️ Credenciales de Google (Docs) caducadas o inválidas: ' + error.message\n      }\n    }\n  ];\n}\n\n// Si todo está bien, continúa\nreturn [{ json: { status: 'ok' } }];"
         },
         "type": "n8n-nodes-base.code",
         "typeVersion": 2,
@@ -1012,11 +1012,11 @@
     },
     "nodeGroups": [],
     "authors": "John Ordóñez Monroy",
-    "name": "Version 8eb1088e",
+    "name": "Version 1ad2847a",
     "description": "",
     "autosaved": true
   },
-  "activeVersionId": "8eb1088e-b4fe-418b-9de1-052d3dac1833",
+  "activeVersionId": "1ad2847a-d365-49af-8fdb-3524ad724071",
   "connections": {
     "ObtenerSlides": {
       "main": [
@@ -1753,7 +1753,7 @@
     },
     {
       "parameters": {
-        "jsCode": "// Captura el objeto devuelto por el nodo Gmail\nconst error = $input.first().json.error\n\n// Si existe error y contiene mensaje de credenciales\nif (error && (\n    error.includes('invalid') ||\n    error.includes('expired') ||\n    error.includes('revoked')\n)) {\n  return [\n    {\n      json: {\n        notify: true,\n        message: '⚠️ Credenciales de Google (gmail) caducadas o inválidas: ' + error\n      }\n    }\n  ];\n}\n\n// Si todo está bien, continúa\nreturn [{ json: { notify: false } }];"
+        "jsCode": "// Captura el objeto devuelto por el nodo Gmail\nconst error = $input.first().json.error\n\n// Si existe error y contiene mensaje de credenciales\nif (error && (\n    error.includes('invalid') ||\n    error.includes('expired') ||\n    error.includes('reconnected') ||\n    error.includes('revoked')\n)) {\n  return [\n    {\n      json: {\n        notify: true,\n        message: '⚠️ Credenciales de Google (gmail) caducadas o inválidas: ' + error\n      }\n    }\n  ];\n}\n\n// Si todo está bien, continúa\nreturn [{ json: { notify: false } }];"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -1797,7 +1797,7 @@
     },
     {
       "parameters": {
-        "jsCode": "// Captura el objeto devuelto por el nodo Gmail\nconst error = $input.first().json.error\n\n// Si existe error y contiene mensaje de credenciales\nif (error && error.message && (\n    error.message.includes('invalid') ||\n    error.message.includes('expired') ||\n    error.message.includes('revoked')\n)) {\n  \n  return [\n    {\n      json: {\n        notify: true,\n        message: '⚠️ Credenciales de Google (Slides) caducadas o inválidas: ' + error.message\n      }\n    }\n  ];\n}\n\n// Si todo está bien, continúa\nreturn [{ json: { status: 'ok' } }];"
+        "jsCode": "// Captura el objeto devuelto por el nodo Gmail\nconst error = $input.first().json.error\n\n// Si existe error y contiene mensaje de credenciales\nif (error && error.message && (\n    error.message.includes('invalid') ||\n    error.message.includes('expired') ||\n    error.message.includes('reconnected') ||\n    error.message.includes('revoked')\n)) {\n  \n  return [\n    {\n      json: {\n        notify: true,\n        message: '⚠️ Credenciales de Google (Slides) caducadas o inválidas: ' + error.message\n      }\n    }\n  ];\n}\n\n// Si todo está bien, continúa\nreturn [{ json: { status: 'ok' } }];"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -1863,7 +1863,7 @@
     },
     {
       "parameters": {
-        "jsCode": "// Captura el objeto devuelto por el nodo Gmail\nconst error = $input.first().json.error\n\n// Si existe error y contiene mensaje de credenciales\nif (error && error.message && (\n    error.message.includes('invalid') ||\n    error.message.includes('expired') ||\n    error.message.includes('revoked')\n)) {\n\n  return [\n    {\n      json: {\n        notify: true,\n        message: '⚠️ Credenciales de Google (Docs) caducadas o inválidas: ' + error.message\n      }\n    }\n  ];\n}\n\n// Si todo está bien, continúa\nreturn [{ json: { status: 'ok' } }];"
+        "jsCode": "// Captura el objeto devuelto por el nodo Gmail\nconst error = $input.first().json.error\n\n// Si existe error y contiene mensaje de credenciales\nif (error && error.message && (\n    error.message.includes('invalid') ||\n    error.message.includes('expired') ||\n    error.message.includes('reconnected') ||\n    error.message.includes('revoked')\n)) {\n\n  return [\n    {\n      json: {\n        notify: true,\n        message: '⚠️ Credenciales de Google (Docs) caducadas o inválidas: ' + error.message\n      }\n    }\n  ];\n}\n\n// Si todo está bien, continúa\nreturn [{ json: { status: 'ok' } }];"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -2073,6 +2073,6 @@
     }
   ],
   "triggerCount": 1,
-  "updatedAt": "2026-07-15T12:41:22.673Z",
-  "versionId": "8eb1088e-b4fe-418b-9de1-052d3dac1833"
+  "updatedAt": "2026-07-19T01:10:32.551Z",
+  "versionId": "1ad2847a-d365-49af-8fdb-3524ad724071"
 }
