@@ -227,7 +227,13 @@
     },
     "Select.Rss": {
       "main": [
-        []
+        [
+          {
+            "node": "Analiza.Rss",
+            "type": "main",
+            "index": 0
+          }
+        ]
       ]
     },
     "IA.en.Español": {
@@ -876,7 +882,7 @@
     },
     {
       "parameters": {
-        "jsCode": "// Obtén todos los elementos que vienen del nodo anterior (RSS Read)\nconst rssArray = $input.all();\n\n// --- Elige tu lógica de selección ---\nconst indice = 60// 0: Primer elemento\nconst selectedElement = rssArray[indice];\n\n// Envía el elemento seleccionado como salida\nif (selectedElement) {\n  return [{ json: selectedElement }]; // Asegúrate de devolverlo dentro de un objeto con la propiedad 'json'\n} else {\n  // Manejo si no se encuentra ningún elemento o si el array está vacío\n  return [];\n}"
+        "jsCode": "// Obtén todos los elementos que vienen del nodo anterior (RSS Read)\nconst rssArray = $input.all();\n\n// --- Elige tu lógica de selección ---\nconst indice = 57// 0: Primer elemento\nconst selectedElement = rssArray[indice];\n\n// Envía el elemento seleccionado como salida\nif (selectedElement) {\n  return [{ json: selectedElement }]; // Asegúrate de devolverlo dentro de un objeto con la propiedad 'json'\n} else {\n  // Manejo si no se encuentra ningún elemento o si el array está vacío\n  return [];\n}"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -1236,6 +1242,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2026-07-18T00:21:33.649Z",
-  "versionId": "b9f2629b-58f9-47f9-9316-fd9f2de6e2fc"
+  "updatedAt": "2026-07-18T23:32:19.799Z",
+  "versionId": "f8dea98e-f4a0-4c97-a1fb-a2497969de2f"
 }
