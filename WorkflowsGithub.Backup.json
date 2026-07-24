@@ -637,6 +637,7 @@
     "templateCredsSetupCompleted": true
   },
   "name": "Github.Backup",
+  "nodeGroups": [],
   "nodes": [
     {
       "parameters": {
