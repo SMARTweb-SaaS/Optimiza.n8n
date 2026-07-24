@@ -301,6 +301,7 @@
     "templateCredsSetupCompleted": true
   },
   "name": "Surebet ValueBet Detector - LLM integrado",
+  "nodeGroups": [],
   "nodes": [
     {
       "parameters": {
