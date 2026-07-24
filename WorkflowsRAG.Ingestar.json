@@ -430,6 +430,7 @@
     "templateCredsSetupCompleted": true
   },
   "name": "RAG.Ingestar",
+  "nodeGroups": [],
   "nodes": [
     {
       "parameters": {
