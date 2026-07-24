@@ -1362,6 +1362,7 @@
     "templateCredsSetupCompleted": true
   },
   "name": "Auto.Test",
+  "nodeGroups": [],
   "nodes": [
     {
       "parameters": {
@@ -2049,7 +2050,12 @@
   ],
   "staticData": {
     "node:Schedule Trigger": {
-      "recurrenceRules": []
+      "recurrenceRules": [
+        null
+      ],
+      "recurrenceRuleSignatures": [
+        null
+      ]
     }
   },
   "tags": [
