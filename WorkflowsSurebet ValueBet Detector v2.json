@@ -415,6 +415,7 @@
   "isArchived": false,
   "meta": null,
   "name": "Surebet ValueBet Detector v2",
+  "nodeGroups": [],
   "nodes": [
     {
       "parameters": {
