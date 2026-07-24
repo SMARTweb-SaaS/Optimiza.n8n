@@ -1359,6 +1359,7 @@
     "templateCredsSetupCompleted": true
   },
   "name": "WhatsApp.Agente.IA",
+  "nodeGroups": [],
   "nodes": [
     {
       "parameters": {
