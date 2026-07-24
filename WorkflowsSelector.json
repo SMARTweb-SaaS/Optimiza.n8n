@@ -255,6 +255,7 @@
     "templateCredsSetupCompleted": true
   },
   "name": "Selector",
+  "nodeGroups": [],
   "nodes": [
     {
       "parameters": {
