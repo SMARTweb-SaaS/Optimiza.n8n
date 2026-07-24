@@ -244,6 +244,7 @@
     "templateCredsSetupCompleted": true
   },
   "name": "_Utils.WhatsApp.Router",
+  "nodeGroups": [],
   "nodes": [
     {
       "parameters": {
