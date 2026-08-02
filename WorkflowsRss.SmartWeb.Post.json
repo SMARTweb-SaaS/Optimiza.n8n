@@ -877,7 +877,7 @@
     },
     {
       "parameters": {
-        "jsCode": "// Obtén todos los elementos que vienen del nodo anterior (RSS Read)\nconst rssArray = $input.all();\n\n// --- Elige tu lógica de selección ---\nconst indice = 5// 0: Primer elemento\nconst selectedElement = rssArray[indice];\n\n// Envía el elemento seleccionado como salida\nif (selectedElement) {\n  return [{ json: selectedElement }]; // Asegúrate de devolverlo dentro de un objeto con la propiedad 'json'\n} else {\n  // Manejo si no se encuentra ningún elemento o si el array está vacío\n  return [];\n}"
+        "jsCode": "// Obtén todos los elementos que vienen del nodo anterior (RSS Read)\nconst rssArray = $input.all();\n\n// --- Elige tu lógica de selección ---\nconst indice = 18// 0: Primer elemento\nconst selectedElement = rssArray[indice];\n\n// Envía el elemento seleccionado como salida\nif (selectedElement) {\n  return [{ json: selectedElement }]; // Asegúrate de devolverlo dentro de un objeto con la propiedad 'json'\n} else {\n  // Manejo si no se encuentra ningún elemento o si el array está vacío\n  return [];\n}"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -1237,6 +1237,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2026-08-01T16:04:29.975Z",
-  "versionId": "1ad68a79-ec32-40ba-8aeb-107dfe335906"
+  "updatedAt": "2026-08-02T02:22:28.075Z",
+  "versionId": "3ec2f258-9913-4fee-9da1-b051f5fae913"
 }
