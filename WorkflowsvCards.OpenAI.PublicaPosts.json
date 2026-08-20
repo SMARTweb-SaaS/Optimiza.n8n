@@ -1,0 +1,501 @@
+{
+  "active": false,
+  "activeVersion": null,
+  "activeVersionId": null,
+  "connections": {
+    "Todos los días 9am": {
+      "main": [
+        [
+          {
+            "node": "Get many rows",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Solo fecha vencida": {
+      "main": [
+        [
+          {
+            "node": "Uno por uno",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Uno por uno": {
+      "main": [
+        [
+          {
+            "node": "Fin",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "OpenAI.gpt-image-1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "¿Facebook o LinkedIn?": {
+      "main": [
+        [
+          {
+            "node": "Facebook.Post",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Create a post1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get many rows": {
+      "main": [
+        [
+          {
+            "node": "Solo fecha vencida",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update a row": {
+      "main": [
+        [
+          {
+            "node": "Send a photo message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a photo message": {
+      "main": [
+        [
+          {
+            "node": "Uno por uno",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create a post1": {
+      "main": [
+        [
+          {
+            "node": "Update a row",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Convert to File": {
+      "main": [
+        [
+          {
+            "node": "¿Facebook o LinkedIn?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Facebook.Post": {
+      "main": [
+        [
+          {
+            "node": "Update a row",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI.gpt-image-1": {
+      "main": [
+        [
+          {
+            "node": "Convert to File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2026-08-20T23:01:28.890Z",
+  "id": "oWvSyCAhF0jPFqm4",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "vCards.OpenAI.PublicaPosts",
+  "nodeGroups": [],
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## Consultar redes sociales\n[LinkedIn](https://www.linkedin.com/in/jombusiness/recent-activity/all/)\n\n[Facebook - SMARTweb](https://www.facebook.com/SmartWeb.Erp)\n\n[Twitter](https://x.com/jomBusiness)",
+        "width": 360
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        384,
+        208
+      ],
+      "id": "374054d2-391a-479b-a334-76c4d1156ebb",
+      "name": "Sticky Note4"
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 9
+            }
+          ]
+        }
+      },
+      "id": "016dbd34-099b-4d1f-af67-61fb3541d188",
+      "name": "Todos los días 9am",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -752,
+        432
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "c1",
+              "leftValue": "={{ $json.fecha }}",
+              "rightValue": "={{ $now.plus({ days: 2 }).toISODate() }}",
+              "operator": {
+                "type": "dateTime",
+                "operation": "before"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "e237bf38-3f69-4f4f-b7d8-4188964f320d",
+      "name": "Solo fecha vencida",
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.2,
+      "position": [
+        -304,
+        432
+      ]
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "eb830832-cf3d-40a2-bc7f-7b2b60d92ef3",
+      "name": "Uno por uno",
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        -80,
+        432
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "p1",
+              "leftValue": "={{ $('Uno por uno').item.json.plataforma }}",
+              "rightValue": "Facebook",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "22488e92-3701-4284-acb6-9b1842443342",
+      "name": "¿Facebook o LinkedIn?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        656,
+        448
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "7d79e2d5-7d27-49b3-b9ce-32abc20e1954",
+      "name": "Fin",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        144,
+        240
+      ]
+    },
+    {
+      "parameters": {
+        "authentication": "databaseToken",
+        "tableId": 1147474,
+        "additionalOptions": {
+          "filters": {
+            "fields": [
+              {
+                "field": 10279577,
+                "value": "pendiente"
+              }
+            ]
+          }
+        }
+      },
+      "type": "n8n-nodes-base.baserow",
+      "typeVersion": 1.1,
+      "position": [
+        -528,
+        432
+      ],
+      "id": "996a0b79-c43b-48a9-8adc-fd762adb8731",
+      "name": "Get many rows",
+      "credentials": {
+        "baserowTokenApi": {
+          "id": "hTWnIZ4BPHanwIRP",
+          "name": "Baserow.api"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "databaseToken",
+        "operation": "update",
+        "tableId": 1147474,
+        "rowId": "={{ $('Uno por uno').item.json.id }}",
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": 10279577,
+              "fieldValue": "publicado"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.baserow",
+      "typeVersion": 1.1,
+      "position": [
+        1136,
+        544
+      ],
+      "id": "d756bbff-28b9-4508-9d9c-a40648dc21b9",
+      "name": "Update a row",
+      "credentials": {
+        "baserowTokenApi": {
+          "id": "hTWnIZ4BPHanwIRP",
+          "name": "Baserow.api"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "sendPhoto",
+        "chatId": "1704819492",
+        "binaryData": true,
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1360,
+        544
+      ],
+      "id": "557f4e07-be70-4410-870b-2b30955be28d",
+      "name": "Send a photo message",
+      "webhookId": "25d077d1-08d5-4d8b-beb2-b926e8631648",
+      "credentials": {
+        "telegramApi": {
+          "id": "Kz6I7RAZL2mii6bK",
+          "name": "Telegram.api"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "person": "tdFK9o1W4M",
+        "text": "={{ $('Uno por uno').item.json.texto }}",
+        "shareMediaCategory": "IMAGE",
+        "binaryPropertyName": "=data",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.linkedIn",
+      "typeVersion": 1,
+      "position": [
+        896,
+        544
+      ],
+      "id": "bd5ee641-4b22-46ce-b8f7-d2c6f7f99953",
+      "name": "Create a post1",
+      "credentials": {
+        "linkedInOAuth2Api": {
+          "id": "evRB6Q1i1PKx1lKs",
+          "name": "LinkedIn.jomBusiness"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "toBinary",
+        "sourceProperty": "data[0].b64_json",
+        "options": {
+          "fileName": "image.png",
+          "mimeType": "image/png"
+        }
+      },
+      "type": "n8n-nodes-base.convertToFile",
+      "typeVersion": 1.1,
+      "position": [
+        448,
+        448
+      ],
+      "id": "7a670285-f1f7-4e11-bc0e-af59046446ed",
+      "name": "Convert to File"
+    },
+    {
+      "parameters": {
+        "httpRequestMethod": "POST",
+        "graphApiVersion": "v22.0",
+        "node": "157152044640637",
+        "edge": "photos",
+        "sendBinaryData": true,
+        "binaryPropertyName": "data",
+        "options": {
+          "queryParameters": {
+            "parameter": [
+              {
+                "name": "message",
+                "value": "={{ $('Uno por uno').item.json.texto }}"
+              }
+            ]
+          }
+        }
+      },
+      "type": "n8n-nodes-base.facebookGraphApi",
+      "typeVersion": 1,
+      "position": [
+        896,
+        368
+      ],
+      "id": "a13fd10f-1121-435a-98c5-a949b595c027",
+      "name": "Facebook.Post",
+      "credentials": {
+        "facebookGraphApi": {
+          "id": "pyh866tlIzHPoNGH",
+          "name": "Facebook.SmartWeb"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.openai.com/v1/images/generations",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n    \"model\": \"gpt-image-1\",\n    \"prompt\": \"{{ $json.prompt_imagen }}\",\n    \"n\": 1,\n    \"quality\": \"medium\",\n    \"size\": \"1024x1024\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        192,
+        448
+      ],
+      "id": "ae611879-048d-4de5-8c4b-9dfdcea02038",
+      "name": "OpenAI.gpt-image-1",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "HcYpdZF9KkDjLkjY",
+          "name": "OpenAi.msn"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "shared": [
+    {
+      "updatedAt": "2026-08-20T23:01:28.890Z",
+      "createdAt": "2026-08-20T23:01:28.890Z",
+      "role": "workflow:owner",
+      "workflowId": "oWvSyCAhF0jPFqm4",
+      "projectId": "eyOyKz68GM9OloYk"
+    }
+  ],
+  "staticData": null,
+  "tags": [
+    {
+      "updatedAt": "2026-04-30T23:13:50.360Z",
+      "createdAt": "2026-04-30T23:13:50.360Z",
+      "id": "c03xSxyTfQ6QC8qX",
+      "name": "🤖 IA al mando"
+    },
+    {
+      "updatedAt": "2026-04-30T23:13:50.319Z",
+      "createdAt": "2026-04-30T23:13:50.319Z",
+      "id": "WkzLO7ASOwlX9Xby",
+      "name": "✨ Optimiza.ia.pro"
+    }
+  ],
+  "triggerCount": 0,
+  "updatedAt": "2026-08-20T23:14:39.831Z",
+  "versionId": "5a1e8f7f-6061-467d-936d-af1cd6ad79de"
+}
