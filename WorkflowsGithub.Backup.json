@@ -921,7 +921,8 @@
     "timeSavedMode": "fixed",
     "errorWorkflow": "qvHy7Ek5sgyaX9xp",
     "callerPolicy": "workflowsFromSameOwner",
-    "availableInMCP": false
+    "availableInMCP": false,
+    "timeSavedPerExecution": 30
   },
   "shared": [
     {
@@ -948,6 +949,6 @@
     }
   ],
   "triggerCount": 1,
-  "updatedAt": "2026-05-01T15:58:56.208Z",
+  "updatedAt": "2026-08-20T22:15:11.758Z",
   "versionId": "9e999b50-329d-4fef-bddb-6ec2b7d9eed1"
 }
