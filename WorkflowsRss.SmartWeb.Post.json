@@ -51,7 +51,7 @@
       "main": [
         [
           {
-            "node": "Replicate.google.imagen-4",
+            "node": "If1",
             "type": "main",
             "index": 0
           }
@@ -108,17 +108,6 @@
           {
             "node": "Crea.Contenido",
             "type": "ai_languageModel",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Replicate.google.imagen-4": {
-      "main": [
-        [
-          {
-            "node": "Wait.10",
-            "type": "main",
             "index": 0
           }
         ]
@@ -274,40 +263,11 @@
         ]
       ]
     },
-    "If": {
-      "main": [
-        [
-          {
-            "node": "Crear.Post",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "Wait.10",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "HTTP Request": {
       "main": [
         [
           {
-            "node": "If",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Wait.10": {
-      "main": [
-        [
-          {
-            "node": "HTTP Request",
+            "node": "Code.imageUrl",
             "type": "main",
             "index": 0
           }
@@ -332,6 +292,57 @@
             "node": "Merge",
             "type": "main",
             "index": 4
+          }
+        ]
+      ]
+    },
+    "Replicate.black-forest.flux-1.1-pro": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If1": {
+      "main": [
+        [
+          {
+            "node": "Replicate.sourceful.riverflow-2.0",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Replicate.black-forest.flux-1.1-pro",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Replicate.sourceful.riverflow-2.0": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code.imageUrl": {
+      "main": [
+        [
+          {
+            "node": "Crear.Post",
+            "type": "main",
+            "index": 0
           }
         ]
       ]
@@ -439,8 +450,8 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        2000,
-        -176
+        1152,
+        -416
       ],
       "id": "e206d61c-8ed3-44ca-903b-7e077f11ffc5",
       "name": "Sticky Note3"
@@ -516,7 +527,7 @@
       "type": "@n8n/n8n-nodes-langchain.chainLlm",
       "typeVersion": 1.7,
       "position": [
-        1616,
+        1584,
         -176
       ],
       "id": "25b9dc49-203f-4129-a0c8-47aab3664cfa",
@@ -538,7 +549,7 @@
       "type": "@n8n/n8n-nodes-langchain.chainLlm",
       "typeVersion": 1.7,
       "position": [
-        832,
+        816,
         80
       ],
       "id": "42233f4d-2725-4ab5-8ffe-db9166fac4b4",
@@ -551,7 +562,7 @@
         "messages": {
           "messageValues": [
             {
-              "message": "Rol\nEres un experto en desarrollar prompts enfocado en producir imágenes hiperrealistas y de gran impacto visual para un modelo text to image\n\nTarea\nTu tarea es unicamente generar la instruccion sin ninguna anotacion extra\nLa opacidad de la imagen tiene que se más obscura.\nEl prompt debe ser conciso y clara.\n\nEspecificaciones\nEl prompt debe de ser en ingles.\nLa imagen no debe tener texto.\n\nContexto\nTe voy a proporcionar ejemplos de la publicación que quiero crear, y tu tienes que hacer el prompt en ingles que vaya de acuerdo a la noticia\n\nEjemplo\n\nOutput\nA set of modern technological gadgets, such as smartwatches, smart speakers, and connected appliances, with a dark and opaque background.\nA set of modern cell phones, computers, and tablets connected through the internet, with a dark and opaque background.\n\nNotas\nNo quiero que tenga letras la imagen.\n"
+              "message": "Rol\n\nEres un experto en desarrollar prompts para modelos de generación de imágenes text-to-image, especializado en crear imágenes hiperrealistas, profesionales y de gran impacto visual.\n\nTarea\n\nTu única tarea es generar un prompt en inglés para crear una imagen que represente visualmente la noticia o publicación que te proporcione.\n\nReglas obligatorias\n\nGenera únicamente el prompt final, sin explicaciones, anotaciones ni comentarios.\nEl prompt debe estar escrito completamente en inglés.\nEl prompt debe ser conciso, claro y específico.\nLa imagen debe tener una estética oscura, con iluminación tenue, sombras profundas y un fondo oscuro y opaco.\nLa imagen no debe contener ningún texto, letras, palabras, números, logotipos, marcas de agua ni tipografía.\nNo incluir contenido sexual, erótico, sugerente o provocativo.\nNo incluir desnudez ni personas parcialmente desnudas.\nNo incluir poses sexualizadas, ropa reveladora o transparente, lencería, bikinis ni situaciones íntimas.\nLas personas, cuando sean necesarias, deben aparecer con vestimenta completamente apropiada, profesional o casual según el contexto de la noticia.\nNo incluir fetiches, contenido para adultos ni elementos asociados con pornografía.\nSi la noticia involucra personas, representarlas de manera neutral, profesional y no sexualizada.\nPrioriza objetos, escenarios, tecnología, arquitectura, ambientes y elementos visuales relacionados con la noticia cuando sea posible.\nNo inventar elementos que contradigan el contexto de la noticia.\n\nEstilo visual\n\nHyperrealistic\nCinematic lighting\nDark and moody atmosphere\nDeep shadows\nDark opaque background\nHigh contrast\nRealistic materials and textures\nProfessional editorial photography\nDramatic but appropriate composition\nNo text or typography\n\nContexto\n\nTe proporcionaré ejemplos o información de la publicación que quiero crear. Analiza el contexto y genera un único prompt en inglés que represente visualmente la noticia de forma profesional y apropiada.\n\nEjemplo de entrada\n\n\"Los dispositivos inteligentes están transformando los hogares modernos.\"\n\nEjemplo de salida\n\nModern smart home devices, including smart speakers, smartwatches, connected appliances, and home automation systems, arranged in a sophisticated contemporary interior, hyperrealistic, cinematic lighting, deep shadows, dark opaque background, high contrast, professional editorial photography, no people, no text, no logos, no typography."
             }
           ]
         },
@@ -560,7 +571,7 @@
       "type": "@n8n/n8n-nodes-langchain.chainLlm",
       "typeVersion": 1.7,
       "position": [
-        1184,
+        1248,
         80
       ],
       "id": "dd4c6390-7eba-41de-b36b-fd5dd13039e9",
@@ -635,8 +646,8 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
       "typeVersion": 1,
       "position": [
-        1504,
-        -64
+        1360,
+        -32
       ],
       "id": "3901163a-d454-43bc-92cc-836ca10050cf",
       "name": "gpt-4o-mini.Analiza",
@@ -689,46 +700,7 @@
     },
     {
       "parameters": {
-        "method": "POST",
-        "url": "https://api.replicate.com/v1/models/google/imagen-4/predictions",
-        "authentication": "genericCredentialType",
-        "genericAuthType": "httpHeaderAuth",
-        "sendHeaders": true,
-        "headerParameters": {
-          "parameters": [
-            {
-              "name": "Content-Type",
-              "value": "application/json"
-            },
-            {
-              "name": "Prefer",
-              "value": "wait"
-            }
-          ]
-        },
-        "sendBody": true,
-        "specifyBody": "json",
-        "jsonBody": "={\n  \"input\": {\n    \"prompt\": \"{{ $json.text }}\",\n    \"aspect_ratio\": \"1:1\",\n    \"safety_filter_level\": \"block_only_high\",\n    \"output_format\": \"jpg\"\n  }\n}",
-        "options": {}
-      },
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.2,
-      "position": [
-        1520,
-        80
-      ],
-      "id": "120ca62d-2e2d-4b31-bae5-4c5f26ec47d7",
-      "name": "Replicate.google.imagen-4",
-      "credentials": {
-        "httpHeaderAuth": {
-          "id": "yKsf30NQFRM3zopJ",
-          "name": "Replicate.msn"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "url": "={{ $('Replicate.google.imagen-4').item.json.output }}",
+        "url": "={{ $('Code.imageUrl').item.json.imageUrl }}",
         "options": {
           "response": {
             "response": {
@@ -877,12 +849,12 @@
     },
     {
       "parameters": {
-        "jsCode": "// Obtén todos los elementos que vienen del nodo anterior (RSS Read)\nconst rssArray = $input.all();\n\n// --- Elige tu lógica de selección ---\nconst indice = 21// 0: Primer elemento\nconst selectedElement = rssArray[indice];\n\n// Envía el elemento seleccionado como salida\nif (selectedElement) {\n  return [{ json: selectedElement }]; // Asegúrate de devolverlo dentro de un objeto con la propiedad 'json'\n} else {\n  // Manejo si no se encuentra ningún elemento o si el array está vacío\n  return [];\n}"
+        "jsCode": "// Obtén todos los elementos que vienen del nodo anterior (RSS Read)\nconst rssArray = $input.all();\n\n// --- Elige tu lógica de selección ---\nconst indice = 33// 0: Primer elemento\nconst selectedElement = rssArray[indice];\n\n// Envía el elemento seleccionado como salida\nif (selectedElement) {\n  return [{ json: selectedElement }]; // Asegúrate de devolverlo dentro de un objeto con la propiedad 'json'\n} else {\n  // Manejo si no se encuentra ningún elemento o si el array está vacío\n  return [];\n}"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1392,
+        1344,
         -176
       ],
       "id": "e2f82c9b-d3b1-44c1-af56-eddd553d91ef",
@@ -1009,7 +981,7 @@
       "type": "n8n-nodes-base.filter",
       "typeVersion": 2.2,
       "position": [
-        1008,
+        944,
         -176
       ],
       "id": "ee019937-d87c-4d79-8b9b-4869533c0b62",
@@ -1065,7 +1037,7 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        1200,
+        1152,
         -176
       ],
       "id": "2ec947da-eb3d-43e6-a360-353c7b0c978f",
@@ -1117,40 +1089,7 @@
     },
     {
       "parameters": {
-        "conditions": {
-          "options": {
-            "caseSensitive": true,
-            "leftValue": "",
-            "typeValidation": "strict",
-            "version": 3
-          },
-          "conditions": [
-            {
-              "id": "9986cd5f-562e-4273-9da3-31015c9a9b6a",
-              "leftValue": "={{ $json.status }}",
-              "rightValue": "succeeded",
-              "operator": {
-                "type": "string",
-                "operation": "equals"
-              }
-            }
-          ],
-          "combinator": "and"
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.if",
-      "typeVersion": 2.3,
-      "position": [
-        2160,
-        80
-      ],
-      "id": "1c055c58-e4fb-492e-895d-66bba81298cc",
-      "name": "If"
-    },
-    {
-      "parameters": {
-        "url": "=https://api.replicate.com/v1/predictions/{{ $('Replicate.google.imagen-4').item.json.id }}",
+        "url": "=https://api.replicate.com/v1/predictions/{{ $json.id }}",
         "authentication": "genericCredentialType",
         "genericAuthType": "httpHeaderAuth",
         "options": {}
@@ -1158,8 +1097,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.4,
       "position": [
-        1952,
-        80
+        2224,
+        96
       ],
       "id": "a5b40cda-6d35-42ce-bf6c-8ff3add84b7d",
       "name": "HTTP Request",
@@ -1169,20 +1108,6 @@
           "name": "Replicate.msn"
         }
       }
-    },
-    {
-      "parameters": {
-        "amount": "=10"
-      },
-      "type": "n8n-nodes-base.wait",
-      "typeVersion": 1.1,
-      "position": [
-        1760,
-        80
-      ],
-      "id": "4a3eca95-6a54-4521-8c7b-a5f138586680",
-      "name": "Wait.10",
-      "webhookId": "5dbfa580-58e8-44cb-8ec7-ada44805b8e1"
     },
     {
       "parameters": {
@@ -1211,6 +1136,131 @@
       ],
       "id": "ee7170c3-8a86-4596-8c0b-43a9f8cf4208",
       "name": "RSS Read1"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.replicate.com/v1/models/black-forest-labs/flux-1.1-pro/predictions",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "name": "Prefer",
+              "value": "wait"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"input\": {\n    \"prompt\": \"{{ $json.text }}\",\n    \"aspect_ratio\": \"1:1\",\n    \"safety_tolerance\": 3,\n    \"prompt_upsampling\": true,\n    \"output_format\": \"jpg\"\n  }\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1968,
+        96
+      ],
+      "id": "120ca62d-2e2d-4b31-bae5-4c5f26ec47d7",
+      "name": "Replicate.black-forest.flux-1.1-pro",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "yKsf30NQFRM3zopJ",
+          "name": "Replicate.msn"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "7b126226-d402-42c9-a63d-e1927949f5d3",
+              "leftValue": "={{ [0, 2, 4, 6].includes(new Date().getDay()) }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        1648,
+        80
+      ],
+      "id": "77ea8208-c8bf-4adf-a07b-ecdd8958ff29",
+      "name": "If1"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.replicate.com/v1/models/sourceful/riverflow-2.0-fast/predictions",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "name": "Prefer",
+              "value": "wait"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"input\": {\n    \"instruction\": \"{{ $json.text }}\",\n    \"resolution\": \"1K\",\n    \"aspectRatio\": \"1:1\",\n    \"transparency\": false,\n    \"enhancePrompt\": true,\n    \"maxIterations\": 2,\n    \"safetyChecker\": true\n  }\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1968,
+        -80
+      ],
+      "id": "7bd674fb-127e-4aee-98ce-ece3b08eedef",
+      "name": "Replicate.sourceful.riverflow-2.0",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "yKsf30NQFRM3zopJ",
+          "name": "Replicate.msn"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const output = $json.output;\n\nlet imageUrl;\n\nif (Array.isArray(output)) {\n  imageUrl = output[0];\n} else {\n  imageUrl = output;\n}\n\nreturn [{\n  json: {\n    ...$json,\n    imageUrl\n  }\n}];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2416,
+        96
+      ],
+      "id": "8a893bf7-f5b5-4f5f-8c18-7de682c413c3",
+      "name": "Code.imageUrl"
     }
   ],
   "pinData": {},
@@ -1237,6 +1287,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2026-08-20T13:28:01.763Z",
-  "versionId": "80527b5d-cecf-4868-bd0e-330a9da8b071"
+  "updatedAt": "2026-08-20T21:55:25.241Z",
+  "versionId": "500c912c-7673-4706-86f0-a67ba1bf756e"
 }
