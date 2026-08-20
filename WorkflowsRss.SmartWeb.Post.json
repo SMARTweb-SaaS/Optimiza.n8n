@@ -227,7 +227,13 @@
     },
     "Select.Rss": {
       "main": [
-        []
+        [
+          {
+            "node": "Analiza.Rss",
+            "type": "main",
+            "index": 0
+          }
+        ]
       ]
     },
     "IA.en.Español": {
@@ -1237,6 +1243,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2026-08-16T15:53:01.420Z",
-  "versionId": "f02c94fa-957b-4e55-b1a3-1cb268ef42f2"
+  "updatedAt": "2026-08-19T20:28:00.525Z",
+  "versionId": "b63dabe3-c4c8-4b7a-b4de-22b25bcf8cd6"
 }
