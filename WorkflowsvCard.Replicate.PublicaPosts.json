@@ -214,8 +214,8 @@
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.2,
       "position": [
-        16,
-        320
+        1136,
+        -64
       ]
     },
     {
@@ -247,8 +247,8 @@
       "type": "n8n-nodes-base.filter",
       "typeVersion": 2.2,
       "position": [
-        464,
-        320
+        1584,
+        -64
       ]
     },
     {
@@ -304,8 +304,8 @@
       "type": "n8n-nodes-base.noOp",
       "typeVersion": 1,
       "position": [
-        912,
-        128
+        928,
+        192
       ]
     },
     {
@@ -326,8 +326,8 @@
       "type": "n8n-nodes-base.baserow",
       "typeVersion": 1.1,
       "position": [
-        240,
-        320
+        1360,
+        -64
       ],
       "id": "7cbb2239-82c4-423f-bee2-73b94d9a91b4",
       "name": "Get many rows",
@@ -457,7 +457,7 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.3,
       "position": [
-        912,
+        928,
         336
       ],
       "id": "4d9dbc37-c151-4f4b-8049-281f006bf27f",
@@ -626,11 +626,26 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        1504,
-        96
+        1824,
+        -16
       ],
       "id": "cce4a4ae-135b-466b-a816-59d491a55a35",
       "name": "Sticky Note4"
+    },
+    {
+      "parameters": {
+        "content": "## Validar crédito si se tiene crédito/saldo ",
+        "height": 144,
+        "color": 3
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        816,
+        -80
+      ],
+      "typeVersion": 1,
+      "id": "20037f1a-6916-44f2-b100-b1c497ce3a75",
+      "name": "Sticky Note1"
     }
   ],
   "pinData": {},
@@ -678,6 +693,6 @@
     }
   ],
   "triggerCount": 1,
-  "updatedAt": "2026-08-20T23:01:16.268Z",
-  "versionId": "751da794-b6f6-4c09-b5cc-30baff21e032"
+  "updatedAt": "2026-08-21T12:51:27.102Z",
+  "versionId": "09d80008-8bc3-42e7-9070-43985885f4be"
 }
