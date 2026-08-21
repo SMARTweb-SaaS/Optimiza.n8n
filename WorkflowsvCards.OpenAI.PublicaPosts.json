@@ -36,7 +36,7 @@
         ],
         [
           {
-            "node": "OpenAI.gpt-image-1",
+            "node": "HTTP Request1",
             "type": "main",
             "index": 0
           }
@@ -94,6 +94,46 @@
         ]
       ]
     },
+    "HTTP Request1": {
+      "main": [
+        [
+          {
+            "node": "¿Sin crédito OpenAI?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "¿Sin crédito OpenAI?": {
+      "main": [
+        [
+          {
+            "node": "Avisar sin crédito",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Convert to File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Avisar sin crédito": {
+      "main": [
+        [
+          {
+            "node": "Detenido: sin crédito",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
     "Create a post1": {
       "main": [
         [
@@ -126,17 +166,6 @@
           }
         ]
       ]
-    },
-    "OpenAI.gpt-image-1": {
-      "main": [
-        [
-          {
-            "node": "Convert to File",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
     }
   },
   "createdAt": "2026-08-20T23:01:28.890Z",
@@ -156,8 +185,8 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        384,
-        208
+        -80,
+        544
       ],
       "id": "374054d2-391a-479b-a334-76c4d1156ebb",
       "name": "Sticky Note4"
@@ -172,13 +201,13 @@
           ]
         }
       },
-      "id": "016dbd34-099b-4d1f-af67-61fb3541d188",
+      "id": "f5b9ba7e-bc14-45b4-bd82-978712f464ac",
       "name": "Todos los días 9am",
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.2,
       "position": [
-        -752,
-        432
+        -304,
+        736
       ]
     },
     {
@@ -205,26 +234,26 @@
         },
         "options": {}
       },
-      "id": "e237bf38-3f69-4f4f-b7d8-4188964f320d",
+      "id": "3f3be30c-da17-42e3-984e-92c8e83dc343",
       "name": "Solo fecha vencida",
       "type": "n8n-nodes-base.filter",
       "typeVersion": 2.2,
       "position": [
-        -304,
-        432
+        144,
+        736
       ]
     },
     {
       "parameters": {
         "options": {}
       },
-      "id": "eb830832-cf3d-40a2-bc7f-7b2b60d92ef3",
+      "id": "aaa90e4a-a37f-42a3-a082-fcf7337f2e9c",
       "name": "Uno por uno",
       "type": "n8n-nodes-base.splitInBatches",
       "typeVersion": 3,
       "position": [
-        -80,
-        432
+        368,
+        736
       ]
     },
     {
@@ -251,24 +280,24 @@
         },
         "options": {}
       },
-      "id": "22488e92-3701-4284-acb6-9b1842443342",
+      "id": "e48c6222-cb16-49dd-ab9f-1a2112f69266",
       "name": "¿Facebook o LinkedIn?",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        656,
-        448
+        1184,
+        768
       ]
     },
     {
       "parameters": {},
-      "id": "7d79e2d5-7d27-49b3-b9ce-32abc20e1954",
+      "id": "3d9c51c6-f4fa-4284-a94b-ced30522074f",
       "name": "Fin",
       "type": "n8n-nodes-base.noOp",
       "typeVersion": 1,
       "position": [
-        144,
-        240
+        560,
+        608
       ]
     },
     {
@@ -289,10 +318,10 @@
       "type": "n8n-nodes-base.baserow",
       "typeVersion": 1.1,
       "position": [
-        -528,
-        432
+        -80,
+        736
       ],
-      "id": "996a0b79-c43b-48a9-8adc-fd762adb8731",
+      "id": "69fc509d-4ef5-416d-a2b4-dc028be95c66",
       "name": "Get many rows",
       "credentials": {
         "baserowTokenApi": {
@@ -319,10 +348,10 @@
       "type": "n8n-nodes-base.baserow",
       "typeVersion": 1.1,
       "position": [
-        1136,
-        544
+        1664,
+        848
       ],
-      "id": "d756bbff-28b9-4508-9d9c-a40648dc21b9",
+      "id": "8e77778f-b971-4cc7-b7e5-ccd78ff27c53",
       "name": "Update a row",
       "credentials": {
         "baserowTokenApi": {
@@ -341,91 +370,16 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        1360,
-        544
+        1888,
+        848
       ],
-      "id": "557f4e07-be70-4410-870b-2b30955be28d",
+      "id": "b8fcf650-c55d-4cc7-b675-3837aa29b5bc",
       "name": "Send a photo message",
       "webhookId": "25d077d1-08d5-4d8b-beb2-b926e8631648",
       "credentials": {
         "telegramApi": {
           "id": "Kz6I7RAZL2mii6bK",
           "name": "Telegram.api"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "person": "tdFK9o1W4M",
-        "text": "={{ $('Uno por uno').item.json.texto }}",
-        "shareMediaCategory": "IMAGE",
-        "binaryPropertyName": "=data",
-        "additionalFields": {}
-      },
-      "type": "n8n-nodes-base.linkedIn",
-      "typeVersion": 1,
-      "position": [
-        896,
-        544
-      ],
-      "id": "bd5ee641-4b22-46ce-b8f7-d2c6f7f99953",
-      "name": "Create a post1",
-      "credentials": {
-        "linkedInOAuth2Api": {
-          "id": "evRB6Q1i1PKx1lKs",
-          "name": "LinkedIn.jomBusiness"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "operation": "toBinary",
-        "sourceProperty": "data[0].b64_json",
-        "options": {
-          "fileName": "image.png",
-          "mimeType": "image/png"
-        }
-      },
-      "type": "n8n-nodes-base.convertToFile",
-      "typeVersion": 1.1,
-      "position": [
-        448,
-        448
-      ],
-      "id": "7a670285-f1f7-4e11-bc0e-af59046446ed",
-      "name": "Convert to File"
-    },
-    {
-      "parameters": {
-        "httpRequestMethod": "POST",
-        "graphApiVersion": "v22.0",
-        "node": "157152044640637",
-        "edge": "photos",
-        "sendBinaryData": true,
-        "binaryPropertyName": "data",
-        "options": {
-          "queryParameters": {
-            "parameter": [
-              {
-                "name": "message",
-                "value": "={{ $('Uno por uno').item.json.texto }}"
-              }
-            ]
-          }
-        }
-      },
-      "type": "n8n-nodes-base.facebookGraphApi",
-      "typeVersion": 1,
-      "position": [
-        896,
-        368
-      ],
-      "id": "a13fd10f-1121-435a-98c5-a949b595c027",
-      "name": "Facebook.Post",
-      "credentials": {
-        "facebookGraphApi": {
-          "id": "pyh866tlIzHPoNGH",
-          "name": "Facebook.SmartWeb"
         }
       }
     },
@@ -447,20 +401,169 @@
         "sendBody": true,
         "specifyBody": "json",
         "jsonBody": "={\n    \"model\": \"gpt-image-1\",\n    \"prompt\": \"{{ $json.prompt_imagen }}\",\n    \"n\": 1,\n    \"quality\": \"medium\",\n    \"size\": \"1024x1024\"\n}",
-        "options": {}
+        "options": {
+          "response": {
+            "response": {
+              "neverError": true
+            }
+          }
+        }
       },
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        192,
-        448
+        560,
+        752
       ],
-      "id": "ae611879-048d-4de5-8c4b-9dfdcea02038",
-      "name": "OpenAI.gpt-image-1",
+      "id": "c0e885c3-4717-45bd-9f71-8791a3d6a935",
+      "name": "HTTP Request1",
       "credentials": {
         "httpHeaderAuth": {
           "id": "HcYpdZF9KkDjLkjY",
           "name": "OpenAi.msn"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "q1",
+              "leftValue": "={{ $json.error?.code }}",
+              "rightValue": "insufficient_quota",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "34c5a467-79e5-4d63-af9a-53c1cb3a3109",
+      "name": "¿Sin crédito OpenAI?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        752,
+        752
+      ]
+    },
+    {
+      "parameters": {
+        "chatId": "1704819492",
+        "text": "=⚠️ OpenAI sin crédito (insufficient_quota). No se generó imagen para el registro Baserow id={{ $('Uno por uno').item.json.id }}. El resto de publicaciones pendientes de hoy se detiene aquí y se reintenta mañana 9am.",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "id": "032d5830-cb00-4ce5-8b8e-4d0fd7961ca4",
+      "name": "Avisar sin crédito",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        976,
+        608
+      ],
+      "webhookId": "b5d0d830-3fee-4e1f-9034-221a5a7ea02e",
+      "credentials": {
+        "telegramApi": {
+          "id": "Kz6I7RAZL2mii6bK",
+          "name": "Telegram.api"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "id": "fb95b384-b92e-4599-bd49-057b23cd1f78",
+      "name": "Detenido: sin crédito",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        1200,
+        608
+      ]
+    },
+    {
+      "parameters": {
+        "person": "tdFK9o1W4M",
+        "text": "={{ $('Uno por uno').item.json.texto }}",
+        "shareMediaCategory": "IMAGE",
+        "binaryPropertyName": "=data",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.linkedIn",
+      "typeVersion": 1,
+      "position": [
+        1424,
+        848
+      ],
+      "id": "1497e21f-ba05-450a-8ff6-93462b2b09f1",
+      "name": "Create a post1",
+      "credentials": {
+        "linkedInOAuth2Api": {
+          "id": "evRB6Q1i1PKx1lKs",
+          "name": "LinkedIn.jomBusiness"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "toBinary",
+        "sourceProperty": "data[0].b64_json",
+        "options": {
+          "fileName": "image.png",
+          "mimeType": "image/png"
+        }
+      },
+      "type": "n8n-nodes-base.convertToFile",
+      "typeVersion": 1.1,
+      "position": [
+        976,
+        768
+      ],
+      "id": "03d84225-7270-454f-bbb2-252632cb0c2b",
+      "name": "Convert to File"
+    },
+    {
+      "parameters": {
+        "httpRequestMethod": "POST",
+        "graphApiVersion": "v22.0",
+        "node": "me",
+        "edge": "photos",
+        "sendBinaryData": true,
+        "binaryPropertyName": "data",
+        "options": {
+          "queryParameters": {
+            "parameter": [
+              {
+                "name": "message",
+                "value": "={{ $('Uno por uno').item.json.texto }}"
+              }
+            ]
+          }
+        }
+      },
+      "type": "n8n-nodes-base.facebookGraphApi",
+      "typeVersion": 1,
+      "position": [
+        1424,
+        688
+      ],
+      "id": "d9cd9d01-69aa-4bd9-a72f-6b0e5c6f5066",
+      "name": "Facebook.Post",
+      "credentials": {
+        "facebookGraphApi": {
+          "id": "pyh866tlIzHPoNGH",
+          "name": "Facebook.SmartWeb"
         }
       }
     }
@@ -496,6 +599,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2026-08-20T23:14:39.831Z",
-  "versionId": "5a1e8f7f-6061-467d-936d-af1cd6ad79de"
+  "updatedAt": "2026-08-20T23:43:05.998Z",
+  "versionId": "f9e84526-0d74-448b-a3c4-c058d3852ae6"
 }
