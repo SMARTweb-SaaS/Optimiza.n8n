@@ -784,13 +784,14 @@
     {
       "parameters": {
         "content": "## Consultar redes sociales\n[LinkedIn](https://www.linkedin.com/in/jombusiness/recent-activity/all/)\n\n[Facebook - SMARTweb](https://www.facebook.com/SmartWeb.Erp)\n\n[Twitter](https://x.com/jomBusiness)",
+        "height": 192,
         "width": 360
       },
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        1424,
-        464
+        1440,
+        448
       ],
       "id": "374054d2-391a-479b-a334-76c4d1156ebb",
       "name": "Sticky Note4"
@@ -1231,6 +1232,6 @@
     }
   ],
   "triggerCount": 1,
-  "updatedAt": "2026-08-21T14:02:44.591Z",
-  "versionId": "bd17e081-2098-45d4-8c8d-ce892cf87e26"
+  "updatedAt": "2026-08-22T12:34:23.802Z",
+  "versionId": "49d5a509-f3c3-4365-b0d8-985b65b70dd7"
 }
