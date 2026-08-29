@@ -1,0 +1,417 @@
+{
+  "active": false,
+  "activeVersion": null,
+  "activeVersionId": null,
+  "connections": {
+    "Configuración": {
+      "main": [
+        [
+          {
+            "node": "Login Admin",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Login Admin": {
+      "main": [
+        [
+          {
+            "node": "Obtener Pendientes (Baserow)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Obtener Pendientes (Baserow)": {
+      "main": [
+        [
+          {
+            "node": "Separar Filas",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Separar Filas": {
+      "main": [
+        [
+          {
+            "node": "Crear Suscriptor (Cards API)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Crear Suscriptor (Cards API)": {
+      "main": [
+        [
+          {
+            "node": "¿Se creó bien?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "¿Se creó bien?": {
+      "main": [
+        [
+          {
+            "node": "Actualizar Baserow - Éxito",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Actualizar Baserow - Error",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Configuración",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2026-06-05T20:15:58.517Z",
+  "id": "vv2HbaxqRZmZS4Dq",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "vCards - Creación.Automática.Demos",
+  "nodeGroups": [],
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## Antes de activar este workflow\n\n1. En el nodo **Configuración**, edita: `apiBaseUrl`, `baserowUrl`, `baserowTableId`, `publicViewBaseUrl`.\n2. Crea estas variables de entorno en tu instancia de n8n (no las escribas directo en los nodos):\n   - `CARDS_ADMIN_USUARIO` (correo del admin del panel)\n   - `CARDS_ADMIN_CLAVE`\n   - `BASEROW_TOKEN` (Database Token de Baserow, no tu clave de usuario)\n3. En Baserow tu tabla necesita las columnas: `Nombre`, `Email`, `Celular`, `Estado` (Pendiente/Demo Creada/Error), `LinkDemo`, `MensajeError`. Todas las filas a procesar deben tener `Estado = Pendiente`.\n4. Revisa el nodo **Crear Suscriptor (Cards API)** → pestaña Options → Response: confirma que **\"Never Error\"** esté activado. Así el flujo no se detiene si el API responde 400 (ej. celular duplicado) y el nodo IF puede leer el motivo.\n5. Corre el workflow manualmente una vez con 2-3 filas antes de activar el Schedule Trigger.",
+        "height": 548,
+        "width": 400
+      },
+      "id": "29f78f9c-e464-40c0-91f5-84ad6351812d",
+      "name": "Léeme primero",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -368,
+        -432
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "a1",
+              "name": "apiBaseUrl",
+              "type": "string",
+              "value": "https://cards-api.optimiza-ia.com"
+            },
+            {
+              "id": "a2",
+              "name": "publicViewBaseUrl",
+              "type": "string",
+              "value": "https://cards-web.optimiza-ia.com"
+            },
+            {
+              "id": "a3",
+              "name": "baserowUrl",
+              "type": "string",
+              "value": "https://api.baserow.io"
+            },
+            {
+              "id": "a4",
+              "name": "baserowTableId",
+              "type": "string",
+              "value": "TU_TABLE_ID_AQUI"
+            },
+            {
+              "id": "a5",
+              "name": "adminUsuario",
+              "type": "string",
+              "value": "={{ $env.CARDS_ADMIN_USUARIO }}"
+            },
+            {
+              "id": "a6",
+              "name": "adminClave",
+              "type": "string",
+              "value": "={{ $env.CARDS_ADMIN_CLAVE }}"
+            },
+            {
+              "id": "a7",
+              "name": "baserowToken",
+              "type": "string",
+              "value": "={{ $env.BASEROW_TOKEN }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "dd039262-1bee-4c0d-accd-9f731ec8ae4e",
+      "name": "Configuración",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -256,
+        112
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('Configuración').item.json.apiBaseUrl }}/api/usuarios/autenticar",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ { \"usuario\": $('Configuración').item.json.adminUsuario, \"clave\": $('Configuración').item.json.adminClave } }}",
+        "options": {}
+      },
+      "id": "110b8d14-0fdd-4f3d-8b3a-6e5be63bcb30",
+      "name": "Login Admin",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -16,
+        112
+      ]
+    },
+    {
+      "parameters": {
+        "url": "={{ $('Configuración').item.json.baserowUrl }}/api/database/rows/table/{{ $('Configuración').item.json.baserowTableId }}/",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "user_field_names",
+              "value": "true"
+            },
+            {
+              "name": "filter__Estado__equal",
+              "value": "Pendiente"
+            },
+            {
+              "name": "size",
+              "value": "200"
+            }
+          ]
+        },
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "={{ 'Token ' + $('Configuración').item.json.baserowToken }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "d5c9d46c-a2ad-4ccc-b6f5-650069f4373a",
+      "name": "Obtener Pendientes (Baserow)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        208,
+        112
+      ]
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "results",
+        "options": {}
+      },
+      "id": "fe3c13e4-486c-4e72-8d26-5d4d5ec785fe",
+      "name": "Separar Filas",
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        432,
+        112
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('Configuración').item.json.apiBaseUrl }}/api/suscriptores/insertar",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "={{ 'Bearer ' + $('Login Admin').item.json.data.token }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ {\n  \"nombre\": $json.Nombre,\n  \"email\": $json.Email,\n  \"celular\": $json.Celular,\n  \"documento\": $json.Celular,\n  \"direccion\": \"Perú\",\n  \"usuario\": \"demo\" + $json.id\n} }}",
+        "options": {
+          "response": {
+            "response": {
+              "neverError": true
+            }
+          }
+        }
+      },
+      "id": "95c9cbdf-0371-44e3-9b80-3896c98b7f51",
+      "name": "Crear Suscriptor (Cards API)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        640,
+        112
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 1
+          },
+          "conditions": [
+            {
+              "id": "cond-1",
+              "leftValue": "={{ $json.isSuccess }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "looseTypeValidation": true,
+        "options": {}
+      },
+      "id": "92c73e94-ce12-490f-b104-cc79ff25b0af",
+      "name": "¿Se creó bien?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        864,
+        112
+      ]
+    },
+    {
+      "parameters": {
+        "method": "PATCH",
+        "url": "={{ $('Configuración').item.json.baserowUrl }}/api/database/rows/table/{{ $('Configuración').item.json.baserowTableId }}/{{ $('Separar Filas').item.json.id }}/",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "user_field_names",
+              "value": "true"
+            }
+          ]
+        },
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "={{ 'Token ' + $('Configuración').item.json.baserowToken }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ {\n  \"Estado\": \"Demo Creada\",\n  \"LinkDemo\": $('Configuración').item.json.publicViewBaseUrl + \"/\" + $json.data.slug\n} }}",
+        "options": {}
+      },
+      "id": "8c615331-c47d-43a7-9033-a8e252ee011f",
+      "name": "Actualizar Baserow - Éxito",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1088,
+        16
+      ]
+    },
+    {
+      "parameters": {
+        "method": "PATCH",
+        "url": "={{ $('Configuración').item.json.baserowUrl }}/api/database/rows/table/{{ $('Configuración').item.json.baserowTableId }}/{{ $('Separar Filas').item.json.id }}/",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "user_field_names",
+              "value": "true"
+            }
+          ]
+        },
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "={{ 'Token ' + $('Configuración').item.json.baserowToken }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ {\n  \"Estado\": \"Error\",\n  \"MensajeError\": $json.message\n} }}",
+        "options": {}
+      },
+      "id": "8a830136-16bc-4a66-a079-b892bf272077",
+      "name": "Actualizar Baserow - Error",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1088,
+        208
+      ]
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -480,
+        112
+      ],
+      "id": "7079d914-7c5f-450e-a85a-8a58e84b988e",
+      "name": "When clicking ‘Execute workflow’"
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "shared": [
+    {
+      "updatedAt": "2026-06-05T20:15:58.517Z",
+      "createdAt": "2026-06-05T20:15:58.517Z",
+      "role": "workflow:owner",
+      "workflowId": "vv2HbaxqRZmZS4Dq",
+      "projectId": "eyOyKz68GM9OloYk"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2026-08-28T21:08:04.376Z",
+  "versionId": "58fbb330-d72c-4ace-a37b-c1985486dc11"
+}
