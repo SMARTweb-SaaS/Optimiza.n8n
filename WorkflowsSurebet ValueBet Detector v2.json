@@ -1313,11 +1313,11 @@
   },
   "shared": [
     {
-      "updatedAt": "2026-05-21T18:07:54.879Z",
-      "createdAt": "2026-05-21T18:07:54.879Z",
       "role": "workflow:owner",
       "workflowId": "ECcE1aUJqB2En9Rj",
-      "projectId": "eyOyKz68GM9OloYk"
+      "projectId": "eyOyKz68GM9OloYk",
+      "createdAt": "2026-05-21T18:07:54.879Z",
+      "updatedAt": "2026-05-21T18:07:54.879Z"
     }
   ],
   "staticData": {
