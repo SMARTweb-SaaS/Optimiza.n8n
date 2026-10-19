@@ -1,8 +1,6 @@
 {
   "active": true,
   "activeVersion": {
-    "updatedAt": "2026-07-19T01:10:56.899Z",
-    "createdAt": "2026-07-19T01:10:32.311Z",
     "versionId": "1ad2847a-d365-49af-8fdb-3524ad724071",
     "workflowId": "KhuB3AdKN65YfnVW",
     "nodes": [
@@ -1014,7 +1012,9 @@
     "authors": "John Ordóñez Monroy",
     "name": "Version 1ad2847a",
     "description": "",
-    "autosaved": true
+    "autosaved": true,
+    "createdAt": "2026-07-19T01:10:32.311Z",
+    "updatedAt": "2026-07-19T01:10:56.899Z"
   },
   "activeVersionId": "1ad2847a-d365-49af-8fdb-3524ad724071",
   "connections": {
@@ -2041,11 +2041,11 @@
   },
   "shared": [
     {
-      "updatedAt": "2026-05-01T14:05:50.594Z",
-      "createdAt": "2026-05-01T14:05:50.594Z",
       "role": "workflow:owner",
       "workflowId": "KhuB3AdKN65YfnVW",
-      "projectId": "eyOyKz68GM9OloYk"
+      "projectId": "eyOyKz68GM9OloYk",
+      "createdAt": "2026-05-01T14:05:50.594Z",
+      "updatedAt": "2026-05-01T14:05:50.594Z"
     }
   ],
   "staticData": {
@@ -2060,22 +2060,22 @@
   },
   "tags": [
     {
-      "updatedAt": "2026-05-01T14:05:45.832Z",
-      "createdAt": "2026-05-01T14:05:45.832Z",
       "id": "8wlQKtpUxQ9ElXHE",
-      "name": "💡SmartWeb"
+      "name": "💡SmartWeb",
+      "createdAt": "2026-05-01T14:05:45.832Z",
+      "updatedAt": "2026-05-01T14:05:45.832Z"
     },
     {
-      "updatedAt": "2026-04-30T23:13:50.360Z",
-      "createdAt": "2026-04-30T23:13:50.360Z",
       "id": "c03xSxyTfQ6QC8qX",
-      "name": "🤖 IA al mando"
+      "name": "🤖 IA al mando",
+      "createdAt": "2026-04-30T23:13:50.360Z",
+      "updatedAt": "2026-04-30T23:13:50.360Z"
     },
     {
-      "updatedAt": "2026-04-30T23:13:50.319Z",
-      "createdAt": "2026-04-30T23:13:50.319Z",
       "id": "WkzLO7ASOwlX9Xby",
-      "name": "✨ Optimiza.ia.pro"
+      "name": "✨ Optimiza.ia.pro",
+      "createdAt": "2026-04-30T23:13:50.319Z",
+      "updatedAt": "2026-04-30T23:13:50.319Z"
     }
   ],
   "triggerCount": 1,
