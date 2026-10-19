@@ -1,8 +1,6 @@
 {
   "active": true,
   "activeVersion": {
-    "updatedAt": "2026-05-01T00:15:42.537Z",
-    "createdAt": "2026-04-30T23:35:33.674Z",
     "versionId": "9e999b50-329d-4fef-bddb-6ec2b7d9eed1",
     "workflowId": "1YQzx0gB7L5rts2C",
     "nodes": [
@@ -456,7 +454,9 @@
     "authors": "John Ordóñez Monroy",
     "name": "Version 9e999b50",
     "description": "",
-    "autosaved": true
+    "autosaved": true,
+    "createdAt": "2026-04-30T23:35:33.674Z",
+    "updatedAt": "2026-05-01T00:15:42.537Z"
   },
   "activeVersionId": "9e999b50-329d-4fef-bddb-6ec2b7d9eed1",
   "connections": {
@@ -926,26 +926,26 @@
   },
   "shared": [
     {
-      "updatedAt": "2026-04-30T22:50:16.136Z",
-      "createdAt": "2026-04-30T22:50:16.136Z",
       "role": "workflow:owner",
       "workflowId": "1YQzx0gB7L5rts2C",
-      "projectId": "eyOyKz68GM9OloYk"
+      "projectId": "eyOyKz68GM9OloYk",
+      "createdAt": "2026-04-30T22:50:16.136Z",
+      "updatedAt": "2026-04-30T22:50:16.136Z"
     }
   ],
   "staticData": null,
   "tags": [
     {
-      "updatedAt": "2026-04-30T23:13:50.360Z",
-      "createdAt": "2026-04-30T23:13:50.360Z",
       "id": "c03xSxyTfQ6QC8qX",
-      "name": "🤖 IA al mando"
+      "name": "🤖 IA al mando",
+      "createdAt": "2026-04-30T23:13:50.360Z",
+      "updatedAt": "2026-04-30T23:13:50.360Z"
     },
     {
-      "updatedAt": "2026-04-30T23:13:50.319Z",
-      "createdAt": "2026-04-30T23:13:50.319Z",
       "id": "WkzLO7ASOwlX9Xby",
-      "name": "✨ Optimiza.ia.pro"
+      "name": "✨ Optimiza.ia.pro",
+      "createdAt": "2026-04-30T23:13:50.319Z",
+      "updatedAt": "2026-04-30T23:13:50.319Z"
     }
   ],
   "triggerCount": 1,
