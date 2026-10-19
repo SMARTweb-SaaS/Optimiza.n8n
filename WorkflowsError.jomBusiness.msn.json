@@ -1,8 +1,6 @@
 {
   "active": true,
   "activeVersion": {
-    "updatedAt": "2026-05-01T00:14:55.309Z",
-    "createdAt": "2026-05-01T00:10:28.683Z",
     "versionId": "88ed125c-12ee-46c1-b497-e64329d43ce7",
     "workflowId": "qvHy7Ek5sgyaX9xp",
     "nodes": [
@@ -104,7 +102,9 @@
     "authors": "John Ordóñez Monroy",
     "name": "Version 88ed125c",
     "description": "",
-    "autosaved": true
+    "autosaved": true,
+    "createdAt": "2026-05-01T00:10:28.683Z",
+    "updatedAt": "2026-05-01T00:14:55.309Z"
   },
   "activeVersionId": "88ed125c-12ee-46c1-b497-e64329d43ce7",
   "connections": {
@@ -217,11 +217,11 @@
   },
   "shared": [
     {
-      "updatedAt": "2026-05-01T00:02:37.654Z",
-      "createdAt": "2026-05-01T00:02:37.654Z",
       "role": "workflow:owner",
       "workflowId": "qvHy7Ek5sgyaX9xp",
-      "projectId": "eyOyKz68GM9OloYk"
+      "projectId": "eyOyKz68GM9OloYk",
+      "createdAt": "2026-05-01T00:02:37.654Z",
+      "updatedAt": "2026-05-01T00:02:37.654Z"
     }
   ],
   "staticData": null,
